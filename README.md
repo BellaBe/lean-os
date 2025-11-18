@@ -1267,7 +1267,7 @@ LeanOS includes engineering-focused skills for building technical systems:
 **Custom Skills:**
 - Business Operations: foundation-builder, icp-generator, sales-narrative, sales-execution, marketing-narrative, marketing-execution, causal-flow, ops-dashboard
 - Engineering: category-theoretic-system-design, standardization-layer
-- Utility: document-skills
+- Utility (Third-Party): document-skills (© Anthropic, PBC - see [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md))
 
 **Infrastructure:**
 - Local file system (no external services for MVP)
@@ -1402,9 +1402,27 @@ Interested in improving LeanOS? See [CONTRIBUTING.md](CONTRIBUTING.md) for:
 - Authority through depth, not engagement tricks
 - AI-operated, human-supervised
 
-## License
+## License and Attribution
 
-MIT License
+### LeanOS Components
+
+**Copyright:** © 2025 Bella Belgarokova
+
+**License:** MIT License
+
+All LeanOS-created components (business operations skills, documentation, architecture, workflows) are open source under the MIT License. See [LICENSE](LICENSE) for full terms.
+
+### Third-Party Components
+
+**document-skills** (`.claude/skills/document-skills/`)
+
+**Copyright:** © 2025 Anthropic, PBC. All rights reserved.
+
+**License:** Proprietary - Use governed by Anthropic's service terms
+
+These document handling skills (PDF, DOCX, PPTX, XLSX) are provided by Anthropic and remain their intellectual property. They cannot be modified, redistributed, or used outside of Anthropic's services.
+
+See [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md) for complete licensing information.
 
 ---
 

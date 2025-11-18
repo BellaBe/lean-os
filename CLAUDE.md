@@ -108,8 +108,11 @@ Stage 6: LEARNING    - Measured outcomes → Canvas updates
 - `category-theoretic-system-design` - Transform requirements into production-ready systems using category theory
 - `standardization-layer` - Apply cross-cutting concerns (auth, validation, response formats) to microservices
 
-**Utility Skills:**
+**Utility Skills (Third-Party - DO NOT MODIFY):**
 - `document-skills` - Document format handling (docx, pdf, pptx, xlsx)
+  - **Provider:** Anthropic, PBC (proprietary, cannot be modified)
+  - **Use:** Invoke for document operations only
+  - **Restrictions:** Cannot edit, copy, or redistribute these skills
 
 **When to invoke skills:**
 - Canvas needs population → `foundation-builder` (pre-launch orchestration)
@@ -542,8 +545,8 @@ NEW content created OR existing content updated
 - `category-theoretic-system-design` - Transform requirements into production-ready systems using category theory
 - `standardization-layer` - Apply cross-cutting concerns (auth, validation, response formats) to microservices
 
-**Utility:**
-- `document-skills` - Document format handling (docx, pdf, pptx, xlsx)
+**Utility (Third-Party):**
+- `document-skills` - Document format handling (© Anthropic - DO NOT MODIFY)
 
 ---
 
@@ -572,6 +575,7 @@ NEW content created OR existing content updated
 ✗ Operate on multiple products simultaneously
 ✗ Generate pricing in sales narratives (not yet validated)
 ✗ Create sales pitches in marketing content (educational only)
+✗ **Modify `.claude/skills/document-skills/` (Anthropic proprietary - use only, never edit)**
 
 ---
 

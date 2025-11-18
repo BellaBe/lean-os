@@ -1,6 +1,13 @@
 # LeanOS .gitignore
 # AI-native operating system - prevent committing sensitive data
 
+# Third-party components (DO NOT MODIFY)
+# Anthropic document-skills are proprietary - do not commit modifications
+.claude/skills/document-skills/**/SKILL.md.backup
+.claude/skills/document-skills/**/SKILL.md.modified
+.claude/skills/document-skills/**/*.py.modified
+.claude/skills/document-skills/**/.DS_Store
+
 # Environment variables and secrets
 .env
 .env.local

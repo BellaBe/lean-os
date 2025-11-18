@@ -148,6 +148,31 @@ If contributing Python code for engineering skills:
 - API keys or credentials
 - Company-specific configurations
 - "Future ideas" lists (use active threads or don't document)
+- **Modifications to `.claude/skills/document-skills/`** - These are proprietary Anthropic materials
+
+## Third-Party Components
+
+**IMPORTANT:** The `.claude/skills/document-skills/` directory contains proprietary skills provided by Anthropic, PBC.
+
+**License:** © 2025 Anthropic, PBC. All rights reserved.
+
+**Restrictions:**
+- ❌ Cannot modify these skills
+- ❌ Cannot create derivative works
+- ❌ Cannot redistribute outside this repository
+- ✅ Can use within Claude AI as authorized by Anthropic
+
+**What you CAN do:**
+- Report bugs or issues with these skills (open an issue)
+- Suggest improvements (we'll forward to Anthropic)
+- Use these skills in your LeanOS workflows
+
+**What you CANNOT do:**
+- Edit files in `document-skills/`
+- Copy these skills to other projects
+- Create modified versions
+
+See [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md) for complete licensing information.
 
 ## Philosophy Alignment
 
