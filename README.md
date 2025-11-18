@@ -1094,14 +1094,15 @@ If content underperforms (<50% expected traffic):
     "Issue: Niche topic, no pillar alignment"
     "Recommendation: Retire technical posts or move to dev docs"
     └─ Update content-pillars.md (reduce technical pillar allocation)
-
-Complete Daily Workflow: Bella's 5-Minute Review
-Morning Routine (8:00 AM)
-bash# Read auto-generated daily summary
-cat ops/today.md
-Example Output:
-markdown# Today's Review - 2024-11-16
+    
 ```
+
+### Complete Daily Workflow: Bella's 5-Minute Review
+
+Morning Routine (8:00 AM): Read auto-generated daily summary
+
+```
+# Today's Review - 2024-11-16
 
 ## High-Priority Items (Human Approval Required)
 
@@ -1188,7 +1189,6 @@ Action: Review prep materials (5 min recommended)
 
 ## Anomalies Detected
 
-```text
 ⚠️ Legal review taking 2x longer than estimated (5 days vs 3 days)
 → Meta-thread suggested: Investigate legal bottleneck
 ```
