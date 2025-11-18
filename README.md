@@ -394,7 +394,7 @@ output: artifacts/sales/current/
         └── contract-template.md
 ```
 
-### Phase 2: Execution (Thread-Driven, Per Deal)
+#### Phase 2: Execution (Thread-Driven, Per Deal)
 
 **Deal Flow Example: ElsaAI (Luxury Brand)**
 ```text
@@ -412,6 +412,7 @@ Day 46: Deal closed
     ├─ Canvas updated: A4 validated (luxury prefers white-label, 95% confidence)
     ├─ Metrics updated: ARR, cycle time, margins
     └─ TRIGGER: Marketing content opportunity detected
+```
 
 ### Marketing Operations (Learning-Driven Flow)
 
@@ -454,7 +455,7 @@ output: artifacts/marketing/narrative/
 - Email: 400-600 words, segmented
 - Website: Scannable, conversion-focused
 
-### Phase 2: Content Execution (Thread-Driven, Per Opportunity)
+#### Phase 2: Content Execution (Thread-Driven, Per Opportunity)
 
 **Marketing execution is TRIGGERED by business learning**, not arbitrary calendars.
 
