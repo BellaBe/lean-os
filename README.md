@@ -1019,6 +1019,8 @@ Sales threads created
     ↓
 ... (loop continues)
 
+```
+
 ## Success Metrics
 
 ### Operational Efficiency
@@ -1319,7 +1321,7 @@ skill: marketing-execution/content-strategy
 
 # Check priority threshold
 # (Opportunities <0.7 won't flag automatically)
-```
+
 
 **Problem: Content draft quality low**
 ```bash
