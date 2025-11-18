@@ -19,6 +19,44 @@ Use the `foundation-builder` skill to populate and validate all 15 Canvas sectio
 
 ---
 
+## Phase 0: Business Model Mode Selection
+
+**Goal:** Declare your business model approach (VENTURE vs BOOTSTRAP vs HYBRID)
+
+**Why first?** Mode determines research focus, decision criteria, and success metrics throughout Canvas building.
+
+**Process:**
+1. Create `strategy/canvas/00-business-model-mode.md`
+2. Declare mode: VENTURE, BOOTSTRAP, or HYBRID
+3. Document rationale
+
+**Decision criteria:**
+
+**Choose VENTURE if:**
+- Raising or have raised funding
+- Market requires scale to win (winner-take-all)
+- Building platform/network effects
+- Timeline: 7-10 years to exit
+- Okay with burn for growth
+
+**Choose BOOTSTRAP if:**
+- Self-funded, need profitability fast
+- Can win without scale (service, niche)
+- Building clear solution to known problem
+- Timeline: Cash flow now, exit optional
+- Must be profitable from start
+
+**Choose HYBRID if:**
+- Want to prove PMF before raising
+- Bootstrap validates, venture scales
+- Option to stay bootstrapped if profitable
+
+**Human time:** 15-30 minutes (strategic decision)
+
+**Impact:** Determines which market research skill to use in Phase 0a
+
+---
+
 ## Phase 0a: Discovery (Market Intelligence)
 
 **Goal:** Understand the market, identify real customer problems, define segments

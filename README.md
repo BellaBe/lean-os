@@ -1,6 +1,6 @@
 # LeanOS: AI-Native Operating System for Founders
 
-**Status:** Active Development | **Version:** 1.0 (Marketing Layer Complete)
+**Status:** Active Development | **Version:** 1.1 (Dual-Mode: Venture/Bootstrap)
 
 AI-native OS that automates 95%+ of startup operations. Built for GlamYouUp, designed for universal application.
 
@@ -40,6 +40,52 @@ AI-native OS that automates 95%+ of startup operations. Built for GlamYouUp, des
 3. **Zero redundancy:** Information exists in ONE location only
 4. **Evidence-based decisions:** All choices trace to Canvas assumptions
 5. **Learning-driven content:** Marketing creates when business generates insights
+6. **Mode-aware operations:** Adapts to VENTURE or BOOTSTRAP business models
+
+## Dual-Mode Support: Venture vs Bootstrap
+
+LeanOS supports two fundamentally different business models with mode-specific execution:
+
+### VENTURE Mode
+**For funded startups pursuing scale:**
+- **Decision Criteria:** Strategic value, market size, defensibility
+- **Metrics Focus:** MAU, ARR growth, market share, runway
+- **Research:** TAM sizing, competitive landscape, 10x opportunities
+- **Impact Formula:** `(Strategic Value × Market Size × Defensibility) / 3`
+- **Timeline:** 7-10 year exit horizon
+
+**Best for:** VC-backed companies, billion-dollar markets, winner-take-all dynamics
+
+### BOOTSTRAP Mode
+**For profitable businesses pursuing cash flow:**
+- **Decision Criteria:** Revenue impact, time to cash, profit margin
+- **Metrics Focus:** MRR, monthly profit, cash flow, LTV:CAC
+- **Research:** Current spend mapping, arbitrage opportunities, immediate revenue
+- **Impact Formula:** `(Revenue Impact × Time to Cash × Margin) / 3`
+- **Timeline:** Profitable within 3 months
+
+**Best for:** Self-funded founders, niche markets, lifestyle businesses
+
+### Mode Configuration
+
+Set your mode in `strategy/canvas/00-business-model-mode.md`:
+
+```markdown
+**Active Mode:** BOOTSTRAP
+
+**Rationale:**
+- Self-funded, need profitability within 3 months
+- Revenue-first approach to validate market
+- Exit optional, cash flow primary goal
+```
+
+**Mode impacts:**
+- Market research approach (TAM vs current spend)
+- Impact scoring in decision-making
+- Metrics tracking and dashboards
+- Success criteria for initiatives
+
+See [Business Model Mode documentation](strategy/canvas/00-business-model-mode.md) for complete details.
 
 ## Directory Structure
 
@@ -89,6 +135,7 @@ lean-os/
 
 - ✅ Sales foundation (ICP, narratives, materials, execution)
 - ✅ Marketing foundation (strategy, content workflow, SEO, distribution)
+- ✅ **Dual-mode support (Venture/Bootstrap with mode-aware decision making)**
 - 🚧 Validation (GlamYouUp DTC segment testing)
 - 📋 Ops dashboard auto-generation
 - 🔮 Full automation (customer success, fundraising, engineering)

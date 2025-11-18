@@ -39,6 +39,10 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 │ │                                                                                            │
 │ │  Lifecycle: Discovery → Definition → Validation → Execution → Launch → Archive             │
 │                                                                                              │
+│ Market Research Skills (Mode-Aware):                                                         │
+│ ├─ market-research-venture: TAM sizing, growth analysis, competitive landscape (VENTURE)     │
+│ └─ market-research-bootstrap: Spend mapping, arbitrage, immediate revenue (BOOTSTRAP)        │
+│                                                                                              │
 │ Sales Strategy Skills:                                                                       │
 │ ├─ icp-generator: Define target customers (per segment)                                      │
 │ └─ sales-narrative: Create messaging (per segment)                                           │
@@ -134,6 +138,7 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 **Purpose:** Single source of truth for all business decisions
 
 **Key files:**
+- 00-business-model-mode.md - VENTURE/BOOTSTRAP/HYBRID mode declaration
 - 01-context.md - KBOS framework (Known, Believed, Objective, Subjective)
 - 02-constraints.md - Budget, time, resource limits
 - 03-opportunity.md - Market size, timing, trends

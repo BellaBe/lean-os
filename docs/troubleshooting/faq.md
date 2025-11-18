@@ -16,6 +16,34 @@ A: Claude AI access (Sonnet 4.5), Git, markdown editing, willingness to populate
 
 ---
 
+## Business Model Modes
+
+**Q: What's the difference between VENTURE and BOOTSTRAP modes?**
+
+A: VENTURE prioritizes scale (MAU, ARR growth, market share) and tolerates burn for growth. BOOTSTRAP prioritizes profit (MRR, cash flow, margin) and requires profitability from the start. Mode determines research approach, decision criteria, and metrics tracked.
+
+**Q: Which mode should I choose?**
+
+A: VENTURE if funded/raising or targeting billion-dollar markets requiring scale. BOOTSTRAP if self-funded or building profitable niche business. HYBRID if proving PMF first, then raising funding to scale.
+
+**Q: Can I switch modes later?**
+
+A: Yes. Update `strategy/canvas/00-business-model-mode.md`. Common: BOOTSTRAP → VENTURE after proving profitability and deciding to raise funding.
+
+**Q: How does mode affect operations?**
+
+A: Mode determines:
+- Which market research skill to use (venture-analysis vs bootstrap-analysis)
+- How impact scores are calculated (strategic value vs revenue impact)
+- Which metrics are tracked (MAU/ARR vs MRR/profit)
+- Decision prioritization (market size vs time to cash)
+
+**Q: What if I'm not sure which mode I'm in?**
+
+A: Ask: Are you funded or raising? (VENTURE). Need profitability within 3 months? (BOOTSTRAP). Start BOOTSTRAP, switch to VENTURE if you raise funding.
+
+---
+
 ## Canvas & Foundation
 
 **Q: Why start with Canvas? Can I skip it?**

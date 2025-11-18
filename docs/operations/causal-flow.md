@@ -70,21 +70,51 @@ Priority: 0.85
 
 ## Stage 4: DECISION
 
-**Purpose:** Official commitment
+**Purpose:** Official commitment with mode-aware impact scoring
 
 **Process:**
-- State decision (CREATE, DEFER, REJECT)
-- Document alternatives
-- Explain reasoning
+1. Check business model mode (`strategy/canvas/00-business-model-mode.md`)
+2. Calculate impact score using mode-specific formula
+3. State decision (CREATE, DEFER, REJECT)
+4. Document alternatives
+5. Explain reasoning
 
-**Example:**
+**Impact Scoring (Mode-Aware):**
+
+**VENTURE Mode:**
 ```
-Decision: CREATE - High-priority content
-Alternatives: Wait (rejected), Guide (rejected)
-Rationale: 95% confidence, validates hypothesis
+Impact = (Strategic Value × Market Size × Defensibility) / 3
+```
+
+**BOOTSTRAP Mode:**
+```
+Impact = (Revenue Impact × Time to Cash × Margin) / 3
+```
+
+**Threshold:**
+- <0.8: AI proceeds autonomously
+- ≥0.8: Human approval required
+
+**Example (Bootstrap Mode):**
+```
+Decision: CREATE - White-label service for agencies
+
+Impact Calculation:
+- Revenue Impact: 0.7 ($25k MRR potential)
+- Time to Cash: 0.8 (6 weeks to first payment)
+- Margin: 0.9 (80% gross margin)
+→ Impact: 0.80 (requires human approval)
+
+Alternatives:
+- Wait for more customers (rejected - opportunity cost too high)
+- Partner with provider (rejected - poor margins)
+
+Rationale: High confidence, immediate revenue, excellent margins
 ```
 
 **Skill:** `causal-flow/stages/causal-flow-decision/`
+
+**See also:** [Success Metrics](../integration/success-metrics.md) for mode-specific criteria
 
 ---
 

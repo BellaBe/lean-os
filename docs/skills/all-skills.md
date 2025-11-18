@@ -5,11 +5,41 @@ Complete reference of AI skills for business operations.
 ## Foundation Skills
 
 ### foundation-builder
-**Purpose:** Orchestrate Canvas population through 5 phases  
-**Phases:** Discovery → Definition → Validation → Execution → Launch  
-**Agents:** 10 (7 core, 3 specialist)  
-**Output:** Complete 15-section Canvas  
+**Purpose:** Orchestrate Canvas population through 5 phases
+**Phases:** Discovery → Definition → Validation → Execution → Launch
+**Agents:** 10 (7 core, 3 specialist)
+**Output:** Complete 15-section Canvas
 **Docs:** See [Canvas Setup](../foundation/canvas-setup.md)
+
+---
+
+## Market Research Skills (Mode-Aware)
+
+### market-research-venture
+**Purpose:** Venture-focused market analysis
+**Mode:** VENTURE only
+**Focus:** TAM sizing, growth rates, competitive landscape, scalability
+**Output:** research/market/venture-analysis-{date}.md
+**Key analyses:**
+- Total Addressable Market (TAM/SAM/SOM)
+- Market growth rate (CAGR projections)
+- Competitive positioning
+- Defensibility & moat assessment
+- 10x opportunity validation
+
+### market-research-bootstrap
+**Purpose:** Bootstrap-focused market analysis
+**Mode:** BOOTSTRAP only
+**Focus:** Current spend, arbitrage, immediate revenue
+**Output:** research/market/bootstrap-analysis-{date}.md
+**Key analyses:**
+- Who pays what today (spend mapping)
+- Budget holder identification
+- Pricing intelligence & arbitrage opportunities
+- Procurement process analysis
+- Q1 revenue potential
+
+**Selection:** Check `strategy/canvas/00-business-model-mode.md` to determine which skill to use.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: foundation-builder
-description: Orchestrate 10 agents to build and maintain validated Lean Canvas foundation. Handles market discovery, validation, business model, and GTM. Pre-launch population and operational maintenance.
+description: Orchestrate 10 agents to build and maintain validated Lean Canvas foundation. Handles business model mode selection, market discovery (mode-aware), validation, business model, and GTM. Pre-launch population and operational maintenance.
 allowed-tools: "Read,Write,Bash"
 ---
 
@@ -10,7 +10,7 @@ allowed-tools: "Read,Write,Bash"
 
 Business foundation orchestration system that coordinates 10 specialized agents to build and maintain a validated Lean Canvas - the single source of truth for all strategic decisions.
 
-**Primary Mission:** Populate and validate all 15 Canvas sections with evidence-based information
+**Primary Mission:** Populate and validate all 16 Canvas sections with evidence-based information (including business model mode selection)
 
 **Lifecycle:** 
 - Pre-launch: Build foundation (Discovery → Launch)
@@ -60,14 +60,16 @@ Each agent populates specific Canvas sections:
 The system follows a structured progression through pre-launch phases:
 
 ```
-Discovery → Definition → Validation → Execution → Launch
-   ↓           ↓           ↓           ↓          ↓
-Market    Value Prop   Validation  Execution   GTM
-Intel  →  + Business  →  Agent   →   Agent  →  Agent
-Agent      Model                              
-   ↓           ↓           ↓           ↓          ↓
-Canvas    Canvas       Canvas     artifacts/   Canvas
-01-06     07-12        10 (val)   Outputs      14-15
+Mode      Discovery → Definition → Validation → Execution → Launch
+Select        ↓           ↓           ↓           ↓          ↓
+  ↓       Market    Value Prop   Validation  Execution   GTM
+  ↓       Intel  →  + Business  →  Agent   →   Agent  →  Agent
+  ↓       Agent      Model
+  ↓          ↓           ↓           ↓           ↓          ↓
+Canvas    Canvas    Canvas       Canvas     artifacts/   Canvas
+  00      01-06     07-12        10 (val)   Outputs      14-15
+
+Mode determines: Which market research skill (venture vs bootstrap)
 ```
 
 ---
@@ -78,11 +80,22 @@ Canvas    Canvas       Canvas     artifacts/   Canvas
 
 Determine the current pre-launch phase by analyzing the request context:
 
-**Discovery Phase (0a)**
+**Mode Selection Phase (0)**
+- Triggers: Initial setup, business model strategy questions, "which mode should I use"
+- Action: Create `00-business-model-mode.md` with VENTURE/BOOTSTRAP/HYBRID declaration
+- Output Focus: Business model mode declaration and rationale
+- Canvas Sections: 00-business-model-mode
+- **CRITICAL: This must be completed before Discovery Phase**
+
+**Discovery Phase (0a) - MODE-AWARE**
 - Triggers: Market research, TAM/SAM/SOM questions, competitive analysis, customer segmentation
-- Primary Agents: market-intelligence, problem-solution-fit
-- Output Focus: Market understanding, problem identification
-- Canvas Sections: 01-context, 02-constraints, 03-opportunity, 04-segments, 05-problem, 06-competitive
+- **BEFORE ROUTING:** Check `strategy/canvas/00-business-model-mode.md` for mode
+- Primary Agents:
+  - **If VENTURE:** market-intelligence (TAM focus) + market-research-venture skill
+  - **If BOOTSTRAP:** market-intelligence (spend mapping) + market-research-bootstrap skill
+  - **Both:** problem-solution-fit
+- Output Focus: Mode-appropriate market understanding, problem identification
+- Canvas Sections: 00-business-model-mode (if not exists), 01-context, 02-constraints, 03-opportunity, 04-segments, 05-problem, 06-competitive
 
 **Definition Phase (0b)**
 - Triggers: Product strategy, value proposition, business model design, pricing strategy
@@ -118,12 +131,25 @@ Determine the current pre-launch phase by analyzing the request context:
 
 When a request arrives, follow this decision process:
 
-1. **Identify Current Phase**: Determine where in pre-launch lifecycle (0a → 1c)
-2. **Detect Specialist Needs**: Check if funding, regulatory, or retention scenarios apply
-3. **Select Primary Agent(s)**: Choose 1-2 agents that best match the request
-4. **Identify Canvas Target**: Which Canvas sections will be populated/updated?
-5. **Coordinate Multi-Agent Workflows**: For complex requests spanning multiple phases, sequence agents appropriately
-6. **Execute and Document**: Route to selected agent(s), update Canvas, preserve context
+1. **Check Business Model Mode**:
+   - Read `strategy/canvas/00-business-model-mode.md`
+   - If doesn't exist → Create it first (Phase 0: Mode Selection)
+   - Mode determines market research approach and decision criteria
+
+2. **Identify Current Phase**: Determine where in pre-launch lifecycle (0 → 0a → 1c)
+
+3. **Detect Specialist Needs**: Check if funding, regulatory, or retention scenarios apply
+
+4. **Select Primary Agent(s)**: Choose 1-2 agents that best match the request
+   - **For market research:** Use mode-appropriate skill
+     - VENTURE: market-research-venture (TAM, growth, scale)
+     - BOOTSTRAP: market-research-bootstrap (spend, arbitrage, profit)
+
+5. **Identify Canvas Target**: Which Canvas sections will be populated/updated?
+
+6. **Coordinate Multi-Agent Workflows**: For complex requests spanning multiple phases, sequence agents appropriately
+
+7. **Execute and Document**: Route to selected agent(s), update Canvas, preserve context
 
 ### Multi-Agent Coordination
 
@@ -156,26 +182,29 @@ For requests requiring multiple agents, coordinate in sequence:
 
 **Path:** `strategy/canvas/`
 
-This skill's primary mission is to populate all 15 Canvas sections with validated information:
+This skill's primary mission is to populate all 16 Canvas sections with validated information:
 
 ```
 strategy/canvas/
-├── 01-context.md          ← market-intelligence
-├── 02-constraints.md      ← market-intelligence
-├── 03-opportunity.md      ← market-intelligence
-├── 04-segments.md         ← market-intelligence
-├── 05-problem.md          ← problem-solution-fit
-├── 06-competitive.md      ← market-intelligence
-├── 07-uvp.md              ← value-proposition
-├── 08-advantage.md        ← value-proposition
-├── 09-solution.md         ← problem-solution-fit
-├── 10-assumptions.md      ← validation (all agents contribute)
-├── 11-pricing.md          ← business-model
-├── 12-costs.md            ← business-model
-├── 13-metrics.md          ← business-model
-├── 14-growth.md           ← go-to-market
-└── 15-gtm.md              ← go-to-market
+├── 00-business-model-mode.md  ← foundation-builder (Phase 0)
+├── 01-context.md              ← market-intelligence
+├── 02-constraints.md          ← market-intelligence
+├── 03-opportunity.md          ← market-intelligence
+├── 04-segments.md             ← market-intelligence
+├── 05-problem.md              ← problem-solution-fit
+├── 06-competitive.md          ← market-intelligence
+├── 07-uvp.md                  ← value-proposition
+├── 08-advantage.md            ← value-proposition
+├── 09-solution.md             ← problem-solution-fit
+├── 10-assumptions.md          ← validation (all agents contribute)
+├── 11-pricing.md              ← business-model
+├── 12-costs.md                ← business-model
+├── 13-metrics.md              ← business-model
+├── 14-growth.md               ← go-to-market
+└── 15-gtm.md                  ← go-to-market
 ```
+
+**Mode-Aware Note:** The 00-business-model-mode.md file determines which market research skill is used and how decisions are prioritized throughout Canvas building.
 
 ### Assumptions Tracking (Canvas 10)
 
@@ -251,25 +280,77 @@ Each of the 10 agents is implemented as a sub-skill within this orchestrator:
 
 Track these metrics to ensure pre-launch progress:
 
-**Canvas Completion**: 15/15 sections populated with validated info
+**Canvas Completion**: 16/16 sections populated with validated info (including 00-business-model-mode.md)
 **Assumption Validation**: >70% of key assumptions validated before launch
 **MVP Velocity**: 1.5-2x solo developer productivity
-**Cost Efficiency**: <$500/month burn rate (mostly AI tools)
+**Cost Efficiency**:
+- VENTURE: Burn rate tracked, runway >12 months
+- BOOTSTRAP: <$500/month burn, profitable within 3 months
 **Launch Readiness**: All go-to-market elements defined and ready
+
+**Mode-Specific Success:**
+- **VENTURE:** TAM validated >$1B, growth path to $100M ARR clear
+- **BOOTSTRAP:** First customer within 4 weeks, path to $5k MRR defined
 
 ---
 
 ## Usage Examples
 
-### Example 1: Initial Market Discovery
+### Example 0: Business Model Mode Selection
+
+**User Request**: "I'm starting a B2B SaaS, should I use VENTURE or BOOTSTRAP mode?"
+
+**Orchestrator Action**:
+1. Detect phase: Mode Selection (0)
+2. Ask clarifying questions:
+   - Are you funded or planning to raise?
+   - What's your timeline to profitability?
+   - Is this a billion-dollar market or profitable niche?
+3. Create: `strategy/canvas/00-business-model-mode.md`
+4. Expected output: Mode declaration (VENTURE/BOOTSTRAP/HYBRID) with rationale
+
+**Example Response for Bootstrap:**
+```markdown
+**Active Mode:** BOOTSTRAP
+
+**Rationale:**
+- Self-funded, need profitability within 3 months
+- B2B SaaS with clear monetization path
+- Targeting profitable niche ($50M market)
+- Exit optional, cash flow primary goal
+```
+
+### Example 1: Initial Market Discovery (BOOTSTRAP Mode)
 
 **User Request**: "Help me understand the competitive landscape for AI-powered beauty recommendations"
 
 **Orchestrator Action**:
-1. Detect phase: Discovery (0a)
-2. Route to: market-intelligence agent
-3. Canvas targets: 01-context, 02-constraints, 03-opportunity, 04-segments, 06-competitive
-4. Expected output: TAM/SAM/SOM analysis, competitive matrix, top 3 customer segments
+1. Check mode: Read `00-business-model-mode.md` → BOOTSTRAP
+2. Detect phase: Discovery (0a)
+3. Route to: market-intelligence agent + **market-research-bootstrap skill**
+4. Canvas targets: 01-context, 02-constraints, 03-opportunity, 04-segments, 06-competitive
+5. Expected output:
+   - Current spend mapping (who pays what today)
+   - Budget holder identification
+   - Arbitrage opportunities
+   - Competitive pricing analysis
+   - Q1 revenue potential
+
+### Example 1b: Initial Market Discovery (VENTURE Mode)
+
+**User Request**: "Help me understand the competitive landscape for AI-powered beauty recommendations"
+
+**Orchestrator Action**:
+1. Check mode: Read `00-business-model-mode.md` → VENTURE
+2. Detect phase: Discovery (0a)
+3. Route to: market-intelligence agent + **market-research-venture skill**
+4. Canvas targets: 01-context, 02-constraints, 03-opportunity, 04-segments, 06-competitive
+5. Expected output:
+   - TAM/SAM/SOM analysis ($XB market)
+   - Market growth rate (CAGR projections)
+   - Competitive positioning and moat opportunities
+   - 10x scale potential
+   - Defensibility assessment
 
 ### Example 2: Business Model Design
 
@@ -335,7 +416,8 @@ Track these metrics to ensure pre-launch progress:
 
 Before declaring pre-launch work complete:
 
-- [ ] All 15 Canvas sections populated
+- [ ] **Business model mode declared** (00-business-model-mode.md)
+- [ ] All 16 Canvas sections populated
 - [ ] Key assumptions (>70%) validated
 - [ ] MVP launched to first customers
 - [ ] Revenue > $0 (even if just $1)
@@ -344,9 +426,24 @@ Before declaring pre-launch work complete:
 - [ ] GTM channels identified and tested (15-gtm.md)
 - [ ] Business foundation ready for operational scaling
 
+**Mode-Specific Completion:**
+
+**VENTURE Mode:**
+- [ ] TAM validated >$1B
+- [ ] Burn rate and runway tracked
+- [ ] Growth path to $100M ARR defined
+- [ ] Fundraising timeline (if applicable)
+
+**BOOTSTRAP Mode:**
+- [ ] First paying customer acquired
+- [ ] Path to profitability within 3 months clear
+- [ ] Positive cash flow or near-positive
+- [ ] Unit economics profitable
+
 **Pre-launch work is complete when:**
 - Canvas is validated with real customer data
 - Product-market fit signals are emerging
+- Mode-appropriate success criteria met
 - Ready to shift from building to scaling
 
 ---
@@ -354,9 +451,19 @@ Before declaring pre-launch work complete:
 ## Remember
 
 This skill is for **building the business from zero to launch**. Focus on:
-- Completing all Canvas sections with validated data
-- Testing assumptions before scaling
-- Achieving first customer traction
-- Building solid foundation for operational phase
+- **FIRST:** Declare business model mode (VENTURE/BOOTSTRAP/HYBRID)
+- Complete all 16 Canvas sections with validated data
+- Use mode-appropriate market research (venture vs bootstrap skills)
+- Test assumptions before scaling
+- Achieve mode-appropriate traction:
+  - VENTURE: Validate TAM >$1B, define path to $100M ARR
+  - BOOTSTRAP: First customer, path to profitability within 3 months
+- Build solid foundation for operational phase
 
-The startup-playbook mission is complete when you have customers, revenue, and a validated Canvas. Don't rush to operations before the foundation is solid.
+**Critical:** The business model mode determines:
+- Which market research skill to invoke
+- How success is measured
+- What metrics matter
+- Decision prioritization throughout Canvas building
+
+The startup-playbook mission is complete when you have customers, revenue, a validated Canvas, and mode-appropriate success criteria met. Don't rush to operations before the foundation is solid.

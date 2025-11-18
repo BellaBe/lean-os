@@ -48,6 +48,9 @@ Marketing creates content when business generates insights worth sharing. No arb
 ### 7. Closed-Loop Attribution
 Sales threads capture learning → Marketing creates content → Content drives demos → Demo threads track attribution → Learning validates assumptions.
 
+### 8. Mode-Aware Operations
+Adapts to VENTURE (scale-focused) or BOOTSTRAP (profit-focused) business models. Decision criteria, metrics, and research approaches adjust based on mode. Same system, different priorities.
+
 ## How It's Different
 
 | Traditional Startup | LeanOS |
@@ -55,6 +58,7 @@ Sales threads capture learning → Marketing creates content → Content drives 
 | Human decides everything | AI decides 95%, human approves high-leverage items |
 | Information scattered | Single source of truth (Canvas) |
 | Ad-hoc decision-making | 6-stage causal flow (evidence-based) |
+| One-size-fits-all metrics | Mode-aware (VENTURE vs BOOTSTRAP execution) |
 | Calendar-driven marketing | Learning-driven content |
 | Manual attribution tracking | Automated closed-loop attribution |
 | Founder works 60+ hours/week | Founder works <30 min/day on operations |
@@ -97,6 +101,7 @@ Sales threads capture learning → Marketing creates content → Content drives 
 - Pre-product to early traction stage
 - Technical founder comfortable with AI tools
 - Values evidence-based decision-making
+- **Both venture-backed (scale focus) and bootstrapped (profit focus) founders**
 
 **Not ideal for:**
 - Large teams with established processes

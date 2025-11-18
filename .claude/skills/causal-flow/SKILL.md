@@ -500,25 +500,36 @@ Monitor thread state: `draft` → `active` → `in_review` → `completed` → `
 
 ### AI Agent Autonomy (>95% of decisions)
 
+**IMPORTANT:** Impact scoring is MODE-AWARE. Check `strategy/canvas/00-business-model-mode.md` and apply the correct formula:
+- **VENTURE Mode:** Impact = (Strategic Value × Market Size × Defensibility) / 3
+- **BOOTSTRAP Mode:** Impact = (Revenue Impact × Time to Cash × Margin) / 3
+
 **Autonomous when:**
-- Impact score < 0.7
-- Within strategic direction
-- ROI > 3x, Risk: low-medium
-- Cost < $100K, Timeline < 3 months
+- Impact score < 0.8
+- Within strategic direction (aligned with Canvas)
+- Clear evidence and reasoning
+- Reversible or low-risk
 
 **Flag for human when:**
-- Impact score ≥ 0.7
+- Impact score ≥ 0.8
 - Strategic pivot or contradicts Canvas
-- ROI < 2x, High risk
-- Cost ≥ $100K, Timeline ≥ 3 months
+- Canvas-altering decision
+- High uncertainty or risk
 
 ### Human Intervention Points
 
-**Bella intervenes only when:**
-- Agents flag wrong direction
+**Human intervention required for:**
+- High-impact decisions (≥0.8 impact score)
+- Strategic pivots or Canvas changes
+- Customer relationship decisions (calls, negotiations, contracts)
+- Business model mode switches
 - Quarterly Canvas validation
-- Major pivots (>0.8 impact)
-- High-stakes customer relationships (sales/marketing)
+
+**AI proceeds autonomously for:**
+- Operational decisions (<0.8 impact)
+- Decisions within established strategy
+- Low-risk, reversible actions
+- Routine execution tasks
 
 ---
 

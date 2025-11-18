@@ -532,72 +532,189 @@ Target: Actions documented within 2 days
 
 ## Impact Score Calculation
 
-### Formula
+**CRITICAL:** Impact calculation is **MODE-AWARE**. Check `strategy/canvas/00-business-model-mode.md` first and apply the correct formula.
+
+### Step 1: Check Business Model Mode
+
+Read `strategy/canvas/00-business-model-mode.md` to determine current mode:
+- **VENTURE**: Use venture impact formula
+- **BOOTSTRAP**: Use bootstrap impact formula
+- **HYBRID**: Use bootstrap formula until profitable, then venture formula
+
+### Step 2: Apply Mode-Specific Formula
+
+---
+
+### VENTURE Mode Impact Formula
+
+```
+Impact = (Strategic Value × Market Size × Defensibility) / 3
+```
+
+**Strategic Value (0.0-1.0):**
+- Does this advance core hypothesis?
+- Does this unlock new market opportunities?
+- Does this strengthen competitive position?
+
+Score:
+- 0.0-0.3: Operational improvement, no strategic impact
+- 0.4-0.6: Supports existing strategy
+- 0.7-0.9: Opens new strategic opportunities
+- 1.0: Company-defining strategic move
+
+**Market Size (0.0-1.0):**
+- Does this unlock larger TAM?
+- Does this enable scalability?
+- Does this increase addressable market?
+
+Score:
+- 0.0-0.3: Niche market (<$100M TAM)
+- 0.4-0.6: Mid-size market ($100M-$1B TAM)
+- 0.7-0.9: Large market ($1B-$10B TAM)
+- 1.0: Massive market (>$10B TAM)
+
+**Defensibility (0.0-1.0):**
+- Does this create moat?
+- Does this build competitive advantage?
+- Does this increase switching costs?
+
+Score:
+- 0.0-0.3: No moat, easily replicable
+- 0.4-0.6: Some differentiation, moderate barrier
+- 0.7-0.9: Strong moat (network effects, data, IP)
+- 1.0: Unassailable competitive advantage
+
+**Example (Venture Mode):**
+
+Decision: Build AI recommendation engine
+
+- Strategic Value: 0.8 (core product differentiation)
+- Market Size: 0.9 (enables $5B fashion tech TAM)
+- Defensibility: 0.7 (data moat accumulates over time)
+
+**Impact Score:** (0.8 + 0.9 + 0.7) / 3 = **0.80**
+
+→ Requires human approval (≥0.8 threshold)
+
+---
+
+### BOOTSTRAP Mode Impact Formula
+
+```
+Impact = (Revenue Impact × Time to Cash × Margin) / 3
+```
+
+**Revenue Impact (0.0-1.0):**
+- Monthly recurring revenue potential?
+- How much customer spend can we capture?
+- Realistic conversion rates?
+
+Score:
+- 0.0-0.3: <$5k MRR potential
+- 0.4-0.6: $5k-$20k MRR potential
+- 0.7-0.9: $20k-$50k MRR potential
+- 1.0: >$50k MRR potential
+
+**Time to Cash (0.0-1.0):**
+- How fast to first payment?
+- Simple procurement process?
+- Short sales cycle?
+
+Score (higher = faster):
+- 0.0-0.3: >6 months to first revenue
+- 0.4-0.6: 3-6 months to first revenue
+- 0.7-0.9: 1-3 months to first revenue
+- 1.0: <1 month to first revenue
+
+**Margin (0.0-1.0):**
+- Profit margin percentage?
+- Can we deliver profitably?
+- Sustainable economics?
+
+Score:
+- 0.0-0.3: <30% gross margin
+- 0.4-0.6: 30-60% gross margin
+- 0.7-0.9: 60-85% gross margin
+- 1.0: >85% gross margin
+
+**Example (Bootstrap Mode):**
+
+Decision: Build white-label service for agencies
+
+- Revenue Impact: 0.7 ($25k MRR potential, 5 agencies × $5k/mo)
+- Time to Cash: 0.8 (first payment in 6 weeks)
+- Margin: 0.9 (80% gross margin, SaaS delivery)
+
+**Impact Score:** (0.7 + 0.8 + 0.9) / 3 = **0.80**
+
+→ Requires human approval (≥0.8 threshold)
+
+---
+
+### HYBRID Mode
+
+Use **BOOTSTRAP formula** until:
+- Profitable for 3+ consecutive months
+- Funding raised
+
+Then switch to **VENTURE formula** for growth decisions.
+
+---
+
+### Legacy Formula (Deprecated)
+
+**Note:** The original weighted formula below is deprecated. Use mode-specific formulas above.
+
+<details>
+<summary>Legacy Formula (for reference only)</summary>
 
 ```
 Impact Score = (Revenue × 0.4) + (Strategic × 0.3) + (Risk × 0.2) + (Urgency × 0.1)
 ```
 
-**Revenue Component (0.0-1.0):**
-- 0.0-0.2: <$100K
-- 0.3-0.5: $100K-$500K
-- 0.6-0.8: $500K-$2M
-- 0.9-1.0: >$2M
-
-**Strategic Component (0.0-1.0):**
-- 0.0-0.3: Operational, no strategic impact
-- 0.4-0.6: Tactical, supports existing strategy
-- 0.7-0.9: Strategic, opens new markets/segments
-- 1.0: Critical, company-defining
-
-**Risk Component (0.0-1.0):**
-- 0.0-0.3: Low risk, reversible
-- 0.4-0.6: Medium risk, some sunk cost
-- 0.7-0.9: High risk, significant commitment
-- 1.0: Critical risk, bet-the-company
-
-**Urgency Component (0.0-1.0):**
-- 0.0-0.3: Can wait 6+ months
-- 0.4-0.6: Should act in 3-6 months
-- 0.7-0.9: Must act in 1-3 months
-- 1.0: Immediate (competitive/regulatory pressure)
-
-### Example Calculation
-
-Enterprise white-label:
-- Revenue: $1.8M → 0.8
-- Strategic: Opens luxury segment → 0.8
-- Risk: Medium ($90K sunk cost) → 0.5
-- Urgency: ElsaAI wants Q1 pilot → 0.9
-
-**Score:** (0.8 × 0.4) + (0.8 × 0.3) + (0.5 × 0.2) + (0.9 × 0.1) = 0.85
+This formula does not account for business model mode and may produce incorrect prioritization.
+</details>
 
 ## Decision Authority Framework
 
-### AI Autonomous (Impact < 0.7)
+### AI Autonomous (Impact < 0.8)
 AI agent makes decision without human review if:
-- ROI > 3x
-- Risk: low-medium
-- Cost < $100K
-- Timeline < 3 months
-- Within strategic direction
+- Impact score < 0.8
+- Within strategic direction (aligned with Canvas)
+- Clear evidence and reasoning
+- Reversible or low-risk
 
-### Human Flagged (Impact ≥ 0.7)
+**Both modes (Venture & Bootstrap):**
+- Proceed autonomously
+- Log decision in thread
+- Continue execution
+
+### Human Flagged (Impact ≥ 0.8)
 Flag for human review if:
-- Impact ≥ 0.7 (high strategic impact)
-- ROI unclear or < 2x
-- High risk
-- Cost ≥ $100K
-- Timeline ≥ 3 months
-- Strategic pivot
+- Impact ≥ 0.8 (high strategic impact)
+- Strategic pivot or contradicts Canvas
+- Canvas-altering decision
+- High uncertainty or risk
 
-### Override: AI Autonomous Despite High Impact
-AI can proceed autonomously even if impact ≥ 0.7 IF:
-- Exceptional ROI (>1000%)
-- All scenarios profitable (best/expected/worst)
-- Clear evidence (3+ validated data points)
-- Low downside risk
-- Aligned with strategic priority
+**Both modes (Venture & Bootstrap):**
+- Document decision in thread
+- Flag in `ops/today.md`
+- Wait for human approval
+- Do not proceed until approved
+
+### Special Cases
+
+**Always Human (regardless of impact score):**
+- Customer relationship decisions (calls, negotiations)
+- Contract signing
+- Legal/financial commitments
+- Strategic pivots
+
+**Canvas-altering:**
+- Always require human approval
+- Even if impact < 0.8
+- Update multiple Canvas sections
+- Change business model mode
 
 ## Validation Rules
 

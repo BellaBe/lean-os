@@ -82,6 +82,32 @@ Stage 6: LEARNING    - Measured outcomes → Canvas updates
 
 **Calculate impact in Stage 4 (Decision) with reasoning.**
 
+**Impact calculation is MODE-AWARE:**
+
+Check `strategy/canvas/00-business-model-mode.md` for current mode, then apply:
+
+**VENTURE Mode Impact Formula:**
+```
+Impact = (Strategic Value × Market Size × Defensibility) / 3
+
+Where:
+- Strategic Value: Does this advance core hypothesis? (0-1)
+- Market Size: Does this unlock larger TAM? (0-1)
+- Defensibility: Does this create moat? (0-1)
+```
+
+**BOOTSTRAP Mode Impact Formula:**
+```
+Impact = (Revenue Impact × Time to Cash × Margin) / 3
+
+Where:
+- Revenue Impact: Monthly recurring revenue potential? (0-1)
+- Time to Cash: How fast to first payment? (0-1, higher=faster)
+- Margin: Profit margin percentage? (0-1)
+```
+
+**HYBRID Mode:** Use Bootstrap formula until profitable, then switch to Venture formula after funding.
+
 ### 5. Skills Are the Execution Layer
 
 **Skills are NOT documentation. Skills ARE operations.**
@@ -741,24 +767,46 @@ OR flag for approval (if impact ≥0.8)
 
 ### Track Continuously
 
-**Operational efficiency:**
+**Operational efficiency (Universal):**
 - Decision latency (target: <24h)
 - Auto-execution rate (target: >95%)
 - Human review time (target: <30 min/day)
 
-**Sales performance:**
+**Mode-Specific Metrics:**
+
+**VENTURE Mode:**
+- Monthly Active Users (MAU)
+- User Growth Rate (%)
+- Market Share (%)
+- Annual Recurring Revenue (ARR)
+- Burn Rate ($/month)
+- Runway (months)
+- Customer Acquisition Cost (CAC)
+- Lifetime Value (LTV)
+
+**BOOTSTRAP Mode:**
+- Monthly Recurring Revenue (MRR)
+- Monthly Profit (MP)
+- Profit Margin (%)
+- Cash Flow ($/month)
+- Customer Acquisition Cost (CAC)
+- Customer Lifetime Value (LTV)
+- Revenue per Customer
+- Time to Profitability
+
+**Sales performance (Universal):**
 - Lead response time (target: <24h)
 - Qualification rate (target: >40%)
 - Demo booking rate (target: >40%)
 - Close rate (target: >50% of qualified)
 
-**Marketing performance:**
+**Marketing performance (Universal):**
 - Content pieces per learning event (target: 1-3)
 - Traffic from content (target: {sessions})
 - Demos from content (target: {conversions})
 - Top performer rate (target: >50%)
 
-**Canvas integrity:**
+**Canvas integrity (Universal):**
 - Auto-update accuracy (target: >95%)
 - Assumption validation rate (target: track per thread)
 - Zero duplication (target: 100%)
@@ -803,7 +851,8 @@ OR flag for approval (if impact ≥0.8)
 ## When in Doubt
 
 **Uncertain about impact score?**
-→ Flag for human review (err on side of caution)
+→ Check `strategy/canvas/00-business-model-mode.md` for current mode and formula
+→ If still uncertain, flag for human review (err on side of caution)
 
 **Uncertain about Canvas linkage?**
 → Check `strategy/canvas/10-assumptions.md` for existing hypotheses
@@ -816,6 +865,9 @@ OR flag for approval (if impact ≥0.8)
 
 **Uncertain about segment vs product?**
 → ICPs and sales narratives are per **segment**, marketing narratives per **product**
+
+**Uncertain about decision priority?**
+→ Check mode: VENTURE prioritizes strategic value, BOOTSTRAP prioritizes revenue impact
 
 ---
 
@@ -865,15 +917,16 @@ Execute decisions. Generate materials. Track metrics. Update Canvas. Flag except
 **First time in this project?**
 
 1. Read [README.md](README.md) (comprehensive system overview)
-2. Check `strategy/canvas/01-context.md` (current product context)
-3. Review `strategy/canvas/04-segments.md` (customer segments)
-4. Browse recent threads: `threads/sales/`, `threads/marketing/`
-5. Check `ops/today.md` (what needs attention now)
+2. **Check `strategy/canvas/00-business-model-mode.md` (VENTURE vs BOOTSTRAP mode)**
+3. Check `strategy/canvas/01-context.md` (current product context)
+4. Review `strategy/canvas/04-segments.md` (customer segments)
+5. Browse recent threads: `threads/sales/`, `threads/marketing/`
+6. Check `ops/today.md` (what needs attention now)
 
 **Ready to execute.**
 
 ---
 
-**Version:** 1.0  
-**Last updated:** 2024-11-16  
-**System status:** Marketing layer complete, ready for validation
+**Version:** 1.1
+**Last updated:** 2025-11-18
+**System status:** Dual-mode support (Venture/Bootstrap) integrated, marketing layer complete
