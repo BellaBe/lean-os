@@ -432,29 +432,29 @@ output: artifacts/marketing/narrative/
 **Example: artifacts/marketing/narrative/**
 
 **What's Generated:**
-
-**content-pillars.md** (3-5 themes):
+```
+content-pillars.md (3-5 themes):
 - Pillar 1: Return reduction economics
 - Pillar 2: Product capabilities (white-label, co-branded)
 - Pillar 3: Industry insights (luxury vs fast fashion)
 
-**seo-strategy.md** (keywords by funnel):
+seo-strategy.md (keywords by funnel):
 - TOFU: "fashion returns problem", "fit issues ecommerce"
 - MOFU: "reduce fashion returns", "virtual try-on SDK"
 - BOFU: "white-label SDK", "GlamYouUp vs competitors"
 
-**brand-voice.md** (tone guidelines):
+brand-voice.md (tone guidelines):
 - Educational, not promotional
 - Technical depth included
 - Data-driven (specific metrics)
 - No sales CTAs in content
 
-**channel-guidelines.md** (format specs):
+channel-guidelines.md (format specs):
 - Blog: 800-2,500 words, SEO-optimized
 - LinkedIn: 300-600 words, professional tone
 - Email: 400-600 words, segmented
 - Website: Scannable, conversion-focused
-
+```
 #### Phase 2: Content Execution (Thread-Driven, Per Opportunity)
 
 **Marketing execution is TRIGGERED by business learning**, not arbitrary calendars.
