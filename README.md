@@ -616,9 +616,8 @@ Use the `foundation-builder` skill to populate and validate all 15 Canvas sectio
 skill: foundation-builder
 phase: discovery
 focus: "AI fashion recommendations for DTC brands"
+Output: 6 Canvas sections with evidence-based market intelligence
 ```
-
-**Output:** 6 Canvas sections with evidence-based market intelligence
 
 ---
 
@@ -644,9 +643,10 @@ focus: "AI fashion recommendations for DTC brands"
 skill: foundation-builder
 phase: definition
 context: "Completed discovery, ready to define value prop and business model"
+Output: 6 additional Canvas sections defining product and economics
 ```
 
-**Output:** 6 additional Canvas sections defining product and economics
+
 
 ---
 
@@ -666,9 +666,8 @@ context: "Completed discovery, ready to define value prop and business model"
 skill: foundation-builder
 phase: validation
 assumptions: "Luxury brands prefer white-label SDK, DTC brands will pay $500/month"
+Output: Validated (or invalidated) assumptions with confidence scores
 ```
-
-**Output:** Validated (or invalidated) assumptions with confidence scores
 
 ---
 
@@ -689,9 +688,8 @@ assumptions: "Luxury brands prefer white-label SDK, DTC brands will pay $500/mon
 skill: foundation-builder
 phase: execution
 status: "Assumptions validated, ready to build MVP and plan launch"
+Output: GTM strategy and operational readiness
 ```
-
-**Output:** GTM strategy and operational readiness
 
 ---
 
@@ -733,7 +731,7 @@ status: "Assumptions validated, ready to build MVP and plan launch"
 
 ### Timeline: Pre-Launch to Operations (AI + Human Collaboration)
 
-**The bottleneck is NOT AI execution—it's human decisions and real-world validation.**
+**The bottleneck is NOT AI execution - it's human decisions and real-world validation.**
 
 Each phase shows three timelines:
 - **Human time:** Context provision and decision-making
@@ -1001,7 +999,7 @@ If priority ≥ 0.7:
 └─ Flag in ops/today.md for human approval
 Example ops/today.md Output:
 markdown# Today's Review - 2024-11-16
-
+```
 ## Content Opportunities (Auto-Detected)
 
 ### High Priority (≥0.7)
@@ -1028,7 +1026,7 @@ markdown# Today's Review - 2024-11-16
    - Keyword: "fashion marketplace sizing"
    - Impact: 200 sessions/month, 5 demos
    - Action: Add to backlog
-```
+
 
 ### Human Decision Point
 
@@ -1103,6 +1101,7 @@ bash# Read auto-generated daily summary
 cat ops/today.md
 Example Output:
 markdown# Today's Review - 2024-11-16
+```
 
 ## High-Priority Items (Human Approval Required)
 
@@ -1189,6 +1188,7 @@ Action: Review prep materials (5 min recommended)
 
 ## Anomalies Detected
 
+```text
 ⚠️ Legal review taking 2x longer than estimated (5 days vs 3 days)
 → Meta-thread suggested: Investigate legal bottleneck
 ```
