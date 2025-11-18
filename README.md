@@ -754,33 +754,156 @@ status: "Assumptions validated, ready to build MVP and plan launch"
 
 ---
 
-### Timeline: Pre-Launch to Operations
+### Timeline: Pre-Launch to Operations (AI + Human Collaboration)
 
-**Week 1-2: Discovery**
-- Run market-intelligence and problem-solution-fit agents
+**The bottleneck is NOT AI execution—it's human decisions and real-world validation.**
+
+Each phase shows three timelines:
+- **Human time:** Context provision and decision-making
+- **AI time:** Research, analysis, Canvas population
+- **Real-world time:** Validation through customer feedback and experiments
+
+---
+
+#### Phase 0a: Discovery (Market Intelligence)
+
+**Human time: 1-2 hours**
+- Provide initial business idea and constraints (15 min)
+- Review Canvas sections 01-06 for accuracy (30 min)
+- Approve market intelligence findings (15 min)
+- Identify customer segments to interview (15 min)
+
+**AI time: 2-3 hours**
+- Market research (TAM/SAM/SOM, competitive analysis)
+- Customer segment identification
+- Problem hypothesis generation
 - Populate Canvas 01-06
-- Validate customer problems through interviews
 
-**Week 3-4: Definition**
-- Run value-proposition and business-model agents
+**Real-world validation: 1-2 weeks**
+- Customer problem interviews (5-10 interviews)
+- Competitive product analysis
+- Market trend validation
+- **This is the actual bottleneck**
+
+**Total elapsed: 1-2 weeks** (limited by real-world validation, not AI)
+
+---
+
+#### Phase 0b: Definition (Value Prop & Business Model)
+
+**Human time: 1-2 hours**
+- Provide product vision and constraints (15 min)
+- Review UVP and positioning (30 min)
+- Validate pricing assumptions (20 min)
+- Approve Canvas sections 07-13 (20 min)
+
+**AI time: 2-3 hours**
+- Value proposition articulation
+- Competitive positioning analysis
+- Pricing strategy design
+- Unit economics modeling
 - Populate Canvas 07-13
-- Define MVP scope and pricing
 
-**Week 5-6: Validation**
-- Run validation agent
-- Test critical assumptions (landing page, customer interviews, prototypes)
-- Update 10-assumptions.md with results
+**Real-world validation: 3-5 days**
+- Pricing validation (customer surveys, competitor analysis)
+- Value prop testing (landing page, customer conversations)
+- **Bottleneck: Customer feedback on pricing/value**
 
-**Week 7-8: Execution**
-- Build MVP
-- Run go-to-market agent
+**Total elapsed: 3-5 days** (mostly validation, minimal human time)
+
+---
+
+#### Phase 1a: Validation (Assumption Testing)
+
+**Human time: 2-3 hours**
+- Identify critical assumptions to test (30 min)
+- Review experiment designs (30 min)
+- Approve experiment execution (15 min)
+- Analyze experiment results with AI (60 min)
+
+**AI time: 1-2 hours**
+- Design validation experiments
+- Create test materials (landing pages, interview scripts)
+- Analyze experiment results
+- Update 10-assumptions.md
+
+**Real-world validation: 2-4 weeks**
+- Run landing page tests (1 week minimum for traffic)
+- Conduct customer interviews (5-10 interviews, 1-2 weeks)
+- Prototype testing with early customers
+- **Major bottleneck: Waiting for statistically significant results**
+
+**Total elapsed: 2-4 weeks** (validation is the constraint)
+
+---
+
+#### Phase 1b: Execution (MVP Build & Launch Prep)
+
+**Human time: 1-2 hours**
+- Define MVP scope and priorities (30 min)
+- Review GTM strategy (30 min)
+- Approve sales/marketing narratives (30 min)
+
+**AI time: 2-4 hours**
+- GTM strategy design
+- Channel selection and planning
+- Sales narrative generation (per segment)
+- Marketing narrative generation
 - Populate Canvas 14-15
-- Generate sales/marketing narratives
 
-**Week 9+: Launch**
-- Activate sales operations (icp-generator, sales-execution)
-- Activate marketing operations (marketing-narrative, marketing-execution)
-- Canvas maintained through thread learning
+**Real-world validation: 4-8 weeks**
+- MVP development (depends on complexity)
+- Beta testing with early customers
+- **Bottleneck: Building and testing the actual product**
+
+**Total elapsed: 4-8 weeks** (MVP build is the constraint)
+
+---
+
+#### Phase 2: Launch (Activate Operations)
+
+**Human time: <30 min/day ongoing**
+- Review ops/today.md (5 min)
+- Approve content opportunities (2 min)
+- Review draft content (10 min, 2-3x/week)
+- Strategic decisions only (as needed)
+
+**AI time: Continuous autonomous operation**
+- Sales execution (prospecting, qualification, materials)
+- Marketing execution (content creation, SEO, distribution)
+- Thread management (6-stage flow for all decisions)
+- Canvas updates from validated learning
+
+**Real-world validation: Continuous**
+- Sales cycle time (varies by segment)
+- Content performance (7-30 day feedback loops)
+- **Bottleneck: Customer decision-making and sales cycles**
+
+**Total time: Ongoing operations** (AI handles 95%+ of decisions)
+
+---
+
+### Summary: Total Pre-Launch Time
+
+**Absolute minimum (aggressive):** 3-4 weeks
+- Discovery: 1 week (5 customer interviews)
+- Definition: 3 days (pricing validation)
+- Validation: 1 week (landing page + 5 interviews)
+- Execution: 1 week (simple MVP or no-code prototype)
+
+**Typical timeline (recommended):** 6-8 weeks
+- Discovery: 2 weeks (10 customer interviews)
+- Definition: 1 week (thorough pricing validation)
+- Validation: 2-3 weeks (statistically significant tests)
+- Execution: 2-3 weeks (functional MVP)
+
+**Conservative (complex product):** 12+ weeks
+- Discovery: 3 weeks (extensive market research)
+- Definition: 2 weeks (multiple pricing models tested)
+- Validation: 4 weeks (multiple experiment iterations)
+- Execution: 4+ weeks (complex MVP build)
+
+**Key insight:** Human provides <10 hours total input across all phases. AI does analysis in <15 hours. Real-world validation takes weeks. The bottleneck is NOT the AI—it's customer feedback and product development.
 
 ---
 
