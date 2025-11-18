@@ -47,29 +47,29 @@ Traditional startups face:
 │ SKILLS LAYER (AI Execution)                                                                  │
 │                                                                                              │
 │ Foundation Builder (Pre-Launch Orchestration):                                               │
-│ ├─ foundation-builder: Orchestrate 10 agents for Canvas population and validation           │
+│ ├─ foundation-builder: Orchestrate 10 agents for Canvas population and validation            │
 │ │                                                                                            │
 │ │  Core Agents (7):                                                                          │
-│ │  ├─ market-intelligence: Market analysis, competitive landscape, TAM/SAM/SOM              │
-│ │  │                       → Canvas 01-04, 06                                               │
-│ │  ├─ problem-solution-fit: Problem validation, solution design, MVP definition             │
-│ │  │                         → Canvas 05, 09, 10                                            │
-│ │  ├─ value-proposition: Unique value articulation, positioning, messaging                  │
-│ │  │                     → Canvas 07-08                                                     │
-│ │  ├─ business-model: Revenue design, pricing, unit economics, cost structure               │
-│ │  │                   → Canvas 11-13                                                       │
-│ │  ├─ validation: Assumption testing, experiment design, hypothesis validation              │
-│ │  │              → Canvas 10 (validation status)                                           │
-│ │  ├─ go-to-market: Channel strategy, launch planning, growth tactics                       │
-│ │  │                → Canvas 14-15                                                          │
-│ │  └─ execution: Task orchestration, daily operations within subscription budget            │
+│ │  ├─ market-intelligence: Market analysis, competitive landscape, TAM/SAM/SOM               │
+│ │  │                       → Canvas 01-04, 06                                                │
+│ │  ├─ problem-solution-fit: Problem validation, solution design, MVP definition              │
+│ │  │                         → Canvas 05, 09, 10                                             │
+│ │  ├─ value-proposition: Unique value articulation, positioning, messaging                   │
+│ │  │                     → Canvas 07-08                                                      │
+│ │  ├─ business-model: Revenue design, pricing, unit economics, cost structure                │
+│ │  │                   → Canvas 11-13                                                        │
+│ │  ├─ validation: Assumption testing, experiment design, hypothesis validation               │
+│ │  │              → Canvas 10 (validation status)                                            │
+│ │  ├─ go-to-market: Channel strategy, launch planning, growth tactics                        │
+│ │  │                → Canvas 14-15                                                           │
+│ │  └─ execution: Task orchestration, daily operations within subscription budget             │
 │ │                                                                                            │
 │ │  Specialist Agents (3, on-demand):                                                         │
-│ │  ├─ funding: Fundraising strategy, pitch development, investor targeting                  │
-│ │  ├─ regulatory: Compliance requirements, licensing, regulated market entry                │
-│ │  └─ retention-optimizer: Cohort analysis, churn prediction, optimization                  │
+│ │  ├─ funding: Fundraising strategy, pitch development, investor targeting                   │
+│ │  ├─ regulatory: Compliance requirements, licensing, regulated market entry                 │
+│ │  └─ retention-optimizer: Cohort analysis, churn prediction, optimization                   │
 │ │                                                                                            │
-│ │  Lifecycle: Discovery → Definition → Validation → Execution → Launch → Archive            │
+│ │  Lifecycle: Discovery → Definition → Validation → Execution → Launch → Archive             │
 │                                                                                              │
 │ Sales Strategy Skills:                                                                       │
 │ ├─ icp-generator: Define target customers (per segment)                                      │
@@ -110,23 +110,23 @@ Traditional startups face:
 │ │  │                           → Links to 10-assumptions.md                                  │
 │ │  ├─ causal-flow-implication: Analyze business impact with numbers                          │
 │ │  │                            (ROI, cost, timeline, risk)                                  │
-│ │  ├─ causal-flow-decision: Official commitment, document alternatives considered           │
-│ │  ├─ causal-flow-actions: Break into executable tasks (typed for sales/marketing)          │
-│ │  └─ causal-flow-learning: Validate hypothesis, update Canvas automatically                │
+│ │  ├─ causal-flow-decision: Official commitment, document alternatives considered            │
+│ │  ├─ causal-flow-actions: Break into executable tasks (typed for sales/marketing)           │
+│ │  └─ causal-flow-learning: Validate hypothesis, update Canvas automatically                 │
 │ │                                                                                            │
 │ │  Resources:                                                                                │
-│ │  ├─ actions/templates/: Sales & marketing action templates                                │
-│ │  │                       (lead-intake, qualify, demo, pilot, close,                       │
-│ │  │                        research, create, publish, promote, measure)                    │
-│ │  └─ reference/: Thread architecture docs (business, sales, marketing threads)             │
+│ │  ├─ actions/templates/: Sales & marketing action templates                                 │
+│ │  │                       (lead-intake, qualify, demo, pilot, close,                        │
+│ │  │                        research, create, publish, promote, measure)                     │
+│ │  └─ reference/: Thread architecture docs (business, sales, marketing threads)              │
 │ │                                                                                            │
 │ │  Thread Types: business/, sales/, marketing/                                               │
-│ │  Key Feature: Stage 6 auto-updates Canvas from learning                                   │
+│ │  Key Feature: Stage 6 auto-updates Canvas from learning                                    │
 │                                                                                              │
 │ Operations Dashboard:                                                                        │
 │ └─ ops-dashboard: Auto-generate daily ops/ dashboards                                        │
-│                   (today.md, velocity.md, patterns.md, changes.md) from thread data         │
-│                   → Pattern detection for meta-learning                                     │
+│                   (today.md, velocity.md, patterns.md, changes.md) from thread data          │
+│                   → Pattern detection for meta-learning                                      │
 │                                                                                              │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
