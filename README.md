@@ -606,7 +606,185 @@ artifacts/marketing/campaigns/luxury-validation-nov-2024/
 
 ---
 
-## Getting Started: Marketing Activation
+## Getting Started: Foundation Building
+
+### Why Start with Canvas?
+
+The Lean Canvas (15 living documents in `strategy/canvas/`) is your **single source of truth**. Everything in LeanOS—sales narratives, marketing content, ICP definitions, business decisions—flows from the Canvas. Without it, you have no foundation.
+
+**Critical principle:** Canvas is evidence-based, not aspirational. Every section must be validated through research, customer conversations, or experimentation.
+
+### Canvas Creation Process
+
+Use the `foundation-builder` skill to populate and validate all 15 Canvas sections through a structured 5-phase process:
+
+#### Phase 0a: Discovery (Market Intelligence)
+
+**Goal:** Understand the market, identify real customer problems, define segments
+
+**Agents activated:**
+- `market-intelligence`: Market analysis, TAM/SAM/SOM, competitive landscape
+- `problem-solution-fit`: Problem validation through customer research
+
+**Canvas sections populated:**
+- 01-context.md (KBOS framework - Known, Believed, Objective, Subjective)
+- 02-constraints.md (Budget, time, resource constraints)
+- 03-opportunity.md (Market size, timing, trends)
+- 04-segments.md (Customer segments with observable filters)
+- 05-problem.md (Top 3 problems, existing alternatives)
+- 06-competitive.md (Competitive landscape, positioning gaps)
+
+**Example invocation:**
+```text
+skill: foundation-builder
+phase: discovery
+focus: "AI fashion recommendations for DTC brands"
+```
+
+**Output:** 6 Canvas sections with evidence-based market intelligence
+
+---
+
+#### Phase 0b: Definition (Value Proposition & Business Model)
+
+**Goal:** Define unique value, positioning, revenue model, and MVP scope
+
+**Agents activated:**
+- `value-proposition`: UVP articulation, positioning, messaging hierarchy
+- `business-model`: Revenue design, pricing strategy, unit economics
+- `problem-solution-fit`: MVP definition, solution design
+
+**Canvas sections populated:**
+- 07-uvp.md (Unique Value Proposition - single sentence)
+- 08-advantage.md (Unfair advantages, secret sauce)
+- 09-solution.md (MVP feature set, solution approach)
+- 11-pricing.md (Revenue model, pricing tiers)
+- 12-costs.md (Cost structure, burn rate)
+- 13-metrics.md (Key metrics, unit economics)
+
+**Example invocation:**
+```text
+skill: foundation-builder
+phase: definition
+context: "Completed discovery, ready to define value prop and business model"
+```
+
+**Output:** 6 additional Canvas sections defining product and economics
+
+---
+
+#### Phase 1a: Validation (Assumption Testing)
+
+**Goal:** Test critical assumptions before building, design experiments
+
+**Agents activated:**
+- `validation`: Experiment design, hypothesis testing, validation plans
+- `execution`: Task orchestration for running experiments
+
+**Canvas sections updated:**
+- 10-assumptions.md (Hypotheses, validation status, confidence levels)
+
+**Example invocation:**
+```text
+skill: foundation-builder
+phase: validation
+assumptions: "Luxury brands prefer white-label SDK, DTC brands will pay $500/month"
+```
+
+**Output:** Validated (or invalidated) assumptions with confidence scores
+
+---
+
+#### Phase 1b: Execution (MVP Build & Launch Prep)
+
+**Goal:** Build MVP, prepare for launch, activate operations
+
+**Agents activated:**
+- `execution`: Development orchestration, sprint planning
+- `go-to-market`: Channel strategy, launch planning
+
+**Canvas sections populated:**
+- 14-growth.md (Growth channels, acquisition tactics)
+- 15-gtm.md (Go-to-market strategy, launch plan)
+
+**Example invocation:**
+```text
+skill: foundation-builder
+phase: execution
+status: "Assumptions validated, ready to build MVP and plan launch"
+```
+
+**Output:** GTM strategy and operational readiness
+
+---
+
+#### Phase 2: Launch (Operational Mode)
+
+**Goal:** Activate sales and marketing operations, maintain Canvas through learning
+
+**Post-launch:** Canvas becomes living documentation
+- Sales threads (Stage 6: Learning) update Canvas assumptions
+- Marketing content reflects validated Canvas positioning
+- Business decisions update Canvas sections continuously
+
+**Validation criteria for launch readiness:**
+- ✅ All 15 Canvas sections populated with evidence
+- ✅ Critical assumptions validated (confidence ≥75%)
+- ✅ ICP defined for at least 1 segment
+- ✅ Sales narratives generated
+- ✅ Marketing narratives created
+
+---
+
+### Specialist Agents (On-Demand)
+
+**Use these agents for specific scenarios:**
+
+**funding agent:**
+- Trigger: Preparing to fundraise
+- Output: `strategy/financials/fundraising.md` (pitch deck outline, investor targets, financial projections)
+
+**regulatory agent:**
+- Trigger: Entering regulated markets (healthcare, finance, insurance)
+- Output: Compliance requirements, licensing roadmap
+
+**retention-optimizer agent:**
+- Trigger: Post-launch with cohort data
+- Output: Churn analysis, retention experiments, optimization strategies
+
+---
+
+### Timeline: Pre-Launch to Operations
+
+**Week 1-2: Discovery**
+- Run market-intelligence and problem-solution-fit agents
+- Populate Canvas 01-06
+- Validate customer problems through interviews
+
+**Week 3-4: Definition**
+- Run value-proposition and business-model agents
+- Populate Canvas 07-13
+- Define MVP scope and pricing
+
+**Week 5-6: Validation**
+- Run validation agent
+- Test critical assumptions (landing page, customer interviews, prototypes)
+- Update 10-assumptions.md with results
+
+**Week 7-8: Execution**
+- Build MVP
+- Run go-to-market agent
+- Populate Canvas 14-15
+- Generate sales/marketing narratives
+
+**Week 9+: Launch**
+- Activate sales operations (icp-generator, sales-execution)
+- Activate marketing operations (marketing-narrative, marketing-execution)
+- Canvas maintained through thread learning
+
+---
+
+## Marketing Activation
 
 **Marketing is learning-driven, not calendar-driven.** But it doesn't wait for sales learning—it starts with Canvas/research, then improves with validation.
 
