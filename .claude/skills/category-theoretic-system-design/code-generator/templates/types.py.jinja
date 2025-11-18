@@ -1,0 +1,22 @@
+from typing import Union
+from dataclasses import dataclass
+
+{% for adt in adts %}
+{% if adt.is_product %}
+@dataclass
+class {{ adt.name }}:
+    {% for field in adt.fields -%}
+    {{ field.name }}: {{ field.type_name }}
+    {% endfor %}
+{% else %}
+{%- for variant in adt.variants %}
+@dataclass
+class {{ variant.name }}:
+    {% for field in variant.fields -%}
+    {{ field.name }}: {{ field.type_name }}
+    {% endfor %}
+
+{% endfor %}
+{{ adt.name }} = Union[{{ adt.variants | map(attribute='name') | join(', ') }}]
+{% endif %}
+{% endfor %}
