@@ -36,7 +36,7 @@ Traditional startups face:
 
 ## System Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │ STRATEGY LAYER                                              │
 │ Source of Truth: Lean Canvas (15 living documents)          │
@@ -183,7 +183,7 @@ Traditional startups face:
 
 ## Directory Structure
 
-```
+```text
 lean-os/
 ├── strategy/
 │   ├── canvas/                      # Lean Canvas (15 files) = SOURCE OF TRUTH
@@ -336,42 +336,42 @@ lean-os/
 Every decision (business, sales, marketing) flows through 6 stages:
 
 **Stage 1: INPUT**
-```
+```text
 └─  Capture factual observation (not opinion)
     Example: "ElsaAI deal closed: $1.1M ARR, 38% return reduction"
     Skill: causal-flow/stages/causal-flow-input/SKILL.md
 ```
 
 **Stage 2: HYPOTHESIS**
-```
+```text
 └─  Challenge/validate Canvas assumptions
     Example: "Tests A4: Luxury brands prefer white-label (validated)"
     Skill: causal-flow/stages/causal-flow-hypothesis/SKILL.md
 ```
 
 **Stage 3: IMPLICATION**
-```
+```text
 └─  Analyze full cost/benefit with numbers
     Example: "Content opportunity: Case study, Priority: 0.85, Impact: 500 sessions/month"
     Skill: causal-flow/stages/causal-flow-implication/SKILL.md
 ```
 
 **Stage 4: DECISION**
-```
+```text
 └─  Official commitment, document alternatives
     Example: "CREATE - High-priority content, validates enterprise hypothesis"
     Skill: causal-flow/stages/causal-flow-decision/SKILL.md
 ```
 
 **Stage 5: ACTIONS**
-```
+```text
 └─  Break into executable tasks (typed for sales/marketing)
     Example: "marketing:create → marketing:publish → marketing:promote → marketing:measure"
     Skill: causal-flow/stages/causal-flow-actions/SKILL.md
 ```
 
 **Stage 6: LEARNING**
-```
+```text
 └─  Measure outcomes, validate hypothesis, update Canvas automatically
     Example: "Content drove 8 demos, ranking position 12, A4 confidence: 95%"
     Skill: causal-flow/stages/causal-flow-learning/SKILL.md
@@ -384,7 +384,7 @@ Every decision (business, sales, marketing) flows through 6 stages:
 #### Phase 1: Strategy (Pre-Thread, Runs Once Per Segment)
 
 **1. Define ICP (Ideal Customer Profile)**
-```
+```text
 skill: icp-generator
 input: strategy/canvas/04-segments.md
 output: research/customer/icp/{segment}-icp.yaml
@@ -396,7 +396,7 @@ Example outputs:
 - `research/customer/icp/luxury-brands-icp.yaml`
 
 **2. Create Sales Narrative**
-```
+```text
 skill: sales-narrative
 input: Canvas + ICP
 output: threads/sales/narrative/{segment}/
@@ -406,7 +406,7 @@ output: threads/sales/narrative/{segment}/
 ```
 
 **3. Generate Sales Materials**
-```
+```text
 skill: sales-execution/materials-generation
 input: Canvas + Narrative + ICP
 output: artifacts/sales/current/
@@ -421,7 +421,7 @@ output: artifacts/sales/current/
 ### Phase 2: Execution (Thread-Driven, Per Deal)
 
 **Deal Flow Example: ElsaAI (Luxury Brand)**
-```
+```text
 Day 1-46: Deal progression
 ├─ Stage 1-4: Decide to pursue deal
 └─ Stage 5 (Actions):
@@ -442,7 +442,7 @@ Day 46: Deal closed
 #### Phase 1: Strategy (Pre-Content, Runs Once Per Product)
 
 **Generate Marketing Narrative**
-```
+```text
 skill: marketing-narrative
 input: Canvas + Sales narratives (all segments)
 output: artifacts/marketing/narrative/
@@ -483,7 +483,7 @@ output: artifacts/marketing/narrative/
 **Marketing execution is TRIGGERED by business learning**, not arbitrary calendars.
 
 **Trigger Flow:**
-```
+```text
 Sales thread completes (Stage 6: Learning)
     ↓
 Thread: threads/sales/elsa-white-label/6-learning.md
@@ -506,7 +506,7 @@ Campaign thread created: threads/marketing/campaigns/luxury-validation-nov-2024/
 ```
 
 **Campaign Thread Execution (6-Stage Flow):**
-```
+```text
 Stage 1: INPUT
 └─ Business event: "5 luxury brands chose white-label (100% pattern)"
    Source: Pattern across threads/sales/*/6-learning.md
@@ -580,7 +580,7 @@ Stage 6: LEARNING (30-day campaign results)
 ```
 
 **Output Structure:**
-```
+```text
 threads/marketing/content/elsaai-white-label-case-study/
 ├── metadata.yaml
 │   ├── source_thread: "threads/sales/elsa-white-label/"
@@ -595,7 +595,7 @@ threads/marketing/content/elsaai-white-label-case-study/
 ```
 
 **Published Outputs:**
-```
+```text
 artifacts/marketing/campaigns/luxury-validation-nov-2024/
 ├── blog/elsaai-white-label-sdk-case-study.md
 ├── linkedin/2024-11-17-elsaai-case-study.md
@@ -699,7 +699,7 @@ Marketing workflow is operational when:
 ### Daily Automated Scan
 
 **Every morning (automated):**
-```
+```text
 marketing-execution/content-strategy scans:
 └─ All threads updated in last 30 days
     ├─ threads/sales/*/6-learning.md
@@ -755,7 +755,7 @@ markdown# Today's Review - 2024-11-16
 ### Human Decision Point
 
 **Bella's action (2 minutes):**
-```
+```text
 Review high-priority opportunities:
 1. "Case Study: ElsaAI" → Approve ✓
 2. "Guide: Reducing Returns" → Approve ✓
@@ -765,7 +765,7 @@ Review high-priority opportunities:
 ### Automated Content Pipeline
 
 **Once approved, AI executes autonomously:**
-```
+```text
 For each approved opportunity:
 
 1. Create marketing thread:
@@ -804,7 +804,7 @@ For each approved opportunity:
 ### Continuous Improvement Loop
 
 **Performance feedback triggers new content:**
-```
+```text
 If content performs well (conversion rate >2x average):
 └─ marketing-execution/content-strategy flags:
     "Top performer: ElsaAI case study (1.23% conversion)"
@@ -954,7 +954,7 @@ Action: Review prep materials (5 min recommended)
 ### Content Influences Sales (Closed Loop)
 
 **Flow:**
-```
+```text
 Marketing publishes case study
     ↓
 SEO drives organic traffic
@@ -987,7 +987,7 @@ Canvas updated:
 ### Sales Triggers Marketing (Learning Loop)
 
 **Flow:**
-```
+```text
 Sales closes 5 luxury brand deals
     ↓
 Pattern detected: All 5 chose white-label SDK
