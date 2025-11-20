@@ -443,6 +443,165 @@ New content opportunities triggered:
 
 ---
 
+## Engineering Operations (System Building - OPTIONAL)
+
+**⚠️ CONDITIONAL:** Only activate when building technical products (microservices, backend systems). Skip for non-technical products.
+
+### Phase 1: Requirements Analysis
+
+**Input triggered by:**
+- Sales pilot needs custom feature
+- Product roadmap requires new capability
+- Architecture improvement identified
+
+**Example:**
+```
+Input: ElsaAI pilot requests white-label SDK
+Source: threads/sales/elsaai-white-label/
+Requirement: SDK with configurable branding for customer apps
+Canvas reference: 09-solution.md (white-label capability needed)
+```
+
+### Phase 2: Design & Composition
+
+**Engineering thread created:** `threads/engineering/services/white-label-sdk/`
+
+**6-stage flow (engineering-specific):**
+
+**Stage 1: Input**
+```
+Requirement: White-label SDK for ElsaAI
+Customer use case: Embed fit + color analysis in their mobile app
+Technical constraints: React Native compatibility, <200ms latency
+Business impact: $1.1M ARR pilot depends on this feature
+```
+
+**Stage 2: Hypothesis**
+```
+Design hypothesis: Compositional architecture (fit service ∘ color service)
+Architectural assumption: Category-theoretic composition ensures correctness
+Technical assumption: FastAPI + Pydantic provides type safety
+Canvas link: 09-solution.md → "Compositional AI services"
+```
+
+**Stage 3: Implication**
+```
+Implementation effort: 1 week (ADT → domain model → code generation)
+System impact: New service composition pattern (reusable for future SDKs)
+Pilot impact: Unblocks $1.1M ARR deal
+Risk: First white-label implementation (may require iteration)
+```
+
+**Stage 4: Decision**
+```
+Decision: BUILD white-label SDK using category-theoretic design
+Impact score: 0.85 (high - pilot revenue depends on it)
+Alternatives considered:
+  1. Manual code: Rejected (no correctness guarantees, slower)
+  2. Third-party SDK: Rejected (not customizable, poor margins)
+  3. Defer to v2: Rejected (pilot closes only with SDK)
+Approval: Required (impact ≥0.8) → Flagged in ops/today.md
+```
+
+**Stage 5: Actions (8-skill pipeline)**
+```
+engineering:adt-analysis
+├─ Parse requirements → Algebraic data types
+├─ Input: Customer use case, technical constraints
+└─ Output: Type definitions (FitResult, ColorResult, BrandedResponse)
+
+engineering:domain-modeling
+├─ Extract entities: User, Measurement, ColorProfile, BrandConfig
+├─ Relationships: User has Measurement, User has ColorProfile
+└─ Output: engineering/domain/white-label-domain.md
+
+engineering:type-validation
+├─ Verify type safety, composition correctness
+├─ Check: Identity law, associativity law
+└─ Output: Validation report (100% pass rate)
+
+engineering:functor-mapping
+├─ Define transformations: FitResult → SDKResponse, ColorResult → SDKResponse
+├─ Morphisms validated (composition laws hold)
+└─ Output: Transformation specs
+
+engineering:service-composition
+├─ Compose: fit-service ∘ color-service → white-label-sdk
+├─ Validate: Compositional correctness via category theory
+└─ Output: Service composition diagram
+
+engineering:code-generation
+├─ Generate FastAPI/Python microservice code
+├─ Pydantic models for type safety
+└─ Output: engineering/services/white-label-sdk/ (runnable code)
+
+engineering:blueprint-creation
+├─ Create OpenAPI spec, architecture diagrams
+└─ Output: engineering/services/white-label-sdk/blueprint.yaml
+
+engineering:correctness-validation
+├─ Verify mathematical correctness (all composition laws hold)
+├─ Type safety: 100% coverage
+└─ Output: Validation report (approved for deployment)
+
+engineering:standardization
+├─ Apply cross-cutting concerns (auth, validation, response, logging, rate-limiting)
+├─ JWT auth + RBAC for SDK access
+├─ Standard error responses, structured logging
+└─ Output: engineering/standards/white-label-standards.md
+```
+
+**Stage 6: Learning**
+```
+Deployment: Staging → Integration tests pass → Production
+Performance: <180ms latency (meets <200ms requirement)
+Pilot outcome: ElsaAI proceeds with SDK, pilot closes ($1.1M ARR)
+Validation: White-label SDK becomes standard offering
+Canvas update: 09-solution.md → "White-Label SDK (validated, 1 customer)"
+
+Learning insights:
+├─ Compositional design enables rapid feature development (1 week vs 4+ weeks manual)
+├─ Category theory guarantees prevent runtime errors (0 composition bugs)
+├─ SDK reusable for future white-label deals (4 more deals close using same SDK)
+└─ New segment identified: White-label partners (update 04-segments.md)
+```
+
+### Integration Points
+
+**Engineering → Sales:**
+- Custom feature delivered → Sales demo updated
+- SDK capabilities added to pitch materials
+- Pilot proceeds → Deal closes
+
+**Engineering → Marketing:**
+- Feature validated → Canvas 09-solution.md updated
+- Technical capability documented → Content opportunity detected
+- Marketing creates: "How We Built a Composable White-Label SDK"
+- Technical audience (CTOs, VPs Eng) discovers content → Inbound demos
+
+**Sales → Engineering:**
+- Pilot requires custom integration → Engineering thread created
+- Sales provides requirements → Engineering builds → Sales closes deal
+
+### Engineering Metrics
+
+**Velocity:**
+- Requirement → deployed service: Target <2 weeks
+- Code generation success rate: Target >95%
+- Type safety coverage: Target 100%
+
+**Quality:**
+- Correctness validation pass rate: Target 100%
+- Standardization coverage: Target 100% (all 5 concerns applied)
+- Composition law violations: Target 0
+
+**Business Impact:**
+- Custom features delivered per quarter: Track count
+- Pilot close rate (with custom features): Target >80%
+- Feature reusability: Custom → standard conversion rate
+
+---
+
 ## Marketing-Sales Integration (Closed Loop)
 
 ### Content Influences Sales

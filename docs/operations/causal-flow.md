@@ -1,6 +1,6 @@
 # 6-Stage Causal Flow
 
-Universal decision framework for business, sales, and marketing threads.
+Universal decision framework for engineering, business, sales, and marketing threads.
 
 ## Overview
 
@@ -123,6 +123,8 @@ Rationale: High confidence, immediate revenue, excellent margins
 **Purpose:** Execute tasks
 
 **Typed actions:**
+- Engineering: analyze, design, implement, test, deploy
+- Business: research, analyze, decide, communicate
 - Sales: lead-intake, qualify, demo, pilot, close
 - Marketing: create, publish, promote, measure
 
@@ -149,6 +151,18 @@ Rationale: High confidence, immediate revenue, excellent margins
 ---
 
 ## Thread Types
+
+**Engineering threads (optional):** `threads/engineering/{type}/{name}/`
+- **Architecture:** System design decisions (`architecture/{system-name}/`)
+- **Services:** Microservice implementation (`services/{service-name}/`)
+- **Standards:** Standardization application (`standards/{concern-name}/`)
+- 6-stage flow with technical actions
+- **Stage 1:** Requirements, feature requests
+- **Stage 2:** Design hypothesis, architectural assumptions
+- **Stage 3:** Implementation effort, system impact
+- **Stage 4:** Technical approach, alternatives considered
+- **Stage 5:** Code generation, testing, deployment
+- **Stage 6:** Validation results, performance metrics
 
 **Business threads:** `threads/business/{name}/`
 - Strategic decisions

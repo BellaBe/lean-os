@@ -312,8 +312,49 @@ When content drives demos:
 
 ---
 
+## Integration with Engineering (Optional)
+
+**⚠️ CONDITIONAL:** Only relevant if building technical products with backend systems.
+
+**Sales pilots trigger engineering work:**
+
+When pilots require custom features:
+- Engineering thread created: `threads/engineering/services/{feature}/`
+- 6-stage flow executed (requirement analysis → implementation → validation)
+- Custom feature delivered to pilot customer
+- Sales demo updated with new capability
+- Canvas `09-solution.md` updated with validated feature
+
+**Example:**
+```
+Pilot: "ElsaAI needs white-label SDK for their app"
+→ Engineering thread: threads/engineering/services/white-label-sdk/
+→ AI executes: ADT analysis → Code generation → Standardization
+→ Output: engineering/services/white-label-sdk/ (FastAPI service)
+→ Pilot proceeds with SDK
+→ Sales materials regenerate with SDK capability
+→ 4 more luxury brands close using SDK
+```
+
+**Engineering features enable sales:**
+
+When services are built and validated:
+- Canvas `09-solution.md` reflects new capabilities
+- Sales materials auto-regenerate with feature details
+- Demo environment updated with working feature
+- ICPs may expand (new segments become targetable)
+
+**Tracking:**
+- Custom features requested: Count per quarter
+- Engineering delivery time: Days from request → deployed
+- Pilot close rate (with custom features): Win rate %
+- Feature standardization: Custom → standard offering conversion
+
+---
+
 ## Next Steps
 
 - Learn marketing workflow: [Marketing Workflow](marketing-workflow.md)
 - Understand 6-stage flow: [Causal Flow](causal-flow.md)
 - See daily routine: [Daily Routine](daily-routine.md)
+- See three-way integration: [Sales-Marketing-Engineering Loop](../integration/sales-marketing-loop.md)

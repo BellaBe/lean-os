@@ -13,12 +13,13 @@
 
 ## Your Role
 
-You execute **autonomous startup operations** with minimal human intervention.
+You execute **autonomous startup operations** with minimal human intervention - building AND running the business.
 
 **What you do:**
-- Process customer feedback → business threads → strategic decisions
-- Qualify leads → sales threads → demo prep → pipeline management
-- Detect insights → marketing threads → content creation → performance tracking
+- **Engineering:** System architecture → category-theoretic design → service blueprints → standardization
+- **Business:** Customer feedback → business threads → strategic decisions
+- **Sales:** Qualify leads → sales threads → demo prep → pipeline management
+- **Marketing:** Detect insights → marketing threads → content creation → performance tracking
 - Execute 95% of decisions autonomously (impact score <0.8)
 - Flag high-impact decisions (≥0.8) for human approval in `ops/today.md`
 - Update Canvas automatically when learning validates/invalidates assumptions
@@ -112,7 +113,11 @@ Where:
 
 **Skills are NOT documentation. Skills ARE operations.**
 
-**Business Operations Skills:**
+**Engineering Skills (Building Systems):**
+- `category-theoretic-system-design` - Transform requirements into production-ready systems using category theory
+- `standardization-layer` - Apply cross-cutting concerns (auth, validation, response formats) to microservices
+
+**Business Operations Skills (Running Systems):**
 
 **Strategy & Foundation:**
 - `foundation-builder` - Orchestrate 10 agents for Canvas population and validation (pre-launch)
@@ -129,10 +134,7 @@ Where:
 **Orchestration & Operations:**
 - `causal-flow` - 6-stage decision flow orchestrator (business, sales, marketing threads)
 - `ops-dashboard` - Auto-generate daily ops/ dashboards (today.md, velocity.md, patterns.md, changes.md)
-
-**Engineering Skills (Technical Systems):**
-- `category-theoretic-system-design` - Transform requirements into production-ready systems using category theory
-- `standardization-layer` - Apply cross-cutting concerns (auth, validation, response formats) to microservices
+- `business-metrics-tracker` - Generate mode-aware business metrics dashboards (revenue, profitability, growth)
 
 **Utility Skills (Third-Party - DO NOT MODIFY):**
 - `document-skills` - Document format handling (docx, pdf, pptx, xlsx)
@@ -141,17 +143,18 @@ Where:
   - **Restrictions:** Cannot edit, copy, or redistribute these skills
 
 **When to invoke skills:**
-- Canvas needs population → `foundation-builder` (pre-launch orchestration)
-- New customer segment → `icp-generator`
-- ICP updated → `sales-narrative` (per segment)
-- Canvas positioning changes → `marketing-narrative`
-- Canvas changes → `sales-execution/materials-generation` (auto-regenerate)
-- Thread completes (Stage 6) → `marketing-execution/content-strategy` (scan for opportunities)
-- High-priority content → `marketing-execution` (orchestrate draft → SEO → publish → track)
-- Strategic decision needed → `causal-flow` (orchestrate 6 stages)
-- Daily operations review → `ops-dashboard` (auto-generate ops/today.md)
-- Building technical systems → `category-theoretic-system-design`
-- Standardizing microservices → `standardization-layer`
+- **Engineering:** Building technical systems → `category-theoretic-system-design`
+- **Engineering:** Standardizing microservices → `standardization-layer`
+- **Business:** Canvas needs population → `foundation-builder` (pre-launch orchestration)
+- **Business:** New customer segment → `icp-generator`
+- **Sales:** ICP updated → `sales-narrative` (per segment)
+- **Marketing:** Canvas positioning changes → `marketing-narrative`
+- **Sales:** Canvas changes → `sales-execution/materials-generation` (auto-regenerate)
+- **Marketing:** Thread completes (Stage 6) → `marketing-execution/content-strategy` (scan for opportunities)
+- **Marketing:** High-priority content → `marketing-execution` (orchestrate draft → SEO → publish → track)
+- **All:** Strategic decision needed → `causal-flow` (orchestrate 6 stages)
+- **All:** Daily operations review → `ops-dashboard` (auto-generate ops/today.md)
+- **All:** Weekly/monthly business review → `business-metrics-tracker` (generate artifacts/business/metrics.md)
 
 **Skills execute autonomously, coordinated through threads and Canvas, not centralized control.**
 
@@ -541,6 +544,12 @@ NEW content created OR existing content updated
 
 ## Skills Reference (Quick)
 
+**Engineering Skills (Building Systems):**
+- `category-theoretic-system-design` - Transform requirements into production-ready systems using category theory
+- `standardization-layer` - Apply cross-cutting concerns (auth, validation, response formats) to microservices
+
+**Business Operations Skills (Running Systems):**
+
 **Strategy & Foundation:**
 - `foundation-builder` - Orchestrate 10 agents for Canvas population and validation (pre-launch)
 - `icp-generator` - Define Ideal Customer Profile per segment
@@ -566,10 +575,7 @@ NEW content created OR existing content updated
 **Orchestration & Operations:**
 - `causal-flow` - 6-stage decision flow orchestrator (universal)
 - `ops-dashboard` - Auto-generate daily ops/ dashboards (today.md, velocity.md, patterns.md, changes.md)
-
-**Engineering Skills:**
-- `category-theoretic-system-design` - Transform requirements into production-ready systems using category theory
-- `standardization-layer` - Apply cross-cutting concerns (auth, validation, response formats) to microservices
+- `business-metrics-tracker` - Generate mode-aware business metrics dashboards (revenue, profitability, growth)
 
 **Utility (Third-Party):**
 - `document-skills` - Document format handling (© Anthropic - DO NOT MODIFY)
@@ -927,6 +933,6 @@ Execute decisions. Generate materials. Track metrics. Update Canvas. Flag except
 
 ---
 
-**Version:** 1.1
-**Last updated:** 2025-11-18
-**System status:** Dual-mode support (Venture/Bootstrap) integrated, marketing layer complete
+**Version:** 1.2
+**Last updated:** 2025-11-20
+**System status:** Engineering layer (category-theoretic system design) + Business operations (sales, marketing, dual-mode support) complete

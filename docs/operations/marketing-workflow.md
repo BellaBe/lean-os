@@ -255,8 +255,55 @@ Loop continues
 
 ---
 
+## Integration with Engineering (Optional)
+
+**⚠️ CONDITIONAL:** Only relevant if building technical products with backend systems.
+
+**Engineering validates marketing claims:**
+
+When creating technical content:
+- Marketing reads from Canvas `09-solution.md` (engineering keeps this updated)
+- Product capabilities already validated (engineering Stage 6 complete)
+- Technical accuracy guaranteed (implementation matches description)
+- No risk of marketing promising features that don't exist
+
+**Engineering threads trigger content opportunities:**
+
+When engineering completes features:
+- Canvas `09-solution.md` updated with new capability + evidence
+- content-strategy scans Canvas for product updates
+- Technical content opportunities detected (new features worth explaining)
+- Content created: Architecture explanations, capability deep-dives, implementation guides
+
+**Example:**
+```
+Engineering: Implemented category-theoretic composition for services
+→ Canvas: 09-solution.md updated "Compositional AI Architecture"
+→ Marketing scan: Detects new technical capability
+→ Content opportunity: "How We Built Composable Fashion AI" (priority 0.82)
+→ Human approves
+→ Marketing creates technical article
+→ Distribution: Blog (technical founders), LinkedIn (CTOs), HN
+→ Result: 45 inbound demos from CTOs building similar systems
+```
+
+**Content quality benefits from engineering:**
+- **Accurate:** Features described match implementation exactly
+- **Credible:** Technical claims backed by actual code
+- **Timely:** Content published when feature is production-ready
+- **Traceable:** Every claim links to engineering thread validation
+
+**Tracking:**
+- Engineering features documented: Count per quarter
+- Technical content accuracy: 100% (engineering-validated)
+- Demos from technical content: Conversion rate by topic
+- Enterprise segment growth: Technical content attribution
+
+---
+
 ## Next Steps
 
 - Learn sales workflow: [Sales Workflow](sales-workflow.md)
 - Understand 6-stage flow: [Causal Flow](causal-flow.md)
 - See daily routine: [Daily Routine](daily-routine.md)
+- See three-way integration: [Sales-Marketing-Engineering Loop](../integration/sales-marketing-loop.md)

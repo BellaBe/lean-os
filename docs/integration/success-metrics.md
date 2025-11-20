@@ -45,7 +45,8 @@ Before reviewing metrics, check `strategy/canvas/00-business-model-mode.md` to c
 
 ### Dashboard Location
 
-`ops/metrics-venture-template.md` (auto-populated from threads and Canvas)
+Template: `.claude/skills/ops-dashboard/references/metrics-venture-template.md`
+Generated: `ops/metrics.md` (auto-populated from threads and Canvas)
 
 ---
 
@@ -83,7 +84,8 @@ Before reviewing metrics, check `strategy/canvas/00-business-model-mode.md` to c
 
 ### Dashboard Location
 
-`ops/metrics-bootstrap-template.md` (auto-populated from threads and Canvas)
+Template: `.claude/skills/ops-dashboard/references/metrics-bootstrap-template.md`
+Generated: `ops/metrics.md` (auto-populated from threads and Canvas)
 
 ---
 
@@ -113,8 +115,8 @@ Before reviewing metrics, check `strategy/canvas/00-business-model-mode.md` to c
 |--------|------------|--------|
 | **Lead Response Time** | Time to respond to inbound lead | <24 hours |
 | **Qualification Rate** | % leads meeting ICP criteria | >40% |
-| **Demo Booking Rate** | % qualified leads ’ demos | >40% |
-| **Close Rate** | % demos ’ closed deals | >50% |
+| **Demo Booking Rate** | % qualified leads ï¿½ demos | >40% |
+| **Close Rate** | % demos ï¿½ closed deals | >50% |
 | **Sales Cycle Length** | Days from first contact to close | Decreasing |
 
 ### Marketing Performance
@@ -124,8 +126,32 @@ Before reviewing metrics, check `strategy/canvas/00-business-model-mode.md` to c
 | **Content Pieces Published** | Articles/posts per month | 4-8 |
 | **Organic Traffic** | Website sessions from SEO/content | Growing |
 | **Demos from Content** | Pipeline attributed to content | Track |
-| **Content Conversion Rate** | Visitors ’ demo requests | >0.5% |
+| **Content Conversion Rate** | Visitors ï¿½ demo requests | >0.5% |
 | **Top Performer Rate** | % content above avg conversion | >50% |
+
+### Engineering Performance (Optional - if building systems)
+
+| Metric | Definition | Target |
+|--------|------------|--------|
+| **System Correctness Rate** | % services passing type validation | 100% |
+| **Standardization Coverage** | % services with all 5 standards applied | 100% |
+| **Code Generation Success** | % requirements â†’ working code | >95% |
+| **Composition Validity** | % service compositions passing validation | 100% |
+| **Type Safety Coverage** | % functions with type annotations | 100% |
+| **Blueprint Completeness** | % services with OpenAPI specs | 100% |
+| **Engineering Thread Velocity** | Days from requirement â†’ deployed service | Decreasing |
+| **System Integration Time** | Hours to integrate with sales/marketing | <24 hours |
+
+**Engineering Quality Indicators:**
+- All services pass correctness validation
+- Zero type safety violations
+- Standards applied uniformly (auth, validation, response, logging, rate-limiting)
+- Category-theoretic composition laws verified
+
+**Integration Success:**
+- Engineering supports sales pilots (custom features delivered on time)
+- Marketing content accurately reflects product capabilities
+- Canvas solution (09-solution.md) stays synchronized with implementation
 
 ---
 
@@ -153,9 +179,9 @@ Track the distribution of impact scores to ensure AI autonomy is working:
 Track hypothesis validation status in `strategy/canvas/10-assumptions.md`:
 
 - **Validated ():** Hypotheses confirmed by evidence
-- **In Testing (ó):** Active threads testing hypothesis
+- **In Testing (ï¿½):** Active threads testing hypothesis
 - **Invalidated (L):** Hypotheses disproven, pivoted
-- **Draft (=Ý):** New hypotheses not yet tested
+- **Draft (=ï¿½):** New hypotheses not yet tested
 
 **Target:** Validate or invalidate 3-5 assumptions per month
 
@@ -245,7 +271,7 @@ Track hypothesis validation status in `strategy/canvas/10-assumptions.md`:
 
 ## When to Switch Modes
 
-### BOOTSTRAP ’ VENTURE
+### BOOTSTRAP ï¿½ VENTURE
 
 Consider switching if:
 -  Profitable for 3+ consecutive months
@@ -255,7 +281,7 @@ Consider switching if:
 
 **Action:** Update `strategy/canvas/00-business-model-mode.md`
 
-### VENTURE ’ BOOTSTRAP
+### VENTURE ï¿½ BOOTSTRAP
 
 Consider switching if:
 -  Funding dried up, need profitability

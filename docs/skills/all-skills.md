@@ -139,26 +139,161 @@ Complete reference of AI skills for business operations.
 **Docs:** See [Causal Flow](../operations/causal-flow.md)
 
 ### ops-dashboard
-**Purpose:** Auto-generate daily interface  
-**Outputs:** today.md, velocity.md, patterns.md, changes.md  
-**Schedule:** Daily automated  
+**Purpose:** Auto-generate daily interface
+**Outputs:** today.md, velocity.md, patterns.md, changes.md
+**Schedule:** Daily automated
 **Status:** Planned (Phase 4)
+
+### business-metrics-tracker
+**Purpose:** Generate mode-aware business performance dashboards
+**Mode-aware:** VENTURE vs BOOTSTRAP metrics
+**Metrics tracked:** Revenue (MRR/ARR), profitability, CAC, LTV, growth, cash flow
+**Output:** artifacts/business/metrics.md
+**Schedule:** Weekly/monthly/quarterly
+**Data sources:** Canvas 13-metrics.md, sales/marketing threads (Stage 6)
+**Key distinction:** Business outcomes (not operational efficiency)
 
 ---
 
-## Engineering Skills
+## Engineering Skills (System Building - Optional)
 
-### category-theoretic-system-design
-**Purpose:** Compositional system design using category theory  
-**Workflow:** 8 skills (ADT analyzer → code generator)  
-**Use case:** Building complex microservices with correctness guarantees
+**Activates when:** Building technical products, microservices, backend systems
 
-### standardization-layer
-**Purpose:** Apply uniform cross-cutting concerns  
-**Applies:** Auth, validation, errors, observability, rate limiting  
-**Use case:** Consistent middleware across microservices
+**Integration:** Engineering threads use same 6-stage causal flow as business/sales/marketing
 
-**Note:** Engineering skills separate from business operations.
+**Output location:** `engineering/services/`, `engineering/standards/`, `engineering/domain/`
+
+---
+
+### System Design Skills
+
+**category-theoretic-system-design** (orchestrator)
+- **Purpose:** Transform natural language requirements into mathematically correct, production-ready systems
+- **Approach:** Category theory for compositional correctness
+- **Sub-skills:** 8-skill pipeline
+- **Output:** FastAPI/Python microservices with type safety
+
+**Pipeline:**
+
+**adt-analyzer**
+- **Purpose:** Parse natural language → algebraic data types (ADTs)
+- **Input:** Requirements, domain descriptions
+- **Output:** Type definitions, data structures
+- **Validation:** Type correctness, completeness
+
+**domain-modeler**
+- **Purpose:** Extract domain entities, relationships, bounded contexts
+- **Input:** ADTs, business rules
+- **Output:** Domain models, entity relationships
+- **Artifacts:** `engineering/domain/{domain}-model.md`
+
+**type-validator**
+- **Purpose:** Ensure type safety and composition correctness
+- **Input:** Domain models, type definitions
+- **Output:** Validation reports, type proofs
+- **Checks:** Type safety, composition laws, invariants
+
+**functor-mapper**
+- **Purpose:** Define data transformations as morphisms (A → B)
+- **Input:** Domain models, transformation requirements
+- **Output:** Transformation specifications, mappings
+- **Validation:** Morphism laws (identity, composition)
+
+**service-compositor**
+- **Purpose:** Compose services using category theory principles
+- **Input:** Services, transformation specs
+- **Output:** Service composition diagrams
+- **Validation:** Compositional correctness
+
+**code-generator**
+- **Purpose:** Generate production-ready FastAPI/Python code
+- **Input:** Service compositions, domain models
+- **Output:** Runnable microservice code
+- **Artifacts:** `engineering/services/{service}/`
+- **Tech stack:** FastAPI, Pydantic, Python type hints
+
+**blueprint-creator**
+- **Purpose:** Create service blueprints and architecture docs
+- **Input:** Generated code, service specs
+- **Output:** OpenAPI specs, architecture diagrams
+- **Artifacts:** `engineering/services/{service}/blueprint.yaml`
+
+**correctness-validator**
+- **Purpose:** Verify mathematical correctness of entire system
+- **Input:** Complete system design
+- **Output:** Validation reports, correctness proofs
+- **Checks:** Type safety, composition laws, business invariants
+
+---
+
+### Standardization Skills
+
+**standardization-layer** (orchestrator)
+- **Purpose:** Apply cross-cutting concerns uniformly to all services
+- **Approach:** Natural transformations (category theory)
+- **Sub-skills:** 5 concern-specific standardizers
+- **Output:** Consistent middleware across microservices
+
+**Standardizers:**
+
+**auth-standardizer**
+- **Applies:** JWT authentication, role-based access control (RBAC)
+- **Output:** Auth middleware, token validation
+- **Artifacts:** `engineering/standards/auth-patterns.md`
+
+**validation-standardizer**
+- **Applies:** Input validation, schema enforcement, error responses
+- **Output:** Validation middleware, Pydantic schemas
+- **Artifacts:** `engineering/standards/validation-patterns.md`
+
+**response-standardizer**
+- **Applies:** Uniform response formats, status codes, error handling
+- **Output:** Response middleware, standard response models
+- **Artifacts:** `engineering/standards/response-formats.md`
+
+**logging-standardizer**
+- **Applies:** Structured logging, distributed tracing, observability
+- **Output:** Logging middleware, trace correlation
+- **Artifacts:** `engineering/standards/logging-patterns.md`
+
+**rate-limit-standardizer**
+- **Applies:** Rate limiting, quotas, throttling patterns
+- **Output:** Rate limit middleware, quota enforcement
+- **Artifacts:** `engineering/standards/rate-limiting.md`
+
+---
+
+### Engineering Workflow
+
+**Complete pipeline:**
+1. Requirements (natural language) → **adt-analyzer** → ADTs
+2. ADTs → **domain-modeler** → Domain models
+3. Domain models → **type-validator** → Validated types
+4. Types + transformations → **functor-mapper** → Morphisms
+5. Services + morphisms → **service-compositor** → Composition
+6. Composition → **code-generator** → FastAPI code
+7. Code → **blueprint-creator** → OpenAPI specs
+8. System → **correctness-validator** → Validation report
+9. Services → **standardization-layer** → Cross-cutting concerns applied
+
+**Typical thread:** `threads/engineering/services/{service-name}/`
+- Stage 1: Input (requirements, feature requests)
+- Stage 2: Hypothesis (design approach, architectural assumptions)
+- Stage 3: Implication (implementation effort, system impact)
+- Stage 4: Decision (technical approach, alternatives considered)
+- Stage 5: Actions (code generation, testing, deployment)
+- Stage 6: Learning (validation results, performance metrics)
+
+**Integration points:**
+- **Sales → Engineering:** Pilot requires custom features → Engineering thread
+- **Engineering → Marketing:** Product capabilities documented → Technical content
+- **Canvas → Engineering:** Solution definition (09-solution.md) drives system design
+
+**Status:** Active - Both skills operational
+
+---
+
+**Note:** Engineering layer is optional. Activate only when building technical products. Business operations (sales, marketing) work independently.
 
 ---
 

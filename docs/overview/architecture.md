@@ -92,13 +92,34 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 │ │  │                        research, create, publish, promote, measure)                     │
 │ │  └─ reference/: Thread architecture docs (business, sales, marketing threads)              │
 │ │                                                                                            │
-│ │  Thread Types: business/, sales/, marketing/                                               │
+│ │  Thread Types: engineering/, business/, sales/, marketing/                                 │
 │ │  Key Feature: Stage 6 auto-updates Canvas from learning                                    │
 │                                                                                              │
+│ Engineering Skills (System Building - Optional):                                            │
+│ ├─ category-theoretic-system-design: Transform requirements into production systems          │
+│ │  ├─ adt-analyzer: Parse natural language → algebraic data types                            │
+│ │  ├─ domain-modeler: Extract domain entities, relationships                                 │
+│ │  ├─ type-validator: Ensure type safety, composition correctness                            │
+│ │  ├─ functor-mapper: Define data transformations (morphisms)                                │
+│ │  ├─ service-compositor: Compose services via category theory                               │
+│ │  ├─ code-generator: Generate FastAPI/Python service code                                   │
+│ │  ├─ blueprint-creator: Create service blueprints (OpenAPI specs)                           │
+│ │  └─ correctness-validator: Verify mathematical correctness                                 │
+│ │                                                                                            │
+│ └─ standardization-layer: Apply cross-cutting concerns uniformly                             │
+│    ├─ auth-standardizer: JWT authentication, role-based access                               │
+│    ├─ validation-standardizer: Input validation, error responses                             │
+│    ├─ response-standardizer: Uniform response formats                                        │
+│    ├─ logging-standardizer: Structured logging, observability                                │
+│    └─ rate-limit-standardizer: Rate limiting, quotas                                         │
+│                                                                                              │
 │ Operations Dashboard:                                                                        │
-│ └─ ops-dashboard: Auto-generate daily ops/ dashboards                                        │
-│                   (today.md, velocity.md, patterns.md, changes.md) from thread data          │
-│                   → Pattern detection for meta-learning                                      │
+│ ├─ ops-dashboard: Auto-generate daily ops/ dashboards                                        │
+│ │                 (today.md, velocity.md, patterns.md, changes.md) from thread data          │
+│ │                 → Pattern detection for meta-learning                                      │
+│ └─ business-metrics-tracker: Mode-aware business performance dashboards                      │
+│                               (MRR/ARR, profitability, CAC, LTV, growth, cash flow)          │
+│                               → Output: artifacts/business/metrics.md                        │
 │                                                                                              │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
@@ -108,6 +129,10 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 │ Location: threads/{type}/{thread-name}/                                                      │
 │                                                                                              │
 │ Thread Types:                                                                                │
+│ ├─ engineering/: System design and implementation (optional)                                 │
+│ │   ├─ architecture/{system-name}/: System design decisions                                  │
+│ │   ├─ services/{service-name}/: Microservice implementation                                 │
+│ │   └─ standards/{concern-name}/: Standardization application                                │
 │ ├─ business/: Strategic decisions                                                            │
 │ ├─ sales/: Deal pipeline management                                                          │
 │ │   ├─ campaigns/: Outbound prospecting (YYYY-MM-DD-name)                                    │
@@ -179,11 +204,35 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 
 ### Orchestration Skills
 - **causal-flow:** 6-stage decision framework (Input → Hypothesis → Implication → Decision → Actions → Learning)
-- **ops-dashboard:** Auto-generate daily interface
+- **ops-dashboard:** Auto-generate daily interface (operational metrics)
+- **business-metrics-tracker:** Mode-aware business performance dashboards (revenue, profitability, growth)
 
-### Engineering Skills
-- **category-theoretic-system-design:** Compositional system design
-- **standardization-layer:** Uniform cross-cutting concerns
+### Engineering Skills (Building Systems - Optional)
+
+**Activates when:** Building technical products, microservices, or backend systems
+
+**category-theoretic-system-design** - 8-skill pipeline for mathematically correct system design
+- **adt-analyzer:** Parse natural language requirements → algebraic data types (ADTs)
+- **domain-modeler:** Extract domain entities, relationships, bounded contexts
+- **type-validator:** Ensure type safety, validate composition correctness
+- **functor-mapper:** Define data transformations as morphisms (A → B mappings)
+- **service-compositor:** Compose services using category theory principles
+- **code-generator:** Generate production-ready FastAPI/Python service code
+- **blueprint-creator:** Create service blueprints (OpenAPI specs, architecture docs)
+- **correctness-validator:** Verify mathematical correctness of system design
+
+**standardization-layer** - 5 cross-cutting concerns applied uniformly to all services
+- **auth-standardizer:** JWT authentication, role-based access control (RBAC)
+- **validation-standardizer:** Input validation, schema enforcement, error responses
+- **response-standardizer:** Uniform response formats, status codes, error handling
+- **logging-standardizer:** Structured logging, distributed tracing, observability
+- **rate-limit-standardizer:** Rate limiting, quotas, throttling patterns
+
+**Workflow:** Requirements → ADT analysis → Domain modeling → Type validation → Service composition → Code generation → Standardization → Deployment
+
+**Output artifacts:** `engineering/services/`, `engineering/standards/`, `engineering/domain/`
+
+**Integration:** Engineering threads use same 6-stage causal flow. Sales pilot needs custom features → Engineering thread → Implementation → Validation
 
 ## Layer 3: Threads (Decision Storage)
 
@@ -192,6 +241,12 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 **Purpose:** Store complete decision narratives with 6-stage causal flow
 
 **Thread types:**
+
+### Engineering Threads (Optional - when building systems)
+- **Architecture:** System design decisions (`architecture/{system-name}/`)
+- **Services:** Individual microservice implementation (`services/{service-name}/`)
+- **Standards:** Standardization application (`standards/{concern-name}/`)
+- 6-stage flow: Requirement analysis → Design hypothesis → Implementation impact → Technical decision → Coding actions → Validation learning
 
 ### Business Threads
 - Strategic decisions affecting multiple segments
@@ -262,10 +317,19 @@ threads/{type}/{name}/
 - **marketing/:** Published content (blog, LinkedIn, email)
 - **fundraising/:** Pitch decks, financial models
 
-### engineering/
-- **services/:** Technical specs (active development)
-- **standards/:** Architecture patterns
-- **domain/:** Business logic documentation
+### engineering/ (Optional - for building systems)
+- **services/:** Service blueprints, OpenAPI specs, implementation code
+  - Generated by category-theoretic-system-design pipeline
+  - FastAPI/Python microservices with type safety
+  - Domain models, data transformations, service composition
+- **standards/:** Standardization layer artifacts
+  - Auth patterns (JWT, RBAC)
+  - Validation schemas, error handling
+  - Response formats, logging, rate limiting
+- **domain/:** Domain modeling artifacts
+  - Algebraic data types (ADTs)
+  - Entity relationships, bounded contexts
+  - Business logic documentation
 
 ## Data Flow
 

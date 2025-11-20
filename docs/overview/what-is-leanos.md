@@ -16,7 +16,8 @@ LeanOS is an AI-native operating system designed to run a company with minimal h
 
 **Core capabilities:**
 
-- **AI-first execution:** Claude agents process sales, marketing, and business decisions autonomously
+- **Builds + runs systems:** Category-theoretic system design for building production-ready backends, then autonomous sales, marketing, and business operations
+- **AI-first execution:** Claude agents process engineering, sales, marketing, and business decisions autonomously
 - **Single source of truth:** Lean Canvas (15 living documents) drives all operations
 - **Thread-based decisions:** Complete decision narratives with causal flow (6 stages)
 - **Human touchpoint:** ops/today.md - Single daily entry point (auto-generated)
@@ -51,10 +52,14 @@ Sales threads capture learning → Marketing creates content → Content drives 
 ### 8. Mode-Aware Operations
 Adapts to VENTURE (scale-focused) or BOOTSTRAP (profit-focused) business models. Decision criteria, metrics, and research approaches adjust based on mode. Same system, different priorities.
 
+### 9. Compositional System Design (Engineering Layer)
+Category theory principles for building mathematically correct, composable systems. Transform natural language requirements into production-ready microservices with type safety, standardization, and automatic validation. Engineering layer optional - activate only when building technical products.
+
 ## How It's Different
 
 | Traditional Startup | LeanOS |
 |---------------------|--------|
+| Manual system architecture | Category-theoretic design (mathematically correct) |
 | Human decides everything | AI decides 95%, human approves high-leverage items |
 | Information scattered | Single source of truth (Canvas) |
 | Ad-hoc decision-making | 6-stage causal flow (evidence-based) |
@@ -97,9 +102,10 @@ Adapts to VENTURE (scale-focused) or BOOTSTRAP (profit-focused) business models.
 
 **Ideal fit:**
 - Solo founders or small teams (1-3 people)
-- B2B SaaS or marketplace businesses
+- B2B SaaS or marketplace businesses (especially technical products)
 - Pre-product to early traction stage
-- Technical founder comfortable with AI tools
+- Technical founder comfortable with AI tools and category theory concepts
+- Building microservices/backend systems (engineering layer)
 - Values evidence-based decision-making
 - **Both venture-backed (scale focus) and bootstrapped (profit focus) founders**
 

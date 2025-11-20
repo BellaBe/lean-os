@@ -112,6 +112,46 @@ A: Variable, based on business learning. Target: 2-4 high-quality pieces/month (
 
 ---
 
+## Engineering & Systems (Optional)
+
+**Q: When should I use the engineering layer?**
+
+A: Only when building technical products (microservices, backend systems). If your product is SaaS with a backend, activate engineering skills. If you're selling services or non-technical products, skip this layer entirely.
+
+**Q: What's category-theoretic system design?**
+
+A: Mathematical approach to building software using category theory. Transforms natural language requirements into mathematically correct, composable services with type safety guarantees. Ensures system correctness through algebraic data types, morphisms, and composition laws.
+
+**Q: How does the engineering pipeline work?**
+
+A: 8-skill pipeline: Requirements → ADT analysis → Domain modeling → Type validation → Transformation mapping (functors) → Service composition → Code generation (FastAPI/Python) → Blueprint creation (OpenAPI specs) → Correctness validation.
+
+**Q: What does the standardization layer do?**
+
+A: Applies 5 cross-cutting concerns uniformly to all services: (1) JWT auth + RBAC, (2) Input validation + error responses, (3) Standard response formats, (4) Structured logging + tracing, (5) Rate limiting + quotas. Ensures consistency across microservices.
+
+**Q: Do I need to know category theory?**
+
+A: No. Skills handle the mathematical formalism. You provide requirements in natural language, AI generates mathematically correct code. Understanding helps but isn't required.
+
+**Q: How does engineering integrate with sales/marketing?**
+
+A: **Sales → Engineering:** Pilot requires custom features → Engineering thread created → Feature implemented → Sales demo updated. **Engineering → Marketing:** Product capabilities validated → Technical content created → Features accurately described.
+
+**Q: Can engineering run independently from sales/marketing?**
+
+A: Yes. Engineering layer is optional and operates independently. Activate only when building systems. Business operations (sales, marketing) work without engineering.
+
+**Q: What if system design fails validation?**
+
+A: Correctness validator identifies violations (type safety, composition laws). Thread returns to earlier stage (design or type validation), fixes applied, re-validated. 100% correctness required before deployment.
+
+**Q: How long does it take to build a service?**
+
+A: Depends on complexity. Simple CRUD service: hours. Complex domain with multiple compositions: days. Measure: Engineering Thread Velocity (requirement → deployed service).
+
+---
+
 ## Daily Operations
 
 **Q: What does "5-minute review" actually mean?**
@@ -126,13 +166,17 @@ A: AI continues autonomous operations. ops/today.md accumulates flagged items. R
 
 A: ops/today.md shows "Decisions made by AI (last 24h)". Review for accuracy. ops/patterns.md flags anomalies. If AI consistently makes errors, investigate skill or Canvas quality.
 
+**Q: What's the difference between business metrics and operational metrics?**
+
+A: **Business metrics** (artifacts/business/metrics.md via `business-metrics-tracker`) track actual business outcomes: revenue (MRR/ARR), profitability, CAC, LTV, growth rates. These answer: "Is the business growing and profitable?" **Operational metrics** (ops/ dashboards via `ops-dashboard`) track LeanOS system efficiency: thread velocity, AI autonomy rate, decision latency. These answer: "Is LeanOS running efficiently?" Both are important but serve different purposes.
+
 ---
 
 ## Thread Management
 
-**Q: What's the difference between business, sales, and marketing threads?**
+**Q: What's the difference between engineering, business, sales, and marketing threads?**
 
-A: Business = strategic decisions. Sales = deal progression or campaigns. Marketing = content execution. All use 6-stage flow.
+A: Engineering = system design/implementation (optional, only if building systems). Business = strategic decisions. Sales = deal progression or campaigns. Marketing = content execution. All use 6-stage flow.
 
 **Q: Do I create threads manually?**
 

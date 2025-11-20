@@ -110,6 +110,65 @@ Each phase shows three timelines:
 
 ---
 
+## Phase 1c: Engineering (System Building - OPTIONAL)
+
+**Goal:** Build production-ready backend systems using category-theoretic design
+
+**⚠️ CONDITIONAL:** Only activate this phase if building technical products (microservices, backend systems). Skip entirely for non-technical products or service businesses.
+
+### Human Time: 2-4 hours
+- Provide system requirements and architecture vision (30 min)
+- Review domain models and type definitions (45 min)
+- Approve service blueprints and OpenAPI specs (30 min)
+- Review generated code for business logic accuracy (60 min)
+
+### AI Time: 4-8 hours (per service)
+- ADT analysis: Parse requirements → algebraic data types (30 min)
+- Domain modeling: Extract entities, relationships, contexts (60 min)
+- Type validation: Ensure type safety, composition correctness (30 min)
+- Functor mapping: Define data transformations (morphisms) (45 min)
+- Service composition: Compose services via category theory (60 min)
+- Code generation: Generate FastAPI/Python microservices (60 min)
+- Blueprint creation: Create OpenAPI specs, architecture docs (30 min)
+- Correctness validation: Verify mathematical correctness (45 min)
+- Standardization: Apply cross-cutting concerns (auth, validation, response, logging, rate-limiting) (60 min)
+
+### Real-World Validation: 1-4 weeks ⚠️ POTENTIAL BOTTLENECK
+- Deploy generated services to staging environment
+- Integration testing with other system components
+- Load testing and performance validation
+- Security review of authentication and validation
+- **Testing production-readiness of generated code**
+
+### Output Artifacts
+- `engineering/services/{service}/` - Generated microservice code (FastAPI/Python)
+- `engineering/services/{service}/blueprint.yaml` - OpenAPI specifications
+- `engineering/standards/` - Standardization patterns (auth, validation, response, logging, rate-limiting)
+- `engineering/domain/` - Domain models, ADTs, entity relationships
+- `threads/engineering/services/{service}/` - Engineering decision threads (6-stage flow)
+
+### When to Activate
+- Building B2B SaaS with backend API
+- Microservices architecture required
+- Complex domain logic with composition requirements
+- Need type safety and mathematical correctness guarantees
+- Custom features for sales pilots (white-label SDKs, integrations)
+
+### When to Skip
+- Selling services (consulting, agency)
+- No-code/low-code MVP sufficient
+- Using off-the-shelf platforms (Shopify, WordPress)
+- Non-technical product (content, community)
+
+**Total elapsed:** 1-4 weeks (system building + testing, conditional on technical complexity)
+
+**Integration points:**
+- **Phase 1b → Phase 1c:** MVP requirements drive system design
+- **Phase 1c → Phase 2:** Engineering threads feed sales demos and marketing content
+- **Sales pilots:** Custom features trigger new engineering threads during operations
+
+---
+
 ## Phase 2: Launch (Activate Operations)
 
 **Goal:** Sales and marketing operations live, continuous Canvas updates
@@ -218,11 +277,15 @@ Phase 1a (Validation)
     ↓ Critical assumptions validated
 Phase 1b (Execution)
     ↓ Canvas 14-15 complete, MVP ready
+Phase 1c (Engineering) [OPTIONAL - only if building systems]
+    ↓ Services built, tested, deployed
 Phase 2 (Launch)
     ↓ Operations live
 ```
 
-**You can't skip phases.** Each phase builds on the previous phase's outputs.
+**You can't skip required phases.** Each phase builds on the previous phase's outputs.
+
+**Phase 1c (Engineering) is optional** - only activate when building technical products with backend systems.
 
 ---
 
@@ -252,6 +315,14 @@ Each phase has validation gates before proceeding:
 - ✅ GTM strategy defined
 - ✅ Sales narratives generated (1+ segment)
 - ✅ Marketing narratives created
+
+### After Phase 1c (Engineering - OPTIONAL)
+- ✅ Services pass 100% type safety validation
+- ✅ Standardization layer applied to all services
+- ✅ OpenAPI specs generated for all services
+- ✅ Integration tests passing in staging environment
+- ✅ Code generation success rate >95%
+- ✅ Correctness validation complete (composition laws verified)
 
 ### Launch Readiness
 - ✅ All 15 Canvas sections populated with evidence

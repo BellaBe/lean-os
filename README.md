@@ -1,12 +1,13 @@
 # LeanOS: AI-Native Operating System for Founders
 
-**Status:** Active Development | **Version:** 1.1 (Dual-Mode: Venture/Bootstrap)
+**Status:** Active Development | **Version:** 1.2 (Engineering + Operations Complete)
 
 AI-native OS that automates 95%+ of startup operations. Built for GlamYouUp, designed for universal application.
 
 ## What It Does
 
-- **Automates decisions:** Claude AI processes sales, marketing, and business decisions autonomously
+- **Builds + Runs:** Category-theoretic system design, product development, sales, marketing, and business operations
+- **Automates decisions:** Claude AI processes engineering, sales, marketing, and business decisions autonomously
 - **Single source of truth:** Lean Canvas (15 living documents) drives all operations
 - **Human oversight:** <30 min/day for strategic decisions only
 - **Learning-driven:** Marketing content created from validated sales learning
@@ -94,7 +95,7 @@ lean-os/
 ├── strategy/canvas/          # Lean Canvas (15 files) - SOURCE OF TRUTH
 ├── threads/                  # Decision storage (business, sales, marketing)
 ├── research/customer/        # ICP definitions, prospect lists
-├── artifacts/                # Deliverables (sales materials, published content)
+├── artifacts/                # Deliverables (sales materials, published content, business metrics)
 ├── ops/                      # Daily interface (auto-generated)
 ├── engineering/              # Technical specs (active)
 └── .claude/skills/           # AI execution layer
@@ -133,12 +134,14 @@ lean-os/
 
 ## Status & Roadmap
 
-- ✅ Sales foundation (ICP, narratives, materials, execution)
-- ✅ Marketing foundation (strategy, content workflow, SEO, distribution)
-- ✅ **Dual-mode support (Venture/Bootstrap with mode-aware decision making)**
+- ✅ **Engineering foundation** (category-theoretic system design, standardization layer, service blueprints)
+- ✅ **Sales foundation** (ICP, narratives, materials, execution)
+- ✅ **Marketing foundation** (strategy, content workflow, SEO, distribution)
+- ✅ **Dual-mode support** (Venture/Bootstrap with mode-aware decision making)
+- ✅ **Business metrics tracking** (mode-aware dashboards for revenue, profitability, growth)
 - 🚧 Validation (GlamYouUp DTC segment testing)
 - 📋 Ops dashboard auto-generation
-- 🔮 Full automation (customer success, fundraising, engineering)
+- 🔮 Full automation (customer success, fundraising)
 
 ## Contributing
 
@@ -164,4 +167,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 ---
 
-**Last Updated:** 2024-11-18 | **Version:** 1.0 (Marketing Layer Complete)
+**Last Updated:** 2025-11-20 | **Version:** 1.2 (Engineering + Operations Complete)

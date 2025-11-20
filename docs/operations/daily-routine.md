@@ -15,6 +15,7 @@ Auto-generated daily summary containing:
 4. Strategic decisions flagged
 
 **Decisions made by AI (last 24h):**
+- Engineering activities (designed, implemented, validated) - if active
 - Sales activities (qualified, contacted, generated)
 - Marketing activities (published, tracked, detected)
 - Canvas updates (assumptions, metrics)
@@ -63,14 +64,10 @@ For scheduled calls:
 - **Strategic decisions:** As needed (rare)
 
 ### AI handles autonomously:
-- Qualification call prep
-- Follow-up emails
-- Content publication (blog, LinkedIn, email)
-- Performance tracking
-- Pipeline updates
-- Next opportunity detection
-- Materials generation
-- Prospect research
+- **Engineering (if active):** System design, code generation, standardization, validation
+- **Sales:** Qualification call prep, follow-up emails, materials generation, prospect research
+- **Marketing:** Content publication (blog, LinkedIn, email), performance tracking
+- **Operations:** Pipeline updates, next opportunity detection, Canvas updates
 
 ---
 
@@ -93,7 +90,14 @@ For scheduled calls:
 - Canvas section updates
 - Assumption validation status changes
 
-**Action:** Adjust priorities, update Canvas manually if needed
+**Review business metrics (artifacts/business/metrics.md):**
+- Revenue performance (MRR/ARR growth vs targets)
+- Customer metrics (CAC, LTV, churn)
+- Mode-specific KPIs (VENTURE: MAU, runway | BOOTSTRAP: profit margin, cash flow)
+- Segment breakdown (revenue by customer segment)
+- Trend analysis (MoM/QoQ comparisons)
+
+**Action:** Adjust priorities, update Canvas manually if needed, trigger business-metrics-tracker if metrics outdated
 
 ---
 
@@ -154,6 +158,11 @@ Action: Review prep materials (5 min recommended)
 ---
 
 ## Decisions Made by AI (Last 24h)
+
+**Engineering (if active):**
+✓ Generated color-analysis-service architecture (category-theoretic design)
+✓ Applied standardization layer to 3 services (auth, validation, response)
+✓ Validated type safety across recommendation pipeline (100% pass rate)
 
 **Sales:**
 ✓ Qualified 3 leads (2 high priority, 1 medium)
