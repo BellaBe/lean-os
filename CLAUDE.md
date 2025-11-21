@@ -128,8 +128,9 @@ Where:
 **Execution:**
 - `sales-execution` - Orchestrate materials generation, prospecting, outreach, qualification
   - Sub-skills: materials-generation, prospect-research, contact-finding, outreach-sequencing, qualification-support
-- `marketing-execution` - Orchestrate content workflow (strategy → generation → SEO → distribution → tracking)
-  - Sub-skills: content-strategy, content-generation, seo-optimization, content-distribution, performance-tracking
+- `content-strategy` - Scan threads for campaign opportunities (standalone skill, daily automated)
+- `marketing-execution` - Orchestrate campaign execution (Stage 5 only)
+  - Sub-skills: content-generation, seo-optimization, content-distribution, performance-tracking
 
 **Orchestration & Operations:**
 - `causal-flow` - 6-stage decision flow orchestrator (business, sales, marketing threads)
@@ -150,8 +151,8 @@ Where:
 - **Sales:** ICP updated → `sales-narrative` (per segment)
 - **Marketing:** Canvas positioning changes → `marketing-narrative`
 - **Sales:** Canvas changes → `sales-execution/materials-generation` (auto-regenerate)
-- **Marketing:** Thread completes (Stage 6) → `marketing-execution/content-strategy` (scan for opportunities)
-- **Marketing:** High-priority content → `marketing-execution` (orchestrate draft → SEO → publish → track)
+- **Marketing:** Thread completes (Stage 6) → `content-strategy` scans daily (automated)
+- **Marketing:** High-priority campaign approved → `marketing-execution` (orchestrate Stage 5)
 - **All:** Strategic decision needed → `causal-flow` (orchestrate 6 stages)
 - **All:** Daily operations review → `ops-dashboard` (auto-generate ops/today.md)
 - **All:** Weekly/monthly business review → `business-metrics-tracker` (generate artifacts/business/metrics.md)
@@ -243,7 +244,7 @@ Learning: {After execution} Validated - separate ICPs perform better
    - sales:pilot (Human negotiate, AI monitor)
    - sales:close (Human sign, AI track)
 4. Stage 6: Document metrics, update Canvas
-5. TRIGGER: marketing-execution/content-strategy scans learning
+5. TRIGGER: content-strategy scans learning (daily automated)
 ```
 
 **Human touchpoints:**
@@ -288,30 +289,31 @@ Learning: {After execution} Validated - separate ICPs perform better
 
 **Process:**
 ```
-1. marketing-execution/content-strategy scans threads daily
+1. content-strategy scans threads daily (automated, standalone skill)
 2. Detect campaign opportunities (impact ≥0.75):
    - Segment ready for awareness (need inbound demos)
    - Deal patterns worth packaging (case studies)
    - Strategic insight worth sharing (thought leadership)
    - Product launch (announcement)
 3. Flag in ops/today.md for approval
-4. If approved: Create campaign thread: threads/marketing/campaigns/{campaign-slug}/
-5. Execute 6-stage causal flow:
+4. If approved: Human creates campaign thread: threads/marketing/campaigns/{campaign-slug}/
+5. Human completes 6-stage causal flow (Stages 1-4):
    - Stage 1: Input (business event triggering campaign)
    - Stage 2: Hypothesis (what we believe, link to Canvas)
    - Stage 3: Implication (business impact: sessions → demos → revenue)
    - Stage 4: Decision (content plan: what to produce, channels, timeline)
-   - Stage 5: Actions (execute content creation)
+6. marketing-execution orchestrates Stage 5:
      - For each content piece in Stage 4:
-       - marketing-execution creates draft
+       - Invoke content-generation (creates draft)
        - Human reviews (30 min)
-       - SEO optimization
-       - Multi-channel distribution
+       - Invoke seo-optimization
+       - Human approves
+       - Invoke content-distribution
        - Update execution-log.md
      - Drafts stored in: 5-actions/drafts/ (temporary)
      - Published to: artifacts/marketing/campaigns/{slug}/
-   - Stage 6: Learning (measure campaign results, update Canvas)
-6. After campaign completes: New campaign opportunities may trigger
+7. Stage 6: Learning (human writes with performance-tracking data)
+8. After campaign completes: New campaign opportunities may trigger
 ```
 
 **Campaign types:**
@@ -513,7 +515,8 @@ NEW content created OR existing content updated
 
 **✅ Skills Ready:**
 - marketing-narrative (generate foundation)
-- marketing-execution (5 sub-skills operational)
+- content-strategy (campaign opportunity detection, standalone)
+- marketing-execution (4 sub-skills operational)
 
 **⏭️ Week 2 Actions (PRIORITY #1):**
 
@@ -564,9 +567,11 @@ NEW content created OR existing content updated
   - `outreach-sequencing` - Generate email/phone cadences
   - `qualification-support` - Discovery call prep
 
+**Marketing Strategy:**
+- `content-strategy` - Scan threads for campaign opportunities (standalone, daily automated)
+
 **Marketing Execution:**
-- `marketing-execution` - Orchestrate content workflow
-  - `content-strategy` - Scan threads for opportunities
+- `marketing-execution` - Orchestrate campaign execution (Stage 5 only)
   - `content-generation` - Create educational drafts
   - `seo-optimization` - Apply keywords naturally
   - `content-distribution` - Publish multi-channel
@@ -676,20 +681,20 @@ NEW content created OR existing content updated
 ```
 Sales thread completes (Stage 6)
     ↓
-Thread: threads/sales/elsa-white-label/7-learning.md
+Thread: threads/sales/elsa-white-label/6-learning.md
 Learning: "Luxury brands prefer white-label (N=5, 100%)"
     ↓
-marketing-execution/content-strategy (daily scan)
+content-strategy (daily scan, standalone skill)
     ↓
 Opportunity: "Case study, Priority: 0.85, Keyword: white-label SDK"
     ↓
 Flag in ops/today.md
     ↓
-Human approves
+Human approves, creates campaign thread (Stages 1-4)
     ↓
-Marketing thread: threads/marketing/content/elsaai-white-label/
+marketing-execution orchestrates Stage 5
     ↓
-Draft → Human review → Publish → Track
+Draft → Human review → SEO → Human approve → Publish → Track
     ↓
 Performance: 650 sessions, 8 demos, 1.23% conversion
     ↓
