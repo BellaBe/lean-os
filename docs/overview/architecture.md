@@ -56,16 +56,22 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 │ │  └─ qualification-support: Discovery call prep                                             │
 │                                                                                              │
 │ Marketing Strategy Skills:                                                                   │
-│ └─ marketing-narrative: Define content strategy                                              │
-│    ├─ content-pillars.md: 3-5 strategic themes                                               │
-│    ├─ seo-strategy.md: Keywords by funnel stage                                              │
-│    ├─ brand-voice.md: Educational, non-promotional                                           │
-│    └─ channel-guidelines.md: Format specs per channel                                        │
+│ ├─ marketing-narrative: Define content strategy per product                                  │
+│ │  ├─ content-pillars.md: 3-5 strategic themes                                               │
+│ │  ├─ seo-strategy.md: Keywords by funnel stage                                              │
+│ │  ├─ brand-voice.md: Educational, non-promotional                                           │
+│ │  └─ channel-guidelines.md: Format specs per channel                                        │
+│ │                                                                                            │
+│ └─ content-strategy: Campaign opportunity detection (standalone)                             │
+│    ├─ Scans: threads/*/6-learning.md daily (automated)                                       │
+│    ├─ Detects: Campaign opportunities (awareness, education, launch, validation)             │
+│    ├─ Calculates: Impact scores (≥0.75 = high priority)                                      │
+│    └─ Flags: High-priority opportunities in ops/today.md for human approval                  │
 │                                                                                              │
 │ Marketing Execution Skills:                                                                  │
-│ └─ marketing-execution: Orchestrate content workflow                                         │
-│    ├─ content-strategy: Identify opportunities from threads                                  │
-│    ├─ content-generation: Create educational drafts                                          │
+│ └─ marketing-execution: Campaign execution orchestrator (Stage 5 only)                       │
+│    ├─ Role: Pure orchestrator (coordinates subskills, does NOT do work directly)             │
+│    ├─ content-generation: Create educational drafts (with patterns + validation)             │
 │    ├─ seo-optimization: Apply keywords naturally                                             │
 │    ├─ content-distribution: Publish multi-channel                                            │
 │    └─ performance-tracking: Measure impact, feed insights                                    │
@@ -199,8 +205,14 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 - **Execution:** materials-generation, prospect-research, contact-finding, outreach-sequencing, qualification-support
 
 ### Marketing Skills
-- **Strategy:** marketing-narrative (content pillars, SEO, voice, channels)
-- **Execution:** content-strategy, content-generation, seo-optimization, content-distribution, performance-tracking
+- **Strategy:**
+  - marketing-narrative (content pillars, SEO, voice, channels per product)
+  - content-strategy (campaign opportunity detection, standalone skill)
+- **Execution:** marketing-execution orchestrator
+  - content-generation (educational drafts with patterns + validation)
+  - seo-optimization (keyword application)
+  - content-distribution (multi-channel publishing)
+  - performance-tracking (impact measurement)
 
 ### Orchestration Skills
 - **causal-flow:** 6-stage decision framework (Input → Hypothesis → Implication → Decision → Actions → Learning)

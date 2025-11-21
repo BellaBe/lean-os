@@ -92,40 +92,58 @@ Complete reference of AI skills for business operations.
 ### Strategy Skills
 
 **marketing-narrative**
-- Defines content strategy
+- Defines content strategy per product
 - Input: Canvas + Sales narratives
 - Output: artifacts/marketing/narrative/
+  - content-pillars.md (3-5 strategic themes)
+  - brand-voice.md (tone, style, vocabulary)
+  - seo-strategy.md (keyword priorities)
+  - channel-guidelines.md (format specs per channel)
+
+**content-strategy** (standalone skill)
+- Scans completed threads daily for campaign opportunities
+- Input: threads/*/6-learning.md (automated daily scan)
+- Output: Opportunity flags in ops/today.md
+- Campaign types: Awareness, Education, Launch, Validation
+- Impact scoring: (Reach × Conversion × Revenue) / 3
+- Flags high-priority (≥0.75) for human approval
+- Does NOT execute campaigns (detection only)
 
 ### Execution Skills
 
 **marketing-execution** (orchestrator)
-- Coordinates content workflow
-- Subskills: 5
+- Orchestrates Stage 5 execution of approved campaigns
+- Subskills: 4 (content-strategy removed)
+- Role: Pure orchestrator (invokes subskills, does NOT do work directly)
 
-**content-strategy**
-- Scans threads for opportunities
-- Daily automated scan
-- Output: Prioritized opportunities
+**Subskills coordinated by marketing-execution:**
 
 **content-generation**
-- Creates educational drafts
-- Uses content patterns
-- Output: Blog, case studies, guides
+- Creates educational content drafts from thread learning
+- Input: Campaign decision (4-decision.md) + source threads
+- Uses content patterns (blog, case study, announcement, LinkedIn, email)
+- Validates drafts with validate_draft.py script
+- Output: 80% complete drafts in threads/.../5-actions/drafts/
+- References: 5 pattern guides + validation scripts
 
 **seo-optimization**
-- Optimizes for search
-- Automated
-- Output: SEO-optimized content
+- Optimizes content for search engines
+- Input: Draft content + target keywords
+- Applies keywords naturally (H1, H2, meta, internal links)
+- Output: Optimized drafts (overwrites originals)
 
 **content-distribution**
-- Publishes multi-channel
-- Adds UTM tracking
-- Output: Published content
+- Publishes content to multiple channels
+- Input: Optimized drafts + channel list
+- Adds UTM tracking parameters
+- Output: Published content in artifacts/marketing/campaigns/{slug}/
+- Creates distribution-record.yaml
 
 **performance-tracking**
-- Measures impact
-- Schedule: Day 7, 30, 90
-- Output: Performance reports
+- Measures campaign impact and ROI
+- Input: distribution-record.yaml + tracking period
+- Reports: Weekly in ops/today.md
+- Output: Performance data for Stage 6 learning
 
 ---
 
