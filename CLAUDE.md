@@ -7,7 +7,7 @@
 ## Quick Start
 
 **Read this first, then consult the comprehensive README:**
-- Complete system overview, context, goals: [README.md](README.md)
+- Complete system overview, context, goals: [README.md](README.md) and its docs links
 
 ---
 

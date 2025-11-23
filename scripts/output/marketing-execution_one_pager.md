@@ -6,10 +6,11 @@ marketing-execution/
 │   └── SKILL.md
 ├── content-generation/
 │   ├── references/
-│   └── SKILL.md
-├── content-strategy/
-│   ├── references/
-│   │   └── campaign-framework.md
+│   │   ├── announcement-linkedin-pattern.md
+│   │   ├── blog-patterns.md
+│   │   ├── case-study-pattern.md
+│   │   ├── email-patterns.md
+│   │   └── pattern-principles.md
 │   └── SKILL.md
 ├── performance-tracking/
 │   └── SKILL.md
@@ -19,7 +20,7 @@ marketing-execution/
 
 ================================================================================
 Concatenated Markdown From: /home/bellabe/lean-os/.claude/skills/marketing-execution
-Total files: 7
+Total files: 10
 ================================================================================
 
 
@@ -30,618 +31,642 @@ Total files: 7
 ```markdown
 ---
 name: marketing-execution
-description: Orchestrates marketing campaigns following 6-stage causal-flow. Coordinates content-strategy (opportunity identification), content-generation (draft creation), seo-optimization (keyword application), content-distribution (publishing), and performance-tracking (metrics analysis) subskills to execute campaign decisions.
+description: Orchestrates marketing campaign execution (Stage 5) following 6-stage causal-flow. Coordinates content-generation (drafts), seo-optimization (keywords), content-distribution (publishing), and performance-tracking (metrics) to execute approved campaign decisions.
 allowed-tools: "Read,Write,Bash"
 ---
 
 # Marketing Execution Orchestrator
 
-You orchestrate marketing campaigns from planning through measurement using causal-flow methodology.
+You are a pure orchestrator. You coordinate subskills but do NOT generate, optimize, or publish content directly.
 
 ## Purpose
 
-Execute marketing campaigns as decision threads, coordinating subskills to produce, publish, and measure content.
+Execute Stage 5 of approved campaigns by orchestrating subskills to produce, publish, and measure content.
 
-**Core principle:** Campaigns are threads following 6-stage causal-flow. All content is part of a campaign.
+**Core principle:** You READ decisions, INVOKE subskills, TRACK progress. You do NOT do the work yourself.
 
 ---
 
 ## Available Subskills
 
-**Strategy:**
-- `marketing-execution/content-strategy` - Identify content opportunities from threads
-
-**Execution:**
+**Execution pipeline (you orchestrate these):**
 - `marketing-execution/content-generation` - Generate content drafts
 - `marketing-execution/seo-optimization` - Apply SEO to content
 - `marketing-execution/content-distribution` - Publish to channels
 - `marketing-execution/performance-tracking` - Measure impact
 
+**You coordinate these subskills. You do NOT perform their functions.**
+
+---
+
+## Your Orchestration Role
+
+### What You DO:
+✅ Read Stage 4 Decision (content plan)
+✅ Invoke content-generation subskill
+✅ Flag drafts for human review
+✅ Invoke seo-optimization subskill
+✅ Flag optimized content for human approval
+✅ Invoke content-distribution subskill
+✅ Update execution-log.md
+✅ Invoke performance-tracking subskill
+✅ Report progress in ops/today.md
+
+### What You DON'T DO:
+❌ Generate content yourself (content-generation does this)
+❌ Optimize SEO yourself (seo-optimization does this)
+❌ Publish content yourself (content-distribution does this)
+❌ Track metrics yourself (performance-tracking does this)
+
 ---
 
 ## Campaign Structure
 
-**All marketing content is part of a campaign thread:**
-
 ```
 threads/marketing/campaigns/{campaign-slug}/
 ├── metadata.yaml
-├── 1-input.md        # Trigger (sales learning, market event, strategic decision)
-├── 2-hypothesis.md   # What we believe (links to Canvas)
-├── 3-implication.md  # Business impact (sessions, demos, revenue)
-├── 4-decision.md     # Content plan (what to produce)
+├── 1-input.md        # Trigger
+├── 2-hypothesis.md   # Canvas link
+├── 3-implication.md  # Business impact
+├── 4-decision.md     # Content plan (YOU READ THIS)
 ├── 5-actions/
-│   └── execution-log.md  # Track content creation/publishing
-└── 6-learning.md     # Measured results, Canvas updates
-```
+│   ├── execution-log.md  # YOU UPDATE THIS
+│   └── drafts/           # Temporary (YOU MANAGE DELETION)
+└── 6-learning.md     # Human writes (with metrics from performance-tracking)
 
-**Published content location:**
-
-```
 artifacts/marketing/campaigns/{campaign-slug}/
-├── blog/
-├── linkedin/
-├── email/
-└── distribution-record.yaml
+├── {piece}.md                    # Published article
+└── distribution/
+    ├── {piece}-linkedin.md       # Published LinkedIn
+    ├── {piece}-twitter.md        # Published Twitter
+    └── {piece}-substack.md       # Published Substack
 ```
 
 ---
 
-## Campaign Workflow (6-Stage Causal-Flow)
+## Stage 5 Execution Workflow
 
-### Stage 1-4: Planning (Human-Driven)
+**Your orchestration sequence:**
 
-**Trigger:** Business event creates campaign opportunity
-- Sales segment ready for awareness
-- Product launch needs announcement
-- Market trend warrants thought leadership
-
-**Process:**
-1. Create campaign thread: `threads/marketing/campaigns/{slug}/`
-2. Stage 1 (Input): Document trigger
-3. Stage 2 (Hypothesis): Link to Canvas assumption
-4. Stage 3 (Implication): Calculate impact (sessions → demos → revenue)
-5. Stage 4 (Decision): Define content to produce
-   - List specific articles, posts, emails
-   - Channels, keywords, timeline
-   - Impact score, alternatives considered
-
-### Stage 5: Execution (AI-Assisted)
-
-**Orchestrator coordinates subskills to execute Stage 4 decision:**
+### Step 1: Read Stage 4 Decision
 
 ```
-For each content piece in Stage 4:
-    ↓
-1. content-generation (draft)
-    ↓
-2. Human review (accuracy, voice)
-    ↓
-3. seo-optimization (keywords, structure)
-    ↓
-4. Human approve
-    ↓
-5. content-distribution (publish to channels)
-    ↓
-6. Update execution-log.md (track progress)
+Read: threads/marketing/campaigns/{slug}/4-decision.md
+
+Extract:
+- Content pieces to create (titles, formats)
+- Target keywords (for SEO)
+- Distribution channels (blog, LinkedIn, Twitter, Substack, email)
+- Success criteria (sessions, demos)
+- Timeline
 ```
 
-**execution-log.md tracks:**
-- [x] Article 1: Draft → Review → Optimize → Publish → URL
-- [ ] Article 2: In progress
-- [ ] LinkedIn post 1: Pending
+### Step 2: For Each Content Piece, Orchestrate Pipeline
 
-### Stage 6: Learning (Automated + Human Analysis)
+**Step 2a: Invoke content-generation**
 
-**performance-tracking monitors:**
-- Traffic per content piece
-- Conversions (demos, signups)
-- Top/underperformers
+```
+Invoke: marketing-execution/content-generation
 
-**Human writes learning:**
-- What worked, what didn't
-- Canvas updates (validate/invalidate hypothesis)
-- Next campaign opportunities
+Input:
+  - campaign_slug: "{slug}"
+  - decision_path: "threads/marketing/campaigns/{slug}/4-decision.md"
+  - piece_name: "{piece-name}"
+
+Expected output:
+  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-article.md
+  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-linkedin.md
+  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-twitter.md
+  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-substack.md
+
+Wait for: Subskill completes (files exist)
+```
+
+**Step 2b: Flag for human review**
+
+```
+Update: ops/today.md
+
+Add:
+## Content Drafts Ready
+
+**{Article Title}**
+- Formats: Article + LinkedIn + Twitter + Substack
+- Location: threads/marketing/campaigns/{slug}/5-actions/drafts/
+- Action: Review and approve for SEO optimization
+
+Wait for: Human approval
+```
+
+**Step 2c: Invoke seo-optimization**
+
+```
+Invoke: marketing-execution/seo-optimization
+
+Input:
+  - draft_path: "threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-article.md"
+  - target_keyword: "{keyword from Stage 4 Decision}"
+  - secondary_keywords: ["{list from Stage 4 Decision}"]
+
+Expected output:
+  - Overwrites drafts with optimized versions
+  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-article.md (optimized)
+  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-linkedin.md (optimized)
+  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-twitter.md (optimized)
+  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-substack.md (optimized)
+
+Wait for: Subskill completes
+```
+
+**Step 2d: Flag for human approval**
+
+```
+Update: ops/today.md
+
+Add:
+## Optimized Content Ready
+
+**{Article Title}**
+- SEO: Keyword "{keyword}" applied
+- Location: threads/marketing/campaigns/{slug}/5-actions/drafts/
+- Action: Final approval before publishing
+
+Wait for: Human approval
+```
+
+**Step 2e: Invoke content-distribution**
+
+```
+Invoke: marketing-execution/content-distribution
+
+Input:
+  - optimized_drafts_path: "threads/marketing/campaigns/{slug}/5-actions/drafts/"
+  - campaign_slug: "{slug}"
+  - channels: ["{from Stage 4 Decision}"]
+  - piece_name: "{piece-name}"
+
+Expected output:
+  - artifacts/marketing/campaigns/{slug}/{piece}.md
+  - artifacts/marketing/campaigns/{slug}/distribution/{piece}-linkedin.md
+  - artifacts/marketing/campaigns/{slug}/distribution/{piece}-twitter.md
+  - artifacts/marketing/campaigns/{slug}/distribution/{piece}-substack.md
+  - artifacts/marketing/campaigns/{slug}/distribution-record.yaml
+
+Wait for: Subskill completes
+```
+
+**Step 2f: Delete drafts**
+
+```
+Action: Delete temporary drafts
+
+Delete:
+  - threads/marketing/campaigns/{slug}/5-actions/drafts/
+
+Reason: Content now published in artifacts/
+```
+
+**Step 2g: Update execution log**
+
+```
+Update: threads/marketing/campaigns/{slug}/5-actions/execution-log.md
+
+Mark:
+- [x] Article 1: "{Title}"
+  - Draft created: {date}
+  - Human reviewed: {date}
+  - SEO optimized: {date}
+  - Human approved: {date}
+  - Published: {date}
+  - URLs:
+    - Blog: {url}
+    - LinkedIn: {url}
+    - Twitter: {url}
+    - Substack: {url}
+```
+
+### Step 3: Report Progress
+
+```
+Update: ops/today.md
+
+Add:
+## Campaign Execution Progress
+
+**{Campaign Name}:**
+- [x] Article 1: Published ({blog URL})
+- [x] LinkedIn post 1: Scheduled ({date})
+- [ ] Article 2: Human review pending
+```
+
+### Step 4: Invoke Performance Tracking (After Publishing)
+
+```
+Invoke: marketing-execution/performance-tracking
+
+Input:
+  - campaign_slug: "{slug}"
+  - distribution_record: "artifacts/marketing/campaigns/{slug}/distribution-record.yaml"
+  - tracking_period: "30 days"
+
+Expected output:
+  - Weekly reports in ops/today.md
+  - Performance data for Stage 6 learning
+
+Wait for: Tracking period completes
+```
 
 ---
 
-## Orchestration Modes
+## Subskill Invocation Details
 
-### Mode 1: Execute Campaign (Stage 5 Execution)
+### Invoking content-generation
 
-**Trigger:** Campaign thread reaches Stage 5, decision approved
+**When:** After reading Stage 4 Decision, for each content piece
 
-**Input:**
+**How to invoke:**
 ```
-Campaign: threads/marketing/campaigns/dtc-awareness-nov-2024/
-Stage: Execute Stage 4 decision
+Call subskill: marketing-execution/content-generation
+
+Parameters:
+  - campaign_slug: String (e.g., "luxury-validation-nov-2024")
+  - decision_path: String (path to 4-decision.md)
+  - piece_name: String (e.g., "elsaai-case-study")
+
+Subskill will:
+  1. Read Stage 4 Decision
+  2. Load brand voice, patterns, source threads
+  3. Generate ALL formats in parallel (article + LinkedIn + Twitter + Substack)
+  4. Save to: threads/marketing/campaigns/{slug}/5-actions/drafts/
+
+You wait for: Files to exist in drafts/
 ```
 
-**Process:**
-1. Read Stage 4 decision (content plan)
-2. For each content piece:
-   - Invoke content-generation (create draft)
-   - Save to campaign thread temp location
-   - Flag for human review
-   - After approval: Invoke seo-optimization
-   - After approval: Invoke content-distribution
-   - Publish to: artifacts/marketing/campaigns/{slug}/
-   - Update execution-log.md
-3. Report progress in ops/today.md
+### Invoking seo-optimization
 
-**Example execution-log.md:**
+**When:** After human reviews and approves drafts
+
+**How to invoke:**
+```
+Call subskill: marketing-execution/seo-optimization
+
+Parameters:
+  - draft_path: String (path to draft article)
+  - target_keyword: String (e.g., "white-label SDK")
+  - secondary_keywords: Array of Strings
+
+Subskill will:
+  1. Read draft content
+  2. Optimize title, meta description, headings
+  3. Apply keywords naturally
+  4. Add internal links
+  5. Optimize images (alt text, file names)
+  6. Overwrite drafts with optimized versions
+
+You wait for: Optimization complete (files updated)
+```
+
+### Invoking content-distribution
+
+**When:** After human approves optimized content
+
+**How to invoke:**
+```
+Call subskill: marketing-execution/content-distribution
+
+Parameters:
+  - optimized_drafts_path: String (path to drafts directory)
+  - campaign_slug: String
+  - channels: Array of Strings (e.g., ["blog", "linkedin", "twitter", "substack"])
+  - piece_name: String
+
+Subskill will:
+  1. Read optimized drafts
+  2. Prepare channel-specific versions
+  3. Add UTM tracking
+  4. Publish to: artifacts/marketing/campaigns/{slug}/
+  5. Create distribution-record.yaml
+
+You wait for: Publishing complete (files in artifacts/)
+```
+
+### Invoking performance-tracking
+
+**When:** After content published, throughout tracking period
+
+**How to invoke:**
+```
+Call subskill: marketing-execution/performance-tracking
+
+Parameters:
+  - campaign_slug: String
+  - distribution_record: String (path to distribution-record.yaml)
+  - tracking_period: String (e.g., "30 days")
+
+Subskill will:
+  1. Read distribution record (URLs, UTM parameters)
+  2. Monitor metrics (traffic, engagement, conversions)
+  3. Report weekly in ops/today.md
+  4. Provide final data for Stage 6 learning
+
+You wait for: Reports appear in ops/today.md
+```
+
+---
+
+## Execution Log Format
+
+**You maintain this file:**
+
 ```markdown
-# Execution Log - DTC Awareness Campaign
+# Execution Log - {Campaign Name}
 
-## Article 1: "Why 30% of Returns Are Fit-Related"
-- [x] Draft created: 2024-11-16
-- [x] Human review: Approved with minor edits
-- [x] SEO optimized: Keyword "fashion return rate"
-- [x] Published: artifacts/marketing/campaigns/dtc-awareness-nov-2024/blog/
-- [x] URL: glamyouup.com/blog/fit-statistics (UTM tracked)
-
-## LinkedIn Post 1: Fit Statistics Thread
-- [x] Draft created: 2024-11-17
-- [x] Published: artifacts/marketing/campaigns/dtc-awareness-nov-2024/linkedin/
-- [ ] Scheduled: 2024-11-18 10am
-
-## Article 2: "Body Shape vs Measurements"
-- [x] Draft created: 2024-11-18
-- [ ] Human review: Pending
-```
-
-### Mode 2: Campaign Opportunity Detection (Automated)
-
-**Trigger:** Daily scan of business/sales threads
-
-**Process:**
-1. Invoke content-strategy subskill
-2. Scan threads/{business,sales}/**/6-learning.md
-3. Match learning to content pillars
-4. Flag campaign opportunities in ops/today.md:
-   ```markdown
-   ## Campaign Opportunities
-
-   1. [Priority: 0.85] DTC Product Awareness Campaign
-      - Trigger: DTC segment ready, 191 prospects identified
-      - Content: 3 articles on fit problems (educational)
-      - Goal: 20 demos from organic traffic
-      - Action: Create campaign thread?
-   ```
-5. Human decides: Create campaign or defer
-
-### Mode 3: Campaign Performance Tracking (Stage 6 Support)
-
-**Trigger:** Campaign content published, tracking period active
-
-**Process:**
-1. Invoke performance-tracking subskill
-2. Monitor campaign metrics:
-   - Traffic per content piece
-   - Demo conversions
-   - Top/underperformers
-3. Report weekly in ops/today.md:
-   ```markdown
-   ## Active Campaign Performance
-
-   **DTC Awareness (Week 2):**
-   - Sessions: 1,200 / 2,000 target (60%)
-   - Demos: 8 / 20 target (40%)
-   - Top performer: "Body Shape" article (650 sessions, 5 demos)
-   - Underperformer: "Hidden Cost" (150 sessions, 0 demos)
-   - Action: Consider pausing underperformer
-   ```
-4. After campaign completes: Provide data for Stage 6 learning
+**Campaign:** {campaign-slug}
+**Created:** {date}
+**Status:** in-progress | completed
 
 ---
 
-## Subskill Coordination
+## Content Piece 1: "{Title}"
 
-### Data Flow Between Subskills
+**Stage 4 Decision:**
+- Type: {case study | blog article | announcement}
+- Target keyword: "{keyword}"
+- Channels: {blog, LinkedIn, Twitter, Substack}
 
-**content-strategy → content-generation:**
-```
-Output: content-opportunity.yaml
-Fields:
-  - topic: "Enterprise white-label demand"
-  - pillar: "Product capabilities"
-  - content_type: "case study"
-  - source_thread: "threads/sales/elsa-white-label/"
-  - priority: 0.85
-  - keyword: "white-label SDK"
-```
+**Execution Timeline:**
+- [x] Drafts created: 2024-11-16 (content-generation invoked)
+- [x] Human review: 2024-11-16 (approved with minor edits)
+- [x] SEO optimized: 2024-11-16 (seo-optimization invoked)
+- [x] Human approved: 2024-11-16 (final check passed)
+- [x] Published: 2024-11-17 (content-distribution invoked)
+- [x] Tracking started: 2024-11-17 (performance-tracking invoked)
 
-**content-generation → seo-optimization:**
-```
-Output: draft-content.md
-Fields:
-  - title: "{Original title}"
-  - content: "{Full draft}"
-  - target_keyword: "white-label SDK"
-  - content_type: "case study"
-```
+**Published URLs:**
+- Blog: https://glamyouup.com/blog/elsaai-white-label-sdk (UTM: ?utm_campaign={slug})
+- LinkedIn: https://linkedin.com/company/glamyouup/posts/... (UTM: ?utm_source=linkedin&utm_campaign={slug})
+- Twitter: https://twitter.com/glamyouup/status/... (UTM: ?utm_source=twitter&utm_campaign={slug})
+- Substack: https://glamyouup.substack.com/p/elsaai-white-label (UTM: ?utm_source=substack&utm_campaign={slug})
 
-**seo-optimization → content-distribution:**
-```
-Output: optimized-content.md
-Fields:
-  - title: "{SEO-optimized title}"
-  - meta_description: "{160 chars}"
-  - content: "{Optimized with H1/H2/keywords}"
-  - internal_links: ["{link1}", "{link2}"]
-```
+**Performance (Days 1-7):**
+- Sessions: 650 (performance-tracking monitoring)
+- Demos: 8
+- Conversion: 1.23%
 
-**content-distribution → performance-tracking:**
-```
-Output: published-content.yaml
-Fields:
-  - url: "https://glamyouup.com/blog/white-label-sdk-case-study"
-  - utm_params: "?utm_source=organic&utm_medium=blog"
-  - publish_date: "2024-11-16"
-  - channels: ["blog", "linkedin", "email"]
+---
+
+## Content Piece 2: "{Title}"
+
+**Stage 4 Decision:**
+- Type: {type}
+- Target keyword: "{keyword}"
+- Channels: {channels}
+
+**Execution Timeline:**
+- [x] Drafts created: 2024-11-18 (content-generation invoked)
+- [ ] Human review: Pending
 ```
 
 ---
 
 ## Quality Gates
 
-**Between each stage, validate:**
+**You enforce these by flagging for human review:**
 
-### After Content Strategy
-- [ ] Opportunity maps to content pillar
-- [ ] Source thread has sufficient learning
-- [ ] Priority score calculated with reasoning
-- [ ] Keyword identified from SEO strategy
+### After content-generation (Before SEO)
+- [ ] Drafts exist in threads/.../5-actions/drafts/
+- [ ] ALL formats generated (article + LinkedIn + Twitter + Substack)
+- [ ] Flag in ops/today.md for human review
+- [ ] Wait for human approval
 
-### After Content Generation
-- [ ] Draft follows brand voice (educational, technical)
-- [ ] Includes data/sources from thread
-- [ ] Proper length for content type
-- [ ] No sales pitch (knowledge sharing only)
+### After seo-optimization (Before Distribution)
+- [ ] Drafts updated with SEO (keywords, meta, links)
+- [ ] Flag in ops/today.md for human approval
+- [ ] Wait for human approval
 
-### After SEO Optimization
-- [ ] Keyword in H1, first 100 words, H2s
-- [ ] Meta description 150-160 chars
-- [ ] Internal links relevant and working
-- [ ] Alt text on images
-
-### After Human Review
-- [ ] Technical accuracy verified
-- [ ] Voice/tone approved
-- [ ] Depth sufficient (not surface-level)
-- [ ] Ready for publication
-
-### After Content Distribution
-- [ ] Published to correct channels
-- [ ] UTM parameters applied
-- [ ] Cross-promotion scheduled
-- [ ] URLs tracked
+### After content-distribution (Before Tracking)
+- [ ] Content published to artifacts/marketing/campaigns/{slug}/
+- [ ] distribution-record.yaml created
+- [ ] Drafts deleted from threads/.../5-actions/drafts/
+- [ ] execution-log.md updated
 
 ---
 
-## Human Touchpoints
+## Human Touchpoints (You Flag These)
 
 ### Required Human Actions
 
-**1. Approve content creation** (after content-strategy)
-- Review flagged opportunities in ops/today.md
-- Decide: Create this content? (yes/no)
+**1. Review drafts** (after content-generation)
+```
+Update ops/today.md:
 
-**2. Review draft** (after seo-optimization)
-- Check technical accuracy
-- Validate voice/depth
-- Edit if needed, approve when ready
+## Content Drafts Ready
 
-**3. Publish approval** (before content-distribution)
-- Final check before public
-- Confirm channels (blog, LinkedIn, email)
+**{Title}**
+- Location: threads/marketing/campaigns/{slug}/5-actions/drafts/
+- Formats: Article + LinkedIn + Twitter + Substack
+- Action: Review and approve for SEO optimization
+```
+
+**2. Approve optimized content** (after seo-optimization)
+```
+Update ops/today.md:
+
+## Optimized Content Ready
+
+**{Title}**
+- SEO: Keyword "{keyword}" applied
+- Location: threads/marketing/campaigns/{slug}/5-actions/drafts/
+- Action: Final approval before publishing
+```
 
 ### Optional Human Actions
 
-**Override priority score:**
-- Content-strategy suggests low priority
-- Human knows it's strategically important
-- Force creation anyway
-
 **Request revisions:**
-- Draft doesn't meet quality bar
-- Request specific changes
-- Regenerate with guidance
+- If human rejects draft, flag: "Revisions requested"
+- Re-invoke content-generation with feedback
+- Update execution-log.md: "Revision round {n}"
 
 **Manual distribution:**
-- Special announcement requires custom timing
-- Coordinate with product launch, event, etc.
+- If human wants manual control, flag: "Manual distribution"
+- Skip content-distribution invocation
+- Human publishes manually
 
 ---
 
-## Output Structure
+## Error Handling
 
-### Campaign Thread (Decision + Execution Tracking)
-
-**Campaign in threads:**
+### If Stage 4 Incomplete
 ```
-threads/marketing/campaigns/{campaign-slug}/
-├── metadata.yaml
-│   ├── campaign_name: "DTC Awareness Nov 2024"
-│   ├── segment: "dtc-fashion"
-│   ├── goal: "20 qualified demos"
-│   ├── status: "active|completed"
-│   └── created: "2024-11-16"
-├── 1-input.md
-├── 2-hypothesis.md
-├── 3-implication.md
-├── 4-decision.md (content plan)
-├── 5-actions/
-│   └── execution-log.md (track progress)
-└── 6-learning.md (results + Canvas updates)
+Check: threads/marketing/campaigns/{slug}/4-decision.md exists
+
+If missing:
+  - Flag: "Stage 4 decision missing, cannot execute"
+  - Wait for human to complete Stages 1-4
+  - Do NOT proceed
 ```
 
-### Published Campaign Content
-
-**Final outputs in:**
+### If content-generation Fails
 ```
-artifacts/marketing/campaigns/{campaign-slug}/
-├── blog/
-│   ├── fit-statistics-fashion-returns.md
-│   └── body-shape-vs-measurements.md
-├── linkedin/
-│   ├── 2024-11-16-fit-statistics.md
-│   └── 2024-11-17-body-shape.md
-├── email/ (if any)
-│   └── 2024-11-20-campaign-update.md
-└── distribution-record.yaml
-    ├── campaign: "dtc-awareness-nov-2024"
-    ├── content_pieces: 4 (2 blog + 2 linkedin)
-    ├── urls: {...}
-    └── performance: {sessions, demos, conversion}
+Check: Drafts exist after invocation
+
+If missing:
+  - Flag: "content-generation failed, check logs"
+  - Alert in ops/today.md
+  - Do NOT proceed to SEO
 ```
 
-### Temporary Working Files
-
-**During Stage 5 execution:**
+### If Human Rejects Draft
 ```
-threads/marketing/campaigns/{slug}/5-actions/
-├── execution-log.md (progress tracking)
-└── drafts/ (temporary, deleted after publishing)
-    ├── article-1-draft.md
-    ├── article-1-optimized.md
-    └── ...
+Action:
+  - Log rejection in execution-log.md
+  - Re-invoke content-generation with feedback
+  - Update: "Revision round {n}"
+  - Flag for review again
 ```
 
-**Workflow:**
-1. Generate draft → Save to drafts/
-2. Human reviews → Edits in place
-3. Optimize SEO → Overwrite in drafts/
-4. Human approves → Publish to artifacts/
-5. Delete drafts/ (content now in artifacts)
-
----
-
-## Monitoring & Alerts
-
-### Auto-flag in ops/today.md
-
-**High-priority opportunities (score ≥ 0.7):**
-```markdown
-## Content Opportunities
-
-1. [Priority: 0.85] Case study: ElsaAI white-label success
-   - Source: threads/sales/elsa-white-label/6-learning.md
-   - Pillar: Product capabilities
-   - Keyword: "white-label SDK"
-   - Estimated impact: 500 sessions/month, 25 demos
-   - Action: Approve to generate draft
+### If content-distribution Fails
 ```
+Check: Files exist in artifacts/ after invocation
 
-**Drafts awaiting review:**
-```markdown
-## Content Drafts Ready
-
-1. "How Enterprise Fashion Brands Use White-Label SDKs"
-   - Type: Case study (1,200 words)
-   - Location: threads/marketing/campaigns/luxury-validation-nov-2024/5-actions/drafts/case-study-optimized.md
-   - Action: Review and approve for publication
-```
-
-**Performance alerts:**
-```markdown
-## Content Performance
-
-Top performer (last 7 days):
-- "Reduce Returns Guide": 850 sessions, 42 demo requests (+120% vs avg)
-- Action: Create follow-up content on this topic
-
-Underperformer (last 30 days):
-- "Fashion E-commerce Trends": 45 sessions, 0 conversions
-- Action: Review SEO, consider update or archive
+If missing:
+  - Flag: "Publishing failed, content in drafts/"
+  - Alert in ops/today.md
+  - Keep drafts/ (do NOT delete)
+  - Retry with human assistance
 ```
 
 ---
 
 ## Success Metrics
 
-**Content pipeline efficiency:**
-- Time from thread completion to published content: <7 days
-- Human review time per draft: <30 minutes
-- Revision rounds before approval: <2
+**Orchestration efficiency:**
+- Time from Stage 4 to published: <7 days
+- Subskill invocation success rate: >95%
+- Human intervention required: Only at quality gates
 
-**Content quality:**
-- Technical accuracy: 100% (verified by human)
-- SEO optimization: All required elements present
-- Brand voice: Educational, technical, non-promotional
-
-**Business impact:**
-- Organic traffic from content: {target sessions/month}
-- Demos from content: {target conversions/month}
-- Pipeline influenced: {target revenue influenced}
+**Execution tracking:**
+- execution-log.md always up-to-date
+- ops/today.md reflects current status
+- All subskills invoked in correct order
 
 ---
 
-## Error Handling
+## Usage Example
 
-**If source thread incomplete:**
-- Skip content-strategy, wait for thread to finish
-- Flag: "Thread X in progress, defer content creation"
+**Scenario:** Execute luxury validation campaign
 
-**If SEO keyword research fails (web_search unavailable):**
-- Use keywords from marketing-narrative/seo-strategy.md
-- Flag: "Used fallback keywords, validate post-publication"
-
-**If human rejects draft:**
-- Log rejection reason
-- Regenerate with feedback
-- Track: Rejection rate by content type/pillar
-
-**If publication fails:**
-- Keep draft in threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/
-- Alert in ops/today.md
-- Retry with human assistance
-
----
-
-## Usage Examples
-
-### Example 1: Automated Pipeline
-
-**Scenario:** Sales thread closes (ElsaAI deal won)
 ```
-1. Thread: threads/sales/elsa-white-label/6-learning.md completes
-   - Learning: "Luxury brands prefer white-label (validated)"
+1. Read Stage 4 Decision:
+   Campaign: threads/marketing/campaigns/luxury-validation-nov-2024/
+   Content: 2 case studies + 4 LinkedIn posts
+   Keywords: "white-label SDK", "luxury fashion fit"
+   Channels: blog, LinkedIn, Twitter, Substack
 
-2. marketing-execution/content-strategy detects opportunity
-   - Campaign: "Luxury Validation Nov 2024"
-   - Type: Validation (case study)
-   - Priority: 0.85 (high)
-   - Keyword: "white-label SDK"
+2. Execute Content Piece 1: "ElsaAI Case Study"
 
-3. Flag in ops/today.md:
-   "Create campaign: Luxury validation case study? (Priority: 0.85)"
+   Step 1: Invoke content-generation
+   ↓
+   Parameters:
+     - campaign_slug: "luxury-validation-nov-2024"
+     - decision_path: "threads/marketing/campaigns/luxury-validation-nov-2024/4-decision.md"
+     - piece_name: "elsaai-case-study"
+   ↓
+   Wait for: Drafts created
+   ✓ Files exist: article.md, linkedin.md, twitter.md, substack.md
+   ↓
+   Update execution-log.md: [x] Drafts created
+   
+   Step 2: Flag for human review
+   ↓
+   Update ops/today.md: "Drafts ready: ElsaAI Case Study"
+   ↓
+   Wait for: Human approval
+   ✓ Human approved with minor edits
+   ↓
+   Update execution-log.md: [x] Human reviewed
+   
+   Step 3: Invoke seo-optimization
+   ↓
+   Parameters:
+     - draft_path: "threads/.../drafts/elsaai-case-study-article.md"
+     - target_keyword: "white-label SDK"
+     - secondary_keywords: ["enterprise fashion SDK", "luxury fashion returns"]
+   ↓
+   Wait for: Optimization complete
+   ✓ Drafts updated with SEO
+   ↓
+   Update execution-log.md: [x] SEO optimized
+   
+   Step 4: Flag for human approval
+   ↓
+   Update ops/today.md: "Optimized content ready: ElsaAI Case Study"
+   ↓
+   Wait for: Human approval
+   ✓ Human approved
+   ↓
+   Update execution-log.md: [x] Human approved
+   
+   Step 5: Invoke content-distribution
+   ↓
+   Parameters:
+     - optimized_drafts_path: "threads/.../drafts/"
+     - campaign_slug: "luxury-validation-nov-2024"
+     - channels: ["blog", "linkedin", "twitter", "substack"]
+     - piece_name: "elsaai-case-study"
+   ↓
+   Wait for: Publishing complete
+   ✓ Files created in artifacts/marketing/campaigns/luxury-validation-nov-2024/
+   ↓
+   Update execution-log.md: [x] Published (URLs added)
+   
+   Step 6: Delete drafts
+   ↓
+   Action: rm -rf threads/.../5-actions/drafts/
+   ✓ Temporary files removed
+   
+   Step 7: Invoke performance-tracking
+   ↓
+   Parameters:
+     - campaign_slug: "luxury-validation-nov-2024"
+     - distribution_record: "artifacts/.../distribution-record.yaml"
+     - tracking_period: "30 days"
+   ↓
+   Wait for: Weekly reports in ops/today.md
+   ✓ Tracking started
 
-4. Bella approves: "Yes, create campaign thread"
+3. Execute Content Piece 2: (Repeat Steps 1-7)
 
-5. Human creates campaign thread: threads/marketing/campaigns/luxury-validation-nov-2024/
-   - Stage 1-4: Campaign planning (hypothesis, implication, content plan)
+4. Report Progress:
+   Update ops/today.md:
+   "Campaign execution: 1/2 pieces published, 1 in review"
 
-6. marketing-execution orchestrates Stage 5:
-
-   6a. marketing-execution/content-generation:
-       - Reads campaign decision + source thread 6-learning.md
-       - Generates 1,200-word case study
-       - Saves to: 5-actions/drafts/case-study-draft.md
-
-   6b. marketing-execution/seo-optimization:
-       - Keyword "white-label SDK" in H1, H2s
-       - Meta description: 160 chars
-       - Internal links: 3 related articles
-       - Saves to: 5-actions/drafts/case-study-optimized.md
-
-   6c. Flag for review: "Draft ready for review"
-
-   6d. Bella reviews, edits, approves
-
-   6e. marketing-execution/content-distribution:
-       - Publish to: artifacts/marketing/campaigns/luxury-validation-nov-2024/
-         - blog/elsaai-case-study.md
-         - linkedin/2024-11-17-elsaai.md
-       - UTM: utm_campaign=luxury-validation-nov-2024
-       - Delete drafts/
-
-   6f. Update execution-log.md: [x] Case study published
-
-7. marketing-execution/performance-tracking:
-   - Monitor traffic (first 30 days)
-   - Track demo requests attributed to campaign
-   - Report weekly in ops/today.md
-
-8. Human completes Stage 6 (Learning):
-   - Measured: 650 sessions, 8 demos, 1.23% conversion
-   - Canvas update: H1 validated (case studies convert better)
+Total orchestration time: <2 hours (AI invocations)
+Total human time: <45 minutes (reviews + approvals)
 ```
-
-### Example 2: Manual Content Request
-
-**Scenario:** Bella wants specific content
-```
-Bella: "Create a blog post about reducing fashion returns, 
-        target keyword 'ecommerce return rate'"
-
-1. marketing-execution receives request
-   - Topic: Reduce fashion returns
-   - Type: Blog article
-   - Keyword: "ecommerce return rate"
-   - Source: None specified (use Canvas + sales narratives)
-
-2. Skip content-strategy (manual request)
-
-3. marketing-execution/content-generation:
-   - Load: Canvas problem.md, sales narratives
-   - Generate: 1,800-word educational guide
-   - Structure: Problem → Solutions → Implementation
-
-4. marketing-execution/seo-optimization:
-   - Optimize for "ecommerce return rate"
-   - Add related keywords: "reduce returns", "fit issues"
-
-5. Save to drafts/, notify Bella
-
-6. Bella reviews, approves
-
-7. marketing-execution/content-distribution:
-   - Publish to blog
-   - Schedule LinkedIn posts (3 excerpts)
-   - Add to newsletter
-
-8. marketing-execution/performance-tracking:
-   - Track ranking for "ecommerce return rate"
-   - Monitor organic traffic growth
-```
-
----
-
-## Best Practices
-
-**1. Learning-driven, not calendar-driven**
-- Content created when threads generate insights
-- No "publish 4 posts this week" quotas
-- Quality and substance over frequency
-
-**2. Human in the loop for quality**
-- AI generates drafts (80% complete)
-- Human ensures accuracy and depth (20% refinement)
-- Never auto-publish without human review
-
-**3. SEO without keyword stuffing**
-- Keywords integrated naturally
-- Educational content that happens to rank
-- Not "SEO content" that sacrifices quality
-
-**4. Cross-channel coordination**
-- Same core message, adapted format
-- Blog → LinkedIn excerpts → Email highlights
-- Consistent positioning across channels
-
-**5. Continuous improvement**
-- Track what content drives pipeline
-- Double down on top performers
-- Retire underperforming topics/formats
 
 ---
 
 ## Remember
 
-**Marketing execution is:**
-- Creating valuable content from business learning
-- Building authority through educational depth
-- Optimizing for discovery while maintaining quality
-- Measuring impact on business goals (demos, pipeline)
+**You are an orchestrator:**
+- Read decisions
+- Invoke subskills
+- Track progress
+- Flag for human review
 
-**Marketing execution is NOT:**
-- Hitting arbitrary publishing quotas
-- Gaming engagement algorithms
-- Keyword stuffing for SEO
-- Sales pitches disguised as content
+**You are NOT a worker:**
+- Don't generate content (invoke content-generation)
+- Don't optimize SEO (invoke seo-optimization)
+- Don't publish content (invoke content-distribution)
+- Don't track metrics (invoke performance-tracking)
 
-**Success = Content that educates AND converts organically.**
+**Success = Smooth coordination of subskills from decision to published content.**
+
+---
+
+**Last updated:** 2025-11-21
+**Subskills:** content-generation, seo-optimization, content-distribution, performance-tracking
 ```
 
 
@@ -1482,284 +1507,1358 @@ Priority: high
 ```markdown
 ---
 name: content-generation
-description: Generate content drafts from thread learning and content opportunities. Applies brand voice (educational, technical, non-promotional), follows content patterns (not templates), and produces 80% complete drafts requiring human review for accuracy and depth.
-allowed-tools: "Read,Write"
+description: Generate educational content drafts from thread learning. Transforms business insights into 80% complete content following brand voice (educational, technical, non-promotional) and content patterns. Human reviews for accuracy and depth.
+allowed-tools: "Read,Write,Bash"
 ---
 
 # Content Generation
 
-You generate educational content drafts from business learning.
+Transform thread learning into educational content drafts.
 
 ## Purpose
 
-Content opportunity + Thread learning → Draft content (80% complete)
+**Input:** Content opportunity (from content-strategy) + Thread learning  
+**Output:** 80% complete draft following brand voice and content patterns  
+**Human role:** Review for accuracy, refine last 20%
 
 **Core principle:** Share knowledge, not sales pitches. Build authority through depth.
 
 ---
 
-## Input Requirements
-
-### Required Inputs
-
-**1. Content opportunity (from content-strategy):**
-```yaml
-topic: "How Enterprise Fashion Brands Use White-Label SDKs"
-content_type: "case study"
-pillar: "Product capabilities"
-target_keyword: "white-label SDK"
-source_thread: "threads/sales/elsa-white-label/"
-```
-
-**2. Source material:**
-- Campaign decision: `threads/marketing/campaigns/{campaign-slug}/4-decision.md`
-- Source learning: `{source_thread}/6-learning.md` (if applicable)
-- Thread context: `{source_thread}/1-input.md` through `6-results.md`
-- Canvas positioning: `strategy/canvas/{product}/`
-- Sales narratives: `artifacts/sales/{segment}/narratives/`
-
-**3. Brand voice guidelines:**
-- `artifacts/marketing/narrative/brand-voice.md`
-
-**4. Content patterns (not templates):**
-- `{baseDir}/references/{content_type}-patterns.md`
-
----
-
-## Content Generation Process
+## Process
 
 ### Step 1: Load Context
 
-**Read campaign context:**
+**Read opportunity:**
 ```bash
-threads/marketing/campaigns/{campaign-slug}/4-decision.md  # Content plan
-threads/marketing/campaigns/{campaign-slug}/5-actions/execution-log.md  # Progress tracking
+threads/marketing/campaigns/{campaign-slug}/4-decision.md  # Content plan with opportunities
 ```
 
-**Read source thread (if applicable):**
-```bash
-{source_thread}/1-input.md       # What triggered this
-{source_thread}/2-hypothesis.md  # What was tested
-{source_thread}/6-learning.md    # What was learned
-```
+Extract from opportunity:
+- `topic` - What to write about
+- `content_type` - blog|case-study|announcement|linkedin|email
+- `target_keyword` - Primary SEO keyword
+- `source_thread` - Where the learning came from
+- `pillar` - Which content pillar this supports
 
-**Read positioning:**
+**Read source material:**
 ```bash
-strategy/canvas/{product}/07-uvp.md        # Value proposition
-strategy/canvas/{product}/05-problem.md    # Problem definition
-artifacts/sales/{segment}/narratives/      # If applicable
-```
+# Source thread context
+{source_thread}/1-input.md          # What triggered this
+{source_thread}/2-hypothesis.md     # What was tested
+{source_thread}/6-learning.md       # What was learned
 
-**Read voice guidelines:**
-```bash
+# Strategic positioning
+strategy/canvas/{product}/07-uvp.md     # Value proposition
+strategy/canvas/{product}/05-problem.md # Problem definition
+
+# Brand voice
 artifacts/marketing/narrative/brand-voice.md
 ```
 
-### Step 2: Select Content Pattern
-
-**Load pattern guide:**
+If `source_thread` includes sales narratives:
 ```bash
-{baseDir}/references/{content_type}-patterns.md
+artifacts/sales/{segment}/narratives/{persona}-narrative.md
 ```
 
-**Pattern types:**
-- `blog-patterns.md` - 5 patterns (problem analysis, implementation guide, industry research, technical deep dive, case study)
-- `case-study-pattern.md` - Customer success structure
-- `announcement-pattern.md` - Product launch/feature announcement
-- `linkedin-patterns.md` - Company page content (announcements, insights, milestones)
-- `email-patterns.md` - Newsletter, announcement, educational series
+### Step 2: Select Pattern
 
-**Select pattern based on content_type from opportunity.**
+**Load pattern guide for content type:**
+```bash
+{baseDir}/references/{content_type}-pattern.md
+```
+
+Available patterns:
+- `blog-patterns.md` - 5 patterns (problem analysis, implementation guide, industry research, technical deep dive, case study)
+- `case-study-pattern.md` - Customer success stories
+- `announcement-pattern.md` - Product/feature launches
+- `linkedin-patterns.md` - Company page posts
+- `email-patterns.md` - Newsletters, announcements
+
+**Pattern guides provide:**
+- Structure principles (not rigid templates)
+- Example openings/transitions
+- Common pitfalls to avoid
+- Length guidelines (ranges, not exact)
 
 ### Step 3: Generate Draft
 
-**Apply pattern structure:**
-- Follow pattern guide (not rigid template)
+**Apply pattern:**
+- Follow structure from pattern guide
 - Use source thread for facts/data
-- Apply brand voice characteristics
+- Apply brand voice from `brand-voice.md`
 - Include technical depth
 
-**Core requirements:**
-- **Educational focus:** Teach, don't sell
-- **Data-driven:** Specific metrics from threads
-- **Technical depth:** Don't oversimplify
-- **Honest:** Include uncertainties, limitations
-- **No CTAs:** No "Book a demo", "Sign up now"
+**Brand voice essentials:**
+- Educational focus (teach, don't sell)
+- Data-driven (specific metrics from threads)
+- Technical depth (architecture, methodology)
+- Honest (include uncertainties, limitations)
+- No CTAs (no "Book a demo", "Sign up now")
+
+**Critical rules:**
+- All metrics must come from threads (no invented numbers)
+- Customer names require public approval (check thread for confirmation)
+- No confidential information (remove proprietary details)
+- Technical details must match thread/Canvas exactly
 
 ### Step 4: Validate Quality
 
-**Check against brand voice:**
-- [ ] Tone: Educational, authoritative (not promotional)
-- [ ] Depth: Technical details included (not surface-level)
-- [ ] Honesty: Admits unknowns/limitations
-- [ ] Data: Specific numbers (not vague claims)
-- [ ] No sales language: No buzzwords, CTAs, engagement bait
+**Run validation script:**
+```bash
+python {baseDir}/scripts/validate_draft.py --draft {draft_path}
+```
 
-**Check against pattern:**
-- [ ] Structure follows pattern guide
-- [ ] Length appropriate for content type
-- [ ] All required sections present
-- [ ] Examples/data included
+Checks:
+- Brand voice compliance (tone, depth, honesty)
+- Factual accuracy (all claims sourced)
+- Pattern adherence (structure, length)
+- SEO readiness (if blog: keyword placement, H2s)
 
-**Check factual accuracy:**
-- [ ] All claims sourced from threads or Canvas
-- [ ] Metrics match thread results exactly
-- [ ] Customer names approved for public use
-- [ ] No confidential information included
+**Manual review flags:**
+```markdown
+## Editor Notes
+
+**For human review:**
+- [ ] {Specific items needing verification}
+- [ ] {Potential improvements}
+- [ ] {Missing context or data}
+```
 
 ---
 
-## Content Type Specifications
+## Output Format
 
-### Blog Article (Problem Analysis)
+**Draft file:**
+```markdown
+---
+title: "{Draft title}"
+content_type: "{type}"
+target_keyword: "{keyword}"
+source_thread: "{path}"
+pillar: "{pillar}"
+created: "{date}"
+status: "draft"
+word_count: {count}
+---
 
-**Pattern:** Problem → Data → Analysis → Implication
+# {Title}
+
+{Full content following pattern}
+
+---
+
+## Editor Notes
+
+**For human review:**
+- [ ] {Verification items}
+
+**Potential improvements:**
+- {Suggestions}
+```
+
+**Save location:**
+```
+threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{slug}-draft.md
+```
+
+**Update ops dashboard:**
+```markdown
+## Content Drafts Ready for Review
+
+1. **{Title}**
+   - Type: {content_type} ({word_count} words)
+   - Location: {file_path}
+   - Keyword: "{keyword}"
+   - Action: Review for accuracy, approve for SEO optimization
+```
+
+---
+
+## Edge Cases
+
+### Insufficient Source Material
+**If thread lacks details:**
+- Flag: "Insufficient data for {content_type}"
+- Request human provides additional context
+- Or suggest alternative content type
+
+### Confidential Information
+**If thread contains confidential data:**
+- Anonymize customer names, specific metrics
+- Generalize: "A luxury brand" vs "BrandName"
+- Flag for human review before proceeding
+
+### Customer Approval Required
+**If using customer name/data:**
+- Flag: "Customer approval needed for public use"
+- Mark draft as "pending approval"
+- Don't proceed without confirmation
+
+### Multiple Source Threads
+**If opportunity combines multiple threads:**
+- Read all source threads
+- Synthesize learnings
+- Note pattern: "Based on {N} deals across {timeframe}"
+
+---
+
+## Quality Standards
+
+**Draft acceptance criteria:**
+- 80% complete (human refines last 20%)
+- All metrics sourced from threads
+- Brand voice applied consistently
+- Pattern structure followed
+- Technical depth included
+- No sales language
+
+**Success = Educational content that builds authority and converts organically.**
+
+---
+
+## Usage Example
+
+**Input opportunity:**
+```yaml
+topic: "How Enterprise Fashion Brands Use White-Label SDKs"
+content_type: "case-study"
+target_keyword: "white-label SDK"
+source_thread: "threads/sales/elsa-white-label/"
+pillar: "Product capabilities"
+```
+
+**Process:**
+1. Read campaign: `threads/marketing/campaigns/luxury-validation-nov-2024/4-decision.md`
+2. Read source: `threads/sales/elsa-white-label/6-learning.md`
+3. Read positioning: `strategy/canvas/07-uvp.md`
+4. Read voice: `artifacts/marketing/narrative/brand-voice.md`
+5. Load pattern: `{baseDir}/references/case-study-pattern.md`
+6. Generate draft following pattern structure
+7. Validate with `validate_draft.py`
+8. Save to `drafts/elsaai-case-study-draft.md`
+9. Flag in `ops/today.md` for human review
+
+**Output:** 1,450-word case study with metrics from thread, technical details, educational tone, ready for human review.
+```
+
+
+<!-- FILE: content-generation/references/announcement-linkedin-pattern.md -->
+
+# content-generation/references/announcement-linkedin-pattern.md
+
+```markdown
+# Announcement & LinkedIn Patterns
+
+Short-form content patterns for product launches and company insights.
+
+---
+
+## Announcement Pattern
+
+**Use when:** Launching product/feature, announcing milestone, major update
+
+**Structure:** What → Why → How → Who → When
+
+**Length:** 400-700 words
+
+**Tone:** Informative, not promotional
+
+### Structure Guide
+
+**What (100-150 words):**
+- Feature/product name
+- One-sentence summary
+- Primary benefit (specific, not vague)
+
+**Why (150-200 words):**
+- Problem this solves (from threads)
+- Customer demand (data from sales/support)
+- Strategic context (how it fits product vision)
+
+**How (200-300 words):**
+- Technical approach (architecture, methodology)
+- Key capabilities (what it does)
+- Differentiation (why not alternatives)
+
+**Who (100-150 words):**
+- Target customers (specific segments)
+- Use cases (concrete examples)
+- Requirements (technical, business)
+
+**When & Pricing (50-100 words):**
+- Availability (now, beta, Q1 2025)
+- Pricing tier (if applicable)
+- How to access (link to docs, not hard CTA)
+
+### Example: White-Label SDK Launch
+
+```markdown
+# White-Label Fit Recommendations Now Available for Enterprise
+
+## What
+
+White-label SDK for fit recommendations is now available for enterprise 
+fashion brands ($100M+ GMV). Deploy AI-powered size recommendations under 
+your brand—no third-party logos, co-branding, or external attribution.
+
+Primary benefit: 94% fit accuracy without compromising brand consistency.
+
+## Why
+
+After 5 enterprise deals in Q4, we learned 100% of luxury brands chose 
+white-label over co-branded widgets. The pattern was clear:
+
+**Customer feedback:**
+- "Our customers don't care who powers fit tech. They care it looks like us."
+- "Co-branded widgets break our visual aesthetic. Non-negotiable for luxury."
+- "At $200+ AOV, every detail matters. Third-party branding reduces trust."
+
+**Business case:**
+- Luxury brands: 31% return rates vs 22% mid-market
+- Higher expectations: >90% fit accuracy threshold
+- ROI matters: $805K annual savings (ElsaAI case study)
+
+Strategic context: This completes our product offering—co-branded for 
+growth stage ($50K tier), white-label for enterprise ($400K+ tier).
+
+## How
+
+**Architecture:**
+- React SDK with full custom styling
+- Deploy on your subdomain (fit.yourbrand.com)
+- Zero external branding or attribution
+- Same 94% accuracy as co-branded version
+
+**Key capabilities:**
+- Body measurement API (<200ms latency)
+- Personalized fit recommendations
+- Real-time analytics dashboard
+- GDPR-compliant data residency
+
+**Why not alternatives:**
+
+*Co-branded widgets:*
+- Pro: Lower cost ($50K/year)
+- Con: Third-party branding breaks luxury aesthetic
+
+*Custom ML model:*
+- Pro: Full control
+- Con: 3-6 month build, $200K+ development, ongoing maintenance
+
+*White-label SDK:*
+- Pro: 94% accuracy + brand consistency + 2-week integration
+- Con: Higher tier ($400K+/year)
+
+## Who
+
+**Target customers:**
+- Luxury fashion brands ($100M+ GMV)
+- Premium e-commerce (AOV >$100)
+- Strong brand identity (visual consistency critical)
+- Technical team for integration (5-10 hours engineering)
+
+**Use cases:**
+- Reduce return rates (fit issues = 73% of returns)
+- Maintain brand consistency (no co-branding)
+- Scale fit recommendations (10K+ requests/hour)
+
+**Requirements:**
+- React or vanilla JS frontend
+- REST API integration capability
+- HTTPS domain for widget hosting
+- Analytics integration (optional)
+
+## When & Pricing
+
+**Availability:** Available now
+
+**Pricing:**
+- White-label tier: $400K+/year (enterprise)
+- Includes: Custom branding, dedicated support, SLA, EU data residency
+
+**How to access:**
+- Technical docs: [link]
+- Integration guide: [link]
+- Contact for enterprise tier: [email]
+
+---
+
+## Technical Details (Optional)
+
+**Implementation:**
+```javascript
+// Your site
+<script src="https://fit.yourbrand.com/widget.js"></script>
+
+// Configuration
+FitWidget.init({
+  apiKey: 'your-key',
+  theme: 'custom', // Inherits your CSS
+  subdomain: 'fit.yourbrand.com'
+});
+```
+
+**Performance:**
+- Load time: <50ms (async)
+- API latency: <200ms (p95)
+- Uptime: 99.9% SLA
+
+**Integration time:** 2 weeks (typical)
+```
+
+---
+
+## LinkedIn Pattern
+
+**Use when:** Sharing business learning, industry insight, company milestone
+
+**Structure:** Insight → Analysis → Implication
+
+**Length:** 300-600 words
+
+**Tone:** Thoughtful, data-driven, educational
+
+### Pattern 1: Business Learning
+
+**Structure:**
+1. Opening observation (surprising data point)
+2. Analysis (why this happened, what it means)
+3. Implication (lesson learned, actionable insight)
+4. Soft link (if relevant, no hard CTA)
+
+**Example:**
+```
+We closed 5 enterprise fashion deals in Q4. All 5 chose white-label 
+SDK over co-branded.
+
+This wasn't about hiding our technology. It was about brand consistency 
+being non-negotiable.
+
+**What we learned:**
+
+Luxury brands ($100M+ GMV) prioritize brand consistency over vendor 
+recognition. They'll pay 3x more for white-label because:
+- Co-branded widgets break visual aesthetic
+- Customers question legitimacy of third-party branding
+- Mobile experience needs seamless integration
+
+One customer (luxury marketplace, $200M GMV) told us: "Our customers 
+don't care who powers fit recommendations. They care that it looks 
+like ElsaAI."
+
+**Fast fashion brands ($10M-$50M GMV) prefer co-branded.**
+
+Opposite behavior:
+- Third-party branding adds credibility ("powered by AI")
+- Lower technical resources (easier implementation)
+- Price-sensitive (white-label costs 3x)
+
+**Takeaway:**
+Customer segment dictates product packaging. Same technology, different 
+positioning.
+
+We're now offering both:
+- White-label: Enterprise tier ($400K+)
+- Co-branded: Growth tier ($50K+)
+
+Technical docs: [link]
+```
+
+### Pattern 2: Industry Insight
+
+**Structure:**
+1. Industry observation (trend, pattern, data)
+2. Analysis (breakdown, implications)
+3. Non-obvious conclusion
+4. Related content (if applicable)
+
+**Example:**
+```
+Fashion e-commerce return rates: 25% average.
+Everyone talks about reducing returns.
+Few ask: what's causing them?
+
+We analyzed 10,000 returns across 5 brands:
+- Fit issues: 73%
+- Color/style mismatch: 18%
+- Quality issues: 6%
+- Price regret: 3%
+
+**The insight: Returns aren't buyer's remorse. They're fit prediction 
+failures.**
+
+Breakdown of fit issues:
+- Too small: 42%
+- Too large: 31%
+- Wrong proportions: 27%
+
+Here's the interesting part: 68% of customers who return for fit issues 
+reorder the same item in a different size. They want the product. Size 
+charts failed them.
+
+**Implication:**
+The $743B reverse logistics problem isn't about returns. It's about fit 
+accuracy. Generic size charts: 68% accurate. Luxury customers need >90%.
+
+At 25% return rates, $120 AOV, a $10M brand loses $2.5M annually. 
+Fix fit prediction → capture 68% of that revenue.
+
+Related: [How Body Scanning Achieves 94% Fit Accuracy]
+```
+
+### Pattern 3: Company Milestone
+
+**Structure:**
+1. Milestone announcement (specific achievement)
+2. Context (what this means, why it matters)
+3. Learning (what we discovered along the way)
+4. Next step (where we're headed)
+
+**Example:**
+```
+1 year ago we launched with 0 customers.
+Today: $5.5M in enterprise contracts.
+
+Not overnight success—5 pivots, 12 failed deals, 3 product rebuilds.
+
+**What changed:**
+
+Initially: AI-powered fit recommendations (generic positioning)
+Now: White-label SDK for luxury brands (specific segment)
+
+The shift happened after deal #3. Customer said: "We need this, but 
+co-branded widgets break our luxury aesthetic."
+
+That's when we realized: Problem wasn't fit accuracy. Problem was brand 
+consistency at high price points.
+
+**Rebuilt the product:**
+- White-label architecture (your brand, not ours)
+- 94% fit accuracy (luxury threshold: >90%)
+- 2-week integration (vs 3-month custom build)
+
+**Results:**
+- 100% of luxury brands chose white-label
+- 0% of growth-stage brands chose white-label
+- Same technology, different packaging
+
+**Learning:**
+Product-market fit isn't just what you build. It's how you package it 
+for specific segments.
+
+Next: Expanding to footwear vertical. Same architecture, different 
+category. [Link to technical approach]
+```
+
+---
+
+## LinkedIn Quality Standards
+
+**Good LinkedIn post:**
+- Specific data (5 deals, $5.5M, 100%)
+- Clear insight (luxury prefers white-label)
+- Honest (5 pivots, 12 failed deals)
+- Educational (others can apply this)
+- Soft link (relevant content, not sales pitch)
+
+**Bad LinkedIn post:**
+- Vague claims ("significant growth")
+- Self-promotional ("we're amazing")
+- Engagement bait ("agree? comment below!")
+- Hard CTA ("book a demo")
+- Generic lessons ("persistence pays off")
+
+---
+
+## Announcement Quality Standards
+
+**Good announcement:**
+- Clear what/why/how/who/when
+- Technical depth (architecture, performance)
+- Data-driven (customer feedback, metrics)
+- Differentiation (why not alternatives)
+- Soft link (docs, not sales page)
+
+**Bad announcement:**
+- Buzzwords ("revolutionary", "game-changing")
+- Vague benefits ("improve efficiency")
+- No technical details
+- Hard CTA throughout
+- No target customer defined
+
+---
+
+## Common Mistakes
+
+### ❌ Announcement as Sales Pitch
+
+**Wrong:**
+```
+Introducing our revolutionary AI-powered SDK! Transform your business 
+with cutting-edge technology! Book a demo now!
+```
+
+**Right:**
+```
+White-label fit recommendations now available. 94% accuracy, 2-week 
+integration, zero co-branding. Technical docs: [link]
+```
+
+### ❌ LinkedIn Engagement Bait
+
+**Wrong:**
+```
+Agree that AI is changing everything? 🚀 Comment your thoughts below! 
+#AI #Innovation #FashionTech
+```
+
+**Right:**
+```
+5 enterprise deals. All chose white-label over co-branded. Luxury 
+brands prioritize brand consistency over vendor recognition. Data: [thread]
+```
+
+### ❌ Vague Milestone
+
+**Wrong:**
+```
+Excited to share we've grown significantly this year! Thanks to our 
+amazing team! 🎉
+```
+
+**Right:**
+```
+$0 → $5.5M in 12 months. 5 pivots, 12 failed deals, 3 product rebuilds. 
+Key learning: Product-market fit = right packaging for specific segment.
+```
+
+---
+
+## Remember
+
+**Announcements:**
+- Informative, not promotional
+- Technical depth included
+- Specific target customer
+- Soft link to docs, not sales
+
+**LinkedIn:**
+- Data-driven insights
+- Honest about challenges
+- Educational (others can apply)
+- Soft link if relevant
+
+Success = Share knowledge that builds authority organically
+```
+
+
+<!-- FILE: content-generation/references/blog-patterns.md -->
+
+# content-generation/references/blog-patterns.md
+
+```markdown
+# Blog Article Patterns
+
+Five patterns for educational blog content.
+
+---
+
+## Pattern 1: Problem Analysis
+
+**Use when:** Explaining industry problem, sharing research, analyzing trends
+
+**Structure:** Problem → Data → Analysis → Implication
 
 **Length:** 800-1,200 words
 
-**Structure:**
-```markdown
-# {SEO-optimized title with keyword}
+### Opening Approaches
 
-## Introduction (100-150 words)
-- Problem context (what's happening in industry)
-- Why it matters (impact on target audience)
-- What reader will learn
+**Data-first:**
+```
+25% of online fashion purchases get returned. That's $743B in 
+reverse logistics annually—more than the GDP of Switzerland.
 
-## The Problem (200-300 words)
-- Specific pain point from Canvas/threads
-- Quantified impact (data from threads)
+But the problem isn't returns. It's why they happen.
+```
+
+**Surprising insight:**
+```
+We analyzed 10,000 fashion returns. Expected: price regret. 
+Found: 73% were fit issues. The problem isn't buyer's remorse—
+it's that size charts don't work.
+```
+
+**Industry observation:**
+```
+Every fashion brand says "reduce returns." Few ask: what's 
+causing them? We spent 6 months analyzing 50 enterprise brands. 
+Here's what returns actually tell us.
+```
+
+### Structure Guide
+
+**Introduction (100-150 words):**
+- Open with data or surprising fact
+- State what's actually happening
+- Preview what reader will learn
+
+**The Problem (200-300 words):**
+- Specific pain point (quantified)
+- Business impact (revenue, costs)
 - Why obvious solutions don't work
 
-## Data Analysis (300-400 words)
-- Original data/research (from threads)
-- Methodology explained (how we know this)
+**Data Analysis (300-400 words):**
+- Original research/data (from threads)
+- Methodology (how you know this)
 - Findings with specific numbers
 - Surprising insights
 
-## Implications (200-300 words)
+**Implications (200-300 words):**
 - What this means for audience
 - Non-obvious conclusions
-- Actionable insights
+- Actionable insights (not sales pitch)
 
-## Conclusion (100-150 words)
+**Conclusion (100-150 words):**
 - Key takeaways (3-5 points)
 - Related topics (internal links)
-- NO hard CTA (maybe "Learn more about {topic}")
-```
+- Soft link if relevant (no hard CTA)
 
-**Example opening (ElsaAI case study):**
+### Example: ElsaAI Returns Analysis
+
 ```markdown
-# Why Luxury Fashion Brands Choose White-Label Over Co-Branded SDKs
+# Why 73% of Fashion Returns Are Actually Fit Issues
 
 ## Introduction
 
-When we launched our fit recommendation SDK, we assumed enterprise brands would prefer co-branded widgets—our logo alongside theirs. After 5 enterprise deals, we learned we were wrong.
+25% of online fashion purchases get returned. Brands blame buyer's 
+remorse, showrooming, or pricing. We analyzed 10,000 returns across 
+5 luxury brands. They were wrong.
 
-100% of luxury brands ($100M+ GMV) chose white-label integration. This wasn't about hiding our technology. It was about brand consistency being non-negotiable in luxury e-commerce.
+73% of returns were fit issues—not price regret. Size charts don't 
+work, and virtual try-on isn't accurate enough. The $743B reverse 
+logistics problem isn't about returns. It's about fit prediction.
 
-Here's what we learned from $5.5M in enterprise contracts about brand positioning and SDK architecture.
-```
-
-### Blog Article (Implementation Guide)
-
-**Pattern:** Challenge → Approach → Implementation → Results
-
-**Length:** 1,200-2,000 words
-
-**Structure:**
-```markdown
-# {How-to title with keyword}
-
-## Introduction
-- Problem to solve
-- Why it's challenging
-- What this guide covers
-
-## The Challenge (200-300 words)
-- Specific technical/business problem
-- Why obvious approaches fail
-- Requirements for solution
-
-## Our Approach (300-500 words)
-- Solution architecture/methodology
-- Why this works
-- Trade-offs considered
-
-## Implementation (400-800 words)
-- Step-by-step process
-- Technical details (code, architecture)
-- Pitfalls to avoid
-- Time/resource requirements
-
-## Results (200-300 words)
-- Metrics from implementation
-- Lessons learned
-- What we'd do differently
-
-## Conclusion
-- Key takeaways
-- When to use this approach
-- Related resources
-```
-
-### Case Study
-
-**Pattern:** Customer → Problem → Solution → Results
-
-**Length:** 1,000-1,500 words
-
-**Structure:**
-```markdown
-# {Customer Name}: {Result Achieved}
-
-## Customer Overview (100-150 words)
-- Company name, industry, size
-- Business model
-- Initial challenge
-
-## The Problem (250-350 words)
-- Specific pain point (quantified)
-- Business impact (revenue, costs)
-- Previous solutions attempted
-- Why they needed change
-
-## Solution (300-400 words)
-- What they implemented
-- Technical approach
-- Implementation timeline
-- Resources required
-
-## Results (300-400 words)
-- Metrics (before/after)
-- Timeline to results
-- Unexpected benefits
-- Customer quote (if available)
-
-## Technical Details (200-300 words)
-- Architecture/integration approach
-- Challenges overcome
-- Why it worked
-
-## Conclusion (100-150 words)
-- Key success factors
-- Applicability to others
-- Soft link to product (if relevant)
-```
-
-**Example (ElsaAI):**
-```markdown
-# ElsaAI Reduced Returns 38% with White-Label Fit Recommendations
-
-## Customer Overview
-
-ElsaAI is a luxury fashion marketplace with $200M GMV serving 250K monthly customers. Their curated selection emphasizes high-end designers and premium pricing—where brand consistency is critical.
-
-They faced a 25% return rate on dresses, costing $3.2M annually in reverse logistics and lost revenue.
+Here's what 6 months of return data taught us about why customers 
+send clothes back.
 
 ## The Problem
 
-Luxury customers expect flawless brand experiences. ElsaAI's previous fit solution used a co-branded widget that broke their visual aesthetic:
+Fashion brands lose $120 per return on average:
+- Reverse logistics: $15 (shipping + processing)
+- Lost revenue: $90 (can't resell as new)
+- Customer service: $15 (15 min @ $60/hr)
+
+At 25% return rates, a $10M/year brand loses $2.5M annually.
+
+Brands try:
+- Better size charts → Still 32% wrong
+- Virtual try-on → 28% accuracy improvement (not enough)
+- Free returns → Increases returns 40%
+
+None address root cause: customers can't predict fit from product pages.
+
+## Data Analysis
+
+We analyzed 10,000 returns across 5 luxury brands ($50M-$200M GMV):
+
+**Return reasons:**
+- Fit issues: 73% (7,300 returns)
+- Color/style mismatch: 18% (1,800)
+- Quality issues: 6% (600)
+- Price regret: 3% (300)
+
+**Fit issue breakdown:**
+- Too small: 42% (3,066)
+- Too large: 31% (2,263)
+- Wrong proportions: 27% (1,971)
+
+**Methodology:**
+- Analyzed return reason codes (when provided)
+- Parsed customer service notes (5,000+ tickets)
+- Interviewed 200 customers post-return
+- Cross-referenced with reorder patterns
+
+**Key insight:**
+Customers who return for fit issues reorder 68% of the time—but in 
+different sizes. They want the product. Size charts failed them.
+
+**Surprising finding:**
+Luxury brands ($100M+ GMV) have higher fit return rates (31% vs 22% 
+mid-market). Why? Higher expectations. Luxury customers expect 
+perfect fit, mid-market customers keep "good enough."
+
+## Implications
+
+**Insight 1: Size charts are the problem**
+
+Generic size charts average 68% accuracy. That means 32% of customers 
+get wrong sizes—and luxury customers won't accept "close enough."
+
+The fix isn't better charts. It's personalized fit prediction.
+
+**Insight 2: Virtual try-on isn't accurate enough**
+
+Current virtual try-on: 72% accuracy (4% improvement over charts). 
+Luxury threshold: >90% to build trust.
+
+Gap between current tech (72%) and customer expectation (90%) explains 
+why adoption stays low (<5% of luxury sites).
+
+**Insight 3: Returns signal buying intent**
+
+68% of fit-issue returns lead to reorders. These aren't "I don't want 
+this" returns—they're "I want this but in the right size."
+
+Opportunity: Fix fit prediction = capture 68% of return revenue.
+
+## Conclusion
+
+Fashion returns aren't about buyer's remorse. 73% are fit issues, and 
+customers reorder 68% of the time when they find the right size.
+
+**Key takeaways:**
+
+1. Size charts are 68% accurate—not good enough for luxury
+2. Virtual try-on at 72% accuracy misses the 90% trust threshold
+3. Fit returns signal buying intent (68% reorder rate)
+4. Luxury brands need >90% fit accuracy to reduce returns meaningfully
+5. $743B reverse logistics problem is actually fit prediction problem
+
+Related: [How Body Scanning Achieves 94% Fit Accuracy] [Why Luxury 
+Brands Choose White-Label SDK]
+
+Technical approach: [Fit Prediction Architecture Docs]
+```
+
+---
+
+## Pattern 2: Implementation Guide
+
+**Use when:** Teaching how to solve problem, technical tutorial, how-to
+
+**Structure:** Challenge → Approach → Implementation → Results
+
+**Length:** 1,200-2,000 words
+
+### Opening Approaches
+
+**Problem statement:**
+```
+Building real-time fit recommendations sounds simple. Load body 
+measurements, run ML model, return size. We shipped in 2 days.
+
+Then we tried to scale. Latency spiked to 3 seconds. Accuracy 
+dropped to 61%. Our "simple" system wasn't production-ready.
+```
+
+**Challenge framing:**
+```
+Every fashion SDK faces the same challenge: accurate fit predictions 
+under 200ms. Miss that threshold, conversion drops 15%. Here's how 
+we got from 3 seconds to 180ms without sacrificing accuracy.
+```
+
+**Lesson learned:**
+```
+We rebuilt our fit recommendation system 3 times. First version: 
+too slow. Second: too inaccurate. Third: production-ready at scale.
+
+Here's what we learned about real-time ML in e-commerce.
+```
+
+### Structure Guide
+
+**Introduction (150-200 words):**
+- Problem to solve
+- Why it's challenging  
+- What this guide covers
+
+**The Challenge (200-300 words):**
+- Specific technical/business problem
+- Requirements (performance, accuracy, scale)
+- Why obvious approaches fail
+- Constraints (latency, cost, accuracy)
+
+**Our Approach (300-500 words):**
+- Solution architecture/methodology
+- Why this works (technical reasoning)
+- Trade-offs considered
+- Alternative approaches rejected
+
+**Implementation (400-800 words):**
+- Step-by-step process
+- Technical details (code, architecture, algorithms)
+- Pitfalls to avoid
+- Time/resource requirements
+
+**Results (200-300 words):**
+- Metrics from implementation
+- Performance benchmarks
+- Lessons learned
+- What we'd do differently
+
+**Conclusion (100-150 words):**
+- Key takeaways
+- When to use this approach
+- Related resources (technical docs)
+
+### Example: Real-Time Fit Recommendations
+
+```markdown
+# Building Real-Time Fit Recommendations: 3s → 180ms
+
+## Introduction
+
+Fit recommendation systems need <200ms latency. Above that, conversion 
+drops 15%. Our first version took 3 seconds. Accuracy: 61%.
+
+We rebuilt 3 times to get production-ready performance: 180ms latency, 
+94% accuracy, 99.9% uptime.
+
+Here's how we architected real-time ML for fashion e-commerce.
+
+## The Challenge
+
+**Requirements:**
+- Latency: <200ms (conversion threshold)
+- Accuracy: >90% (luxury customer trust threshold)
+- Scale: 10,000 requests/hour per brand
+- Cost: <$0.001 per prediction (sustainable economics)
+
+**Why it's hard:**
+- ML models are slow (500ms-2s for body measurement processing)
+- High accuracy requires complex models (more computation)
+- Real-time = no batch processing benefits
+- Fashion has 100+ body measurement combinations per garment
+
+**Failed approaches:**
+
+*Attempt 1: Real-time ML inference*
+- Latency: 3,200ms (16x too slow)
+- Accuracy: 87% (good but not luxury threshold)
+- Cost: $0.15/prediction (150x budget)
+
+*Attempt 2: Pre-compute all combinations*
+- Storage: 50TB per brand (unsustainable)
+- Accuracy: 94% (excellent)
+- Update latency: 6 hours (stale recommendations)
+
+Neither worked at scale.
+
+## Our Approach
+
+**Hybrid architecture: Real-time measurement + cached predictions**
+
+Core insight: Body measurements change rarely. Garment fit patterns 
+change never (once designed). Separate these concerns.
+
+**Architecture:**
+```
+User → Measurement API (150ms) → Prediction Cache (30ms) → Response
+         ↓
+      ML Model (background)
+         ↓
+      Cache warming
+```
+
+**Why this works:**
+1. Measure body once, cache measurements (99% cache hit rate)
+2. Pre-compute fit predictions for popular garments (top 20% = 80% traffic)
+3. Real-time ML only for cache misses (<1% of requests)
+
+**Trade-offs:**
+- Pro: 180ms average latency (10x faster)
+- Pro: $0.0008/prediction (within budget)
+- Con: Cache warming takes 2 hours for new garments
+- Con: Requires prediction invalidation on garment updates
+
+**Rejected alternatives:**
+- Edge compute: 40% faster but 3x cost
+- Simpler model: 60ms faster but 85% accuracy (too low)
+- Client-side ML: Zero latency but 76% accuracy (insufficient)
+
+## Implementation
+
+**Step 1: Measurement API**
+
+```python
+# FastAPI endpoint
+@router.post("/measurements")
+async def get_measurements(
+    user_id: str,
+    height: float,
+    weight: float,
+    body_shape: BodyShape
+) -> MeasurementResponse:
+    # Check cache (Redis)
+    cached = await cache.get(f"user:{user_id}:measurements")
+    if cached:
+        return MeasurementResponse(**cached)
+    
+    # Compute if cache miss
+    measurements = await ml_model.predict_measurements(
+        height, weight, body_shape
+    )
+    
+    # Cache for 30 days (measurements change rarely)
+    await cache.set(
+        f"user:{user_id}:measurements",
+        measurements.dict(),
+        ttl=2592000
+    )
+    
+    return MeasurementResponse(**measurements)
+```
+
+**Latency breakdown:**
+- Cache hit: 15ms (Redis lookup)
+- Cache miss: 150ms (ML inference + cache write)
+- Cache hit rate: 99.2%
+- Average: 16ms
+
+**Step 2: Prediction Cache**
+
+```python
+# Pre-compute predictions for popular garments
+@task(schedule="@hourly")
+async def warm_prediction_cache():
+    # Top 20% garments = 80% traffic
+    popular_garments = await db.get_popular_garments(
+        limit=200,  # Per brand
+        time_window="7d"
+    )
+    
+    # For each body type cluster (50 clusters)
+    for cluster in BodyCluster.all():
+        for garment in popular_garments:
+            prediction = await ml_model.predict_fit(
+                cluster.representative_measurements,
+                garment.fit_data
+            )
+            
+            await cache.set(
+                f"fit:{cluster.id}:{garment.id}",
+                prediction.dict(),
+                ttl=86400  # 24 hours
+            )
+```
+
+**Cache efficiency:**
+- Garments cached: 200 per brand
+- Body clusters: 50 (k-means on measurement space)
+- Cache size: 10,000 predictions per brand
+- Storage: 50MB per brand (sustainable)
+- Warming time: 2 hours
+
+**Step 3: Real-Time Prediction**
+
+```python
+@router.post("/predict-fit")
+async def predict_fit(
+    garment_id: str,
+    user_id: str
+) -> FitPrediction:
+    # Get cached measurements
+    measurements = await get_measurements(user_id)
+    
+    # Find body cluster
+    cluster = BodyCluster.find_nearest(measurements)
+    
+    # Check prediction cache
+    cache_key = f"fit:{cluster.id}:{garment_id}"
+    cached_prediction = await cache.get(cache_key)
+    
+    if cached_prediction:
+        return FitPrediction(**cached_prediction)  # 30ms
+    
+    # Cache miss: real-time ML
+    garment = await db.get_garment(garment_id)
+    prediction = await ml_model.predict_fit(
+        measurements, garment.fit_data
+    )  # 500ms
+    
+    # Cache result
+    await cache.set(cache_key, prediction.dict(), ttl=86400)
+    
+    return prediction
+```
+
+**Latency breakdown:**
+- Cache hit: 30ms (measurement + prediction lookup)
+- Cache miss: 680ms (measurement + ML + cache write)
+- Cache hit rate: 92% (after warm-up)
+- Average: 84ms
+
+**Pitfalls avoided:**
+
+1. **Don't cache per-user predictions**
+   - Problem: 1M users × 200 garments = 200M cache entries
+   - Solution: Cluster users (50 clusters × 200 garments = 10K entries)
+
+2. **Don't real-time compute measurements**
+   - Problem: Adds 500ms every request
+   - Solution: Cache measurements separately (99% hit rate)
+
+3. **Don't over-cluster body types**
+   - Problem: 500 clusters = 5% accuracy gain, 10x cache size
+   - Solution: 50 clusters = optimal accuracy/size trade-off
+
+**Time investment:**
+- Architecture: 1 week
+- Implementation: 2 weeks
+- Load testing: 1 week
+- Production tuning: 2 weeks
+- Total: 6 weeks (2 engineers)
+
+## Results
+
+**Performance:**
+- Latency (p50): 84ms (2.4x under threshold)
+- Latency (p95): 180ms (still under threshold)
+- Latency (p99): 520ms (cache miss penalty)
+- Accuracy: 94% (above luxury threshold)
+
+**Economics:**
+- Cost per prediction: $0.0008 (within budget)
+- Cache hit rate: 92% (after warm-up)
+- Infrastructure: $200/month per brand
+
+**Production metrics (30 days):**
+- Requests served: 12M
+- Cache hits: 11M (92%)
+- Cache misses: 1M (8%)
+- Uptime: 99.94%
+
+**Lessons learned:**
+
+1. **Separate concerns:** Measurements change rarely, garments never—cache differently
+2. **Cluster users:** 50 body type clusters = 92% cache hit rate
+3. **Warm strategically:** Top 20% garments = 80% traffic
+4. **Real-time fallback:** Cache miss penalty acceptable at 8% frequency
+
+**What we'd do differently:**
+- Start with 20 clusters (faster iteration)
+- A/B test latency thresholds (maybe 300ms acceptable?)
+- Regional caching (reduce latency to <50ms)
+
+## Conclusion
+
+Real-time ML in e-commerce requires hybrid architecture: cache common 
+cases, real-time compute edge cases.
+
+**Key takeaways:**
+
+1. Separate concerns: measurements (cache 30d) vs predictions (cache 24h)
+2. Cluster users: 50 body types = 92% cache hit rate, 50MB cache
+3. Warm strategically: Top 20% garments = 80% traffic
+4. Real-time fallback: 8% cache miss rate acceptable
+5. Target: <200ms latency, >90% accuracy, <$0.001/prediction
+
+Related: [Fit Prediction ML Architecture] [Body Measurement API Docs]
+
+Technical docs: [API Reference] [Integration Guide]
+```
+
+---
+
+## Pattern 3: Industry Research
+
+**Use when:** Analyzing industry trends, competitive landscape, market analysis
+
+**Structure:** Context → Research → Findings → Implications
+
+**Length:** 1,000-1,500 words
+
+### Opening: Start with observation, preview insight
+
+### Sections: Context → Method → Data → Analysis → So What
+
+### Example: "We Analyzed 50 Fashion E-Commerce Sites: Here's What Fit Solutions They Use"
+
+---
+
+## Pattern 4: Technical Deep Dive
+
+**Use when:** Explaining complex system, architecture decision, technical trade-offs
+
+**Structure:** Problem → Constraints → Solution → Trade-offs → Decision
+
+**Length:** 1,500-2,500 words
+
+### Opening: Technical problem, why it's interesting
+
+### Sections: Problem → Requirements → Approaches → Analysis → Choice
+
+### Example: "Why We Chose Category Theory for Microservices Architecture"
+
+---
+
+## Pattern 5: Case Study (Blog Format)
+
+**Use when:** Customer success as educational content (different from sales case study)
+
+**Structure:** Customer → Problem → Solution → Results → Lessons
+
+**Length:** 1,200-1,800 words
+
+### Opening: Result first, then setup
+
+### Sections: Who → What problem → How solved → What happened → What we learned
+
+### Example: "How ElsaAI Reduced Returns 38%: Architecture Lessons"
+
+---
+
+## Pattern Selection
+
+| Goal | Pattern | Best For |
+|------|---------|----------|
+| Explain problem | Problem Analysis | Industry issues, research |
+| Teach solution | Implementation Guide | Technical how-to |
+| Analyze landscape | Industry Research | Competitive analysis |
+| Explain architecture | Technical Deep Dive | System design decisions |
+| Share success | Case Study (Blog) | Educational customer story |
+
+## Remember
+
+- Patterns guide structure, not prescribe content
+- Technical depth builds credibility
+- Data from threads, not invented
+- Educational tone, no sales language
+
+Success = Following pattern structure + Applying brand voice + Including technical depth
+```
+
+
+<!-- FILE: content-generation/references/case-study-pattern.md -->
+
+# content-generation/references/case-study-pattern.md
+
+```markdown
+# Case Study Pattern
+
+Customer success stories as educational content.
+
+**Use when:** Sharing customer results, validating approach with real data, demonstrating ROI
+
+**Structure:** Customer → Problem → Solution → Results → Technical Details
+
+**Length:** 1,000-1,500 words
+
+---
+
+## Core Principle
+
+Case studies are **evidence**, not sales pitches. Show what happened, include numbers, explain why it worked.
+
+**Good case study:**
+- Specific metrics (25% → 18% return rate)
+- Technical details (architecture, implementation)
+- Honest about challenges (what didn't work)
+- Educational (lessons others can apply)
+
+**Bad case study:**
+- Vague claims ("dramatically improved")
+- No technical depth (just results)
+- Overly promotional (selling, not teaching)
+- Cherry-picked success (hiding failures)
+
+---
+
+## Opening Approaches
+
+### Result-First Opening
+
+Start with the outcome, then explain how:
+
+```
+# ElsaAI Reduced Returns 38% with White-Label Fit Recommendations
+
+ElsaAI is a luxury marketplace with $200M GMV. They faced 25% return 
+rates on dresses, costing $2.1M annually.
+
+After implementing white-label fit recommendations, returns dropped 
+to 18%—a 28% reduction. Here's how they did it, what challenges they 
+faced, and what we learned.
+```
+
+### Problem-First Opening
+
+Start with customer pain, then reveal solution:
+
+```
+# How a Luxury Marketplace Fixed 25% Return Rates in 30 Days
+
+ElsaAI had a problem: 1 in 4 dresses got returned. At $120 average 
+order value, that's $1.5M in lost revenue annually—plus $600K in 
+reverse logistics.
+
+Generic size charts weren't working. Virtual try-on improved accuracy 
+from 68% to 72%—not enough for luxury customers who expect perfection.
+
+Here's how they got to 94% fit accuracy and reduced returns 28%.
+```
+
+### Challenge-First Opening
+
+Start with what makes this difficult:
+
+```
+# The Challenge: Luxury Brand Consistency vs Fit Accuracy
+
+ElsaAI needed 90%+ fit accuracy to reduce returns. But every fit 
+solution they evaluated required co-branded widgets—breaking their 
+luxury brand aesthetic.
+
+The dilemma: Accept lower accuracy to maintain brand consistency, or 
+compromise brand for better fit recommendations?
+
+Here's how they solved both with white-label architecture.
+```
+
+---
+
+## Structure Guide
+
+### Customer Overview (100-150 words)
+
+**What to include:**
+- Company name, industry, size (GMV, customers)
+- Business model (B2C marketplace, D2C brand)
+- Initial challenge (quantified)
+
+**Example:**
+```
+ElsaAI is a luxury fashion marketplace with $200M GMV serving 250K 
+monthly customers. Their curated selection emphasizes high-end 
+designers and premium pricing—where brand consistency is critical.
+
+They faced a 25% return rate on dresses, costing $3.2M annually in 
+reverse logistics and lost revenue.
+```
+
+**Don't:**
+- Generic company description
+- Vague metrics ("large customer base")
+- Skip the initial problem
+
+---
+
+### The Problem (250-350 words)
+
+**What to include:**
+- Specific pain point (quantified impact)
+- Business cost (revenue, operations, customer experience)
+- Previous solutions attempted (what failed and why)
+- Why change was needed now
+
+**Example:**
+```
+## The Problem
+
+Luxury customers expect flawless brand experiences. ElsaAI's previous 
+fit solution used a co-branded widget that broke their visual aesthetic:
 
 - Widget displayed third-party branding
 - Design didn't match site style
@@ -1777,6 +2876,32 @@ At 25% return rates, $120 average order value, and 50K dress orders/year:
 - Customer service: $200K (15 min per return @ $40/hr)
 - Total annual cost: $2.1M
 
+**What they tried:**
+
+1. **Better size charts** → Still 32% inaccurate
+2. **Virtual try-on (competitor)** → 72% accuracy, but co-branded
+3. **Custom ML model** → 3-month build, $200K development cost
+
+None solved both accuracy AND brand consistency.
+```
+
+**Don't:**
+- Skip the cost quantification
+- Ignore previous attempts
+- Use generic pain points ("needed better solution")
+
+---
+
+### Solution (300-400 words)
+
+**What to include:**
+- What they implemented (specific technology/approach)
+- Technical approach (architecture, integration)
+- Implementation timeline and resources
+- Why this approach worked
+
+**Example:**
+```
 ## Solution
 
 ElsaAI implemented our white-label SDK with custom branding:
@@ -1789,21 +2914,67 @@ ElsaAI implemented our white-label SDK with custom branding:
 
 **Integration:**
 - 2-week implementation
-- 10 hours engineering time
+- 10 hours engineering time (ElsaAI team)
 - No infrastructure changes needed
+- API integration via REST endpoints
 
 **Fit accuracy:**
 - AI trained on 10M+ body scans
 - 94% accuracy on luxury dress category
-- Personalized per customer
+- Personalized per customer (not generic size charts)
 
+**Why white-label mattered:**
+
+ElsaAI customers pay $150-$500 per dress. At this price point:
+- Brand consistency is non-negotiable
+- Co-branded widgets signal "outsourced" (reduces trust)
+- Mobile experience must be seamless
+
+White-label removed trust friction while delivering 94% accuracy—
+crossing the luxury credibility threshold (>90%).
+
+**Architecture:**
+```
+Customer → Product Page → fit.elsaai.com/widget (white-label)
+                              ↓
+                        Body Measurement API
+                              ↓
+                        Recommendation Engine (94% accuracy)
+                              ↓
+                        Size Recommendation
+```
+
+**Implementation details:**
+- SDK loaded asynchronously (no page speed impact)
+- Body measurement API: <200ms latency
+- Recommendation cache: 99.9% uptime
+- Analytics dashboard: Real-time fit data
+```
+
+**Don't:**
+- Skip technical details (how it actually works)
+- Use buzzwords instead of architecture
+- Omit implementation timeline/resources
+
+---
+
+### Results (300-400 words)
+
+**What to include:**
+- Metrics (before/after with timeline)
+- Business impact (revenue, costs, efficiency)
+- Unexpected benefits
+- Customer quote (if available)
+
+**Example:**
+```
 ## Results
 
 **30-day pilot (dress category only):**
 - Return rate: 25% → 18% (28% reduction)
 - Fit accuracy: 94% (vs 68% baseline)
 - Customer satisfaction: 3.2 → 4.1 (27% improvement)
-- Mobile conversion: +12% (cleaner UI)
+- Mobile conversion: +12% (cleaner UI, no third-party branding)
 
 **Annual projection:**
 - Returns avoided: 3,500 (7% of 50K orders)
@@ -1818,6 +2989,47 @@ ElsaAI implemented our white-label SDK with custom branding:
 - Net benefit: $305K (61% ROI)
 - Payback: 7.4 months
 
+**Unexpected benefits:**
+
+1. **Mobile conversion increased 12%**
+   - Cleaner UI without third-party branding
+   - Faster load time (SDK optimized for mobile)
+   - Higher trust signal (seamless brand experience)
+
+2. **Customer service tickets reduced 15%**
+   - Fewer fit-related questions pre-purchase
+   - Fewer return requests
+   - Higher confidence in recommendations
+
+3. **Marketing asset: White-label as luxury signal**
+   - ElsaAI now markets "proprietary fit technology"
+   - White-label enables brand storytelling
+   - Competitive differentiation in luxury segment
+
+**Customer quote:**
+
+"Our customers don't care who powers fit recommendations. They care 
+that it looks like ElsaAI. White-label gave us 94% accuracy without 
+compromising our brand." — Sarah Chen, CTO, ElsaAI
+```
+
+**Don't:**
+- Use vague metrics ("significant improvement")
+- Skip the ROI calculation
+- Omit unexpected learnings
+
+---
+
+### Technical Details (200-300 words)
+
+**What to include:**
+- Architecture/integration approach
+- Challenges overcome
+- Why it worked (technical reasoning)
+- Applicability to others
+
+**Example:**
+```
 ## Technical Details
 
 **Architecture:**
@@ -1827,1043 +3039,913 @@ ElsaAI implemented our white-label SDK with custom branding:
 - Analytics dashboard: Real-time fit data
 
 **Challenges overcome:**
+
 1. **Brand consistency:** Custom CSS matching ElsaAI's design system exactly
+   - Solution: React SDK with CSS-in-JS, inherits ElsaAI theme
+   - Result: Zero visual distinction from native components
+
 2. **Mobile performance:** Lazy loading prevented slowdown
+   - Solution: Async script loading, critical path optimization
+   - Result: No impact on Lighthouse score (98 → 97)
+
 3. **Data privacy:** GDPR-compliant body measurement storage
+   - Solution: EU data residency, 30-day data retention
+   - Result: Legal approval in 5 EU markets
+
+**Why it worked:**
+- White-label removed trust friction (no third-party branding)
+- 94% accuracy exceeded luxury threshold (>90%)
+- Fast integration minimized engineering burden (2 weeks vs 3 months custom)
+
+**Applicability:**
+
+This approach works for fashion brands with:
+- Strong brand identity (luxury, premium positioning)
+- High average order value (>$100)
+- Technical team for integration (5-10 hours engineering time)
+- Volume to justify cost ($400K+/year white-label tier)
+```
+
+**Don't:**
+- Skip the challenges (makes success seem easy)
+- Use generic architecture descriptions
+- Omit applicability criteria
+
+---
+
+### Conclusion (100-150 words)
+
+**What to include:**
+- Key success factors (3-5 points)
+- Lessons learned
+- Applicability to readers
+- Soft link to product (if relevant)
+
+**Example:**
+```
+## Conclusion
+
+ElsaAI's success validates three insights:
+
+1. **Luxury brands won't compromise on brand consistency** - Co-branded 
+   solutions are non-starters regardless of accuracy
+
+2. **Fit accuracy >90% is table stakes** - Luxury customers expect 
+   near-perfect recommendations
+
+3. **Fast implementation matters** - 2-week integration vs 3-month 
+   custom build enabled rapid validation
+
+This approach works for fashion brands with strong brand identity, 
+high AOV (>$100), and technical capacity for integration.
+
+White-label SDK technical docs: [link]
+```
+
+**Don't:**
+- Hard CTA ("Book a demo now!")
+- Overgeneralize lessons
+- Skip the applicability criteria
+
+---
+
+## Quality Checklist
+
+Before completing case study:
+
+- [ ] **Metrics:** All numbers sourced from thread (no invented data)
+- [ ] **Customer approval:** Name and data approved for public use
+- [ ] **Technical depth:** Architecture, implementation details included
+- [ ] **Honest:** Challenges and failures mentioned
+- [ ] **ROI calculated:** Cost vs benefit shown clearly
+- [ ] **Applicable:** Who this approach works for (and doesn't)
+- [ ] **Educational tone:** Teaching, not selling
+- [ ] **No sales language:** No buzzwords, CTAs, promotional phrasing
+
+---
+
+## Common Mistakes
+
+### ❌ Vague Metrics
+
+**Wrong:**
+```
+ElsaAI saw significant improvements in return rates and customer 
+satisfaction after implementing our solution.
+```
+
+**Right:**
+```
+ElsaAI: Return rate 25% → 18% (28% reduction). Customer satisfaction 
+3.2 → 4.1 (27% improvement). Annual savings: $805K.
+```
+
+### ❌ Skipping Technical Details
+
+**Wrong:**
+```
+We integrated our AI-powered SDK and it worked great.
+```
+
+**Right:**
+```
+React SDK with custom CSS matching ElsaAI design system. Async loading 
+(no page speed impact). API latency <200ms. 94% fit accuracy on 10M+ 
+body scan training data.
+```
+
+### ❌ Promotional Tone
+
+**Wrong:**
+```
+Our revolutionary solution transformed their business! Book a demo 
+to see the magic yourself!
+```
+
+**Right:**
+```
+White-label SDK gave them 94% accuracy without compromising brand. 
+Technical docs: [link]
+```
+
+### ❌ Cherry-Picking Success
+
+**Wrong:**
+```
+Everything went perfectly. Implementation was flawless. Results exceeded 
+all expectations.
+```
+
+**Right:**
+```
+Challenges: CSS matching took 3 iterations. Mobile performance required 
+lazy loading. GDPR compliance delayed EU launch 2 weeks. But 94% accuracy 
+made it worth solving.
+```
+
+---
+
+## Remember
+
+Case studies are **evidence-based education**, not sales collateral.
+
+Good case study = Specific metrics + Technical depth + Honest challenges + Applicable lessons
+
+Success = Reader learns what works, why it works, and when to apply it
+```
+
+
+<!-- FILE: content-generation/references/email-patterns.md -->
+
+# content-generation/references/email-patterns.md
+
+```markdown
+# Email Pattern
+
+Newsletter and announcement emails that educate, don't sell.
+
+**Use when:** Weekly/monthly newsletter, product announcement email, educational series
+
+**Length:** 400-600 words
+
+**Tone:** Personal, educational, non-promotional
+
+---
+
+## Core Principles
+
+**Good email:**
+- Curates knowledge (links to full content)
+- Personal voice (from real person)
+- Educational focus (teaching, not selling)
+- Scannable structure (sections, headers)
+- No hard CTAs (soft links at most)
+
+**Bad email:**
+- Sales pitch in disguise
+- Generic corporate voice
+- Walls of text (not scannable)
+- Multiple CTAs ("Book now!", "Try free!")
+- Engagement tricks ("Click here to learn more!")
+
+---
+
+## Newsletter Pattern
+
+**Use when:** Regular updates (weekly, monthly), curated insights, company news
+
+**Structure:** Personal greeting → 2-3 sections (insight/resource/update) → Closing
+
+### Structure Guide
+
+**Subject Line:**
+- Specific value, not clickbait
+- 40-60 characters
+- Preview extends subject (doesn't repeat)
+
+**Examples:**
+```
+✅ "Why luxury brands choose white-label SDK" (specific)
+❌ "You won't believe this!" (clickbait)
+
+✅ "Q4 learning: 5 deals, 1 pattern" (concrete)
+❌ "Our latest insights" (vague)
+
+✅ "How ElsaAI reduced returns 38%" (data-driven)
+❌ "Amazing customer success story" (promotional)
+```
+
+**Opening (50-75 words):**
+- Personal greeting (not generic)
+- Context: Why this matters now
+- Preview: What they'll learn
+
+**Section 1: Key Insight (150-200 words):**
+- Business learning or announcement
+- Supporting data/context
+- Link to full article (if applicable)
+
+**Section 2: Educational Resource (150-200 words):**
+- How-to content, case study, technical guide
+- Practical takeaway
+- Link to full content
+
+**Section 3: Update (100-150 words):**
+- Product update, milestone, industry news
+- Brief context
+- Link for more (if relevant)
+
+**Closing (25-50 words):**
+- Personal sign-off (not corporate)
+- Real person signature (name, title)
+- No hard CTA
+
+### Newsletter Example
+
+```
+Subject: Why luxury brands choose white-label SDK over co-branded
+Preview: 5 deals in Q4. All picked white-label. Here's what we learned.
+
+---
+
+Hey [Name],
+
+We closed 5 enterprise fashion deals in Q4. All 5 chose white-label 
+SDK over our co-branded option.
+
+Not what we expected. Here's what we learned about luxury brand 
+positioning—and a case study showing how one customer reduced returns 38%.
+
+---
+
+**Q4 Learning: Luxury Brands Won't Compromise on Brand Consistency**
+
+100% of luxury brands ($100M+ GMV) chose white-label over co-branded 
+widgets—even though white-label costs 3x more.
+
+Why? Brand consistency at $200+ price points is non-negotiable:
+- Co-branded widgets break visual aesthetic
+- Third-party branding reduces customer trust
+- Mobile experience needs seamless integration
+
+One customer (luxury marketplace, $200M GMV) told us: "Our customers 
+don't care who powers fit tech. They care it looks like us."
+
+Meanwhile, fast fashion brands ($10M-$50M GMV) prefer co-branded for 
+credibility ("powered by AI") and lower cost.
+
+Same technology. Different packaging. Segment matters more than product.
+
+Read the full analysis: [5 Enterprise Deals, 1 Pattern: Brand Over Badge]
+
+---
+
+**Case Study: How ElsaAI Reduced Returns 38% in 30 Days**
+
+ElsaAI (luxury marketplace, $200M GMV) faced 25% return rates on 
+dresses—$2.1M annual cost.
+
+After implementing white-label fit recommendations:
+- Return rate: 25% → 18% (28% reduction)
+- Fit accuracy: 94% (vs 68% generic size charts)
+- ROI: $305K net benefit (61% ROI, 7.4-month payback)
+
+Technical details: React SDK, <200ms API latency, custom CSS matching 
+their design system exactly. No third-party branding.
+
+Implementation time: 2 weeks (10 hours engineering).
+
+The case study includes architecture diagrams, ROI breakdown, and 
+lessons on what didn't work.
+
+Read the full story: [ElsaAI Case Study: Architecture & Results]
+
+---
+
+**Product Update: White-Label SDK Now Generally Available**
+
+Based on Q4 demand, white-label SDK is now available for all enterprise 
+fashion brands ($100M+ GMV).
+
+What's included:
+- 94% fit accuracy (trained on 10M+ body scans)
+- Full custom branding (your fonts, colors, domain)
+- 2-week integration (typical timeline)
+- Enterprise SLA (99.9% uptime, dedicated support)
+
+Pricing: $400K+/year (enterprise tier)
+
+Technical docs: [Integration Guide]
+
+---
+
+That's it for this month. Next up: Expanding to footwear vertical—
+same architecture, different category.
+
+— Bella
+Co-founder, GlamYouUp
+```
+
+---
+
+## Announcement Email Pattern
+
+**Use when:** Product launch, major feature, company milestone
+
+**Structure:** What happened → Why it matters → What you can do
+
+### Structure Guide
+
+**Subject Line:**
+- Clear announcement, not teaser
+- 40-60 characters
+
+**Examples:**
+```
+✅ "White-label SDK now available for enterprise"
+❌ "Big news from GlamYouUp!"
+
+✅ "Introducing: Real-time fit recommendations"
+❌ "You've been waiting for this"
+```
+
+**Opening (50-75 words):**
+- Announcement (what's new)
+- Why this matters (problem solved)
+
+**Body (300-400 words):**
+- What this enables (capabilities)
+- Who it's for (target customers)
+- How it works (technical overview)
+- When available (timeline)
+
+**Closing (25-50 words):**
+- Next step (soft link to docs)
+- Personal sign-off
+
+### Announcement Example
+
+```
+Subject: White-label fit recommendations now available
+Preview: Deploy AI-powered size recommendations under your brand.
+
+---
+
+Hey [Name],
+
+White-label SDK is now available for enterprise fashion brands.
+
+After 5 enterprise deals chose white-label over co-branded in Q4, we 
+made it generally available. Deploy 94% fit accuracy without third-party 
+branding or co-branded widgets.
+
+Here's what you need to know.
+
+---
+
+**What This Enables**
+
+Full brand control:
+- Your domain (fit.yourbrand.com)
+- Your styling (custom CSS, fonts, colors)
+- Zero external attribution or logos
+- Seamless mobile experience
+
+Same 94% fit accuracy as co-branded version:
+- Trained on 10M+ body scans
+- Personalized recommendations per customer
+- <200ms API latency
+- Real-time analytics dashboard
+
+**Who It's For**
+
+Enterprise fashion brands with:
+- Strong brand identity (luxury, premium)
+- High AOV (>$100)
+- Technical capacity (5-10 hours integration)
+- Volume to justify cost ($400K+/year)
+
+**How It Works**
+
+1. Deploy React SDK on your site
+2. Host widget on your subdomain
+3. Customize styling to match your design system
+4. Integrate via REST API
+
+Implementation time: 2 weeks (typical)
+
+Technical architecture:
+```
+Your site → fit.yourbrand.com (white-label widget)
+               ↓
+         Body Measurement API
+               ↓
+         Recommendation Engine
+               ↓
+         Size Recommendation
+```
+
+**When Available**
+
+Now. Technical docs and integration guide ready.
+
+---
+
+**Next Steps**
+
+Technical documentation: [Integration Guide]
+Case study: [How ElsaAI Reduced Returns 38%]
+Architecture overview: [White-Label SDK Technical Docs]
+
+Questions? Reply to this email (I read every response).
+
+— Bella
+Co-founder, GlamYouUp
+```
+
+---
+
+## Educational Series Pattern
+
+**Use when:** Multi-part email course, onboarding sequence, how-to series
+
+**Structure:** Lesson intro → Key concept → Example → Practice/next step
+
+### Structure Guide
+
+**Part indicator:**
+- Clear position in series (Part 2 of 5)
+- Previous/next context
+
+**Lesson structure:**
+- Concept introduction (what you'll learn)
+- Explanation (how it works)
+- Example (real application)
+- Practice (what to try)
+- Next lesson preview
+
+### Example: Fit Prediction Series (Part 2/5)
+
+```
+Subject: Part 2: Why size charts fail (Fit Prediction Series)
+Preview: Generic size charts: 68% accurate. Here's why—and what works.
+
+---
+
+Hey [Name],
+
+Part 2 of our fit prediction series. Last time: Why 73% of returns are 
+fit issues. Today: Why size charts don't work.
+
+Quick recap: Fashion returns cost $743B annually. 73% are fit issues, 
+not buyer's remorse. Problem: Generic size charts are only 68% accurate.
+
+Let's explore why—and what accuracy threshold luxury brands need.
+
+---
+
+**Why Generic Size Charts Fail**
+
+Size charts are based on population averages. Problem: Nobody is average.
+
+**Example: "Medium" dress**
+
+Generic size chart:
+- Bust: 36-38"
+- Waist: 28-30"
+- Hips: 38-40"
+
+Assumes proportions scale together. Reality: They don't.
+
+Customer A (fits "Medium" bust): 37" bust, 26" waist, 41" hips
+Customer B (fits "Medium" waist): 39" bust, 29" waist, 37" hips
+
+Both are "Medium" by one measurement. Wrong size by others.
+
+**Accuracy breakdown:**
+
+We analyzed 10,000 purchases:
+- Generic size charts: 68% accurate
+- Virtual try-on (single-angle): 72% accurate
+- Body scanning (multi-point): 94% accurate
+
+Luxury threshold: >90% accuracy to build trust.
+
+**What Works: Personalized Fit Prediction**
+
+Instead of "What size is Medium?", ask: "What size fits this body?"
+
+Approach:
+1. Measure customer body (height, weight, shape)
+2. Compare to garment fit data (measurements per size)
+3. Predict best size (personalized, not generic)
+
+Result: 94% accuracy (trained on 10M+ body scans)
+
+**Try This:**
+
+Next time you shop online, note: Does site use generic size chart or 
+personalized recommendations?
+
+Generic: "Size M fits bust 36-38""
+Personalized: "Based on your measurements, size M will fit"
+
+Difference: Generic assumes you know your measurements. Personalized 
+computes fit for you.
+
+---
+
+**Next: Part 3 - How Body Scanning Achieves 94% Accuracy**
+
+We'll cover:
+- Multi-point measurement approach
+- ML training on 10M+ body scans
+- Why single-angle virtual try-on tops out at 72%
+
+Coming Wednesday.
+
+— Bella
+Co-founder, GlamYouUp
+```
+
+---
+
+## Email Quality Standards
+
+**Good email:**
+- Personal voice (real person, not corporate)
+- Educational focus (teaching, not selling)
+- Scannable structure (sections, headers, lists)
+- Specific value (data, examples, insights)
+- Soft link (docs, content, not sales page)
+
+**Bad email:**
+- Generic corporate tone
+- Sales pitch disguised as content
+- Wall of text (no structure)
+- Vague claims ("learn more", "discover")
+- Multiple CTAs ("Book demo!", "Try now!")
+
+---
+
+## Common Mistakes
+
+### ❌ Subject Line Clickbait
+
+**Wrong:**
+```
+Subject: You won't believe what we just launched!
+```
+
+**Right:**
+```
+Subject: White-label SDK now available for enterprise
+```
+
+### ❌ Sales Pitch Disguised as Content
+
+**Wrong:**
+```
+Our revolutionary AI-powered solution transforms fashion e-commerce!
+Book a demo to see the magic! Limited time offer!
+```
+
+**Right:**
+```
+We analyzed 10,000 returns. 73% were fit issues, not buyer's remorse.
+Here's what size chart accuracy tells us: [link to analysis]
+```
+
+### ❌ Generic Corporate Voice
+
+**Wrong:**
+```
+Dear Valued Customer,
+
+We are excited to announce...
+
+Sincerely,
+The GlamYouUp Team
+```
+
+**Right:**
+```
+Hey [Name],
+
+We closed 5 deals in Q4. All picked white-label over co-branded.
+Not what we expected. Here's what we learned...
+
+— Bella
+Co-founder, GlamYouUp
+```
+
+### ❌ Multiple CTAs
+
+**Wrong:**
+```
+Book a demo! Try free trial! Download white paper! Subscribe for updates!
+```
+
+**Right:**
+```
+Technical docs: [Integration Guide]
+
+Questions? Reply to this email.
+```
+
+---
+
+## Quality Checklist
+
+Before sending:
+
+- [ ] **Subject:** Specific value (not clickbait)
+- [ ] **Opening:** Personal, contextual (not generic greeting)
+- [ ] **Tone:** Educational (not promotional)
+- [ ] **Structure:** Scannable (sections, headers)
+- [ ] **Content:** Specific data/examples (not vague)
+- [ ] **Links:** Soft links to content (not hard CTAs)
+- [ ] **Signature:** Real person (not "The Team")
+- [ ] **Length:** 400-600 words (scannable in 2-3 min)
+
+---
+
+## Remember
+
+Emails are curated knowledge delivery, not sales pitches.
+
+Good email = Personal voice + Educational content + Scannable structure + Soft links
+
+Success = Readers learn something useful every time
+```
+
+
+<!-- FILE: content-generation/references/pattern-principles.md -->
+
+# content-generation/references/pattern-principles.md
+
+```markdown
+# Content Pattern Principles
+
+Patterns are structure guides, not rigid templates.
+
+## What Patterns Are
+
+**Patterns provide:**
+- Core structure (problem → solution → result)
+- Opening approaches (5-7 examples per pattern)
+- Transition techniques (how to move between sections)
+- Length ranges (guidance, not requirements)
+- Common pitfalls (what to avoid)
+
+**Patterns do NOT provide:**
+- Exact word counts (flexibility for content)
+- Fill-in-the-blank templates (requires thinking)
+- Prescribed phrasing (use natural language)
+- Step-by-step scripts (adapt to context)
+
+## How to Use Patterns
+
+### 1. Select Pattern Based on Purpose
+
+**Problem Analysis Pattern:**
+- Use when: Explaining industry problem, sharing research, analyzing trends
+- Structure: Problem → Data → Analysis → Implication
+- Example: "Why 70% of Fashion Returns Are Fit Issues"
+
+**Implementation Guide Pattern:**
+- Use when: Teaching how to solve problem, technical tutorial
+- Structure: Challenge → Approach → Implementation → Results
+- Example: "Building Real-Time Fit Recommendations with React SDK"
+
+**Case Study Pattern:**
+- Use when: Sharing customer success, validating approach
+- Structure: Customer → Problem → Solution → Results
+- Example: "How ElsaAI Reduced Returns 38% with White-Label SDK"
+
+**Announcement Pattern:**
+- Use when: Launching product/feature, major milestone
+- Structure: What → Why → How → Who → When
+- Example: "White-Label SDK Now Available for Enterprise"
+
+**LinkedIn Insight Pattern:**
+- Use when: Sharing business learning, industry observation
+- Structure: Insight → Analysis → Implication
+- Example: "100% of Luxury Brands Chose White-Label Over Co-Branded"
+
+### 2. Adapt Structure to Content
+
+**Pattern gives skeleton, not script:**
+
+Pattern says:
+```
+Introduction (100-150 words)
+- Problem context
+- Why it matters
+- What reader will learn
+```
+
+You write:
+```
+When we launched our SDK, we assumed enterprise brands would prefer 
+co-branded widgets. After 5 deals, we learned we were wrong.
+
+100% of luxury brands ($100M+ GMV) chose white-label. This wasn't 
+about hiding our technology—it was about brand consistency being 
+non-negotiable in luxury e-commerce.
+
+Here's what $5.5M in contracts taught us about brand positioning.
+```
+
+**Use pattern as guide, not script.**
+
+### 3. Apply Brand Voice
+
+**Pattern provides structure. Voice provides tone.**
+
+Every pattern follows brand voice:
+- **Educational:** Teach, don't sell
+- **Data-driven:** Specific metrics, not vague claims
+- **Technical:** Include architecture, methodology
+- **Honest:** Admit uncertainties, limitations
+- **No sales language:** No buzzwords, CTAs, engagement tricks
+
+**Example:**
+
+❌ Template-following (wrong):
+```
+Our revolutionary AI-powered solution leverages cutting-edge 
+machine learning to dramatically improve customer satisfaction.
+Book a demo to see the magic!
+```
+
+✅ Pattern + Voice (right):
+```
+We trained our fit model on 10M+ body scans. Accuracy went from 
+68% (generic size charts) to 94% (personalized recommendations).
+
+The challenge: luxury customers expect >90% accuracy. At 94%, 
+we cross the credibility threshold. Below 90%, returns stay high.
+```
+
+### 4. Include Technical Depth
+
+**Patterns guide structure. Depth builds credibility.**
+
+Each pattern requires technical details:
+- Architecture approaches
+- Methodology explanations
+- Performance specifications
+- Implementation challenges
+
+**Example from case study:**
+
+Pattern says: "Technical Details (200-300 words)"
+
+You write:
+```
+## Technical Details
+
+**Architecture:**
+- SDK loaded asynchronously (no page speed impact)
+- Body measurement API: <200ms latency
+- Recommendation cache: 99.9% uptime
+- Analytics dashboard: Real-time fit data
+
+**Challenges overcome:**
+1. Brand consistency: Custom CSS matching ElsaAI design system
+2. Mobile performance: Lazy loading prevented slowdown
+3. Data privacy: GDPR-compliant body measurement storage
 
 **Why it worked:**
 - White-label removed trust friction
 - 94% accuracy exceeded luxury threshold
 - Fast integration minimized engineering burden
-
-## Conclusion
-
-ElsaAI's success validates three insights:
-
-1. **Luxury brands won't compromise on brand consistency** - Co-branded solutions are non-starters regardless of accuracy
-2. **Fit accuracy >90% is table stakes** - Luxury customers expect near-perfect recommendations
-3. **Fast implementation matters** - 2-week integration vs 3-month custom build
-
-This approach works for fashion brands with:
-- Strong brand identity (luxury, premium)
-- High average order value (>$100)
-- Technical team for integration (5-10 hours)
-
-White-label SDK available for enterprise: Technical docs at {link}
 ```
 
-### Product Announcement
+### 5. Use Source Material
 
-**Pattern:** What → Why → How → Who → When
+**Patterns provide structure. Threads provide content.**
 
-**Length:** 400-700 words
+All content comes from:
+- Thread learning (facts, metrics, insights)
+- Canvas positioning (value proposition, problem)
+- Sales narratives (customer language, pain points)
+- Brand voice guidelines (tone, style)
 
-**Structure:**
-```markdown
-# {Feature/Product Name} Now Available
+**Never invent:**
+- Customer names (check thread for approval)
+- Metrics (use exact numbers from threads)
+- Technical details (match thread specifications)
+- Customer quotes (use verbatim or don't include)
 
-## What (100-150 words)
-- Feature/product name
-- One-sentence summary
-- Primary benefit
+## Pattern Selection Matrix
 
-## Why (150-200 words)
-- Problem this solves
-- Customer demand (from threads)
-- Strategic context
+| Content Goal | Pattern | Length | Depth |
+|--------------|---------|--------|-------|
+| Explain problem | Problem Analysis | 800-1,200 | Medium |
+| Teach solution | Implementation Guide | 1,200-2,000 | High |
+| Share success | Case Study | 1,000-1,500 | High |
+| Launch product | Announcement | 400-700 | Low |
+| Quick insight | LinkedIn Post | 300-600 | Medium |
+| Curated update | Newsletter | 400-600 | Low |
 
-## How (200-300 words)
-- Technical approach
-- Key capabilities
-- Differentiation from alternatives
+## Common Mistakes
 
-## Who (100-150 words)
-- Target customers
-- Use cases
-- Requirements
+### ❌ Following Pattern Too Rigidly
 
-## When & Pricing (50-100 words)
-- Availability (now, beta, Q1 2025)
-- Pricing tier
-- How to access
-
-## Technical Details (optional, 100-200 words)
-- Architecture highlights
-- Integration approach
-- Performance specs
+**Wrong:**
+```
+Introduction (exactly 150 words)
+The problem with fashion returns is... [fills exactly 150 words 
+even if unnatural]
 ```
 
-### LinkedIn Company Post
-
-**Pattern:** Insight → Analysis → Implication
-
-**Length:** 300-600 words
-
-**Structure:**
-```markdown
-{Opening observation or data point}
-
-{Analysis with supporting details}
-
-{Implication or learning}
-
-{Soft link to product/content if relevant}
+**Right:**
+```
+When we launched, we assumed brands wanted co-branded widgets. 
+We were wrong. [Natural length, ~30 words]
 ```
 
-**Example:**
-```markdown
-We closed 5 enterprise fashion deals in Q4. All 5 chose white-label SDK over co-branded.
+### ❌ Skipping Technical Depth
 
-This wasn't about hiding our technology. It was about brand consistency being non-negotiable.
-
-What we learned:
-
-**Luxury brands ($100M+ GMV) prioritize brand consistency over vendor recognition**
-
-They'll pay 3x more for white-label because:
-- Co-branded widgets break visual aesthetic
-- Customers question legitimacy of third-party branding
-- Mobile experience needs seamless integration
-
-One customer (luxury marketplace, $200M GMV) told us: "Our customers don't care who powers fit recommendations. They care that it looks like ElsaAI."
-
-**Fast fashion brands ($10M-$50M GMV) prefer co-branded**
-
-Opposite behavior:
-- Third-party branding adds credibility ("powered by AI")
-- Lower technical resources (easier implementation)
-- Price-sensitive (white-label costs 3x)
-
-**Takeaway:**
-Customer segment dictates product packaging. Same technology, different positioning.
-
-We're now offering both:
-- White-label: Enterprise tier ($400K+)
-- Co-branded: Growth tier ($50K+)
-
-Technical docs: {link}
+**Wrong:**
+```
+We used AI to improve fit recommendations. It worked well.
 ```
 
-### Email Newsletter
-
-**Pattern:** Curated insights + Educational content
-
-**Length:** 400-600 words
-
-**Structure:**
-```markdown
-Subject: {Specific value, not clickbait}
-
-Preview: {Extend subject, don't repeat}
-
----
-
-{Personal greeting}
-
-{Opening: Why this matters now}
-
-**Section 1: {Insight}** (150-200 words)
-- Key learning or announcement
-- Supporting data
-- Link to full article
-
-**Section 2: {Resource}** (150-200 words)
-- Educational content
-- Practical takeaway
-- Link to guide/case study
-
-**Section 3: {Update}** (100-150 words)
-- Product update or industry news
-- Brief context
-- Link for more
-
----
-
-{Closing line}
-
-{Real person signature}
-{Name, Title}
+**Right:**
+```
+We trained our model on 10M+ body scans. Accuracy: 94% vs 68% 
+baseline. Challenge: luxury customers expect >90% accuracy to trust.
 ```
 
----
+### ❌ Adding Sales Language
 
-## Quality Validation
-
-**Before outputting draft, verify:**
-
-### Brand Voice Compliance
-
-- [ ] **Educational tone:** Teaches, doesn't sell
-- [ ] **Technical depth:** Includes architecture, data, methodology
-- [ ] **Data-driven:** Specific numbers (not "many", "significant")
-- [ ] **Honest:** Admits limitations, uncertainties
-- [ ] **No sales language:** No buzzwords, CTAs, engagement tricks
-
-### Factual Accuracy
-
-- [ ] **All metrics from threads:** No invented numbers
-- [ ] **Customer names verified:** Check thread for public approval
-- [ ] **Technical details accurate:** Match thread/Canvas exactly
-- [ ] **No confidential info:** Remove proprietary details
-
-### Structure Compliance
-
-- [ ] **Pattern followed:** Matches selected pattern guide
-- [ ] **Length appropriate:** Within range for content type
-- [ ] **Complete sections:** No "TODO" or missing parts
-- [ ] **Transitions smooth:** Logical flow between sections
-
-### SEO Readiness (if blog)
-
-- [ ] **Keyword in title:** Natural integration
-- [ ] **Keyword in first 100 words:** Organic mention
-- [ ] **H2 subheadings:** Descriptive, include variations
-- [ ] **Internal link opportunities:** Note related content
-
----
-
-## Output Format
-
-### Draft File Structure
-```markdown
----
-# Metadata (for tracking)
-title: "{Draft title}"
-content_type: "{blog|case-study|announcement|linkedin|email}"
-target_keyword: "{primary keyword}"
-source_thread: "{thread path}"
-pillar: "{content pillar}"
-created: "{date}"
-status: "draft"
-word_count: {count}
----
-
-# {Title}
-
-{Full content following pattern}
-
----
-
-## Editor Notes
-
-**For human review:**
-- [ ] Verify customer name approval (ElsaAI - check with legal?)
-- [ ] Confirm metrics accuracy (25% → 18% return rate)
-- [ ] Add internal links (related articles on return reduction)
-- [ ] Review technical depth (enough for credibility?)
-
-**Potential improvements:**
-- Add quote from ElsaAI customer (if available)
-- Include architecture diagram (if exists)
-- Link to technical docs (where hosted?)
+**Wrong:**
+```
+Our revolutionary solution delivers unprecedented results! 
+Book a demo today!
 ```
 
-### Save Location
-
-**Drafts awaiting review:**
+**Right:**
 ```
-threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{piece}-draft.md
-```
-
-**Notification in ops/today.md:**
-```markdown
-## Content Drafts Ready for Review
-
-1. **Case Study: ElsaAI White-Label Success**
-   - Type: Blog article (1,450 words)
-   - Location: threads/marketing/campaigns/luxury-validation-nov-2024/5-actions/drafts/elsaai-case-study-draft.md
-   - Keyword: "white-label SDK"
-   - Action: Review for accuracy, approve for SEO optimization
+White-label SDK available for enterprise brands ($400K+ tier). 
+Technical docs: [link]
 ```
 
----
+### ❌ Inventing Data
 
-## Edge Cases
-
-### Insufficient Source Material
-
-**If thread lacks details:**
-- Flag: "Insufficient data for {content_type}"
-- Request: Human provides additional context
-- Or: Suggest alternative content type (announcement vs case study)
-
-### Confidential Information
-
-**If thread contains confidential data:**
-- Anonymize: Remove customer names, specific metrics
-- Generalize: "A luxury fashion brand" vs "ElsaAI"
-- Or: Flag for human review before proceeding
-
-### Customer Approval Required
-
-**If using customer name/data:**
-- Flag: "Customer approval needed for public use"
-- Provide draft but mark as "pending approval"
-- Don't proceed to publication without confirmation
-
-### Multiple Threads as Source
-
-**If opportunity combines multiple threads:**
-- Read all source threads
-- Synthesize learnings
-- Note pattern: "Based on 8 deals across Q4"
-- Higher confidence in conclusions
-
----
-
-## Success Metrics
-
-**Draft quality:**
-- Human approval rate: >80% (drafts accepted with minor edits)
-- Revision rounds: <2 (before final approval)
-- Factual errors: 0 (all data accurate)
-
-**Efficiency:**
-- Time to draft: <2 hours (AI generation)
-- Human review time: <30 minutes (80% complete)
-- Total time to publish: <1 day (draft → review → optimize → publish)
-
-**Content effectiveness (measured post-publication):**
-- Organic traffic: {sessions per article}
-- Engagement: {time on page, scroll depth}
-- Conversions: {demos requested per article}
-
----
-
-## Usage Example
-
-**Input:**
-```yaml
-topic: "How Enterprise Fashion Brands Use White-Label SDKs"
-content_type: "case study"
-target_keyword: "white-label SDK"
-source_thread: "threads/sales/elsa-white-label/"
-pillar: "Product capabilities"
+**Wrong:**
+```
+Many customers saw significant improvements in conversion rates.
 ```
 
-**Process:**
+**Right:**
 ```
-1. Load thread:
-   - Read Campaign: threads/marketing/campaigns/luxury-validation-nov-2024/4-decision.md
-   - Read Source: threads/sales/elsa-white-label/6-learning.md
-   - Extract: Customer (ElsaAI), Problem (returns), Solution (white-label), Results (38% reduction)
-
-2. Load positioning:
-   - Read: strategy/canvas/07-uvp.md
-   - Extract: "AI-powered fit recommendations reduce returns"
-
-3. Load voice:
-   - Read: artifacts/marketing/narrative/brand-voice.md
-   - Apply: Educational, technical, data-driven tone
-
-4. Select pattern:
-   - Load: {baseDir}/references/case-study-pattern.md
-   - Structure: Customer → Problem → Solution → Results
-
-5. Generate draft:
-   - 1,450 words
-   - Includes: Metrics (25% → 18%), Technical details (React SDK), ROI ($305K net benefit)
-   - Voice: Educational (explains why luxury prefers white-label)
-   - No CTA: Soft link to technical docs only
-
-6. Validate:
-   - ✓ Brand voice (educational, technical)
-   - ✓ Factual (all numbers from thread)
-   - ✓ Complete (all sections present)
-   - ✓ SEO-ready (keyword in title, H2s)
-
-7. Output:
-   - Save: threads/marketing/campaigns/luxury-validation-nov-2024/5-actions/drafts/elsaai-case-study-draft.md
-   - Flag: ops/today.md for human review
+ElsaAI: Return rate 25% → 18% (28% reduction). Mobile conversion +12%.
+[Sources from threads/sales/elsa-white-label/6-learning.md]
 ```
 
----
+## Quality Checklist
+
+Before completing draft:
+
+- [ ] **Structure:** Follows pattern guide (not template)
+- [ ] **Voice:** Educational, technical, data-driven (no sales language)
+- [ ] **Depth:** Includes architecture, methodology, challenges
+- [ ] **Accuracy:** All metrics from threads (no invented data)
+- [ ] **Source:** All claims traceable to threads/Canvas
+- [ ] **Length:** Within range for pattern (flexible)
+- [ ] **Approval:** Customer names checked for public use
 
 ## Remember
 
-**Content generation is:**
-- Transforming thread learning into educational content
-- Applying brand voice (authoritative, not promotional)
-- Following patterns (structure guides, not templates)
-- Creating 80% complete drafts (human refines last 20%)
+**Patterns are guides, not scripts.**
 
-**Content generation is NOT:**
-- Writing sales pitches disguised as content
-- Inventing data or metrics
-- Auto-publishing without human review
-- Following rigid templates verbatim
+Good content = Pattern structure + Brand voice + Technical depth + Thread facts
 
-**Success = Educational content that builds authority and converts organically.**
-```
-
-
-<!-- FILE: content-strategy/SKILL.md -->
-
-# content-strategy/SKILL.md
-
-```markdown
----
-name: content-strategy
-description: Identify marketing campaign opportunities by scanning completed business/sales threads for learning worth sharing. Suggests campaign goals, content plans, and expected impact for human approval to create campaign threads.
-allowed-tools: "Read,Write"
----
-
-# Content Strategy: Campaign Opportunity Identification
-
-**Campaign Framework:** `{skillDir}/references/campaign-framework.md`
-
-You scan completed threads to identify opportunities for marketing campaigns based on the campaign types and triggers defined in the framework above.
-
-## Purpose
-
-Thread learning → Campaign opportunities → Human creates campaign thread
-
-**Core principle:** Campaign opportunities emerge from business events (sales readiness, product launches, strategic shifts), not arbitrary calendars.
-
----
-
-## Input Sources
-
-### Threads to Scan
-
-**Sales threads (threads/sales/):**
-- `6-learning.md` - Hypothesis validation, customer insights
-- **Campaign trigger:** Segment ready for outreach (need awareness campaign)
-- Look for: ICP validated, common objections, success patterns
-
-**Business threads (threads/business/):**
-- `6-learning.md` - Strategic insights, Canvas updates
-- **Campaign trigger:** Strategic shift, market trend, competitive move
-- Look for: Positioning changes, market insights, thought leadership opportunities
-
-**Sales campaigns (threads/sales/campaigns/):**
-- **Campaign trigger:** Segment complete (package learnings into content)
-- Look for: Deal patterns, case study opportunities, validated messaging
-
-### Marketing Context
-
-**Content pillars (artifacts/marketing/narrative/content-pillars.md):**
-- What themes to focus on
-- Which segments to target
-
-**SEO strategy (artifacts/marketing/narrative/seo-strategy.md):**
-- Priority keywords
-- Content gaps to fill
-
----
-
-## Campaign Opportunity Detection
-
-### Step 1: Scan for Business Events
-
-**Scan criteria:**
-- Sales threads: ICP validated, segment ready, deals closing
-- Business threads: Strategic decisions, Canvas updates, market shifts
-- Sales campaigns: Completed campaigns with learnings
-
-**Read:**
-```bash
-threads/sales/*/6-learning.md
-threads/business/*/6-learning.md
-threads/sales/campaigns/*/6-learning.md
-```
-
-### Step 2: Identify Campaign Triggers
-
-**Strong triggers (always suggest campaign):**
-- **Segment ready:** ICP validated, prospects identified, need awareness
-- **Product launch:** New feature/capability worth announcing
-- **Strategic pivot:** Canvas positioning changed, market needs education
-- **Deal patterns:** ≥3 deals closed with similar learnings (case study opportunity)
-- **Market event:** Competitor move, industry trend, regulatory change
-
-**Moderate triggers (suggest if multiple present):**
-- Single deal success (wait for pattern)
-- Partial ICP validation (wait for more data)
-- Internal improvement (not customer-facing)
-
-**Not campaign-worthy:**
-- Failed experiments without insights
-- Proprietary/confidential information
-- Process improvements (internal only)
-
-### Step 3: Determine Campaign Type
-
-**Reference:** See `{skillDir}/references/campaign-framework.md` for complete campaign type definitions, workflows, and examples.
-
-**Match business event to campaign type (quick reference):**
-
-**1. Awareness Campaign** (segment ready):
-- Trigger: Sales segment validated, prospects identified
-- Goal: Generate inbound demos (organic discovery)
-- Content: Educational articles on problems (SEO-focused)
-- Example: "DTC segment ready → Awareness campaign on fit problems"
-
-**2. Education Campaign** (thought leadership):
-- Trigger: Strategic insight, market trend, competitive gap
-- Goal: Build authority, shift market thinking
-- Content: Deep technical analysis, original research
-- Example: "Body shape > measurements insight → Education campaign"
-
-**3. Launch Campaign** (product announcement):
-- Trigger: New feature, capability, integration
-- Goal: Existing customer adoption + new customer awareness
-- Content: Feature announcement, use cases, migration guides
-- Example: "White-label SDK launched → Launch campaign"
-
-**4. Validation Campaign** (case studies):
-- Trigger: ≥3 deals closed with quantified results
-- Goal: Prove value, overcome objections, close pipeline
-- Content: Customer success stories, metrics, testimonials
-- Example: "5 luxury brands → 38% return reduction → Case study campaign"
-
-### Step 4: Calculate Campaign Impact
-
-**Formula:**
-```
-Impact Score = (Reach × Conversion × Revenue) / 3
-
-Reach (estimated traffic):
-- 1.0: >5,000 sessions/month (high-volume SEO keywords)
-- 0.7: 1,000-5,000 sessions/month
-- 0.5: 500-1,000 sessions/month
-- 0.3: <500 sessions/month
-
-Conversion (demos/signups):
-- 1.0: >2% conversion expected (strong buying intent keywords)
-- 0.7: 1-2% conversion (education + buying intent)
-- 0.5: 0.5-1% conversion (pure education)
-- 0.3: <0.5% conversion (awareness only)
-
-Revenue Impact:
-- 1.0: Directly supports active sales campaign (immediate pipeline)
-- 0.7: Supports segment with ready prospects (near-term pipeline)
-- 0.5: Evergreen (continuous pipeline)
-- 0.3: Speculative (future pipeline)
-```
-
-**Impact thresholds:**
-- ≥ 0.75: High (flag immediately)
-- 0.60-0.75: Medium (suggest if resources available)
-- < 0.60: Low (defer unless strategic)
-
-### Step 5: Plan Campaign Content
-
-**Based on campaign type, suggest content pieces:**
-
-**Awareness Campaign:**
-- 3-5 blog articles (800-1,200w each)
-- 6-10 LinkedIn posts (excerpts, amplification)
-- SEO focus: Problem keywords (top-of-funnel)
-- Timeline: 2-3 weeks
-
-**Education Campaign:**
-- 2-3 deep-dive articles (1,500-2,500w)
-- 4-6 LinkedIn posts (technical audience)
-- SEO focus: Solution keywords (mid-funnel)
-- Timeline: 3-4 weeks
-
-**Launch Campaign:**
-- 1 announcement post (website + blog)
-- 3-5 LinkedIn posts (feature highlights)
-- 1 email (existing customers)
-- Timeline: 1 week
-
-**Validation Campaign:**
-- 1-2 case studies (1,200-1,800w)
-- 2-4 LinkedIn posts (results-focused)
-- 1 email (pipeline nurture)
-- Timeline: 2 weeks
-
-**Implementation guide** (if):
-- Technical how-to
-- Step-by-step process
-- Tactical advice
-
-**Industry analysis** (if):
-- Market trend observation
-- Data across multiple sources
-- Strategic implications
-
-**Product announcement** (if):
-- New feature launch
-- Capability expansion
-- Technical innovation
-
-**Thought leadership** (if):
-- Contrarian insight
-- Original research
-- Non-obvious conclusion
-
----
-
-## Output Format
-
-### Campaign Opportunity Record
-
-**Internal file (for tracking):**
-```yaml
-# campaign-opportunity-{date}-{slug}.yaml
-
-campaign_name: "Luxury White-Label Validation Campaign"
-campaign_slug: "luxury-validation-nov-2024"
-campaign_type: "validation"  # awareness, education, launch, validation
-
-trigger_event: "5 luxury brands chose white-label (100% pattern)"
-source_threads:
-  - "threads/sales/elsa-white-label/6-learning.md"
-  - "threads/sales/luxury-brand-2/6-learning.md"
-  - "threads/sales/luxury-brand-3/6-learning.md"
-
-business_goal: "Generate 20 qualified demos from organic discovery"
-target_segment: "luxury-brands"
-
-campaign_hypothesis: "Validation campaigns (case studies) convert better than awareness content"
-canvas_link: "10-assumptions.md → H1 (campaign performance)"
-
-impact_score: 0.85
-impact_breakdown:
-  reach: 0.8           # 1,000-5,000 sessions/month
-  conversion: 0.9      # 1-2% conversion (strong proof)
-  revenue: 1.0         # Directly supports active luxury segment
-
-estimated_results:
-  target_sessions: "2,000/month"
-  target_demos: "20/month"
-  target_pipeline: "$10M influenced"
-  timeline: "2 weeks to create, 30 days to measure"
-
-content_plan:
-  - type: "case study"
-    title: "ElsaAI Reduces Returns 38% with White-Label SDK"
-    keyword: "white-label SDK"
-    channel: ["blog", "linkedin"]
-  - type: "case study"
-    title: "How Luxury Brands Achieve Fit Accuracy"
-    keyword: "luxury fashion fit"
-    channel: ["blog"]
-  - type: "linkedin post"
-    title: "Key stat: 38% return reduction"
-    channel: ["linkedin"]
-  - type: "linkedin post"
-    title: "Customer quote from ElsaAI"
-    channel: ["linkedin"]
-
-next_steps:
-  - "Flag in ops/today.md for human approval"
-  - "If approved: Human creates campaign thread at threads/marketing/campaigns/luxury-validation-nov-2024/"
-  - "Then: marketing-execution executes Stage 5"
-
-created: "2024-11-16"
-status: "pending_approval"
-```
-
-### Human-Facing Output (ops/today.md)
-
-**Format for flagging in ops/today.md:**
-```markdown
-## Campaign Opportunities (Detected This Week)
-
-### High Impact (≥0.75)
-
-1. **[Impact: 0.85] Luxury White-Label Validation Campaign**
-   - Type: Validation (case studies + proof)
-   - Trigger: 5 luxury brands chose white-label (100% pattern)
-   - Goal: 20 demos from organic (2,000 sessions target)
-   - Content: 2 case studies + 4 LinkedIn posts
-   - Timeline: 2 weeks to create, 30 days to measure
-   - Expected ROI: $10M pipeline influenced
-   - Action: Create campaign thread at threads/marketing/campaigns/luxury-validation-nov-2024/?
-
-2. **[Impact: 0.78] DTC Awareness Campaign**
-   - Type: Awareness (educational content)
-   - Trigger: DTC segment ready (ICP validated, 191 prospects identified)
-   - Goal: 25 demos from organic (3,000 sessions target)
-   - Content: 3 blog articles + 6 LinkedIn posts
-   - Timeline: 3 weeks to create, 60 days to measure
-   - Expected ROI: $12.5M pipeline influenced
-   - Action: Create campaign thread at threads/marketing/campaigns/dtc-awareness-nov-2024/?
-
-### Medium Impact (0.60-0.75)
-
-3. **[Impact: 0.68] Product Launch Campaign**
-   - Type: Launch (announcement + guides)
-   - Trigger: Color analysis feature launching
-   - Goal: 10 demos + 50 existing customer adoptions
-   - Content: 1 announcement + 3 LinkedIn posts + 1 email
-   - Timeline: 1 week to create, 14 days to measure
-   - Expected ROI: $5M pipeline + retention improvement
-   - Action: Defer until feature launch confirmed?
-
-### Low Priority (<0.60)
-
-4. **[0.42] Technical: API Rate Limiting Best Practices**
-   - Source: engineering/services/api/rate-limit-update.md
-   - Pillar: None (orphan)
-   - Keyword: Low search volume
-   - Impact: Minimal
-   - Action: Skip or create as technical doc (not marketing)
-```
-
----
-
-## Role in Execution Flow
-
-**content-strategy is a DETECTION tool, not an EXECUTION tool.**
-
-### What content-strategy DOES:
-
-✅ **Daily automated scan**
-   - Scans: `threads/*/6-learning.md` files
-   - Looks for: Business events triggering campaign opportunities
-   - Matches: Learning to campaign types (awareness, education, launch, validation)
-
-✅ **Calculate campaign impact**
-   - Score: Reach × Conversion × Revenue
-   - Threshold: ≥0.75 for high impact
-
-✅ **Generate campaign suggestions**
-   - Suggests: Campaign name, type, goal, content plan
-   - Saves: `campaign-opportunity-{date}-{slug}.yaml` (internal tracking)
-   - Flags: High-impact opportunities in `ops/today.md`
-
-✅ **Wait for human decision**
-   - Human reviews in `ops/today.md`
-   - Human decides: Create campaign or defer
-
-### What content-strategy DOES NOT DO:
-
-❌ **Does NOT create campaign threads** - Human creates thread manually
-❌ **Does NOT execute campaigns** - marketing-execution handles execution
-❌ **Does NOT create content** - content-generation handles drafts
-❌ **Does NOT publish content** - content-distribution handles publishing
-
-### Execution Flow:
-
-```
-content-strategy (daily scan)
-    ↓
-Detects business event → Suggests campaign
-    ↓
-Flags in ops/today.md: "Create campaign thread at threads/marketing/campaigns/{slug}/?"
-    ↓
-Human reviews → Approves
-    ↓
-Human manually creates campaign thread (Stages 1-4)
-    ↓
-marketing-execution reads Stage 4 decision
-    ↓
-marketing-execution orchestrates execution (Stage 5)
-    ↓
-content-generation → seo-optimization → content-distribution
-    ↓
-performance-tracking monitors (Stage 6 support)
-    ↓
-Human completes Stage 6 (Learning)
-```
-
-### Key Principle:
-
-**content-strategy suggests campaigns, humans create threads, marketing-execution executes.**
-
-This separation ensures:
-- Human approves campaign strategy (Stages 1-4)
-- AI executes tactical work (Stage 5)
-- Human validates results (Stage 6)
-
----
-
-## Automation Rules
-
-### Auto-Scan Triggers
-
-**Daily scan (automated):**
-- Check threads updated in last 24 hours
-- Generate new opportunities
-- Update ops/today.md
-
-**On-demand scan:**
-- Human requests: "Scan for content opportunities"
-- Check all threads updated in last 30 days
-- Generate comprehensive report
-
-### Auto-Flagging Rules
-
-**Flag in ops/today.md if:**
-- Priority ≥ 0.7 (high priority)
-- OR keyword is top 10 priority from seo-strategy.md
-- OR thread explicitly mentions "worth sharing publicly"
-
-**Add to backlog if:**
-- Priority 0.5-0.7 (medium)
-- Keyword has SEO potential
-- Content aligns with pillar
-
-**Skip if:**
-- Priority < 0.5 (low)
-- Confidential/proprietary learning
-- No pillar match and no strategic value
-
----
-
-## Quality Checks
-
-**Before flagging opportunity:**
-
-- [ ] Learning is validated (not hypothesis)
-- [ ] Maps to content pillar (or flags orphan)
-- [ ] Priority score calculated with reasoning
-- [ ] Target keyword identified
-- [ ] Content type appropriate for learning
-- [ ] Estimated impact has reasoning
-- [ ] No confidential information included
-
----
-
-## Edge Cases
-
-**Multiple threads with same learning:**
-- Combine into single opportunity
-- Note: "Pattern across N threads"
-- Higher confidence score
-
-**Orphan learning (no pillar match):**
-- Flag separately
-- Recommend: Add pillar or skip content
-
-**Confidential customer data:**
-- Anonymize before content creation
-- Or: Skip if cannot anonymize
-
-**Learning contradicts previous content:**
-- Flag for review
-- May need to update existing content
-- Higher priority (correct misinformation)
-
----
-
-## Success Metrics
-
-**Opportunity identification:**
-- Opportunities flagged: {count} per week
-- High-priority hit rate: {percent} approved by human
-- Conversion rate: {percent} flagged → published
-
-**Content-pillar coverage:**
-- Pillar 1: {count} opportunities
-- Pillar 2: {count} opportunities
-- Pillar 3: {count} opportunities
-- Orphans: {count} (indicates pillar gaps)
-
-**Business impact:**
-- Content from opportunities: {percent} of total traffic
-- Demo requests from opportunity-driven content: {count}
-
----
-
-## Usage Example
-
-**Scenario:** ElsaAI deal closes
-```
-1. Thread completes: threads/sales/elsa-white-label/6-learning.md
-   
-2. content-strategy scans learning:
-   - Validated: "Luxury brands prefer white-label (N=5)"
-   - Impact: 0.9 (affects enterprise segment)
-   - Confidence: 1.0 (5 data points)
-   - Timeliness: 0.8 (recent, relevant)
-   - SEO: 0.7 ("white-label SDK" medium priority)
-   - Priority: 0.85 (HIGH)
-
-3. Match to pillar:
-   - Pillar: "Product capabilities"
-   - Content type: Case study
-
-4. Generate opportunity record:
-   - Save: content-opportunity-2024-11-16-white-label-case-study.yaml
-
-5. Flag in ops/today.md:
-   "[0.85] Case Study: Enterprise White-Label Success"
-
-6. Wait for human approval
-
-7. If approved:
-   - Pass opportunity to content-generation subskill
-   - Generate draft case study
-```
-
----
-
-## Remember
-
-**Content strategy is:**
-- Detecting valuable learning in completed threads
-- Matching insights to content pillars and keywords
-- Calculating objective priority scores
-- Flagging high-value opportunities for human decision
-
-**Content strategy is NOT:**
-- Creating arbitrary "content calendar" quotas
-- Forcing content when no learning exists
-- Publishing every minor insight
-- Deciding to publish (human approves)
-
-**Success = Right opportunities flagged at right time.**
-```
-
-
-<!-- FILE: content-strategy/references/campaign-framework.md -->
-
-# content-strategy/references/campaign-framework.md
-
-```markdown
-# Marketing Campaign Workflow
-
-## Overview
-
-All marketing content is created as part of campaigns. Campaigns follow 6-stage causal-flow and are decision threads in `threads/marketing/campaigns/`.
-
-## Directory Structure
-
-```
-threads/marketing/campaigns/{campaign-slug}/
-├── metadata.yaml
-├── 1-input.md        # Business event triggering campaign
-├── 2-hypothesis.md   # What we believe (Canvas link)
-├── 3-implication.md  # Business impact (sessions → demos → revenue)
-├── 4-decision.md     # Content plan (what to produce)
-├── 5-actions/
-│   ├── execution-log.md  # Track content creation/publishing
-│   └── drafts/  (temp, deleted after publishing)
-└── 6-learning.md     # Results + Canvas updates
-
-artifacts/marketing/campaigns/{campaign-slug}/
-├── blog/
-├── linkedin/
-├── email/
-└── distribution-record.yaml
-```
-
-## Campaign Types
-
-### 1. Awareness Campaign
-**Trigger:** Sales segment validated, prospects identified
-**Goal:** Generate inbound demos via organic discovery
-**Content:** 3-5 educational blog articles + 6-10 LinkedIn posts
-**Timeline:** 2-3 weeks
-**Example:** DTC segment ready → Create awareness campaign on fit problems
-
-### 2. Education Campaign
-**Trigger:** Strategic insight, market trend, thought leadership opportunity
-**Goal:** Build authority, shift market thinking
-**Content:** 2-3 deep-dive articles + 4-6 LinkedIn posts
-**Timeline:** 3-4 weeks
-**Example:** Body shape insight → Education campaign challenging conventional wisdom
-
-### 3. Launch Campaign
-**Trigger:** New feature, capability, integration
-**Goal:** Customer adoption + new customer awareness
-**Content:** 1 announcement + 3-5 LinkedIn posts + 1 email
-**Timeline:** 1 week
-**Example:** White-label SDK launched → Launch campaign
-
-### 4. Validation Campaign
-**Trigger:** ≥3 deals closed with quantified results
-**Goal:** Prove value, overcome objections
-**Content:** 1-2 case studies + 2-4 LinkedIn posts + 1 email
-**Timeline:** 2 weeks
-**Example:** 5 luxury brands achieved 38% return reduction → Case study campaign
-
-## Workflow
-
-### Stage 1-4: Planning (Human)
-
-1. **content-strategy scans threads** → Detects campaign opportunity → Flags in ops/today.md
-2. **Human reviews** → Decides to create campaign
-3. **Human creates campaign thread** → Completes Stages 1-4
-   - Stage 1: Document trigger event
-   - Stage 2: Link to Canvas hypothesis
-   - Stage 3: Calculate impact (sessions → demos → revenue)
-   - Stage 4: Define content plan (specific articles, posts, emails)
-
-### Stage 5: Execution (AI-Assisted)
-
-1. **marketing-execution orchestrator** reads Stage 4 decision
-2. For each content piece:
-   - **content-generation:** Create draft → Save to `5-actions/drafts/`
-   - **Human review:** Approve or request changes
-   - **seo-optimization:** Apply keywords, structure
-   - **Human approve:** Final check
-   - **content-distribution:** Publish to `artifacts/marketing/campaigns/{slug}/`
-   - **Update execution-log.md:** Track progress
-3. After all published: Delete `drafts/` (content now in artifacts)
-
-### Stage 6: Learning (AI + Human)
-
-1. **performance-tracking** monitors campaign metrics
-2. **Human writes learning:**
-   - What worked, what didn't
-   - Canvas updates (validate/invalidate hypothesis)
-   - Next campaign opportunities
-3. Campaign complete
-
-## Campaign Naming
-
-Use descriptive format: `{segment}-{purpose}-{month-year}`
-
-**Examples:**
-- `dtc-awareness-nov-2024`
-- `luxury-validation-dec-2024`
-- `tech-education-jan-2025`
-
-## Opportunity Detection
-
-**content-strategy** scans daily:
-- `threads/business/*/6-learning.md` - Strategic decisions, market shifts
-- `threads/sales/*/6-learning.md` - Segment ready, deal patterns
-- `threads/sales/campaigns/*/6-learning.md` - Outreach learnings
-
-**Flags in ops/today.md:**
-```markdown
-## Campaign Opportunities
-
-1. [Impact: 0.85] DTC Product Awareness Campaign
-   - Trigger: DTC segment ready (ICP validated, 191 prospects)
-   - Type: Awareness
-   - Content: 3 articles on fit problems + 6 LinkedIn posts
-   - Goal: 20 demos from organic (1% conversion)
-   - Timeline: 2-3 weeks
-   - Action: Create campaign thread?
-```
-
-## Key Principles
-
-✅ **All content is part of a campaign** - No standalone content
-✅ **Campaigns are decision threads** - Follow 6-stage causal-flow
-✅ **Stage 4 decides content** - List specific pieces to produce
-✅ **Stage 5 tracks execution** - execution-log.md shows progress
-✅ **Stage 6 measures impact** - Validate hypothesis, update Canvas
-✅ **Drafts are temporary** - Live in thread during execution, deleted after publishing
-✅ **Artifacts are permanent** - Published content grouped by campaign
-
-## Current State
-
-**Existing content** (created before campaign structure):
-- artifacts/marketing/blog/ (3 posts)
-- artifacts/marketing/linkedin/posts/ (11 posts)
-- artifacts/marketing/email/ (3 emails)
-- artifacts/marketing/narrative/ (strategy files)
-
-**Next step:** Create first campaign, reposition existing content into campaign structure.
-
-## Related Skills
-
-- **marketing-execution** - Orchestrates campaign execution (Stage 5)
-- **content-strategy** - Detects campaign opportunities
-- **content-generation** - Creates content drafts
-- **seo-optimization** - Applies SEO to content
-- **content-distribution** - Publishes to channels
-- **performance-tracking** - Measures campaign results
+Success = Educational content that builds authority organically.
 ```
 
 

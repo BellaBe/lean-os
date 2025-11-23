@@ -100,3 +100,6 @@ ops/patterns-*.md
 
 # Distribution records (may contain sensitive UTM parameters)
 distribution-record-*-actual.yaml
+
+scripts/output/
+    

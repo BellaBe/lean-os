@@ -172,3 +172,162 @@ Orchestrates: content-generation → seo-optimization → content-distribution �
 **Impact:** Medium (affects marketing workflow invocation)
 **Breaking changes:** None (backward compatible)
 **Status:** Complete
+
+---
+
+## 2025-11-18: Dual-Mode Business Model Support
+
+### Summary
+Added business model mode awareness (VENTURE vs BOOTSTRAP vs HYBRID) to LeanOS, enabling mode-specific decision-making, metrics, and market research across all operations.
+
+### Changes Made
+
+#### 1. Created Business Model Mode Configuration
+**Location:** `strategy/canvas/00-business-model-mode.md`
+
+**New capability:**
+- Central declaration of business model mode (VENTURE, BOOTSTRAP, or HYBRID)
+- Mode-specific definitions for:
+  - Capital strategy (funded vs self-funded vs hybrid)
+  - Decision sequences (product-first vs monetization-first)
+  - Success metrics (growth metrics vs profitability metrics)
+  - Research focus (TAM/market sizing vs current spend mapping)
+  - Product approach (platform vs minimal solution)
+  - Go-to-market strategy (brand building vs direct conversion)
+  - Impact scoring formulas (strategic value vs revenue impact)
+
+**Mode Definitions:**
+
+| Aspect | VENTURE | BOOTSTRAP | HYBRID |
+|--------|---------|-----------|--------|
+| Capital | Investor-funded | Self-funded | Bootstrap then raise |
+| Timeline | 7-10 year exit | Infinite (profitability) | Bootstrap 6-12mo, then raise |
+| Metrics | MAU, ARR, TAM, Growth Rate | MRR, Profit, Margin, Cash Flow | Bootstrap → Venture transition |
+| Decision Priority | Strategic value | Revenue impact | Phase-dependent |
+
+**Impact Scoring by Mode:**
+
+**VENTURE:**
+```
+Impact = (Strategic Value × Market Size × Defensibility) / 3
+```
+
+**BOOTSTRAP:**
+```
+Impact = (Revenue Impact × Time to Cash × Margin) / 3
+```
+
+#### 2. Added Mode-Specific Market Research Skills
+
+**market-research-venture** (`.claude/skills/market-research-venture/`)
+- TAM/SAM/SOM calculations (billion-dollar market sizing)
+- Market growth rate analysis (target: >20% CAGR)
+- Competitive landscape mapping (funding, market share, positioning)
+- Defensibility and moat assessment (network effects, switching costs, etc.)
+- Scalability evaluation (unit economics at scale)
+- 10x opportunity identification
+- Output: `research/market/venture-analysis-{date}.md`
+
+**market-research-bootstrap** (`.claude/skills/market-research-bootstrap/`)
+- Current spend mapping (who pays what today)
+- Budget holder identification (decision makers, approval thresholds)
+- Competitive pricing intelligence (actual prices, not projections)
+- Arbitrage opportunity analysis (margin opportunities)
+- Procurement process analysis (sales cycle, friction points)
+- Immediate revenue potential (Q1 calculations, path to profitability)
+- Output: `research/market/bootstrap-analysis-{date}.md`
+
+**Why two skills:**
+- VENTURE research asks: "How big can this get?"
+- BOOTSTRAP research asks: "Who is paying today and how do we capture some?"
+- Different methodologies, sources, and outputs for each mode
+- Skills auto-detect mode from `00-business-model-mode.md` and refuse to run in wrong mode
+
+#### 3. Updated CLAUDE.md with Mode Awareness
+
+**Added to Core Operating Principles (Section 4):**
+- Impact scoring now mode-aware
+- Two different formulas based on active mode
+- HYBRID mode instructions (use Bootstrap formula until profitable)
+
+**Added to Skills Reference:**
+- `market-research-venture` - Venture-focused analysis
+- `market-research-bootstrap` - Bootstrap-focused analysis
+- Guidance on which skill to use based on mode
+
+**Added to Decision-Making Framework:**
+- Mode check as first step ("Check `00-business-model-mode.md` for current mode")
+- Mode-specific decision criteria
+- Mode switching triggers and process
+
+### System-Wide Impacts
+
+#### Mode Cascades To:
+- **Thread impact scoring** (causal-flow uses mode-specific formula)
+- **Research priorities** (venture vs bootstrap market research skills)
+- **Product decisions** (foundation-builder adapts to mode)
+- **Metrics tracking** (ops-dashboard shows mode-appropriate metrics)
+- **GTM strategy** (sales-execution, marketing-execution priorities)
+
+#### Operational Changes:
+- All impact score calculations must check mode first
+- Market research skill selection is mode-dependent
+- business-metrics-tracker generates mode-appropriate dashboards
+- ops/today.md flags items against mode-specific thresholds
+
+### Files Created
+
+- `strategy/canvas/00-business-model-mode.md` (mode declaration and definitions)
+- `.claude/skills/market-research-venture/SKILL.md` (venture research skill)
+- `.claude/skills/market-research-bootstrap/SKILL.md` (bootstrap research skill)
+
+### Files Modified
+
+- `CLAUDE.md` (mode-aware impact scoring, skill references, decision framework)
+- `docs/skills/all-skills.md` (added market research skills)
+
+### Current Mode
+
+**Active Mode:** BOOTSTRAP
+
+**Rationale (from `00-business-model-mode.md`):**
+- Self-funded, no outside capital raised
+- Need profitability within 3 months
+- Revenue-first approach to validate market
+- Exit optional, cash flow primary goal
+
+### Migration Notes
+
+**No action required for existing threads:**
+- Existing threads continue to work
+- Impact scores should be recalculated using Bootstrap formula
+- Research should use `market-research-bootstrap` skill
+
+**For new operations:**
+- Always check mode before calculating impact scores
+- Use appropriate market research skill for mode
+- Track Bootstrap metrics (MRR, profit, margin) not Venture metrics (ARR, growth)
+
+### Success Metrics
+
+**Clarity improvement:**
+- ✅ Clear mode definition with specific implications
+- ✅ Mode-specific impact formulas (no ambiguity)
+- ✅ Dedicated research skills per mode
+
+**Operational consistency:**
+- ✅ All decisions evaluated against mode-appropriate criteria
+- ✅ Market research matches business model approach
+- ✅ Metrics tracked match what matters for mode
+
+**Future flexibility:**
+- ✅ Mode switching documented with triggers
+- ✅ HYBRID mode supports transition path
+- ✅ Single file to update when mode changes
+
+---
+
+**Change type:** Feature (new capability)
+**Impact:** High (affects all decision-making and research)
+**Breaking changes:** None (additive, backward compatible)
+**Status:** Complete
