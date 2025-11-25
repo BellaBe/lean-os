@@ -1,16 +1,17 @@
-# LeanOS: AI-Native Operating System for Founders
+# LeanOS: AI-Native Operating System for Startups, Small Teams, and Founders
 
-**Status:** Active Development | **Version:** 1.2 (Engineering + Operations Complete)
+**Status:** Active Development | **Version:** 1.2 (Skill Restructuring)
 
-AI-native OS that automates 95%+ of startup operations. Built for GlamYouUp, designed for universal application.
+AI-native OS that automates 95%+ of business operations for startups, small teams, and founders.
 
 ## What It Does
 
-- **Builds + Runs:** Category-theoretic system design, product development, sales, marketing, and business operations
+- **Builds + Runs:** Mathematically verified system design, product development, sales, marketing, and business operations
 - **Automates decisions:** Claude AI processes engineering, sales, marketing, and business decisions autonomously
 - **Single source of truth:** Lean Canvas (15 living documents) drives all operations
 - **Human oversight:** <30 min/day for strategic decisions only
 - **Learning-driven:** Marketing content created from validated sales learning
+- **19 skills, 60+ sub-skills:** Organized by functional type for easy discovery
 
 ## Quick Navigation
 
@@ -23,7 +24,8 @@ AI-native OS that automates 95%+ of startup operations. Built for GlamYouUp, des
 ### Operations
 - [Sales Workflow](docs/operations/sales-workflow.md) - Strategy → execution → learning
 - [Marketing Workflow](docs/operations/marketing-workflow.md) - Learning-driven content
-- [Daily Routine](docs/operations/daily-routine.md) - Bella's 5-min review
+- [Engineering Workflow](docs/operations/engineering-workflow.md) - Verified system generation
+- [Daily Routine](docs/operations/daily-routine.md) - Your 5-min review
 - [6-Stage Causal Flow](docs/operations/causal-flow.md) - Decision framework
 
 ### Skills Reference
@@ -91,14 +93,19 @@ See [Business Model Mode documentation](strategy/canvas/00-business-model-mode.m
 ## Directory Structure
 
 ```text
-lean-os/
+personal-os/
 ├── strategy/canvas/          # Lean Canvas (15 files) - SOURCE OF TRUTH
-├── threads/                  # Decision storage (business, sales, marketing)
+├── threads/                  # Decision storage (business, sales, marketing, engineering)
 ├── research/customer/        # ICP definitions, prospect lists
-├── artifacts/                # Deliverables (sales materials, published content, business metrics)
+├── artifacts/                # Deliverables (sales materials, published content, engineering)
 ├── ops/                      # Daily interface (auto-generated)
-├── engineering/              # Technical specs (active)
-└── .claude/skills/           # AI execution layer
+└── .claude/skills/           # AI execution layer (19 skills, 60+ sub-skills)
+    ├── engineering-*         # 7 skills: System building & verification
+    ├── foundations-*         # 4 skills: Business setup & strategy
+    ├── ops-*                 # 4 skills: Operational workflows
+    ├── research-*            # 2 skills: Market research
+    ├── sales-execution/      # Sales pipeline management
+    └── marketing-execution/  # Campaign execution
 ```
 
 ## Technology Stack
@@ -134,14 +141,41 @@ lean-os/
 
 ## Status & Roadmap
 
-- ✅ **Engineering foundation** (category-theoretic system design, standardization layer, service blueprints)
+- ✅ **Engineering layer** (8 skills, 27 sub-skills: system architecture → backend → frontend → infrastructure)
 - ✅ **Sales foundation** (ICP, narratives, materials, execution)
 - ✅ **Marketing foundation** (strategy, content workflow, SEO, distribution)
 - ✅ **Dual-mode support** (Venture/Bootstrap with mode-aware decision making)
-- ✅ **Business metrics tracking** (mode-aware dashboards for revenue, profitability, growth)
-- 🚧 Validation (GlamYouUp DTC segment testing)
+- ✅ **Skill restructuring** (Type-prefixed naming for easy discovery)
 - 📋 Ops dashboard auto-generation
 - 🔮 Full automation (customer success, fundraising)
+
+## Skill Architecture (v1.2)
+
+**19 skills organized by functional type:**
+
+| Prefix | Count | Purpose |
+|--------|-------|---------|
+| `engineering-*` | 7 | System building & mathematical verification |
+| `foundations-*` | 4 | Business setup, ICP, narratives |
+| `ops-*` | 4 | Causal flow, dashboards, metrics |
+| `research-*` | 2 | Mode-aware market research |
+| `sales-*` | 1 | Sales pipeline execution |
+| `marketing-*` | 1 | Campaign execution |
+
+**Engineering layer flow:**
+```
+Requirements → Architecture → Maps → Code → Deployment
+     ↓              ↓           ↓       ↓         ↓
+  system-      backend-    standard-  frontend-  infrastructure-
+  architecture  prover      applier    prover      prover
+```
+
+**Key innovations:**
+- **Two-phase verification:** Generate maps first, verify composition, then generate code
+- **Split standardization:** Define WHAT standards exist, then HOW to apply them
+- **Mathematical proofs:** Category theory guarantees correctness at each stage
+
+See [All Skills](docs/skills/all-skills.md) for complete reference.
 
 ## Contributing
 
@@ -159,12 +193,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 ## Support
 
-**Maintainer:** Bella Belgarokova ([LinkedIn](https://www.linkedin.com/in/bellabelgarokova/))
-
 **Documentation:** All docs in `docs/` directory
 
 **Philosophy:** Direct, production-ready, question assumptions, AI-operated with human oversight
 
 ---
 
-**Last Updated:** 2025-11-20 | **Version:** 1.2 (Engineering + Operations Complete)
+**Last Updated:** 2025-11-25 | **Version:** 1.2 (Skill Restructuring)

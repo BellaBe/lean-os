@@ -398,7 +398,7 @@ Gatekeeper: "That's Sarah Johnson. May I ask what this is regarding?"
 
 **Example**:
 ```
-"Hi Sarah, this is [Your Name] from [Your Company]. I work with e-commerce brands like [Company A] and [Company B] to reduce returns by 30% using virtual sizing. I noticed ChicThreads has a great sizing guide already, and I wanted to share a quick idea on how to take it to the next level. My number is XXX-XXX-XXXX, or feel free to email me at [email]. I'll follow up with an email as well. Thanks!"
+"Hi {FirstName}, this is [Your Name] from [Your Company]. I work with {target segment} like {Company A} and {Company B} to {achieve outcome} by {X}% using {solution approach}. I noticed {Company} has a great {current approach} already, and I wanted to share a quick idea on how to take it to the next level. My number is XXX-XXX-XXXX, or feel free to email me at [email]. I'll follow up with an email as well. Thanks!"
 ```
 
 **Key points**:
@@ -412,11 +412,11 @@ Gatekeeper: "That's Sarah Johnson. May I ask what this is regarding?"
 
 **Example**:
 ```
-You: "Hi Sarah, this is [Your Name] from [Your Company]. I hope I'm not catching you at a bad time?"
+You: "Hi {FirstName}, this is [Your Name] from [Your Company]. I hope I'm not catching you at a bad time?"
 
 [If bad time: "No worries, when's a better time to reach you?" Then call back]
 
-You: "I saw your profile on LinkedIn and wanted to reach out because we work with CMOs at e-commerce brands to reduce return rates. I noticed ChicThreads has [specific observation], and I thought you might be interested in a quick conversation about an approach that's working for similar brands. Do you have 5 minutes?"
+You: "I saw your profile on LinkedIn and wanted to reach out because we work with {Role plural} at {target segment} to {achieve outcome}. I noticed {Company} has {specific observation}, and I thought you might be interested in a quick conversation about an approach that's working for similar {industry}. Do you have 5 minutes?"
 ```
 
 **Key points**:

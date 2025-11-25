@@ -17,8 +17,8 @@ Generate ready-to-use sales materials from strategic inputs with automatic impac
 ## Input Parameters
 
 **Required**:
-- `product`: Product name (glamyouup, detekta)
-- `segment`: Segment name (dtc-fashion-smb, marketplace-reseller, department-store-early-adopter)
+- `product`: Product name (from Canvas)
+- `segment`: Segment name (from ICP)
 - `canvas_path`: `strategy/canvas/`
 - `icp_path`: `research/customer/icp/{segment}-icp.md`
 
@@ -394,7 +394,7 @@ See references for detailed quality criteria:
 **Flag quality issues** as TODOs in output:
 ```markdown
 TODO: Quantify this claim - "significant improvement" → "35% reduction"
-TODO: Translate feature to benefit - "AI-powered" → "Reduces returns by 35%"
+TODO: Translate feature to benefit - "AI-powered" → "{quantified outcome}"
 TODO: Add proof point - "industry-leading" needs supporting data
 ```
 
@@ -482,8 +482,8 @@ Action: Auto-deploy
 ### Example 2: Medium Impact (0.6)
 ```
 Changes:
-- Added major case study (ChicThreads 35% return reduction)
-- Buyer persona refinement (added "E-commerce Manager" to ICP)
+- Added major case study ({Customer} {X}% {metric} improvement)
+- Buyer persona refinement (added "{New Role}" to ICP)
 - New email template variant for enterprise prospects
 
 Impact Calculation:
@@ -517,7 +517,7 @@ Action: Flag for human review (exceeds 0.8 threshold)
 
 ```
 artifacts/sales/
-├── dtc-fashion-smb/
+├── {segment-1}/
 │   ├── materials/
 │   │   ├── pitch-deck.md
 │   │   ├── one-pager.md
@@ -525,9 +525,9 @@ artifacts/sales/
 │   │   ├── email-templates.md
 │   │   └── archive/
 │   ├── narratives/
-│   │   ├── dtc-economic-buyer.md
-│   │   ├── dtc-technical-buyer.md
-│   │   └── dtc-objection-lib.md
+│   │   ├── {segment}-economic-buyer.md
+│   │   ├── {segment}-technical-buyer.md
+│   │   └── {segment}-objection-lib.md
 │   ├── sequences/
 │   │   └── archive/
 │   └── drafts/
@@ -537,8 +537,8 @@ artifacts/sales/
 │           ├── call-scripts.md
 │           ├── email-templates.md
 │           └── REVIEW-NEEDED.md
-├── marketplace-reseller/
-└── department-store-early-adopter/
+├── {segment-2}/
+└── {segment-3}/
 ```
 
 ---

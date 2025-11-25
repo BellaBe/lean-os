@@ -188,7 +188,7 @@ strategy/canvas/13-metrics.md
 
 **Read tracking file:**
 ```yaml
-content_slug: "elsaai-white-label-sdk-case-study"
+content_slug: "{customer}-{solution-approach}-case-study"
 publish_date: "2024-11-16"
 channels:
   - blog: {url, utm}
@@ -204,10 +204,10 @@ channels:
 ```bash
 # Pseudo-code for analytics query
 GET /analytics/pageviews
-  ?url=/blog/elsaai-white-label-sdk-case-study
+  ?url=/blog/{customer}-{solution-approach}-case-study
   &start_date=2024-11-16
   &end_date=2024-11-23
-  
+
 Response:
   sessions: 650
   unique_visitors: 580
@@ -329,18 +329,18 @@ Period: {start_date} to {end_date}
 ## Overview
 
 **Content published this week:** 2
-- ElsaAI White-Label Case Study (blog, LinkedIn, email)
-- Fashion Return Reduction Guide (blog, LinkedIn)
+- {Customer} {Solution Approach} Case Study (blog, LinkedIn, email)
+- {Problem} Guide (blog, LinkedIn)
 
 **Total traffic:** 1,850 sessions (+32% vs last week)
 **Total conversions:** 18 demos requested
-**Top performer:** ElsaAI case study (650 sessions, 8 demos)
+**Top performer:** {Customer} case study (650 sessions, 8 demos)
 
 ---
 
 ## Top Performers
 
-### 1. ElsaAI White-Label SDK Case Study
+### 1. {Customer} {Solution Approach} Case Study
 
 **Published:** 2024-11-16
 **Channels:** Blog, LinkedIn, Email
@@ -366,14 +366,14 @@ Period: {start_date} to {end_date}
   - Shares: 18
 
 **Email:**
-- Sent: 1,250 (enterprise segment)
+- Sent: 1,250 ({segment})
 - Opened: 312 (24.96% rate) ✓
 - Clicked: 78 (6.24% rate) ✓
 - Conversions: 3 demos (3.85% of clicks)
 
 **SEO (Days 1-7):**
 - Indexed: ✓ (Day 2)
-- Ranking: Position 24 for "white-label SDK" (target: <20)
+- Ranking: Position 24 for "{target keyword}" (target: <20)
 - Impressions: 145
 - Clicks: 12 (8.28% CTR)
 
@@ -384,18 +384,18 @@ Period: {start_date} to {end_date}
 
 **Why it performed:**
 - Strong customer proof (specific metrics)
-- High-intent keyword (white-label SDK)
+- High-intent keyword ({target keyword})
 - Multi-channel amplification
 - Email segment highly relevant
 
 **Next steps:**
-- Create follow-up content (white-label implementation guide)
+- Create follow-up content ({solution approach} implementation guide)
 - Monitor SEO ranking improvement (target: top 10)
 - Use as sales enablement (share with prospects)
 
 ---
 
-### 2. Fashion Return Reduction Guide
+### 2. {Problem} Guide
 
 **Published:** 2024-11-14
 **Performance (Days 1-9):**
@@ -445,8 +445,8 @@ Period: {start_date} to {end_date}
 - **Email:** Enterprise segment converts 3x better than SMB
 
 **Keyword insights:**
-- **High-value keywords:** "white-label SDK" (low volume, high intent)
-- **Opportunity keywords:** "reduce fashion returns" (high volume, ranking #24)
+- **High-value keywords:** "{target keyword}" (low volume, high intent)
+- **Opportunity keywords:** "{secondary keyword}" (high volume, ranking #24)
 
 ---
 
@@ -464,24 +464,24 @@ Period: {start_date} to {end_date}
    - Or move to developer documentation
 
 3. **Optimize underperforming content**
-   - "Fashion Return Reduction Guide" ranking #24 → Update for top 10
+   - "{Problem} Guide" ranking #24 → Update for top 10
    - Add internal links from high-performers
 
 ### SEO Priorities
 
-1. **Target keyword:** "reduce fashion returns"
+1. **Target keyword:** "{secondary keyword}"
    - Current: Position 24
    - Opportunity: Position 8-12 achievable
    - Action: Update content, build internal links
 
-2. **Monitor:** "white-label SDK"
+2. **Monitor:** "{target keyword}"
    - Current: Position 24 (just indexed)
    - Track: Expect climb to top 10 in 30 days
 
 ### Channel Optimization
 
 1. **LinkedIn:** Focus on case studies and customer results
-2. **Email:** Segment further (luxury vs fast fashion)
+2. **Email:** Segment further ({segment A} vs {segment B})
 3. **Blog:** Continue SEO-focused education
 
 ---
@@ -501,9 +501,9 @@ Period: {start_date} to {end_date}
 
 ## Next Week Priorities
 
-1. Monitor ElsaAI case study SEO ranking (target: top 20)
-2. Create follow-up content (white-label implementation guide)
-3. Optimize "Fashion Return Reduction Guide" for better ranking
+1. Monitor {Customer} case study SEO ranking (target: top 20)
+2. Create follow-up content ({solution approach} implementation guide)
+3. Optimize "{Problem} Guide" for better ranking
 4. Review underperforming technical content strategy
 ```
 
@@ -524,13 +524,13 @@ summary:
   pipeline_influenced: $425K
 
 top_performers:
-  - slug: "elsaai-white-label-sdk-case-study"
+  - slug: "{customer}-{solution-approach}-case-study"
     sessions: 2,340
     conversions: 28
     conversion_rate: 1.20%
     pipeline: $150K
-    
-  - slug: "reduce-fashion-returns-guide"
+
+  - slug: "{problem-solution}-guide"
     sessions: 1,890
     conversions: 18
     conversion_rate: 0.95%
@@ -541,8 +541,8 @@ underperformers:
     sessions: 42
     conversions: 0
     issue: "Niche topic, no pillar alignment"
-    
-  - slug: "fashion-trends-q4"
+
+  - slug: "{industry}-trends-q4"
     sessions: 156
     conversions: 1
     issue: "Too generic, high competition"
@@ -570,22 +570,22 @@ seo_progress:
     top_10: 3 (+1 vs Oct)
     top_20: 8 (+3 vs Oct)
     top_50: 24 (+8 vs Oct)
-  
+
   top_ranking_keywords:
-    - keyword: "white-label SDK"
+    - keyword: "{target keyword}"
       position: 12 (was: not ranking)
-      
-    - keyword: "reduce fashion returns"
+
+    - keyword: "{secondary keyword}"
       position: 18 (was: 24)
-      
-    - keyword: "luxury fashion returns"
+
+    - keyword: "{tertiary keyword}"
       position: 8 (was: 15)
 
 insights:
   - "Case studies convert 2x better than guides"
   - "LinkedIn drives highest-quality traffic (1.2% vs 0.6% blog avg)"
-  - "Enterprise email segment converts 4x better than general"
-  - "Keyword 'luxury fashion returns' reached top 10 (strong opportunity)"
+  - "{Premium segment} email segment converts 4x better than general"
+  - "Keyword '{tertiary keyword}' reached top 10 (strong opportunity)"
 
 recommendations:
   - priority: "high"
@@ -612,7 +612,7 @@ recommendations:
 ## Content Alerts
 
 🎉 **Top Performer (Last 7 Days)**
-- ElsaAI White-Label Case Study: 650 sessions, 8 demos (1.23% rate)
+- {Customer} {Solution Approach} Case Study: 650 sessions, 8 demos (1.23% rate)
 - Action: Create follow-up content, use in sales enablement
 ```
 
@@ -627,7 +627,7 @@ recommendations:
 **SEO milestone alert:**
 ```markdown
 📈 **SEO Milestone**
-- "luxury fashion returns" reached position 8 (top 10!)
+- "{tertiary keyword}" reached position 8 (top 10!)
 - Traffic potential: +500 sessions/month
 - Action: Monitor ranking, create related content
 ```
@@ -635,7 +635,7 @@ recommendations:
 **Conversion anomaly:**
 ```markdown
 🔍 **Conversion Anomaly**
-- Fashion Trends Q4: 156 sessions, 1 demo (0.64% rate)
+- {Topic} Trends Q4: 156 sessions, 1 demo (0.64% rate)
 - Expected: 1.5-2 demos based on traffic
 - Possible issue: Traffic quality (wrong audience?)
 - Action: Review traffic sources, adjust targeting
@@ -671,7 +671,7 @@ Pillar: "Technical implementation" (deep-dives)
 
 3. **Update SEO strategy:**
 ```
-Keyword: "luxury fashion returns"
+Keyword: "{tertiary keyword}"
 - Position: 8 (top 10)
 - Traffic: 450 sessions/month
 - Conversions: 9 demos
@@ -711,48 +711,48 @@ Channel: LinkedIn
 
 ## Usage Example
 
-**Scenario:** ElsaAI case study published (Day 7 performance review)
+**Scenario:** {Customer} case study published (Day 7 performance review)
 ```
 1. Load distribution record:
-   - content_slug: "elsaai-white-label-sdk-case-study"
+   - content_slug: "{customer}-{solution-approach}-case-study"
    - publish_date: "2024-11-16"
    - channels: [blog, linkedin, email]
 
 2. Collect blog data:
-   - Sessions: 650
-   - Avg time: 4:32
-   - Conversions: 8
+   - Sessions: {N}
+   - Avg time: {time}
+   - Conversions: {N}
 
 3. Collect LinkedIn data:
-   - Impressions: 12,500
-   - Clicks: 380
-   - Engagement: 186
+   - Impressions: {N}
+   - Clicks: {N}
+   - Engagement: {N}
 
 4. Collect email data:
-   - Opened: 312 (24.96%)
-   - Clicked: 78 (6.24%)
-   - Conversions: 3
+   - Opened: {N} ({X}%)
+   - Clicked: {N} ({X}%)
+   - Conversions: {N}
 
 5. Calculate derived metrics:
-   - Overall conversion rate: 1.23% (8 / 650)
-   - LinkedIn CTR: 3.04% (380 / 12,500)
-   - Email CTR: 6.24% (78 / 1,250)
+   - Overall conversion rate: {X}% ({conversions} / {sessions})
+   - LinkedIn CTR: {X}% ({clicks} / {impressions})
+   - Email CTR: {X}% ({clicks} / {sent})
 
 6. Compare to benchmarks:
-   - Conversion rate: 1.23% vs 0.60% avg = 2x ✓
-   - LinkedIn CTR: 3.04% vs 2.0% avg = 1.5x ✓
-   - Email open: 24.96% vs 22% avg = 1.13x ✓
+   - Conversion rate: {X}% vs {Y}% avg = {Z}x ✓
+   - LinkedIn CTR: {X}% vs {Y}% avg = {Z}x ✓
+   - Email open: {X}% vs {Y}% avg = {Z}x ✓
 
 7. Flag as top performer:
    - Add to ops/today.md: "Top performer alert"
    - Recommendation: Create follow-up content
 
 8. Update performance record:
-   - Save: performance-2024-11-16-elsaai-white-label.yaml
+   - Save: performance-2024-11-16-{customer}-{solution-approach}.yaml
    - Include all metrics + insights
 
 9. Feed back to strategy:
-   - Insight: Case studies convert 2x better
+   - Insight: Case studies convert {X}x better
    - Action: Prioritize case study content in next sprint
 ```
 

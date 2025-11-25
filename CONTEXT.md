@@ -1,6 +1,6 @@
 # LeanOS: Universal AI-Native Operating System for Startups
 
-**You're helping Bella design LeanOS** - a universal operating system that enables AI-first startup operations with minimal human intervention. Built for GlamYouUp (AI fashion recommendations), **designed for universal application to any business**.
+**LeanOS** - a universal operating system that enables AI-first startup operations with minimal human intervention. **Designed for universal application to any business**.
 
 Previously had 160+ scattered markdown files causing information overload and duplication. Goal: Build production-ready system where Claude AI autonomously executes 95%+ of business operations.
 
@@ -158,7 +158,7 @@ lean-os/
 ### 🚧 In Progress
 
 - **ops-dashboard skill** - Auto-generate ops/today.md, velocity.md, patterns.md from thread data
-- **GlamYouUp validation** - Testing DTC segment with real customers
+- **Production validation** - Testing with real customers
 - **Thread archival automation** - When to archive vs continue threads
 
 ### 📋 Planned
@@ -296,14 +296,14 @@ Regenerates materials (artifacts/sales/{segment}/materials/)
 ### Daily Workflow
 
 **Current (Manual):**
-1. Bella reads ops/today.md (manually updated)
+1. Founder reads ops/today.md (manually updated)
 2. Approves high-impact decisions
 3. Executes customer calls
 4. Reviews thread updates
 
 **Target (Automated - via ops-dashboard skill):**
 1. ops-dashboard auto-generates ops/today.md from thread data
-2. Bella reads in 5 minutes
+2. Founder reads in 5 minutes
 3. Approves 2-3 high-impact items
 4. Done (<30 min total)
 
@@ -355,15 +355,15 @@ Regenerates materials (artifacts/sales/{segment}/materials/)
 
 ---
 
-## Bella's Style (Design for This)
+## Design Principles
 
-- **Direct, no fluff** - Gets frustrated with repetition, values conciseness
-- **Questions assumptions** - "Why not simpler?" is a constant refrain
-- **Values production systems over theory** - Must be executable, not just conceptual
-- **Thinks in systems and flows** - Data flow diagrams, coordination patterns, feedback loops
+- **Direct, no fluff** - Value conciseness, avoid repetition
+- **Question assumptions** - "Why not simpler?" is a constant refrain
+- **Production systems over theory** - Must be executable, not just conceptual
+- **Systems thinking** - Data flow diagrams, coordination patterns, feedback loops
 - **Tech stack:** Python, FastAPI, microservices, category theory, functional programming
 
-**When designing for Bella:**
+**Design guidelines:**
 - Show data flows, not just descriptions
 - Prove with examples, not just assertions
 - Challenge redundancy aggressively
@@ -374,12 +374,12 @@ Regenerates materials (artifacts/sales/{segment}/materials/)
 
 ## Current Phase: Validation + Ops Automation
 
-**GlamYouUp validation (DTC segment):**
+**Production validation:**
 - ✅ Canvas complete (15 documents populated)
-- ✅ ICP defined (DTC fashion brands)
+- ✅ ICP defined (per segment)
 - ✅ Sales narratives generated (economic buyer, technical buyer, end user)
 - ✅ Marketing narratives generated (content pillars, brand voice, SEO strategy)
-- 🚧 DTC outreach campaign (testing ICP + narratives)
+- 🚧 Outreach campaign (testing ICP + narratives)
 - 📋 First customer demo (validate problem-solution fit)
 
 **Ops dashboard automation:**
@@ -389,7 +389,7 @@ Regenerates materials (artifacts/sales/{segment}/materials/)
 
 **Next actions:**
 1. Complete ops-dashboard skill (parse thread data, generate ops/today.md)
-2. Validate GlamYouUp DTC campaign (10 prospects contacted → learning captured)
+2. Validate outreach campaign (10 prospects contacted → learning captured)
 3. Prove marketing activation (2-3 foundational content pieces published)
 4. Document patterns (what worked, what needs refinement)
 
@@ -431,13 +431,13 @@ Regenerates materials (artifacts/sales/{segment}/materials/)
 
 ## Keep Challenging
 
-**When working with Bella, always challenge:**
+**Always challenge:**
 
 1. **Redundancy** - If it exists in a skill, why does it exist elsewhere?
 2. **Generalization** - Is this skill losing effectiveness by being too generic?
 3. **Coordination** - Do skills know how to work together without centralized control?
 4. **Production readiness** - Can this execute today, or is it theoretical?
-5. **Universal applicability** - Does this work for any business, or just GlamYouUp?
+5. **Universal applicability** - Does this work for any business, not just one specific use case?
 6. **Mode-awareness** - Does this decision/metric/process respect VENTURE vs BOOTSTRAP mode?
 
 **Red flags to call out:**
@@ -451,10 +451,8 @@ Regenerates materials (artifacts/sales/{segment}/materials/)
 
 ## Version History
 
-- **v1.0** (2025-09-15): Initial GlamOS design (GlamYouUp-specific)
+- **v1.0** (2025-09-15): Initial design
 - **v1.1** (2025-10-20): Extracted LeanOS (universal framework)
 - **v1.2** (2025-11-20): Engineering + Operations complete, dual-mode support, 14 operational skills
 
-**Status:** Production-ready for GlamYouUp, designed for universal application
-
-**Maintainer:** Bella Belgarokova ([LinkedIn](https://www.linkedin.com/in/bellabelgarokova/))
+**Status:** Production-ready, designed for universal application

@@ -126,46 +126,6 @@ Identify 5-10 critical assumptions from `strategy/canvas/10-assumptions.md` that
 
 ---
 
-### ✅ Engineering Validation (OPTIONAL - only if building systems)
-
-**⚠️ CONDITIONAL:** Only validate this section if you're building technical products with backend systems. Skip entirely for non-technical products.
-
-**System correctness validated:**
-
-- [ ] Services pass 100% type safety validation
-- [ ] Standardization layer applied to all services:
-  - [ ] Auth (JWT, RBAC)
-  - [ ] Validation (input schemas, error responses)
-  - [ ] Response formats (standardized status codes)
-  - [ ] Logging (structured, distributed tracing)
-  - [ ] Rate limiting (quotas, throttling)
-- [ ] OpenAPI specs generated for all services
-- [ ] Integration tests passing in staging environment
-- [ ] Code generation success rate >95%
-- [ ] Correctness validation complete (composition laws verified)
-
-**Engineering artifacts exist:**
-
-- [ ] Service code: `engineering/services/{service}/`
-- [ ] Service blueprints: `engineering/services/{service}/blueprint.yaml`
-- [ ] Standards documentation: `engineering/standards/`
-- [ ] Domain models: `engineering/domain/`
-- [ ] Engineering threads: `threads/engineering/services/{service}/`
-
-**Engineering quality criteria:**
-- All services mathematically correct (category theory validation passed)
-- Type safety: 100% coverage (all functions typed)
-- Composition laws verified: Identity and associativity hold
-- Standards uniformly applied: No service bypasses standardization layer
-- Canvas synchronized: `09-solution.md` reflects implemented features
-
-**Integration validation:**
-- Sales demo environment includes engineering features
-- Marketing content accurately describes product capabilities
-- Canvas `09-solution.md` matches actual implementation
-
----
-
 ### ✅ Operational Readiness
 
 **Skills installed and tested:**
@@ -178,8 +138,6 @@ Identify 5-10 critical assumptions from `strategy/canvas/10-assumptions.md` that
 - [ ] marketing-execution subskills installed
 - [ ] causal-flow installed
 - [ ] ops-dashboard installed (optional pre-launch)
-- [ ] **category-theoretic-system-design installed** (if building systems)
-- [ ] **standardization-layer installed** (if building systems)
 
 **Infrastructure ready:**
 

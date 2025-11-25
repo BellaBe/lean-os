@@ -19,15 +19,15 @@ Output: research/customer/icp/{segment}-icp.yaml
 
 **Example:**
 ```yaml
-segment: dtc-fashion-smb
+segment: {your-segment}
 filters:
-  industry: [fashion, apparel, accessories]
-  business_model: direct-to-consumer
+  industry: [{industry-list}]
+  business_model: {business-model}
   revenue_range: $1M-$10M
-  tech_stack: Shopify
+  tech_stack: {relevant-tech}
   problem_indicators:
-    - return_rate: ">20%"
-    - fit_complaints: mentioned in reviews
+    - {problem_indicator_1}
+    - {problem_indicator_2}
 qualification_score: 0.85
 ```
 
@@ -106,8 +106,8 @@ Link to Canvas assumptions being tested:
 
 **Example:**
 ```
-Tests: A4 - Luxury brands prefer white-label SDK
-Company: ElsaAI (luxury fashion brand)
+Tests: A4 - Enterprise customers prefer white-label
+Company: {Company} ({segment})
 Initial confidence: 60%
 ```
 
@@ -124,7 +124,7 @@ Quantify deal potential:
 **Example:**
 ```
 ARR potential: $1M-$1.5M
-Strategic value: High (tests luxury white-label preference)
+Strategic value: High (tests key assumption)
 Resource cost: 40 hours (qualification, demo, pilot, close)
 Priority: 0.85
 ```
@@ -192,10 +192,10 @@ Capture outcomes and update Canvas:
 Deal outcome: Closed
 ARR: $1.1M
 Cycle time: 46 days
-Pilot results: 38% return reduction
+Pilot results: 38% improvement
 
 Hypothesis validation:
-A4: Luxury brands prefer white-label → VALIDATED
+A4: Enterprise customers prefer white-label → VALIDATED
 Confidence: 60% → 95% (N=5, 100% pattern)
 
 Canvas updates:
@@ -203,7 +203,7 @@ Canvas updates:
 - 13-metrics.md: Average deal size $1.05M
 
 Content opportunity:
-Topic: ElsaAI white-label case study
+Topic: {Customer} success case study
 Priority: 0.85 (high)
 ```
 
@@ -296,8 +296,8 @@ When deals close (Stage 6):
 
 **Example:**
 ```
-5 luxury brands closed → All chose white-label SDK
-Pattern detected: Luxury prefers white-label
+5 enterprise customers closed → All chose white-label
+Pattern detected: Enterprise prefers white-label
 Content opportunity: Case study + implementation guide
 Priority: 0.85
 ```
@@ -312,49 +312,8 @@ When content drives demos:
 
 ---
 
-## Integration with Engineering (Optional)
-
-**⚠️ CONDITIONAL:** Only relevant if building technical products with backend systems.
-
-**Sales pilots trigger engineering work:**
-
-When pilots require custom features:
-- Engineering thread created: `threads/engineering/services/{feature}/`
-- 6-stage flow executed (requirement analysis → implementation → validation)
-- Custom feature delivered to pilot customer
-- Sales demo updated with new capability
-- Canvas `09-solution.md` updated with validated feature
-
-**Example:**
-```
-Pilot: "ElsaAI needs white-label SDK for their app"
-→ Engineering thread: threads/engineering/services/white-label-sdk/
-→ AI executes: ADT analysis → Code generation → Standardization
-→ Output: engineering/services/white-label-sdk/ (FastAPI service)
-→ Pilot proceeds with SDK
-→ Sales materials regenerate with SDK capability
-→ 4 more luxury brands close using SDK
-```
-
-**Engineering features enable sales:**
-
-When services are built and validated:
-- Canvas `09-solution.md` reflects new capabilities
-- Sales materials auto-regenerate with feature details
-- Demo environment updated with working feature
-- ICPs may expand (new segments become targetable)
-
-**Tracking:**
-- Custom features requested: Count per quarter
-- Engineering delivery time: Days from request → deployed
-- Pilot close rate (with custom features): Win rate %
-- Feature standardization: Custom → standard offering conversion
-
----
-
 ## Next Steps
 
 - Learn marketing workflow: [Marketing Workflow](marketing-workflow.md)
 - Understand 6-stage flow: [Causal Flow](causal-flow.md)
 - See daily routine: [Daily Routine](daily-routine.md)
-- See three-way integration: [Sales-Marketing-Engineering Loop](../integration/sales-marketing-loop.md)

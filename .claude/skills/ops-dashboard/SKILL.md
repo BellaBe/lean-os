@@ -1,487 +1,426 @@
 ---
 name: ops-dashboard
-description: Generate observability dashboards by scanning all threads (business/sales/marketing), aggregating metrics, detecting patterns, and flagging issues for human review or meta-thread creation. Creates ops/today.md, ops/metrics.md, ops/velocity.md, ops/patterns.md.
-allowed-tools: "Read,Write,Bash"
+description: Generate operational dashboards with 3-tier temporal structure. Daily (today.md), weekly (changes.md, velocity.md), and historical (archive/). Tracks business, engineering, sales, and marketing threads. Manages archiving, compression, and metrics computation.
+allowed-tools: "Read,Write,Bash,Edit,Glob"
 ---
 
 # Operations Dashboard Generator
 
-You are an expert at extracting insights from distributed thread data and generating actionable dashboards for AI agents and human operators.
+Manage operational visibility with a clean 3-tier temporal structure.
 
-## Purpose
-
-Scan all threads across business/sales/marketing, aggregate metrics, detect operational patterns, and generate auto-updated dashboards that:
-- Provide daily operational overview (ops/today.md)
-- Track cross-thread KPIs (ops/metrics.md)
-- Measure throughput velocity (ops/velocity.md)
-- Flag anomalies requiring meta-threads (ops/patterns.md)
-- Surface strategic changes for human review (ops/changes.md)
-
-## When to Use This Skill
-
-**Use when:**
-- Starting the day (generate ops/today.md for Bella's 5-min review)
-- Weekly meta-learning check (detect patterns → spawn meta-threads)
-- Before quarterly Canvas review (prepare comprehensive metrics)
-- After major thread completion (update velocity baselines)
-- On-demand when investigating operational issues
-
-**Don't use when:**
-- Working within a specific thread (use causal-flow instead)
-- Creating/updating individual thread files
-- Making strategic decisions (dashboards inform, don't decide)
+**Thread types tracked:** Business, Engineering, Sales, Marketing
+**Artifact types tracked:** Sales collateral, Marketing content, Engineering specs/proofs/configs
 
 ## Output Structure
 
-**Path:** `ops/`
-
 ```
 ops/
-├── today.md                    # Daily dashboard (Bella's entry point)
-├── metrics.md                  # Cross-thread KPIs
-├── velocity.md                 # Throughput & cycle time analysis
-├── patterns.md                 # Detected anomalies → meta-thread triggers
-└── changes.md                  # Strategic flags for human review
+├── today.md          # TODAY: Active work, needs attention, thread status
+├── changes.md        # THIS WEEK: Rolling changelog (7-day window)
+├── velocity.md       # COMPUTED: Weekly metrics, cycle times, throughput
+├── patterns.md       # COMPUTED: Anomalies, meta-thread triggers (weekly)
+└── archive/          # HISTORICAL: Daily completed items only
+    ├── 2025-11-18.md
+    ├── 2025-11-19.md
+    └── weekly/       # Weekly summaries (compressed from changes.md)
 ```
 
 ---
 
-## Dashboard Generation Workflow
+## 3-Tier Temporal Structure
 
-### Step 1: Scan Thread Directories
+### Tier 1: TODAY (ops/today.md)
 
-```bash
-# Find all threads across types
-find threads/ -name "meta.json" -type f
-```
+**Purpose:** Founder's daily 5-minute entry point
+**Update frequency:** Daily (start of day, after major completions)
 
-**Extract from each `meta.json`:**
-- Thread type (business/sales/marketing)
-- Thread state (draft/active/in_review/completed/archived)
-- Current stage (1-7)
-- Timestamps (created, stage transitions, completed)
-- Impact score (for decision authority)
-- Hypothesis ID (link to Canvas assumptions)
-- Actions count and types
+**Contains:**
+- ✅ Completed Today (what got done)
+- 🔴 Needs Your Attention (high-impact decisions, approvals)
+- 📅 This Week's Actions (due dates, owners)
+- 📊 Active Threads Summary (business, engineering, sales, marketing)
+- 🔧 Engineering Progress (specs, proofs, deployments)
+- 📈 Campaign Status (live progress)
+- 🔮 Upcoming (next 7 days)
+- 📊 Metrics to Monitor
 
-### Step 2: Aggregate Metrics
-
-**Calculate:**
-
-1. **Thread counts by type/state:**
-   - Total threads: N
-   - Active threads: X (state=active)
-   - Completed this week/month/quarter
-   - By type: business/sales/marketing breakdown
-
-2. **Stage distribution:**
-   - Threads at each stage (1-7)
-   - Bottlenecks (stage with >3 threads stuck >7 days)
-
-3. **Cycle time:**
-   - Average days per stage
-   - Total thread completion time
-   - Variance by thread type
-
-4. **Decision metrics:**
-   - AI autonomy rate (decisions with impact <0.7)
-   - Human intervention rate
-   - Decision revision rate (decisions changed after stage 4)
-
-5. **Hypothesis validation:**
-   - Validation rate (validated / total tested)
-   - Invalidation rate
-   - Confidence changes (before/after)
-
-6. **Action execution:**
-   - Action completion rate
-   - Average actions per thread
-   - Typed action distribution (sales/marketing)
-
-### Step 3: Detect Patterns (Meta-Thread Triggers)
-
-**Pattern detection rules:**
-
-```python
-# Estimation variance
-if variance(stage_duration) > 0.4 and sample_size >= 5:
-    flag_pattern("estimation_variance", affected_stages)
-
-# Validation rate
-if validation_rate < 0.6 and sample_size >= 10:
-    flag_pattern("low_validation_rate", hypothesis_ids)
-
-# Decision revision
-if decision_revision_rate > 0.2 and sample_size >= 5:
-    flag_pattern("decision_churn", affected_threads)
-
-# Stage quality
-if stage_quality_score < 0.7 and issue_count > 0.3 * total:
-    flag_pattern("stage_quality_issue", stage_number)
-
-# Bottlenecks
-if threads_at_stage > 3 and avg_days_stuck > 7:
-    flag_pattern("stage_bottleneck", stage_number)
-```
-
-**Each pattern includes:**
-- Pattern type
-- Affected threads/stages
-- Severity (low/medium/high)
-- Recommended action (create meta-thread / adjust process / flag human)
-- Sample size (N)
-
-### Step 4: Generate Dashboards
-
-#### ops/today.md
-
-**Purpose:** Bella's daily 5-minute entry point
-
-**Structure:**
-```markdown
-# Operations Dashboard - {date}
-
-## 🎯 Needs Your Attention
-- [ ] {High-impact decision waiting approval} (impact: 0.85)
-- [ ] {Customer call today} - Sales thread S012
-- [ ] {Quarterly Canvas review due}
-
-## 📊 Today's Snapshot
-- **Active threads:** X business, Y sales, Z marketing
-- **Completed this week:** N threads
-- **AI autonomy rate:** 94% (target: >95%)
-
-## 🚨 Flags
-- {Pattern detected: estimation variance in Stage 3} → Consider meta-thread
-- {Strategic change: Invalidated assumption A7} → Review Canvas
-
-## 📈 Velocity
-- **Avg cycle time:** X days (↓ 12% vs last month)
-- **Stage bottleneck:** Stage 5 (4 threads stuck >7 days)
+**Does NOT contain:**
+- Historical completed items (→ archive/)
+- Detailed change logs (→ changes.md)
+- Computed metrics (→ velocity.md)
 
 ---
-[View detailed metrics](./metrics.md) | [View patterns](./patterns.md)
-```
 
-#### ops/metrics.md
+### Tier 2: THIS WEEK (ops/changes.md + ops/velocity.md)
 
-**Purpose:** Comprehensive KPI tracking
+#### changes.md - Rolling Changelog
+
+**Purpose:** Track what changed for velocity measurement
+**Update frequency:** After each significant change
+**Retention:** Current week only (7-day rolling window)
 
 **Structure:**
 ```markdown
-# Cross-Thread Metrics - {date}
+# Strategic Changes Log
 
-## Thread Overview
-| Type | Draft | Active | In Review | Completed | Archived |
-|------|-------|--------|-----------|-----------|----------|
-| Business | X | Y | Z | A | B |
-| Sales | X | Y | Z | A | B |
-| Marketing | X | Y | Z | A | B |
-
-## Stage Distribution
-| Stage | Threads | Avg Days | Variance |
-|-------|---------|----------|----------|
-| 1: Input | X | Y | Z% |
-| 2: Hypothesis | X | Y | Z% |
-| ... | ... | ... | ... |
-
-## Decision Authority
-- **AI autonomous:** 156 decisions (96%)
-- **Human review:** 7 decisions (4%)
-- **Decision revision rate:** 8% (target: <20%)
-
-## Hypothesis Validation
-- **Validated:** 34 (68%)
-- **Invalidated:** 12 (24%)
-- **Testing:** 4 (8%)
-- **Avg confidence change:** +18% (before: 52% → after: 70%)
-
-## Action Execution
-- **Total actions:** 248
-- **Completed:** 231 (93%)
-- **In progress:** 17 (7%)
-- **By type (sales):** lead: 45, qualify: 38, demo: 22, pilot: 12, close: 9
-- **By type (marketing):** research: 18, create: 34, publish: 29, promote: 15, measure: 12
-
-## Cycle Time
-- **Business threads:** 12.4 days avg (variance: 32%)
-- **Sales threads:** 18.7 days avg (variance: 41%) ⚠️
-- **Marketing threads:** 9.2 days avg (variance: 28%)
+**Purpose:** Track what changed day-to-day for velocity measurement
+**Retention:** Current week (older entries compressed to weekly/)
 
 ---
-Last updated: {timestamp}
+
+## 2025-11-25
+
+### {Change Title}
+**Files changed:** {count and names}
+**Impact:** {what it enables/fixes}
+
+**Changes made:**
+- {Detail 1}
+- {Detail 2}
+
+**Velocity metric:**
+- {Measurable outcome}
+- Time: {hours spent}
+
+---
+
+## 2025-11-24
+...
 ```
 
-#### ops/velocity.md
+**Compression rules:**
+- At end of week (Sunday): Compress week's entries into summary
+- Move summary to `archive/weekly/week-{YYYY-WW}.md`
+- Keep only current week in changes.md
 
-**Purpose:** Throughput and efficiency analysis
+#### velocity.md - Computed Metrics
+
+**Purpose:** Weekly metrics, cycle times, throughput analysis
+**Update frequency:** Weekly (Sunday) or on-demand
+**Computation:** Derived from threads + changes.md + archive
 
 **Structure:**
 ```markdown
-# Velocity Analysis - {date}
+# Velocity Analysis - Week of {date}
+
+## This Week Summary
+- Threads completed: X
+- Content published: Y pieces
+- Threads created: Z
+- Total changes logged: N
+
+## Cycle Time by Thread Type
+| Type | Avg Days | Threads | Variance |
+|------|----------|---------|----------|
+| Business | X | Y | Z% |
+| Engineering | X | Y | Z% |
+| Sales | X | Y | Z% |
+| Marketing | X | Y | Z% |
 
 ## Throughput Trends
-- **This week:** 8 threads completed (↑ 14% vs last week)
-- **This month:** 32 threads completed
-- **This quarter:** 89 threads completed
-
-## Cycle Time by Stage (days)
-| Stage | Current | Baseline | Delta |
-|-------|---------|----------|-------|
-| 1: Input | 0.8 | 1.0 | ↓ 20% |
-| 2: Hypothesis | 1.6 | 2.0 | ↓ 20% |
-| 3: Implication | 2.4 | 3.0 | ↓ 20% |
-| 4: Decision | 1.2 | 2.0 | ↓ 40% |
-| 5: Actions | 8.7 | 10.0 | ↓ 13% |
-| 6: Learning | 1.8 | 2.0 | ↓ 10% |
-
-## Bottleneck Analysis
-**Current bottlenecks (>3 threads, >7 days):**
-- Stage 5 (Actions): 4 threads, avg 11.2 days stuck
-  - Threads: B023, S014, M007, S018
-  - Root cause: Waiting on external dependencies
+- This week: X threads completed
+- Last week: Y threads completed
+- Trend: ↑/↓ Z%
 
 ## Efficiency Metrics
-- **First-time quality:** 87% (decisions not revised)
-- **Rework rate:** 13%
-- **Canvas update accuracy:** 94%
-
-## Improvement Opportunities
-1. **Stage 5 dependencies:** Create dependency tracking system
-2. **Sales cycle time:** 41% variance indicates estimation issues
-3. **Hypothesis quality:** 24% invalidation rate acceptable but monitor
+- AI autonomy rate: X%
+- Decision latency: <24h
+- First-time quality: X%
 
 ---
-Last updated: {timestamp}
+**Computed:** {timestamp}
+**Next update:** {next Sunday}
 ```
 
-#### ops/patterns.md
+---
 
-**Purpose:** Meta-thread triggers and anomaly detection
+### Tier 3: HISTORICAL (ops/archive/)
+
+**Purpose:** Permanent record of completed work
+**Update frequency:** Daily (end of day or next morning)
 
 **Structure:**
+```
+archive/
+├── 2025-11-18.md     # Daily: completed items only
+├── 2025-11-19.md
+├── ...
+└── weekly/
+    ├── week-2025-47.md  # Weekly summary (compressed from changes.md)
+    └── week-2025-48.md
+```
+
+#### Daily Archive Format
+
+```markdown
+# Operations Dashboard - {YYYY-MM-DD}
+
+## ✅ Completed Today
+
+### {Item 1 Title}
+- ✓ {What was done}
+- ✓ {Details}
+
+### {Item 2 Title}
+- ✓ {What was done}
+
+---
+
+**Archived:** {YYYY-MM-DD}
+```
+
+#### Weekly Summary Format
+
+```markdown
+# Week {WW} Summary - {date range}
+
+## Highlights
+- {Major accomplishment 1}
+- {Major accomplishment 2}
+
+## Threads
+- Completed: X
+- Created: Y
+- Active end of week: Z
+
+## Content Published
+- {List of published content}
+
+## Engineering Artifacts
+- {Specs generated}
+- {Proofs validated}
+- {Configs deployed}
+
+## Key Changes
+- {Compressed list of significant changes}
+
+## Velocity
+- Avg cycle time: X days
+- AI autonomy: X%
+
+---
+
+**Compressed from:** changes.md entries {date} - {date}
+```
+
+---
+
+## Archive Management
+
+### Archive Principle
+
+**Archives contain ONLY what was completed. Future/pending items belong in today.md.**
+
+### What Gets Archived vs Stays
+
+| Content Type | Archive? | Stay in today.md? | Goes to changes.md? |
+|--------------|----------|-------------------|---------------------|
+| ✅ Completed Today | ✓ YES | Remove after archive | Log significant ones |
+| 🔴 Needs Attention | ✗ NO | ✓ YES | ✗ NO |
+| 📅 This Week's Actions | ✗ NO | ✓ YES | ✗ NO |
+| 📊 Active Threads | ✗ NO | ✓ YES (update) | ✗ NO |
+| 📈 Campaign Status | ✗ NO | ✓ YES (update) | ✗ NO |
+| 🔧 Engineering Progress | ✗ NO | ✓ YES (update) | Log milestones |
+| File changes | ✗ NO | ✗ NO | ✓ YES |
+| Velocity metrics | ✗ NO | ✗ NO | → velocity.md |
+
+### Daily Archive Workflow
+
+**End of day or start of next day:**
+
+1. **Read today.md** - Extract "✅ Completed Today" section
+2. **Create archive file** - `archive/{YYYY-MM-DD}.md`
+3. **Write completed items** - Full details of what was done
+4. **Add footer** - `**Archived:** {date}`
+5. **Update today.md** - Clear completed section, update thread statuses
+
+### Weekly Compression Workflow
+
+**Every Sunday (or Monday morning):**
+
+1. **Read changes.md** - All entries from past week
+2. **Create weekly summary** - `archive/weekly/week-{YYYY-WW}.md`
+3. **Compress entries** - Keep highlights, remove granular details
+4. **Clear changes.md** - Remove entries older than 7 days
+5. **Update velocity.md** - Compute metrics from the week
+
+---
+
+## Changelog Management (changes.md)
+
+### When to Log Changes
+
+**Log to changes.md when:**
+- Files created/deleted/significantly modified
+- Canvas sections updated
+- Skills added/modified
+- Threads created/completed (business, engineering, sales, marketing)
+- Engineering artifacts generated (specs, proofs, configs)
+- Content published
+- Process improvements implemented
+
+**Don't log:**
+- Minor typo fixes
+- Formatting changes
+- Routine status updates (those go to today.md)
+
+### Change Entry Format
+
+```markdown
+## {YYYY-MM-DD}
+
+### {Descriptive Title}
+**Files changed:** {count} ({list key files})
+**Impact:** {What this enables or fixes}
+
+**Changes made:**
+1. {Specific change 1}
+2. {Specific change 2}
+
+**Velocity metric:**
+- {Measurable outcome: files, words, threads, time}
+- Time: {hours spent}
+```
+
+### Compression Rules
+
+**Keep detailed entries for current week only.**
+
+**At week end, compress to:**
+```markdown
+### Week {WW}: {One-line summary}
+- {Bullet 1: Major change}
+- {Bullet 2: Major change}
+- Threads: +X created, Y completed
+- Files: Z modified
+```
+
+---
+
+## Velocity Computation
+
+### When to Compute
+
+- **Weekly:** Sunday evening or Monday morning
+- **On-demand:** Before important decisions, quarterly reviews
+- **After milestones:** Campaign completions, major thread closures
+
+### Metrics to Compute
+
+**From threads:**
+- Thread counts by type/state (business, engineering, sales, marketing)
+- Stage distribution
+- Cycle time (days per stage, total completion)
+- Completion rate
+- Engineering thread progress (specs generated, proofs validated)
+
+**From changes.md:**
+- Files changed per week
+- Time spent on changes
+- Change velocity (changes per day)
+
+**From archive:**
+- Historical trends
+- Week-over-week comparison
+
+### Velocity.md Computation Script
+
+```bash
+# Count threads by state
+find threads/ -name "metadata.yaml" -exec grep -l "status:" {} \;
+
+# Count completed this week
+find ops/archive/ -name "*.md" -mtime -7 | wc -l
+
+# Sum velocity metrics from changes.md
+grep "Time:" ops/changes.md | # extract and sum
+```
+
+---
+
+## Pattern Detection (ops/patterns.md)
+
+### When to Update
+
+- **Weekly:** During velocity computation
+- **On trigger:** When pattern rules fire
+
+### Pattern Rules
+
+```
+1. Estimation Variance: variance >40% with N≥5 → meta-thread
+2. Validation Rate: <60% with N≥10 → meta-thread
+3. Decision Revision: >20% revision rate with N≥5 → meta-thread
+4. Stage Bottleneck: >3 threads stuck >7 days → immediate flag
+```
+
+### Pattern File Format
+
 ```markdown
 # Pattern Detection - {date}
 
-## 🚨 Meta-Thread Triggers
+## 🚨 Active Patterns
 
-### Pattern: Estimation Variance (Sales Cycle Time)
-**Severity:** HIGH
+### {Pattern Name}
+**Severity:** HIGH/MEDIUM/LOW
 **Detected:** {date}
-**Rule:** Variance >40% with N≥5
-**Data:**
-- Sample size: 12 sales threads
-- Variance: 41% (threshold: 40%)
-- Affected stages: Stage 3 (Implication), Stage 5 (Actions)
-
-**Recommended Action:** CREATE META-THREAD
-```
-threads/business/meta-sales-estimation/
-1-input: Sales cycle time variance exceeds threshold
-2-hypothesis: Current estimation model doesn't account for deal complexity
-3-implication: Overruns cause resource allocation issues
-4-decision: Implement deal complexity scoring
-5-actions: Create scoring model, update templates
-6-learning: Validate if complexity scoring reduces variance
-```
-
----
-
-### Pattern: Stage Bottleneck (Stage 5)
-**Severity:** MEDIUM
-**Detected:** {date}
-**Rule:** >3 threads stuck >7 days
-**Data:**
-- Stuck threads: 4 (B023, S014, M007, S018)
-- Average days stuck: 11.2
-- Common blocker: External dependencies
-
-**Recommended Action:** PROCESS ADJUSTMENT
-- Add dependency tracking to Stage 4 (Decision)
-- Flag external dependencies for proactive management
-- Monitor for 2 weeks before meta-thread
-
----
-
-### Pattern: Low Validation Rate
-**Severity:** LOW
-**Detected:** {date}
-**Rule:** <60% validation rate with N≥10
-**Data:**
-- Sample size: 50 hypotheses
-- Validation rate: 68% (threshold: 60%)
-- Status: MONITORING (above threshold but trending down)
-
-**Recommended Action:** CONTINUE MONITORING
-- Check again in 2 weeks
-- Create meta-thread if drops below 60%
-
----
+**Data:** {metrics}
+**Action:** {meta-thread / monitor / resolved}
 
 ## 📊 Pattern History
-| Pattern Type | First Detected | Status | Meta-Thread Created |
-|--------------|----------------|--------|---------------------|
-| Estimation Variance (Sales) | 2025-10-15 | ACTIVE | threads/business/meta-sales-estimation |
-| Decision Churn (Business) | 2025-09-22 | RESOLVED | threads/business/meta-decision-quality |
+
+| Pattern | Detected | Status | Resolution |
+|---------|----------|--------|------------|
+| {name} | {date} | RESOLVED | {what fixed it} |
 
 ---
-Last updated: {timestamp}
-```
-
-#### ops/changes.md
-
-**Purpose:** Strategic flags requiring human review
-
-**Structure:**
-```markdown
-# Strategic Changes - {date}
-
-## 🔴 High Priority (Review This Week)
-
-### Invalidated Assumption: A7 (Enterprise Sales Cycle)
-**Thread:** threads/sales/acme-corp/7-learning.md
-**Original hypothesis:** Enterprise deals close in 45-60 days
-**Learning:** Actually 90-120 days due to procurement processes
-**Canvas impact:**
-- `strategy/canvas/11-pricing.md` - Update cash flow assumptions
-- `strategy/canvas/14-growth.md` - Adjust quarterly targets
-- `strategy/canvas/15-gtm.md` - Add procurement education to sales process
-
-**Action required:** Review and approve Canvas updates
-
----
-
-### Major Pivot Detected (Impact: 0.92)
-**Thread:** threads/business/white-label-sdk/4-decision.md
-**Decision:** Launch white-label SDK (new business model)
-**Canvas impact:** Affects 8 Canvas sections
-**Action required:** Schedule strategic review session
-
----
-
-## 🟡 Medium Priority (Review This Month)
-
-### New Opportunity: API-First Customers
-**Thread:** threads/sales/dev-tools-co/7-learning.md
-**Learning:** Developer tools companies prefer API over UI
-**Canvas impact:**
-- `strategy/canvas/04-segments.md` - Add "Developer Tools" segment
-- `strategy/canvas/09-solution.md` - Prioritize API development
-
-**Action required:** Validate segment size before Canvas update
-
----
-
-## 🟢 Low Priority (FYI)
-
-### Validated Assumption: A12 (LinkedIn Engagement)
-**Thread:** threads/marketing/linkedin-q4/7-learning.md
-**Original hypothesis:** 2-3 posts/week drives engagement
-**Learning:** Confirmed - engagement up 47%
-**Canvas status:** Already updated in `strategy/canvas/15-gtm.md`
-
----
-Last updated: {timestamp}
+**Last computed:** {timestamp}
 ```
 
 ---
 
-## Execution Pattern
+## Workflow Summary
 
-### On-Demand Generation
+### Daily Routine
 
-```bash
-# Generate all dashboards
-./generate_ops_dashboards.sh
+1. **Morning:** Generate/update today.md
+2. **After work:** Log significant changes to changes.md
+3. **End of day:** Archive completed items
 
-# Or generate specific dashboard
-./generate_ops_today.sh
-./generate_ops_metrics.sh
-```
+### Weekly Routine (Sunday/Monday)
 
-### Scheduled Generation
+1. **Compress changes.md** → archive/weekly/
+2. **Compute velocity.md** from threads + changes + archive
+3. **Check patterns.md** for anomalies
+4. **Clean up today.md** for new week
 
-**Daily:** `ops/today.md` (before Bella's day starts)
-**Weekly:** All dashboards (Sunday night)
-**Monthly:** Add trend analysis
-**Quarterly:** Add historical comparison
+### Monthly Routine
 
-### Pattern Detection Workflow
-
-1. **Scan threads:** Extract metrics from meta.json + stage files
-2. **Apply rules:** Check each pattern detection rule
-3. **Calculate severity:** Based on sample size + deviation
-4. **Generate recommendations:** Meta-thread template or process adjustment
-5. **Update ops/patterns.md:** Add new patterns, update existing
-6. **Flag in ops/today.md:** Surface high-severity patterns
-7. **Auto-create meta-thread:** If severity=HIGH and human approves
-
----
-
-## Meta-Thread Creation
-
-When pattern detection triggers meta-thread:
-
-### Step 1: Generate Meta-Thread Proposal
-
-```markdown
-## Proposed Meta-Thread: {pattern-type}
-
-**Trigger:** {pattern detection rule}
-**Data:** {metrics that triggered}
-**Expected ROI:** {estimated time saved vs time invested}
-
-**Thread structure:**
-threads/business/meta-{pattern-name}/
-1-input: {observation from pattern}
-2-hypothesis: {root cause hypothesis}
-3-implication: {impact analysis}
-4-decision: {proposed solution}
-5-actions: {implementation steps}
-6-learning: {process improvement}
-```
-
-### Step 2: Human Approval
-
-Add to `ops/today.md` under "Needs Your Attention"
-- [ ] Create meta-thread for {pattern}? (ROI: X hours saved)
-
-### Step 3: Execute Meta-Thread
-
-Use `causal-flow` skill to execute standard 6-stage flow
-Apply learnings to improve operational processes
-
-### Step 4: Validate Improvement
-
-Track same metrics for next N threads
-Confirm pattern resolved
-Update baseline metrics
+1. **Review velocity trends** (4-week comparison)
+2. **Archive weekly summaries** older than 4 weeks (optional compression)
+3. **Update baseline targets** if needed
 
 ---
 
 ## Best Practices
 
-1. **Generate daily** - Keep ops/today.md fresh for Bella's morning review
-2. **Monitor patterns weekly** - Don't let issues compound
-3. **Low false positives** - Only trigger meta-threads for clear patterns (N≥5)
-4. **Actionable insights** - Every flag must have recommended action
-5. **Trend over snapshot** - Track direction (↑↓), not just current value
-6. **Auto-update changes.md** - Stage 7 (Learning) should append to ops/changes.md
-7. **Validate thresholds** - Adjust pattern detection rules based on meta-learning
+1. **Keep today.md actionable** - Only what needs attention NOW
+2. **Log changes promptly** - Don't batch up a week's changes
+3. **Compress weekly** - Don't let changes.md grow infinitely
+4. **Archive is sacred** - Only completed items, no pending work
+5. **Compute, don't maintain** - velocity.md is computed, not manually updated
+6. **Patterns are triggers** - They lead to meta-threads or process fixes
 
 ---
 
 ## Success Criteria
 
-✓ **Bella's 5-min dashboard** - ops/today.md has everything needed
-✓ **Pattern detection** - Catches operational issues before they compound
-✓ **Meta-thread triggers** - Clear ROI justification for process improvement
-✓ **Zero manual updates** - All dashboards auto-generated from thread data
-✓ **Actionable flags** - Every issue has recommended next step
-✓ **Strategic alignment** - Canvas changes surfaced for human review
+✓ **Founder's 5-min review** - today.md has everything needed
+✓ **Clean archives** - Only completed items, no forward-looking content
+✓ **Rolling changelog** - changes.md stays <7 days of entries
+✓ **Weekly velocity** - Computed metrics available every Monday
+✓ **No stale files** - Everything either current or explicitly historical
 
 ---
 
-## Remember
-
-This is Bella's primary human interface to GlamOS. Keep ops/today.md concise, actionable, and focused on what requires human attention. Everything else is for AI agents to self-optimize.
+**Last updated:** 2025-11-25

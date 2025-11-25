@@ -32,8 +32,8 @@ artifacts/marketing/narrative/seo-strategy.md
 
 **3. Target keyword (from content opportunity):**
 ```
-Primary: "white-label SDK"
-Secondary: ["enterprise fashion SDK", "branded fit recommendation"]
+Primary: "{target keyword}"
+Secondary: ["{secondary keyword 1}", "{secondary keyword 2}"]
 ```
 
 ---
@@ -75,28 +75,28 @@ Secondary: ["enterprise fashion SDK", "branded fit recommendation"]
 
 **Before (not optimized):**
 ```
-"Our Customer Success Story with ElsaAI"
+"Our Customer Success Story with {Customer}"
 ```
 
 **After (optimized):**
 ```
-"White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
-- Keyword: ✓ (white-label SDK)
+"{Solution Approach} Case Study: {Customer} Reduces {Key Metric} {X}%"
+- Keyword: ✓ ({target keyword})
 - Length: ✓ (55 characters)
 - Compelling: ✓ (specific result)
 ```
 
 **Before (keyword stuffed):**
 ```
-"White-Label SDK for White-Label Fashion White-Label Solutions"
+"{Target Keyword} for {Target Keyword} {Industry} {Target Keyword} Solutions"
 ```
 
 **After (natural):**
 ```
-"How Enterprise Fashion Brands Use White-Label SDKs"
-- Keyword: ✓ (white-label SDK)
+"How {Premium Segment} Companies Use {Solution Approach}"
+- Keyword: ✓ ({target keyword})
 - Natural: ✓ (readable, not spammy)
-- Secondary keyword: ✓ (enterprise fashion)
+- Secondary keyword: ✓ ({premium segment})
 ```
 
 ### Step 3: Meta Description
@@ -120,13 +120,13 @@ Secondary: ["enterprise fashion SDK", "branded fit recommendation"]
 
 **Example:**
 ```
-Draft title: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+Draft title: "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} {X}%"
 
 Meta description:
-"Learn how ElsaAI reduced fashion returns by 38% using a white-label SDK. Implementation guide, metrics, and ROI analysis from a $200M luxury marketplace."
+"Learn how {Customer} reduced {key metric} by {X}% using {solution approach}. Implementation guide, metrics, and ROI analysis from a ${revenue} {segment} company."
 
 - Length: 158 characters ✓
-- Keyword: ✓ (white-label SDK)
+- Keyword: ✓ ({target keyword})
 - Compelling: ✓ (specific metrics, actionable)
 ```
 
@@ -151,7 +151,7 @@ Meta description:
 
 **Before (generic):**
 ```
-H1: ElsaAI Case Study
+H1: {Customer} Case Study
 H2: The Problem
 H2: The Solution
 H2: The Results
@@ -159,18 +159,18 @@ H2: The Results
 
 **After (SEO-optimized):**
 ```
-H1: White-Label SDK Case Study: ElsaAI Reduces Returns 38%
-H2: Why Luxury Fashion Brands Need White-Label Fit Recommendations
-H2: Implementing a White-Label SDK: Technical Approach
-H2: Results: 38% Return Reduction in 30 Days
-H2: White-Label vs Co-Branded: Enterprise SDK Comparison
+H1: {Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%
+H2: Why {Premium Segment} Companies Need {Solution Approach}
+H2: Implementing {Solution Approach}: Technical Approach
+H2: Results: 38% {Key Metric} Reduction in 30 Days
+H2: {Solution Approach} vs {Alternative}: {Segment} Comparison
 ```
 
 **Keyword distribution:**
 - H1: Primary keyword ✓
-- H2 #1: Keyword variation (white-label fit recommendations) ✓
-- H2 #2: Primary keyword (white-label SDK) ✓
-- H2 #4: Keyword variation (white-label vs co-branded) ✓
+- H2 #1: Keyword variation ({solution approach}) ✓
+- H2 #2: Primary keyword ({target keyword}) ✓
+- H2 #4: Keyword variation ({solution vs alternative}) ✓
 
 ### Step 5: Keyword Integration
 
@@ -197,28 +197,28 @@ H2: White-Label vs Co-Branded: Enterprise SDK Comparison
 
 **First 100 words:**
 ```
-When we launched our fit recommendation SDK, we assumed enterprise 
-brands would prefer co-branded widgets. After 5 enterprise deals, 
+When we launched our {solution category}, we assumed {segment}
+companies would prefer {alternative approach}. After {N} {segment} deals,
 we learned we were wrong.
 
-100% of luxury brands chose white-label SDK integration. This wasn't 
-about hiding technology—it was about brand consistency being 
-non-negotiable in luxury e-commerce.
+{X}% of {premium segment} chose {solution approach}. This wasn't
+about {misconception}—it was about {key differentiator} being
+non-negotiable in {industry}.
 
-Here's what we learned from $5.5M in enterprise contracts about 
-white-label SDKs and brand positioning.
+Here's what we learned from ${revenue} in {segment} contracts about
+{target keyword} and {positioning}.
 ```
 
 **Keyword mentions:**
-- "white-label SDK" (sentence 2) ✓
-- "white-label SDK integration" (sentence 2) ✓
-- "white-label SDKs" (sentence 3) ✓
+- "{target keyword}" (sentence 2) ✓
+- "{target keyword variation}" (sentence 2) ✓
+- "{target keywords}" (sentence 3) ✓
 - Density: 3 mentions / 85 words = 3.5% (acceptable for intro)
 
 **Secondary keywords:**
-- "enterprise brands" ✓
-- "luxury brands" ✓
-- "fit recommendation" ✓
+- "{segment} companies" ✓
+- "{premium segment}" ✓
+- "{solution category}" ✓
 
 ### Step 6: Internal Linking
 
@@ -233,10 +233,10 @@ white-label SDKs and brand positioning.
 **Identify linkable phrases:**
 ```
 In draft:
-"Luxury fashion brands face 25-30% return rates due to fit issues."
+"{Premium segment} companies face {X}% {key metric} due to {problem}."
 
 Link opportunity:
-"Luxury fashion brands face 25-30% return rates due to [fit issues](link-to-article-on-fit-problems)."
+"{Premium segment} companies face {X}% {key metric} due to [{problem}](link-to-article-on-problem)."
 ```
 
 **Anchor text rules:**
@@ -245,28 +245,28 @@ Link opportunity:
 ✓ Natural in context
 ✓ Keyword-relevant (helps SEO)
 ✗ Generic ("click here", "learn more")
-✗ Overly optimized ("best white-label SDK solutions")
+✗ Overly optimized ("best {target keyword} solutions")
 ```
 
 **Example internal links:**
 ```markdown
-## Why Luxury Fashion Brands Need White-Label Fit Recommendations
+## Why {Premium Segment} Companies Need {Solution Approach}
 
-Luxury customers expect seamless brand experiences. When ElsaAI 
-first implemented [co-branded fit widgets](/blog/co-branded-vs-white-label), 
+{Premium segment} customers expect {key differentiator}. When {Customer}
+first implemented [{alternative approach}](/blog/{alternative}-vs-{solution}),
 customer feedback was negative:
 
-Their previous approach to [reducing fashion returns](/blog/reduce-returns-guide) 
-used generic size charts with 68% accuracy...
+Their previous approach to [{solving problem}](/blog/{problem}-guide)
+used {inferior approach} with {low}% accuracy...
 
-For more on [enterprise SDK pricing](/pricing/enterprise), see our 
+For more on [{pricing tier}](/pricing/{tier}), see our
 technical documentation.
 ```
 
 **Links added:**
-1. `/blog/co-branded-vs-white-label` (related topic, same pillar)
-2. `/blog/reduce-returns-guide` (different pillar, high-value content)
-3. `/pricing/enterprise` (product page, conversion-focused)
+1. `/blog/{alternative}-vs-{solution}` (related topic, same pillar)
+2. `/blog/{problem}-guide` (different pillar, high-value content)
+3. `/pricing/{tier}` (product page, conversion-focused)
 
 ### Step 7: Image Optimization
 
@@ -280,17 +280,17 @@ technical documentation.
 
 **Example:**
 ```
-Image: Screenshot of white-label SDK integration
+Image: Screenshot of {solution approach} integration
 
 ✗ Bad alt text: "image1.png"
-✗ Bad alt text: "white-label SDK white-label integration white-label"
-✓ Good alt text: "White-label SDK integration showing branded fit recommendation widget in ElsaAI's checkout flow"
+✗ Bad alt text: "{keyword} {keyword} integration {keyword}"
+✓ Good alt text: "{Solution approach} integration showing {feature} in {Customer}'s {workflow}"
 ```
 
 **File naming:**
 ```
 ✗ IMG_1234.jpg
-✓ white-label-sdk-integration-screenshot.jpg
+✓ {solution-approach}-integration-screenshot.jpg
 ```
 
 **File size:**
@@ -316,15 +316,15 @@ Image: Screenshot of white-label SDK integration
 
 **Examples:**
 
-**From title:** "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+**From title:** "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%"
 ```
-✗ white-label-sdk-case-study-elsaai-reduces-returns-38-percent
+✗ {solution-approach}-case-study-{customer}-reduces-{metric}-38-percent
    (too long, includes stop words)
 
-✓ white-label-sdk-case-study
+✓ {solution-approach}-case-study
    (concise, keyword-focused)
 
-✓ elsaai-white-label-sdk
+✓ {customer}-{solution-approach}
    (customer name + keyword)
 ```
 
@@ -337,11 +337,11 @@ Image: Screenshot of white-label SDK integration
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "White-Label SDK Case Study: ElsaAI Reduces Returns 38%",
-  "description": "Learn how ElsaAI reduced fashion returns by 38%...",
+  "headline": "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%",
+  "description": "Learn how {Customer} reduced {key metric} by 38%...",
   "author": {
     "@type": "Organization",
-    "name": "GlamYouUp"
+    "name": "{Your Product}"
   },
   "datePublished": "2024-11-16",
   "dateModified": "2024-11-16"
@@ -353,9 +353,9 @@ Image: Screenshot of white-label SDK integration
 {
   "@context": "https://schema.org",
   "@type": "CaseStudy",
-  "name": "ElsaAI White-Label SDK Implementation",
-  "description": "How ElsaAI reduced returns by 38%...",
-  "result": "38% reduction in return rate, $805K annual savings"
+  "name": "{Customer} {Solution Approach} Implementation",
+  "description": "How {Customer} reduced {key metric} by 38%...",
+  "result": "38% reduction in {key metric}, ${savings} annual savings"
 }
 ```
 
@@ -402,12 +402,12 @@ Image: Screenshot of white-label SDK integration
 ```markdown
 ---
 # SEO Metadata
-title: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
-meta_description: "Learn how ElsaAI reduced fashion returns by 38% using a white-label SDK. Implementation guide, metrics, and ROI analysis from a $200M luxury marketplace."
-url_slug: "elsaai-white-label-sdk-case-study"
-target_keyword: "white-label SDK"
-secondary_keywords: ["enterprise fashion SDK", "white-label fit recommendation", "luxury fashion returns"]
-canonical_url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+title: "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%"
+meta_description: "Learn how {Customer} reduced {key metric} by 38% using {solution approach}. Implementation guide, metrics, and ROI analysis from a ${revenue} {segment} company."
+url_slug: "{customer}-{solution-approach}-case-study"
+target_keyword: "{target keyword}"
+secondary_keywords: ["{secondary keyword 1}", "{secondary keyword 2}", "{secondary keyword 3}"]
+canonical_url: "https://{your-product}.com/blog/{customer}-{solution-approach}-case-study"
 
 # Content metadata
 content_type: "case study"
@@ -435,7 +435,7 @@ created: "2024-11-16"
 status: "optimized"
 ---
 
-# White-Label SDK Case Study: ElsaAI Reduces Returns 38%
+# {Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%
 
 {Optimized content with all SEO improvements applied}
 
@@ -443,20 +443,20 @@ status: "optimized"
 
 ## Internal Links Added
 
-1. [co-branded vs white-label comparison](/blog/co-branded-vs-white-label)
-   - Anchor: "co-branded fit widgets"
-   - Context: Explaining ElsaAI's previous approach
+1. [{alternative} vs {solution} comparison](/blog/{alternative}-vs-{solution})
+   - Anchor: "{alternative approach}"
+   - Context: Explaining {Customer}'s previous approach
 
-2. [reducing fashion returns guide](/blog/reduce-returns-guide)
-   - Anchor: "reducing fashion returns"
+2. [{problem} guide](/blog/{problem}-guide)
+   - Anchor: "{solving problem}"
    - Context: Broader problem context
 
-3. [enterprise SDK pricing](/pricing/enterprise)
-   - Anchor: "enterprise SDK pricing"
+3. [{tier} pricing](/pricing/{tier})
+   - Anchor: "{tier} pricing"
    - Context: Call-out to product page
 
-4. [luxury fashion e-commerce trends](/blog/luxury-ecommerce-trends)
-   - Anchor: "luxury fashion brands"
+4. [{industry} trends](/blog/{industry}-trends)
+   - Anchor: "{industry} companies"
    - Context: Industry background
 ```
 
@@ -464,19 +464,19 @@ status: "optimized"
 ```markdown
 ## SEO Optimization Report
 
-**Content:** elsaai-white-label-sdk-case-study.md
+**Content:** {customer}-{solution-approach}-case-study.md
 **Date:** 2024-11-16
-**Target keyword:** white-label SDK
+**Target keyword:** {target keyword}
 
 ### Optimization Summary
 
 **Title Optimization:**
-- Original: "Our Customer Success Story with ElsaAI"
-- Optimized: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+- Original: "Our Customer Success Story with {Customer}"
+- Optimized: "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%"
 - Score: 95/100 (keyword included, 55 chars, compelling)
 
 **Meta Description:**
-- Created: "Learn how ElsaAI reduced fashion returns by 38% using a white-label SDK. Implementation guide, metrics, and ROI analysis from a $200M luxury marketplace."
+- Created: "Learn how {Customer} reduced {key metric} by 38% using {solution approach}. Implementation guide, metrics, and ROI analysis from a ${revenue} {segment} company."
 - Score: 90/100 (158 chars, keyword included, actionable)
 
 **Heading Structure:**
@@ -502,7 +502,7 @@ status: "optimized"
 - File names optimized: 3/3 ✓
 
 **URL Slug:**
-- Created: "elsaai-white-label-sdk-case-study"
+- Created: "{customer}-{solution-approach}-case-study"
 - Keyword included: ✓
 - Length: 4 words ✓
 
@@ -514,7 +514,7 @@ status: "optimized"
    - Related articles section
 
 2. **Monitor performance:**
-   - Track ranking for "white-label SDK"
+   - Track ranking for "{target keyword}"
    - Monitor click-through rate from SERP
    - Adjust if needed after 30 days
 
@@ -582,34 +582,34 @@ status: "optimized"
 
 **Input:**
 ```
-Draft: threads/marketing/campaigns/luxury-validation-nov-2024/5-actions/drafts/elsaai-case-study/draft.md
-Keyword: "white-label SDK"
-Secondary: ["enterprise fashion SDK", "luxury fashion returns"]
+Draft: threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{customer}-case-study/draft.md
+Keyword: "{target keyword}"
+Secondary: ["{secondary keyword 1}", "{secondary keyword 2}"]
 ```
 
 **Process:**
 ```
 1. Read draft:
-   - Title: "Our Customer Success Story with ElsaAI"
+   - Title: "Our Customer Success Story with {Customer}"
    - Word count: 1,450
    - Current keyword mentions: 5 (sparse)
 
 2. Optimize title:
-   - New: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+   - New: "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%"
    - Keyword: ✓
    - Length: 55 chars ✓
 
 3. Create meta description:
-   - "Learn how ElsaAI reduced fashion returns by 38% using a white-label SDK..."
+   - "Learn how {Customer} reduced {key metric} by 38% using {solution approach}..."
    - 158 chars ✓
 
 4. Optimize headings:
-   - H2: "Why Luxury Fashion Brands Need White-Label Fit Recommendations"
-   - H2: "Implementing a White-Label SDK: Technical Approach"
+   - H2: "Why {Premium Segment} Companies Need {Solution Approach}"
+   - H2: "Implementing {Solution Approach}: Technical Approach"
    - Added keyword variations ✓
 
 5. Add keywords naturally:
-   - First 100 words: Added "white-label SDK" ✓
+   - First 100 words: Added "{target keyword}" ✓
    - Body: 18 total mentions (1.2% density) ✓
 
 6. Internal linking:
@@ -617,11 +617,11 @@ Secondary: ["enterprise fashion SDK", "luxury fashion returns"]
    - Descriptive anchor text ✓
 
 7. Image optimization:
-   - Alt text: "White-label SDK integration showing branded fit widget"
-   - File: white-label-sdk-screenshot.jpg ✓
+   - Alt text: "{Solution approach} integration showing {feature}"
+   - File: {solution-approach}-screenshot.jpg ✓
 
 8. URL slug:
-   - Created: "elsaai-white-label-sdk-case-study" ✓
+   - Created: "{customer}-{solution-approach}-case-study" ✓
 
 9. Validate:
    - SEO score: 89/100 ✓
@@ -629,7 +629,7 @@ Secondary: ["enterprise fashion SDK", "luxury fashion returns"]
    - Ready for publication ✓
 
 10. Output:
-    - Save: threads/marketing/campaigns/luxury-validation-nov-2024/5-actions/drafts/elsaai-case-study/optimized.md
+    - Save: threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{customer}-case-study/optimized.md
     - Flag: ops/today.md for final approval
 ```
 

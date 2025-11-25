@@ -1,4 +1,4 @@
-# Daily Routine: Bella's 5-Minute Review
+# Daily Routine: Founder's 5-Minute Review
 
 Human touchpoint: <30 min/day on operations.
 
@@ -15,7 +15,6 @@ Auto-generated daily summary containing:
 4. Strategic decisions flagged
 
 **Decisions made by AI (last 24h):**
-- Engineering activities (designed, implemented, validated) - if active
 - Sales activities (qualified, contacted, generated)
 - Marketing activities (published, tracked, detected)
 - Canvas updates (assumptions, metrics)
@@ -64,10 +63,14 @@ For scheduled calls:
 - **Strategic decisions:** As needed (rare)
 
 ### AI handles autonomously:
-- **Engineering (if active):** System design, code generation, standardization, validation
-- **Sales:** Qualification call prep, follow-up emails, materials generation, prospect research
-- **Marketing:** Content publication (blog, LinkedIn, email), performance tracking
-- **Operations:** Pipeline updates, next opportunity detection, Canvas updates
+- Qualification call prep
+- Follow-up emails
+- Content publication (blog, LinkedIn, email)
+- Performance tracking
+- Pipeline updates
+- Next opportunity detection
+- Materials generation
+- Prospect research
 
 ---
 
@@ -90,14 +93,7 @@ For scheduled calls:
 - Canvas section updates
 - Assumption validation status changes
 
-**Review business metrics (artifacts/business/metrics.md):**
-- Revenue performance (MRR/ARR growth vs targets)
-- Customer metrics (CAC, LTV, churn)
-- Mode-specific KPIs (VENTURE: MAU, runway | BOOTSTRAP: profit margin, cash flow)
-- Segment breakdown (revenue by customer segment)
-- Trend analysis (MoM/QoQ comparisons)
-
-**Action:** Adjust priorities, update Canvas manually if needed, trigger business-metrics-tracker if metrics outdated
+**Action:** Adjust priorities, update Canvas manually if needed
 
 ---
 
@@ -132,8 +128,8 @@ For scheduled calls:
 
 ### 1. Content Opportunity [Priority: 0.85]
 Type: Case study
-Topic: ElsaAI white-label success
-Source: threads/sales/elsa-white-label/6-learning.md
+Topic: {Customer} {feature} success
+Source: threads/sales/{customer}-{feature}/6-learning.md
 Impact: 500 sessions/month, 25 demos
 Action: Approve to generate draft?
   [ ] Approve
@@ -141,8 +137,8 @@ Action: Approve to generate draft?
   [ ] Reject
 
 ### 2. Content Draft Ready [Word count: 1,450]
-Topic: ElsaAI white-label SDK case study
-Location: artifacts/marketing/glamyouup/drafts/2024-11-16/
+Topic: {Customer} {feature} case study
+Location: artifacts/marketing/{product}/drafts/{date}/
 Quality checks: ✓ SEO optimized, ✓ Voice compliant, ✓ No confidential info
 Action: Review for technical accuracy, approve for publication
   [ ] Approve
@@ -150,7 +146,7 @@ Action: Review for technical accuracy, approve for publication
   [ ] Reject
 
 ### 3. Demo Call Scheduled
-Thread: threads/sales/allbirds-inbound/
+Thread: threads/sales/{customer}-inbound/
 Time: 2:00 PM today
 Prep: Custom pitch deck generated
 Action: Review prep materials (5 min recommended)
@@ -159,23 +155,18 @@ Action: Review prep materials (5 min recommended)
 
 ## Decisions Made by AI (Last 24h)
 
-**Engineering (if active):**
-✓ Generated color-analysis-service architecture (category-theoretic design)
-✓ Applied standardization layer to 3 services (auth, validation, response)
-✓ Validated type safety across recommendation pipeline (100% pass rate)
-
 **Sales:**
 ✓ Qualified 3 leads (2 high priority, 1 medium)
-✓ Sent 45 outreach emails (dtc-fashion-smb campaign)
-✓ Generated pilot results for everlane-pilot
+✓ Sent 45 outreach emails ({segment} campaign)
+✓ Generated pilot results for {customer}-pilot
 
 **Marketing:**
-✓ Published: ElsaAI case study (blog, LinkedIn, email)
+✓ Published: {Customer} case study (blog, LinkedIn, email)
 ✓ Tracked: 650 sessions, 8 demos (1.23% conversion - top performer!)
-✓ Detected: New opportunity (white-label implementation guide, priority 0.72)
+✓ Detected: New opportunity ({feature} implementation guide, priority 0.72)
 
 **Canvas Updates:**
-✓ A4: Luxury brands prefer white-label (validated, 95% confidence)
+✓ A4: {Segment} prefer {option} (validated, 95% confidence)
 ✓ H1: Case studies convert 2x better than guides (validated, 85% confidence)
 
 ---
@@ -189,11 +180,11 @@ Action: Review prep materials (5 min recommended)
 - 1 in contract negotiation
 
 **Sales Campaigns:**
-- dtc-fashion-smb-2024-11: 45/100 prospects contacted, 8 responses
+- {segment}-{date}: 45/100 prospects contacted, 8 responses
 
 **Marketing Content:**
 - 2 drafts awaiting review
-- 1 published this week (ElsaAI case study)
+- 1 published this week ({Customer} case study)
 - 3 LinkedIn posts scheduled (Days 2, 9, 16)
 
 ---
@@ -201,7 +192,7 @@ Action: Review prep materials (5 min recommended)
 ## Performance Alerts
 
 🎉 **Top Performer (Last 7 Days)**
-- ElsaAI case study: 650 sessions, 8 demos (1.23% rate vs 0.6% avg)
+- {Customer} case study: 650 sessions, 8 demos (1.23% rate vs 0.6% avg)
 - Action: Create follow-up content, use in sales enablement
 
 ⚠️ **Underperformer (Last 30 Days)**
@@ -210,7 +201,7 @@ Action: Review prep materials (5 min recommended)
 - Action: Reassess technical content strategy
 
 📈 **SEO Milestone**
-- "luxury fashion returns" reached position 8 (top 10!)
+- "{target keyword}" reached position 8 (top 10!)
 - Traffic potential: +500 sessions/month
 - Action: Create cluster content around this keyword
 

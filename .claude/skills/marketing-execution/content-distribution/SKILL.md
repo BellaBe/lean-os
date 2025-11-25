@@ -100,7 +100,7 @@ artifacts/marketing/narrative/channel-guidelines.md
 ---
 title: "{SEO-optimized title}"
 description: "{Meta description}"
-author: "{Author name or 'GlamYouUp Team'}"
+author: "{Author name or '{Your Product} Team'}"
 date: "{YYYY-MM-DD}"
 categories: ["{pillar}", "{secondary category}"]
 tags: ["{keyword}", "{related tags}"]
@@ -121,12 +121,12 @@ featured_image: "{image URL}"
 https://{website}/blog/{slug}
 
 Example:
-https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+https://{your-domain}.com/blog/{customer}-{feature}-case-study
 ```
 
 4. **Add UTM parameters for tracking:**
 ```
-Base URL: https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+Base URL: https://{your-domain}.com/blog/{slug}
 
 For LinkedIn share: ?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}
 For Email: ?utm_source=email&utm_medium=newsletter&utm_campaign={campaign-slug}
@@ -136,7 +136,7 @@ For Organic: No UTM (default)
 5. **Generate sitemap entry:**
 ```xml
 <url>
-  <loc>https://glamyouup.com/blog/elsaai-white-label-sdk-case-study</loc>
+  <loc>https://{your-domain}.com/blog/{slug}</loc>
   <lastmod>2024-11-16</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
@@ -178,32 +178,32 @@ artifacts/marketing/blog/{slug}.md
 Read the full case study: {blog URL with UTM}
 ```
 
-**Example (ElsaAI case study):**
+**Example ({Customer} case study):**
 ```markdown
-We closed 5 enterprise fashion deals in Q4. All 5 chose white-label SDK over co-branded.
+{Opening hook with key data point}
 
-This wasn't random. Luxury brands ($100M+ GMV) prioritize brand consistency over vendor recognition.
+{Core insight about target segment}
 
 What we learned:
 
-**Co-branded widgets break luxury aesthetics**
-Even minimal branding ("Powered by X") creates friction. One customer told us: "Our customers don't care who powers fit recommendations. They care that it looks like us."
+**{Key learning #1}**
+{Supporting evidence or quote}
 
 **The numbers prove it matters**
-ElsaAI (luxury marketplace, $200M GMV) saw:
-- 38% return reduction with white-label
-- 94% fit accuracy
-- $805K annual savings
+{Customer} ({segment}, ${metric}) saw:
+- {Result 1}
+- {Result 2}
+- {Result 3}
 
-They paid 3x more for white-label because brand consistency is non-negotiable.
+{Why this matters - business implication}
 
-**Industry insight:** Customer segment dictates product packaging. Same technology, different positioning.
+**Industry insight:** {Broader lesson or pattern}
 
-Full case study with metrics and technical implementation: https://glamyouup.com/blog/elsaai-white-label-sdk-case-study?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}
+Full case study with metrics and technical implementation: https://{your-domain}.com/blog/{slug}?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}
 ```
 
 3. **Add LinkedIn-specific elements:**
-- Hashtags (3-5 max): `#B2BSaaS #FashionTech #EnterpriseSDK`
+- Hashtags (3-5 max): `#B2BSaaS #{IndustryTech} #{SolutionCategory}`
 - Placement: End of post (not mid-text)
 - First comment: Additional context or link to technical docs
 
@@ -254,15 +254,15 @@ artifacts/marketing/linkedin/posts/{date}-{slug}.md
 <!-- Stats callout -->
 <section class="stats">
   <div class="stat">
-    <h2>38%</h2>
-    <p>Return reduction</p>
+    <h2>{X}%</h2>
+    <p>{Key metric} reduction</p>
   </div>
   <div class="stat">
-    <h2>$805K</h2>
+    <h2>${savings}K</h2>
     <p>Annual savings</p>
   </div>
   <div class="stat">
-    <h2>30 days</h2>
+    <h2>{timeframe}</h2>
     <p>Time to results</p>
   </div>
 </section>
@@ -282,18 +282,18 @@ artifacts/marketing/linkedin/posts/{date}-{slug}.md
 {
   "@context": "https://schema.org",
   "@type": "CaseStudy",
-  "name": "ElsaAI White-Label SDK Implementation",
-  "description": "How ElsaAI reduced returns by 38% using white-label fit recommendations",
+  "name": "{Customer} {Feature} Implementation",
+  "description": "{Customer result summary}",
   "author": {
     "@type": "Organization",
-    "name": "GlamYouUp"
+    "name": "{Your Product}"
   },
-  "result": "38% reduction in return rate, $805K annual savings"
+  "result": "{Key metrics and outcomes}"
 }
 ```
 
 4. **Internal navigation:**
-- Breadcrumbs: Home > Case Studies > ElsaAI
+- Breadcrumbs: Home > Case Studies > {Customer}
 - Related case studies (bottom)
 - CTA: Demo request, contact sales
 
@@ -319,28 +319,28 @@ artifacts/marketing/website/{slug}.html
 
 2. **Create email version:**
 ```markdown
-Subject: New case study: 38% return reduction with white-label SDK
+Subject: New case study: {Key result metric} with {feature}
 
-Preview text: Learn how ElsaAI (luxury marketplace, $200M GMV) achieved $805K in annual savings
+Preview text: Learn how {Customer} ({segment}, ${GMV}) achieved {key outcome}
 
 ---
 
 Hi {First_Name},
 
-**New case study: ElsaAI reduces returns 38% with white-label SDK**
+**New case study: {Customer} {key result} with {feature}**
 
-We just published a detailed case study on how ElsaAI, a luxury fashion marketplace, reduced returns by 38% using our white-label SDK.
+We just published a detailed case study on how {Customer}, {description}, {achieved outcome}.
 
 Key results:
-- 38% return reduction (25% → 18%)
-- 94% fit accuracy
-- $805K annual savings
-- 30-day implementation
+- {Result metric 1}
+- {Result metric 2}
+- {Result metric 3}
+- {Implementation timeframe}
 
 What made this work:
-1. White-label branding (no third-party logos)
-2. AI-powered fit recommendations
-3. Fast integration (2 weeks)
+1. {Success factor 1}
+2. {Success factor 2}
+3. {Success factor 3}
 
 The full case study includes metrics, technical implementation details, and ROI analysis.
 
@@ -355,7 +355,7 @@ Read the full case study →
 
 Best,
 {Name}
-{Title}, GlamYouUp
+{Title}, {Your Product}
 ```
 
 3. **Email formatting:**
@@ -366,8 +366,8 @@ Best,
 - Unsubscribe link (required)
 
 4. **Segmentation (if applicable):**
-- Send to: Enterprise segment (matches case study ICP)
-- Exclude: Customers already using white-label
+- Send to: {Segment} (matches case study ICP)
+- Exclude: Customers already using {premium tier}
 - Timing: Tuesday-Thursday, 10am (target timezone)
 
 5. **Output location:**
@@ -408,7 +408,7 @@ artifacts/marketing/email/{date}-{slug}.md
 
 **Blog post shared on LinkedIn:**
 ```
-https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+https://{your-domain}.com/blog/{slug}
 ?utm_source=linkedin
 &utm_medium=social
 &utm_campaign={campaign-slug}
@@ -417,7 +417,7 @@ https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
 
 **Email newsletter link:**
 ```
-https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+https://{your-domain}.com/blog/{slug}
 ?utm_source=email
 &utm_medium=newsletter
 &utm_campaign={campaign-slug}
@@ -426,7 +426,7 @@ https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
 
 **LinkedIn first comment (additional resources):**
 ```
-https://glamyouup.com/docs/white-label-sdk
+https://{your-domain}.com/docs/{resource}
 ?utm_source=linkedin
 &utm_medium=social
 &utm_campaign={campaign-slug}
@@ -439,19 +439,19 @@ https://glamyouup.com/docs/white-label-sdk
 ```yaml
 # tracking-log.yaml
 
-- content_slug: "elsaai-white-label-sdk-case-study"
+- content_slug: "{slug}"
   publish_date: "2024-11-16"
   urls:
     - channel: "blog"
-      url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+      url: "https://{your-domain}.com/blog/{slug}"
       utm: null  # Organic traffic
-    
+
     - channel: "linkedin"
-      url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+      url: "https://{your-domain}.com/blog/{slug}"
       utm: "?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}"
-    
+
     - channel: "email"
-      url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+      url: "https://{your-domain}.com/blog/{slug}"
       utm: "?utm_source=email&utm_medium=newsletter&utm_campaign={campaign-slug}"
 ```
 
@@ -493,7 +493,7 @@ https://glamyouup.com/docs/white-label-sdk
 
 3. **Website update:**
    - Add to case studies page
-   - Reference in product page ("See how ElsaAI...")
+   - Reference in product page ("See how {Customer}...")
 
 4. **Social graphics:**
    - Key stat image (1200x627px)
@@ -559,18 +559,18 @@ Day 16: LinkedIn post #3 (technical)
 ```yaml
 # distribution-record-{date}-{slug}.yaml
 
-content_slug: "elsaai-white-label-sdk-case-study"
-content_title: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+content_slug: "{slug}"
+content_title: "{Content Title}"
 publish_date: "2024-11-16"
 
 channels:
   - name: "blog"
-    url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+    url: "https://{your-domain}.com/blog/{slug}"
     status: "published"
     published_at: "2024-11-16T09:00:00Z"
-    
+
   - name: "linkedin"
-    url: "https://www.linkedin.com/company/glamyouup/posts/..."
+    url: "https://www.linkedin.com/company/{your-company}/posts/..."
     status: "published"
     published_at: "2024-11-17T10:00:00Z"
     engagement:
@@ -591,9 +591,9 @@ utm_tracking:
   email: "?utm_source=email&utm_medium=newsletter&utm_campaign={campaign-slug}"
 
 files_created:
-  - "artifacts/marketing/blog/elsaai-white-label-sdk-case-study.md"
-  - "artifacts/marketing/linkedin/posts/2024-11-17-elsaai-case-study.md"
-  - "artifacts/marketing/email/2024-11-19-newsletter.md"
+  - "artifacts/marketing/blog/{slug}.md"
+  - "artifacts/marketing/linkedin/posts/{date}-{slug}.md"
+  - "artifacts/marketing/email/{date}-newsletter.md"
 
 next_steps:
   - "Monitor blog performance (Day 1-7)"
@@ -604,9 +604,9 @@ next_steps:
 
 ### Publication Checklist
 ```markdown
-## Publication Checklist: elsaai-white-label-sdk-case-study
+## Publication Checklist: {slug}
 
-**Content:** White-Label SDK Case Study: ElsaAI Reduces Returns 38%
+**Content:** {Content Title}
 **Date:** 2024-11-16
 **Channels:** Blog, LinkedIn, Email
 
@@ -614,14 +614,14 @@ next_steps:
 
 - [x] Content optimized (SEO complete)
 - [x] Human approval received
-- [x] Customer approval (ElsaAI signed off)
+- [x] Customer approval ({Customer} signed off)
 - [x] Images compressed (<200KB each)
 - [x] Internal links validated
 - [x] No confidential information
 
 ### Blog Publication
 
-- [x] Published to: https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+- [x] Published to: https://{your-domain}.com/blog/{slug}
 - [x] Sitemap updated
 - [x] Meta tags verified
 - [x] Mobile responsive checked
@@ -753,8 +753,8 @@ next_steps:
 
 **Input:**
 ```
-Campaign: threads/marketing/campaigns/luxury-validation-nov-2024/
-Optimized content: 5-actions/drafts/elsaai-case-study-optimized.md
+Campaign: threads/marketing/campaigns/{campaign-slug}/
+Optimized content: 5-actions/drafts/{content-slug}-optimized.md
 Channels: ["blog", "linkedin", "email"]
 Priority: high
 ```
@@ -764,23 +764,23 @@ Priority: high
 1. Validate ready for publication:
    - ✓ SEO optimized
    - ✓ Human approved
-   - ✓ Customer approved (ElsaAI signed off)
+   - ✓ Customer approved ({Customer} signed off)
    - ✓ No confidential info
 
 2. Blog distribution:
    - Convert to blog format
    - Add author bio, related articles
-   - Set URL: /blog/elsaai-white-label-sdk-case-study
+   - Set URL: /blog/{slug}
    - Publish: 2024-11-16 09:00am
    - Update sitemap
-   - Output: artifacts/marketing/blog/elsaai-white-label-sdk-case-study.md
+   - Output: artifacts/marketing/blog/{slug}.md
 
 3. LinkedIn distribution:
    - Create excerpt (480 words)
    - Add UTM: ?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}
    - Schedule: 2024-11-17 10:00am
    - Prepare first comment (technical docs link)
-   - Output: artifacts/marketing/linkedin/posts/2024-11-17-elsaai-case-study.md
+   - Output: artifacts/marketing/linkedin/posts/{date}-{slug}.md
 
 4. Email distribution:
    - Add to Nov 19 newsletter
@@ -791,13 +791,16 @@ Priority: high
    - Output: artifacts/marketing/email/2024-11-19-newsletter.md
 
 5. Create tracking record:
-   - Save: distribution-record-2024-11-16-elsaai-white-label.yaml
+   - Save: distribution-record-{date}-{slug}.yaml
    - Log all URLs with UTM parameters
 
 6. Update ops/today.md:
-   - "Published: ElsaAI case study (blog, LinkedIn scheduled, email scheduled)"
+   - "Published: {Customer} case study (blog, LinkedIn scheduled, email scheduled)"
 
-7. Set performance tracking:
+7. Update ops/today.md:
+   - "Published: {Content title} (blog, LinkedIn scheduled, email scheduled)"
+
+8. Set performance tracking:
    - Monitor blog: Days 1-7
    - Monitor LinkedIn: Day 2 (engagement)
    - Monitor email: Days 19-21 (open/click)

@@ -33,13 +33,13 @@ Three levels of email personalization for B2B outreach: Mass (segment-level), Au
 
 ### Mass Personalization Template Example
 
-**Subject**: 20% return rates killing margins?
+**Subject**: {X}% {key metric} killing margins?
 
 **Body**:
 ```
 Hi {FirstName},
 
-DTC fashion brands typically face 20-30% return rates, with sizing issues being the #1 driver. We've helped brands like Stitch Fix and Rent the Runway reduce returns by 35% using AI-powered virtual sizing.
+{Target segment} typically face {X-Y}% {key metric} rates, with {root cause} being the #1 driver. We've helped {industry} like {Reference Customer A} and {Reference Customer B} {achieve outcome} by {X}% using {solution approach}.
 
 Curious if this resonates with your team at {Company}?
 
@@ -50,10 +50,10 @@ Best,
 **Personalization breakdown**:
 - `{FirstName}`: Filled in from prospect list (or "Hi there")
 - `{Company}`: Company name from prospect list
-- "DTC fashion brands": Segment-level (all prospects are DTC fashion)
-- "20-30% return rates": Segment-level problem (common across segment)
-- "Stitch Fix and Rent the Runway": Segment-level social proof (competitors)
-- "AI-powered virtual sizing": Generic value prop (same for all)
+- "{Target segment}": Segment-level (all prospects are {target segment})
+- "{X-Y}% {key metric} rates": Segment-level problem (common across segment)
+- "{Reference Customer A} and {Reference Customer B}": Segment-level social proof (competitors)
+- "{Solution approach}": Generic value prop (same for all)
 
 **Research time**: 0 minutes (no research, just fill in name/company)
 
@@ -113,26 +113,26 @@ Best,
 
 ### Auto Personalization Template Example
 
-**Subject**: {Company} - 20% return rates?
+**Subject**: {Company} - {X}% {key metric}?
 
 **Body**:
 ```
 Hi {FirstName},
 
-I noticed {Company} is {ObservedTrait} - curious if you're seeing high return rates despite this?
+I noticed {Company} is {ObservedTrait} - curious if you're seeing high {problem area} despite this?
 
-We've helped similar DTC fashion brands reduce returns by 35% using AI-powered virtual sizing. Quick 15-min call?
+We've helped similar {target segment} {achieve outcome} by {X}% using {solution approach}. Quick 15-min call?
 
 Best,
 {YourName}
 ```
 
 **Personalization breakdown**:
-- `{FirstName}`: Sarah (from prospect list or LinkedIn)
-- `{Company}`: ChicThreads
-- `{ObservedTrait}`: "on Shopify and has a detailed sizing guide on your site" (from prospect CSV research notes)
-- Problem: Contextualized ("high return rates despite this" - implies sizing guide isn't enough)
-- Value prop: "similar DTC fashion brands" (segment-specific)
+- `{FirstName}`: {Name} (from prospect list or LinkedIn)
+- `{Company}`: {Company Name}
+- `{ObservedTrait}`: "on {platform} and has a {observable feature} on your site" (from prospect CSV research notes)
+- Problem: Contextualized ("high {problem area} despite this" - implies {current approach} isn't enough)
+- Value prop: "similar {target segment}" (segment-specific)
 
 **Research time**: 5-10 minutes per prospect (check prospect CSV for traits, verify on website)
 
@@ -141,39 +141,39 @@ Best,
 **From prospect research CSV**:
 
 1. **Platform/Tech stack**:
-   - "on Shopify"
-   - "using Klaviyo for email"
-   - "with a Shopify Plus store"
+   - "on {platform}"
+   - "using {tech stack tool} for {function}"
+   - "with a {premium tier} store"
 
 2. **Company characteristics**:
-   - "with 75 employees on LinkedIn"
-   - "based in Austin"
-   - "selling premium activewear"
+   - "with {N} employees on LinkedIn"
+   - "based in {city}"
+   - "selling {product category}"
 
 3. **Problem signals**:
-   - "has a generous 60-day return policy"
-   - "has a sizing guide on your site"
-   - "hiring a Returns Coordinator role"
+   - "has a generous {N}-day {policy type}"
+   - "has a {feature type} on your site"
+   - "hiring a {Problem-related role} role"
 
 4. **Growth indicators**:
-   - "recently raised Series A"
-   - "hiring for 5 customer service roles"
-   - "mentioned in Forbes last month"
+   - "recently raised {funding round}"
+   - "hiring for {N} {role} roles"
+   - "mentioned in {publication} last month"
 
 5. **Product/Offering**:
-   - "selling premium denim"
-   - "with a wide size range (XS-3XL)"
-   - "offering free returns"
+   - "selling {product type}"
+   - "with a wide {characteristic} range"
+   - "offering {value proposition}"
 
 ### Auto Personalization Examples by Trait
 
 **Example 1: Platform + Problem Signal**:
 ```
-Hi Sarah,
+Hi {FirstName},
 
-I noticed ChicThreads is on Shopify and has a generous 60-day return policy - curious if fit issues are driving this?
+I noticed {Company} is on {platform} and has a generous {N}-day {policy type} - curious if {problem area} are driving this?
 
-We've helped similar DTC brands reduce returns by 35%. Worth a conversation?
+We've helped similar {target segment} {achieve outcome} by {X}%. Worth a conversation?
 
 Best,
 {YourName}
@@ -181,11 +181,11 @@ Best,
 
 **Example 2: Growth Indicator + Problem Signal**:
 ```
-Hi Sarah,
+Hi {FirstName},
 
-Saw that ChicThreads is hiring for 3 customer service roles - is high return volume driving the need?
+Saw that {Company} is hiring for {N} {role} roles - is high {problem volume} driving the need?
 
-We've helped growing DTC brands reduce returns by 35%, freeing up CS capacity. Quick call?
+We've helped growing {target segment} {achieve outcome} by {X}%, freeing up {function} capacity. Quick call?
 
 Best,
 {YourName}
@@ -193,11 +193,11 @@ Best,
 
 **Example 3: Company Characteristic + Problem Signal**:
 ```
-Hi Sarah,
+Hi {FirstName},
 
-ChicThreads has a great size range (XS-3XL) - are you seeing higher return rates for extended sizes?
+{Company} has a great {characteristic} range - are you seeing higher {key metric} for {specific case}?
 
-We've helped brands with wide size ranges reduce fit-related returns by 40%. Interested in learning how?
+We've helped {target segment} with {characteristic} reduce {problem area} by {X}%. Interested in learning how?
 
 Best,
 {YourName}
@@ -216,14 +216,14 @@ Best,
 ### Auto Personalization Quality Indicators
 
 **Good auto-personalized email**:
-- ✓ Observed trait is specific ("Shopify" not "e-commerce platform")
-- ✓ Trait connects to problem ("60-day return policy" suggests high returns)
+- ✓ Observed trait is specific ("{platform}" not "e-commerce platform")
+- ✓ Trait connects to problem ("{N}-day {policy type}" suggests high {metric})
 - ✓ Shows research (they know something about the company)
 - ✓ Still concise (under 5 sentences)
 
 **Bad auto-personalized email**:
 - ✗ Generic trait ("you have a website" - everyone does)
-- ✗ Trait doesn't connect to problem ("you're on Shopify" with no implication)
+- ✗ Trait doesn't connect to problem ("you're on {platform}" with no implication)
 - ✗ Forced personalization ("I see you like the color blue on your site" - weird)
 - ✗ Too long (7+ sentences because tried to include too many traits)
 
@@ -259,15 +259,15 @@ Best,
 
 ### Human Personalization Template Example
 
-**Subject**: Your LinkedIn post on CX challenges
+**Subject**: Your LinkedIn post on {topic}
 
 **Body**:
 ```
-Hi Sarah,
+Hi {FirstName},
 
-Saw your recent LinkedIn post about improving customer experience at ChicThreads. For DTC fashion brands with great products like yours, we've found that sizing issues are often the hidden CX killer - 30% of returns are fit-related.
+Saw your recent LinkedIn post about {topic} at {Company}. For {target segment} with great {characteristic} like yours, we've found that {root cause} is often the hidden {problem category} killer - {X}% of {problems} are {root cause}-related.
 
-We've helped similar brands reduce returns by 35% with AI-powered virtual sizing. Would love to share a quick case study from a brand your size.
+We've helped similar {industry} {achieve outcome} by {X}% with {solution approach}. Would love to share a quick case study from a company your size.
 
 15 minutes this week?
 
@@ -276,10 +276,10 @@ Best,
 ```
 
 **Personalization breakdown**:
-- Custom intro: "Saw your recent LinkedIn post on CX challenges" (requires LinkedIn research)
-- Contextualized compliment: "great products like yours" (genuine, not generic)
-- Connect to problem: "sizing issues are hidden CX killer" (ties their CX focus to your solution)
-- Specific social proof: "brand your size" (tailored, not generic "similar brands")
+- Custom intro: "Saw your recent LinkedIn post on {topic}" (requires LinkedIn research)
+- Contextualized compliment: "great {characteristic} like yours" (genuine, not generic)
+- Connect to problem: "{root cause} is hidden {problem category} killer" (ties their {topic} focus to your solution)
+- Specific social proof: "company your size" (tailored, not generic "similar companies")
 - Personal ask: "15 minutes this week?" (time-bound, conversational)
 
 **Research time**: 15-20 minutes (LinkedIn profile, recent activity, company news, website)
@@ -311,11 +311,11 @@ Best,
 
 **Example 1: LinkedIn Post**:
 ```
-Hi Sarah,
+Hi {FirstName},
 
-Saw your LinkedIn post last week about the challenges of scaling customer service at ChicThreads. For growing DTC brands, we've found that reducing returns (especially fit-related) can cut CS volume by 20-30%.
+Saw your LinkedIn post last week about the challenges of {topic} at {Company}. For growing {target segment}, we've found that {addressing problem} (especially {specific aspect}) can {achieve outcome} by {X-Y}%.
 
-We've helped brands like yours reduce returns by 35%. Worth a conversation about the CS impact?
+We've helped {industry} like yours {achieve outcome} by {X}%. Worth a conversation about the {business impact}?
 
 Best,
 {YourName}
@@ -323,11 +323,11 @@ Best,
 
 **Example 2: Funding Announcement**:
 ```
-Hi Sarah,
+Hi {FirstName},
 
-Congrats on the Series A for ChicThreads! As you scale, return rates often become a bigger challenge (volume increases, margins tighten).
+Congrats on the {funding round} for {Company}! As you scale, {problem area} often become a bigger challenge (volume increases, margins tighten).
 
-We've helped recently-funded DTC brands reduce returns by 35% before they become a major cost center. Quick call to share the playbook?
+We've helped recently-funded {target segment} {achieve outcome} by {X}% before they become a major cost center. Quick call to share the playbook?
 
 Best,
 {YourName}
@@ -335,11 +335,11 @@ Best,
 
 **Example 3: Product Launch**:
 ```
-Hi Sarah,
+Hi {FirstName},
 
-Saw ChicThreads just launched a new denim line - congrats! New product lines often have higher return rates initially (customers unsure of fit).
+Saw {Company} just launched a new {product line} - congrats! New product lines often have higher {key metric} initially (customers unsure of {uncertainty}).
 
-We've helped brands reduce returns on new lines by 40% using AI-powered sizing. Would love to share how.
+We've helped {industry} {achieve outcome} on new lines by {X}% using {solution approach}. Would love to share how.
 
 Best,
 {YourName}
@@ -347,11 +347,11 @@ Best,
 
 **Example 4: Job Posting**:
 ```
-Hi Sarah,
+Hi {FirstName},
 
-Noticed ChicThreads is hiring for a Returns Coordinator role - is return volume growing as you scale?
+Noticed {Company} is hiring for a {Problem-related role} role - is {problem volume} growing as you scale?
 
-We've helped DTC brands reduce returns by 35%, often eliminating the need for dedicated returns roles. Ironic timing for a quick conversation?
+We've helped {target segment} {achieve outcome} by {X}%, often eliminating the need for dedicated {problem-related} roles. Ironic timing for a quick conversation?
 
 Best,
 {YourName}
@@ -359,11 +359,11 @@ Best,
 
 **Example 5: Award/Recognition**:
 ```
-Hi Sarah,
+Hi {FirstName},
 
-Saw ChicThreads was named one of the "Top 50 DTC Brands to Watch" - well deserved! As you grow, keeping return rates low will be critical for maintaining margins.
+Saw {Company} was named one of the "{Award Title}" - well deserved! As you grow, keeping {key metric} low will be critical for maintaining margins.
 
-We've helped award-winning brands like yours reduce returns by 35%. Quick call to share best practices?
+We've helped award-winning {industry} like yours {achieve outcome} by {X}%. Quick call to share best practices?
 
 Best,
 {YourName}
@@ -562,13 +562,13 @@ Best,
 ### Mass Example (Segment-Level)
 
 ```
-Subject: 20% return rates killing margins?
+Subject: {X}% {key metric} killing margins?
 
-Hi Sarah,
+Hi {FirstName},
 
-DTC fashion brands typically face 20-30% return rates. We've helped brands like Stitch Fix reduce returns by 35%.
+{Target segment} typically face {X-Y}% {key metric}. We've helped {industry} like {Reference Customer} {achieve outcome} by {X}%.
 
-Curious if this resonates at ChicThreads?
+Curious if this resonates at {Company}?
 
 Best,
 {YourName}
@@ -581,32 +581,32 @@ Best,
 ### Auto Example (Company-Specific)
 
 ```
-Subject: ChicThreads - 20% return rates?
+Subject: {Company} - {X}% {key metric}?
 
-Hi Sarah,
+Hi {FirstName},
 
-I noticed ChicThreads is on Shopify and has a 60-day return policy - curious if fit issues are driving this?
+I noticed {Company} is on {platform} and has a {N}-day {policy type} - curious if {problem area} are driving this?
 
-We've helped similar DTC brands reduce returns by 35%. Quick call?
+We've helped similar {target segment} {achieve outcome} by {X}%. Quick call?
 
 Best,
 {YourName}
 ```
 
-**Personalization**: Name, company, observed traits (platform, return policy)
+**Personalization**: Name, company, observed traits (platform, policy)
 **Research time**: 7 minutes
 **Expected reply rate**: 8%
 
 ### Human Example (Researched Custom)
 
 ```
-Subject: Your LinkedIn post on CX challenges
+Subject: Your LinkedIn post on {topic}
 
-Hi Sarah,
+Hi {FirstName},
 
-Saw your recent LinkedIn post about customer experience at ChicThreads. Sizing issues are often the hidden CX killer for DTC fashion - 30% of returns are fit-related.
+Saw your recent LinkedIn post about {topic} at {Company}. {Root cause} is often the hidden {problem category} killer for {target segment} - {X}% of {problems} are {root cause}-related.
 
-We've helped similar brands reduce returns by 35%. Would love to share a case study.
+We've helped similar {industry} {achieve outcome} by {X}%. Would love to share a case study.
 
 15 minutes this week?
 

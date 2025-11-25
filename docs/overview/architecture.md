@@ -12,140 +12,112 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ SKILLS LAYER (AI Execution)                                                                  │
+│ SKILLS LAYER (AI Execution) - 19 skills, 60+ sub-skills                                      │
 │                                                                                              │
-│ Foundation Builder (Pre-Launch Orchestration):                                               │
-│ ├─ foundation-builder: Orchestrate 10 agents for Canvas population and validation            │
-│ │                                                                                            │
-│ │  Core Agents (7):                                                                          │
-│ │  ├─ market-intelligence: Market analysis, competitive landscape, TAM/SAM/SOM               │
-│ │  │                       → Canvas 01-04, 06                                                │
-│ │  ├─ problem-solution-fit: Problem validation, solution design, MVP definition              │
-│ │  │                         → Canvas 05, 09, 10                                             │
-│ │  ├─ value-proposition: Unique value articulation, positioning, messaging                   │
-│ │  │                     → Canvas 07-08                                                      │
-│ │  ├─ business-model: Revenue design, pricing, unit economics, cost structure                │
-│ │  │                   → Canvas 11-13                                                        │
-│ │  ├─ validation: Assumption testing, experiment design, hypothesis validation               │
-│ │  │              → Canvas 10 (validation status)                                            │
-│ │  ├─ go-to-market: Channel strategy, launch planning, growth tactics                        │
-│ │  │                → Canvas 14-15                                                           │
-│ │  └─ execution: Task orchestration, daily operations within subscription budget             │
-│ │                                                                                            │
-│ │  Specialist Agents (3, on-demand):                                                         │
-│ │  ├─ funding: Fundraising strategy, pitch development, investor targeting                   │
-│ │  ├─ regulatory: Compliance requirements, licensing, regulated market entry                 │
-│ │  └─ retention-optimizer: Cohort analysis, churn prediction, optimization                   │
-│ │                                                                                            │
-│ │  Lifecycle: Discovery → Definition → Validation → Execution → Launch → Archive             │
+│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
+│ │ ENGINEERING SKILLS (engineering-*) - 7 skills, 27 sub-skills                            │  │
+│ │                                                                                         │  │
+│ │ Full production flow: Requirements → Architecture → Maps → Code → Deployment            │  │
+│ │                                                                                         │  │
+│ │ system-architecture (9 sub-skills)                                          │  │
+│ │ └─ NL requirements → mathematical specs (ADT, Curry-Howard proofs, categorical arch)    │  │
+│ │                                                                                         │  │
+│ │ standardization-definer                                                     │  │
+│ │ └─ Extract cross-cutting concerns → contract maps (WHAT standards exist)                │  │
+│ │                                                                                         │  │
+│ │ backend-prover (4 sub-skills)                                               │  │
+│ │ └─ Phase 1: Generate maps, verify composition                                           │  │
+│ │ └─ Phase 2: Generate code from verified maps                                            │  │
+│ │                                                                                         │  │
+│ │ standardization-applier                                                     │  │
+│ │ └─ Apply standards to code, verify naturality (HOW to inject)                           │  │
+│ │                                                                                         │  │
+│ │ frontend-prover (4 sub-skills)                                              │  │
+│ │ └─ OpenAPI → TypeScript, framework adapters, type correspondence proofs                 │  │
+│ │                                                                                         │  │
+│ │   infrastructure-prover (5 sub-skills)                                        │  │
+│ │ └─ Service specs → Docker, K8s, CI/CD, topology proofs                                  │  │
+│ │                                                                                         │  │
+│ │ proof-composer                                                              │  │
+│ │ └─ Validate entire proof chain → deployment authorization                               │  │
+│ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
-│ Market Research Skills (Mode-Aware):                                                         │
-│ ├─ market-research-venture: TAM sizing, growth analysis, competitive landscape (VENTURE)     │
-│ └─ market-research-bootstrap: Spend mapping, arbitrage, immediate revenue (BOOTSTRAP)        │
+│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
+│ │ FOUNDATIONS SKILLS (foundations-*) - 4 skills                                           │  │
+│ │                                                                                         │  │
+│ │ foundations-builder (10 agents)                                                         │  │
+│ │ └─ Canvas population: Discovery → Definition → Validation → Execution → Launch          │  │
+│ │    Core Agents (7): market-intelligence, problem-solution-fit, value-proposition,       │  │
+│ │                     business-model, validation, go-to-market, execution                 │  │
+│ │    Specialist (3): funding, regulatory, retention-optimizer                             │  │
+│ │                                                                                         │  │
+│ │ icp-generator                                                               │  │
+│ │ └─ Define ICP per segment → research/customer/icp/{segment}-icp.yaml                    │  │
+│ │                                                                                         │  │
+│ │ sales-narrative                                                             │  │
+│ │ └─ Generate sales messaging per segment → artifacts/sales/{segment}/narratives/         │  │
+│ │                                                                                         │  │
+│ │ marketing-narrative                                                         │  │
+│ │ └─ Generate content strategy → artifacts/marketing/narrative/                           │  │
+│ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
-│ Sales Strategy Skills:                                                                       │
-│ ├─ icp-generator: Define target customers (per segment)                                      │
-│ └─ sales-narrative: Create messaging (per segment)                                           │
+│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
+│ │ OPERATIONS SKILLS (ops-*) - 4 skills                                                    │  │
+│ │                                                                                         │  │
+│ │ causal-flow (6 stage skills)                                                        │  │
+│ │ └─ 6-stage decision flow: Input → Hypothesis → Implication → Decision → Actions →      │  │
+│ │    Learning                                                                             │  │
+│ │ └─ Thread types: business, sales, marketing, engineering                                │  │
+│ │ └─ Stage 6 auto-updates Canvas from validated learning                                  │  │
+│ │                                                                                         │  │
+│ │ content-strategy                                                                    │  │
+│ │ └─ Daily scan: threads → campaign opportunities → ops/today.md                          │  │
+│ │                                                                                         │  │
+│ │ ops-dashboard                                                                           │  │
+│ │ └─ Auto-generate: today.md, velocity.md, patterns.md, changes.md                        │  │
+│ │                                                                                         │  │
+│ │ business-metrics-tracker                                                            │  │
+│ │ └─ Mode-aware metrics (VENTURE: ARR, MAU | BOOTSTRAP: MRR, profit)                      │  │
+│ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
-│ Sales Execution Skills:                                                                      │
-│ ├─ sales-execution: Generate materials, find prospects                                       │
-│ │  ├─ materials-generation: Pitch decks, scripts, emails                                     │
-│ │  ├─ prospect-research: Find target companies                                               │
-│ │  ├─ contact-finding: Find decision-makers                                                  │
-│ │  ├─ outreach-sequencing: Email/phone cadences                                              │
-│ │  └─ qualification-support: Discovery call prep                                             │
+│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
+│ │ RESEARCH SKILLS (research-*) - 2 skills                                                 │  │
+│ │                                                                                         │  │
+│ │ research-market-venture                                                                 │  │
+│ │ └─ TAM sizing, growth rates, competitive landscape, defensibility (VENTURE mode)        │  │
+│ │                                                                                         │  │
+│ │ research-market-bootstrap                                                               │  │
+│ │ └─ Spend mapping, arbitrage, immediate revenue (BOOTSTRAP mode)                         │  │
+│ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
-│ Marketing Strategy Skills:                                                                   │
-│ ├─ marketing-narrative: Define content strategy per product                                  │
-│ │  ├─ content-pillars.md: 3-5 strategic themes                                               │
-│ │  ├─ seo-strategy.md: Keywords by funnel stage                                              │
-│ │  ├─ brand-voice.md: Educational, non-promotional                                           │
-│ │  └─ channel-guidelines.md: Format specs per channel                                        │
-│ │                                                                                            │
-│ └─ content-strategy: Campaign opportunity detection (standalone)                             │
-│    ├─ Scans: threads/*/6-learning.md daily (automated)                                       │
-│    ├─ Detects: Campaign opportunities (awareness, education, launch, validation)             │
-│    ├─ Calculates: Impact scores (≥0.75 = high priority)                                      │
-│    └─ Flags: High-priority opportunities in ops/today.md for human approval                  │
-│                                                                                              │
-│ Marketing Execution Skills:                                                                  │
-│ └─ marketing-execution: Campaign execution orchestrator (Stage 5 only)                       │
-│    ├─ Role: Pure orchestrator (coordinates subskills, does NOT do work directly)             │
-│    ├─ content-generation: Create educational drafts (with patterns + validation)             │
-│    ├─ seo-optimization: Apply keywords naturally                                             │
-│    ├─ content-distribution: Publish multi-channel                                            │
-│    └─ performance-tracking: Measure impact, feed insights                                    │
-│                                                                                              │
-│ Orchestration (Evidence-Based Decision Flow):                                                │
-│ ├─ causal-flow: 6-stage decision orchestrator for business, sales, and marketing threads     │
-│ │                                                                                            │
-│ │  6-Stage Flow:                                                                             │
-│ │  Input → Hypothesis → Implication → Decision → Actions → Learning                          │
-│ │                                                                                            │
-│ │  Stage Skills (6):                                                                         │
-│ │  ├─ causal-flow-input: Capture factual observations (not opinions)                         │
-│ │  ├─ causal-flow-hypothesis: Challenge/validate Canvas assumptions                          │
-│ │  │                           → Links to 10-assumptions.md                                  │
-│ │  ├─ causal-flow-implication: Analyze business impact with numbers                          │
-│ │  │                            (ROI, cost, timeline, risk)                                  │
-│ │  ├─ causal-flow-decision: Official commitment, document alternatives considered            │
-│ │  ├─ causal-flow-actions: Break into executable tasks (typed for sales/marketing)           │
-│ │  └─ causal-flow-learning: Validate hypothesis, update Canvas automatically                 │
-│ │                                                                                            │
-│ │  Resources:                                                                                │
-│ │  ├─ actions/templates/: Sales & marketing action templates                                 │
-│ │  │                       (lead-intake, qualify, demo, pilot, close,                        │
-│ │  │                        research, create, publish, promote, measure)                     │
-│ │  └─ reference/: Thread architecture docs (business, sales, marketing threads)              │
-│ │                                                                                            │
-│ │  Thread Types: engineering/, business/, sales/, marketing/                                 │
-│ │  Key Feature: Stage 6 auto-updates Canvas from learning                                    │
-│                                                                                              │
-│ Engineering Skills (System Building - Optional):                                            │
-│ ├─ category-theoretic-system-design: Transform requirements into production systems          │
-│ │  ├─ adt-analyzer: Parse natural language → algebraic data types                            │
-│ │  ├─ domain-modeler: Extract domain entities, relationships                                 │
-│ │  ├─ type-validator: Ensure type safety, composition correctness                            │
-│ │  ├─ functor-mapper: Define data transformations (morphisms)                                │
-│ │  ├─ service-compositor: Compose services via category theory                               │
-│ │  ├─ code-generator: Generate FastAPI/Python service code                                   │
-│ │  ├─ blueprint-creator: Create service blueprints (OpenAPI specs)                           │
-│ │  └─ correctness-validator: Verify mathematical correctness                                 │
-│ │                                                                                            │
-│ └─ standardization-layer: Apply cross-cutting concerns uniformly                             │
-│    ├─ auth-standardizer: JWT authentication, role-based access                               │
-│    ├─ validation-standardizer: Input validation, error responses                             │
-│    ├─ response-standardizer: Uniform response formats                                        │
-│    ├─ logging-standardizer: Structured logging, observability                                │
-│    └─ rate-limit-standardizer: Rate limiting, quotas                                         │
-│                                                                                              │
-│ Operations Dashboard:                                                                        │
-│ ├─ ops-dashboard: Auto-generate daily ops/ dashboards                                        │
-│ │                 (today.md, velocity.md, patterns.md, changes.md) from thread data          │
-│ │                 → Pattern detection for meta-learning                                      │
-│ └─ business-metrics-tracker: Mode-aware business performance dashboards                      │
-│                               (MRR/ARR, profitability, CAC, LTV, growth, cash flow)          │
-│                               → Output: artifacts/business/metrics.md                        │
+│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
+│ │ EXECUTION SKILLS - 2 skills                                                             │  │
+│ │                                                                                         │  │
+│ │ sales-execution (5 sub-skills)                                                          │  │
+│ │ └─ materials-generation, prospect-research, contact-finding,                            │  │
+│ │    outreach-sequencing, qualification-support                                           │  │
+│ │                                                                                         │  │
+│ │ marketing-execution (4 sub-skills)                                                      │  │
+│ │ └─ content-generation, seo-optimization, content-distribution, performance-tracking     │  │
+│ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
 │ THREADS LAYER (Decision Storage)                                                             │
-│ Complete decision narratives with causal flow                                                │
+│ Complete decision narratives with 6-stage causal flow                                        │
 │ Location: threads/{type}/{thread-name}/                                                      │
 │                                                                                              │
 │ Thread Types:                                                                                │
-│ ├─ engineering/: System design and implementation (optional)                                 │
-│ │   ├─ architecture/{system-name}/: System design decisions                                  │
-│ │   ├─ services/{service-name}/: Microservice implementation                                 │
-│ │   └─ standards/{concern-name}/: Standardization application                                │
 │ ├─ business/: Strategic decisions                                                            │
 │ ├─ sales/: Deal pipeline management                                                          │
 │ │   ├─ campaigns/: Outbound prospecting (YYYY-MM-DD-name)                                    │
 │ │   └─ {company-name}/: Individual deal threads                                              │
-│ └─ marketing/: Content execution                                                             │
-│     ├─ narrative/{product}/: Content strategy                                                │
-│     └─ content/{topic}/: Individual content pieces                                           │
+│ ├─ marketing/: Content execution                                                             │
+│ │   ├─ campaigns/{campaign-slug}/: Campaign threads                                          │
+│ │   └─ narrative/{product}/: Content strategy                                                │
+│ └─ engineering/: Technical requirements                                                      │
+│     └─ {requirement}/: Engineering decision threads                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -153,7 +125,7 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 │ Auto-generated from thread data                                                              │
 │ Location: ops/                                                                               │
 │                                                                                              │
-│ ├─ today.md: Bella's 5-min daily review                                                      │
+│ ├─ today.md: Founder's 5-min daily review                                                    │
 │ ├─ velocity.md: Throughput analysis                                                          │
 │ ├─ patterns.md: Detected anomalies                                                           │
 │ └─ changes.md: Strategic flags for review                                                    │
@@ -194,57 +166,58 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 
 **Purpose:** AI agents that execute operations autonomously
 
-**Categories:**
+**Total:** 19 skills with 60+ sub-skills organized by type prefix
 
-### Foundation Builder
-- Orchestrates 10 agents for Canvas population
-- Phases: Discovery → Definition → Validation → Execution → Launch
+### Skill Categories
 
-### Sales Skills
-- **Strategy:** icp-generator, sales-narrative
-- **Execution:** materials-generation, prospect-research, contact-finding, outreach-sequencing, qualification-support
+| Prefix | Count | Purpose |
+|--------|-------|---------|
+| `engineering-*` | 7 | System building & mathematical verification |
+| `foundations-*` | 4 | Business setup, ICP, narratives |
+| `ops-*` | 4 | Causal flow, dashboards, metrics |
+| `research-*` | 2 | Mode-aware market research |
+| `sales-*` | 1 | Sales pipeline execution |
+| `marketing-*` | 1 | Campaign execution |
 
-### Marketing Skills
-- **Strategy:**
-  - marketing-narrative (content pillars, SEO, voice, channels per product)
-  - content-strategy (campaign opportunity detection, standalone skill)
-- **Execution:** marketing-execution orchestrator
-  - content-generation (educational drafts with patterns + validation)
-  - seo-optimization (keyword application)
-  - content-distribution (multi-channel publishing)
-  - performance-tracking (impact measurement)
+### Engineering Skills (7)
 
-### Orchestration Skills
-- **causal-flow:** 6-stage decision framework (Input → Hypothesis → Implication → Decision → Actions → Learning)
-- **ops-dashboard:** Auto-generate daily interface (operational metrics)
-- **business-metrics-tracker:** Mode-aware business performance dashboards (revenue, profitability, growth)
+Full production flow with mathematical verification:
 
-### Engineering Skills (Building Systems - Optional)
+```
+Requirements → Architecture → Maps → Code → Deployment
+     ↓              ↓           ↓       ↓         ↓
+  system-      backend-    standard-  frontend-  infrastructure-
+  architecture  prover      applier    prover      prover
+```
 
-**Activates when:** Building technical products, microservices, or backend systems
+**Key innovations:**
+- **Two-phase verification:** Generate maps first, verify composition, then generate code
+- **Split standardization:** Define WHAT standards exist (definer), then HOW to apply (applier)
+- **Proof composition:** All proofs must compose for deployment authorization
 
-**category-theoretic-system-design** - 8-skill pipeline for mathematically correct system design
-- **adt-analyzer:** Parse natural language requirements → algebraic data types (ADTs)
-- **domain-modeler:** Extract domain entities, relationships, bounded contexts
-- **type-validator:** Ensure type safety, validate composition correctness
-- **functor-mapper:** Define data transformations as morphisms (A → B mappings)
-- **service-compositor:** Compose services using category theory principles
-- **code-generator:** Generate production-ready FastAPI/Python service code
-- **blueprint-creator:** Create service blueprints (OpenAPI specs, architecture docs)
-- **correctness-validator:** Verify mathematical correctness of system design
+### Foundations Skills (4)
 
-**standardization-layer** - 5 cross-cutting concerns applied uniformly to all services
-- **auth-standardizer:** JWT authentication, role-based access control (RBAC)
-- **validation-standardizer:** Input validation, schema enforcement, error responses
-- **response-standardizer:** Uniform response formats, status codes, error handling
-- **logging-standardizer:** Structured logging, distributed tracing, observability
-- **rate-limit-standardizer:** Rate limiting, quotas, throttling patterns
+- **foundations-builder:** Orchestrate 10 agents for Canvas population
+- **icp-generator:** Define ICP per segment
+- **sales-narrative:** Generate sales messaging
+- **marketing-narrative:** Generate content strategy
 
-**Workflow:** Requirements → ADT analysis → Domain modeling → Type validation → Service composition → Code generation → Standardization → Deployment
+### Operations Skills (4)
 
-**Output artifacts:** `engineering/services/`, `engineering/standards/`, `engineering/domain/`
+- **causal-flow:** 6-stage decision framework (Input → Learning)
+- **content-strategy:** Scan threads for campaign opportunities
+- **ops-dashboard:** Auto-generate daily operations interface
+- **business-metrics-tracker:** Mode-aware metrics dashboards
 
-**Integration:** Engineering threads use same 6-stage causal flow. Sales pilot needs custom features → Engineering thread → Implementation → Validation
+### Research Skills (2)
+
+- **research-market-venture:** TAM, growth, defensibility (VENTURE mode)
+- **research-market-bootstrap:** Spend mapping, arbitrage (BOOTSTRAP mode)
+
+### Execution Skills (2)
+
+- **sales-execution:** Materials, prospects, outreach, qualification
+- **marketing-execution:** Content, SEO, distribution, tracking
 
 ## Layer 3: Threads (Decision Storage)
 
@@ -253,12 +226,6 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 **Purpose:** Store complete decision narratives with 6-stage causal flow
 
 **Thread types:**
-
-### Engineering Threads (Optional - when building systems)
-- **Architecture:** System design decisions (`architecture/{system-name}/`)
-- **Services:** Individual microservice implementation (`services/{service-name}/`)
-- **Standards:** Standardization application (`standards/{concern-name}/`)
-- 6-stage flow: Requirement analysis → Design hypothesis → Implementation impact → Technical decision → Coding actions → Validation learning
 
 ### Business Threads
 - Strategic decisions affecting multiple segments
@@ -271,20 +238,23 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 - 6-stage flow: Input → Hypothesis → Implication → Decision → Actions → Learning
 
 ### Marketing Threads
-- **Narratives:** Content strategy (`narrative/{product}/`)
 - **Campaigns:** Campaign execution (`campaigns/{campaign-slug}/`)
-- **Content:** Individual pieces (`content/{topic}/`)
+- **Narratives:** Content strategy (`narrative/{product}/`)
 - 6-stage flow with content-specific actions
+
+### Engineering Threads
+- Technical requirements (`{requirement}/`)
+- 6-stage flow producing specifications for engineering skills
 
 **Thread structure:**
 ```
 threads/{type}/{name}/
-├── metadata.yaml
+├── meta.json
 ├── 1-input.md
 ├── 2-hypothesis.md
 ├── 3-implication.md
 ├── 4-decision.md
-├── 5-actions.md (or 5-actions/ directory)
+├── 5-actions/ (or 5-actions.md)
 └── 6-learning.md
 ```
 
@@ -326,22 +296,15 @@ threads/{type}/{name}/
 
 ### artifacts/
 - **sales/:** Sales materials per segment (pitch decks, scripts, templates)
-- **marketing/:** Published content (blog, LinkedIn, email)
-- **fundraising/:** Pitch decks, financial models
+- **marketing/:** Published content (campaigns, blog, LinkedIn)
+- **engineering/:** Generated code, configs, proofs
 
-### engineering/ (Optional - for building systems)
-- **services/:** Service blueprints, OpenAPI specs, implementation code
-  - Generated by category-theoretic-system-design pipeline
-  - FastAPI/Python microservices with type safety
-  - Domain models, data transformations, service composition
-- **standards/:** Standardization layer artifacts
-  - Auth patterns (JWT, RBAC)
-  - Validation schemas, error handling
-  - Response formats, logging, rate limiting
-- **domain/:** Domain modeling artifacts
-  - Algebraic data types (ADTs)
-  - Entity relationships, bounded contexts
-  - Business logic documentation
+### engineering/ (Thread-driven)
+- **specifications/:** Mathematical specs (versioned)
+- **maps/:** Code maps (backend, shared contracts)
+- **code/:** Generated code (backend, frontend)
+- **configs/:** Deployment configs (Docker, K8s, CI/CD)
+- **proofs/:** All verification proofs
 
 ## Data Flow
 
@@ -360,8 +323,13 @@ threads/{type}/{name}/
 
 Sales thread → Learning (Stage 6) → Canvas updated → Marketing scans threads → Content opportunity detected → Marketing thread created → Content published → SEO drives traffic → Demos requested → Sales threads created → Learning captured → Loop continues
 
+**Engineering flow example:**
+
+Business decision (build feature) → Engineering thread → system-architecture generates specs → backend-prover generates maps → maps verified → code generated → standardization applied → frontend-prover generates client → infrastructure-prover generates configs → proof-composer validates chain → deployment authorized
+
 ## Next Steps
 
 - Learn the complete flow: [How It Works](how-it-works.md)
+- See all skills: [All Skills](../skills/all-skills.md)
 - Understand Canvas setup: [Canvas Setup](../foundation/canvas-setup.md)
 - See timeline breakdown: [Timeline Guide](../foundation/timeline.md)

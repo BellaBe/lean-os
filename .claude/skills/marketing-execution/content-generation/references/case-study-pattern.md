@@ -15,7 +15,7 @@ Customer success stories as educational content.
 Case studies are **evidence**, not sales pitches. Show what happened, include numbers, explain why it worked.
 
 **Good case study:**
-- Specific metrics (25% → 18% return rate)
+- Specific metrics ({before}% → {after}% on key metric)
 - Technical details (architecture, implementation)
 - Honest about challenges (what didn't work)
 - Educational (lessons others can apply)
@@ -35,13 +35,13 @@ Case studies are **evidence**, not sales pitches. Show what happened, include nu
 Start with the outcome, then explain how:
 
 ```
-# ElsaAI Reduced Returns 38% with White-Label Fit Recommendations
+# {Customer} Achieved {X}% Improvement with {Solution Approach}
 
-ElsaAI is a luxury marketplace with $200M GMV. They faced 25% return 
-rates on dresses, costing $2.1M annually.
+{Customer} is a {industry} company with {scale metric}. They faced {problem}
+costing {$X} annually.
 
-After implementing white-label fit recommendations, returns dropped 
-to 18%—a 28% reduction. Here's how they did it, what challenges they 
+After implementing {solution approach}, {key metric} improved by {X}%—
+{result description}. Here's how they did it, what challenges they
 faced, and what we learned.
 ```
 
@@ -50,16 +50,15 @@ faced, and what we learned.
 Start with customer pain, then reveal solution:
 
 ```
-# How a Luxury Marketplace Fixed 25% Return Rates in 30 Days
+# How {Customer} Fixed {Problem} in {Timeframe}
 
-ElsaAI had a problem: 1 in 4 dresses got returned. At $120 average 
-order value, that's $1.5M in lost revenue annually—plus $600K in 
-reverse logistics.
+{Customer} had a problem: {problem description}. At {scale metric},
+that's {$X} in lost revenue annually—plus {$Y} in operational costs.
 
-Generic size charts weren't working. Virtual try-on improved accuracy 
-from 68% to 72%—not enough for luxury customers who expect perfection.
+{Previous solutions} weren't working. {Alternative approach} improved
+from {X}% to {Y}%—not enough for {customer segment} who expect {standard}.
 
-Here's how they got to 94% fit accuracy and reduced returns 28%.
+Here's how they got to {target metric} and achieved {result}.
 ```
 
 ### Challenge-First Opening
@@ -67,16 +66,16 @@ Here's how they got to 94% fit accuracy and reduced returns 28%.
 Start with what makes this difficult:
 
 ```
-# The Challenge: Luxury Brand Consistency vs Fit Accuracy
+# The Challenge: {Tradeoff A} vs {Tradeoff B}
 
-ElsaAI needed 90%+ fit accuracy to reduce returns. But every fit 
-solution they evaluated required co-branded widgets—breaking their 
-luxury brand aesthetic.
+{Customer} needed {target metric} to achieve {goal}. But every
+solution they evaluated required {compromise}—breaking their
+{important constraint}.
 
-The dilemma: Accept lower accuracy to maintain brand consistency, or 
-compromise brand for better fit recommendations?
+The dilemma: Accept {suboptimal option A}, or compromise {priority}
+for {benefit}?
 
-Here's how they solved both with white-label architecture.
+Here's how they solved both with {solution approach}.
 ```
 
 ---
@@ -92,12 +91,11 @@ Here's how they solved both with white-label architecture.
 
 **Example:**
 ```
-ElsaAI is a luxury fashion marketplace with $200M GMV serving 250K 
-monthly customers. Their curated selection emphasizes high-end 
-designers and premium pricing—where brand consistency is critical.
+{Customer} is a {industry} company with {scale metric} serving {customer count}
+monthly customers. Their {business focus} emphasizes {key differentiator}—
+where {critical factor} is essential.
 
-They faced a 25% return rate on dresses, costing $3.2M annually in 
-reverse logistics and lost revenue.
+They faced {problem} costing {$X} annually in {cost categories}.
 ```
 
 **Don't:**
@@ -119,32 +117,32 @@ reverse logistics and lost revenue.
 ```
 ## The Problem
 
-Luxury customers expect flawless brand experiences. ElsaAI's previous 
-fit solution used a co-branded widget that broke their visual aesthetic:
+{Customer segment} expect {quality standard}. {Customer}'s previous
+solution had these issues:
 
-- Widget displayed third-party branding
-- Design didn't match site style
-- Mobile experience was clunky
-- Customers questioned legitimacy
+- {Issue 1}
+- {Issue 2}
+- {Issue 3}
+- {Issue 4}
 
-Beyond aesthetics, fit accuracy was insufficient:
-- Generic size charts: 68% accuracy
-- Virtual try-on competitors: 72% accuracy
-- Neither met the 85% threshold ElsaAI needed
+Beyond {surface problem}, {core metric} was insufficient:
+- {Alternative 1}: {X}% accuracy
+- {Alternative 2}: {Y}% accuracy
+- Neither met the {target}% threshold {Customer} needed
 
-At 25% return rates, $120 average order value, and 50K dress orders/year:
-- Revenue impact: $1.5M (25% of $6M)
-- Reverse logistics: $400K ($8 per return)
-- Customer service: $200K (15 min per return @ $40/hr)
-- Total annual cost: $2.1M
+At {problem rate}, {average value}, and {volume}:
+- Revenue impact: {$X}
+- Operational costs: {$Y}
+- Support costs: {$Z}
+- Total annual cost: {$Total}
 
 **What they tried:**
 
-1. **Better size charts** → Still 32% inaccurate
-2. **Virtual try-on (competitor)** → 72% accuracy, but co-branded
-3. **Custom ML model** → 3-month build, $200K development cost
+1. **{Approach 1}** → {Result/limitation}
+2. **{Approach 2}** → {Result/limitation}
+3. **{Approach 3}** → {Result/limitation}
 
-None solved both accuracy AND brand consistency.
+None solved both {requirement A} AND {requirement B}.
 ```
 
 **Don't:**
@@ -166,51 +164,49 @@ None solved both accuracy AND brand consistency.
 ```
 ## Solution
 
-ElsaAI implemented our white-label SDK with custom branding:
+{Customer} implemented {solution} with {customization}:
 
 **Technical approach:**
-- React SDK with custom styling
-- ElsaAI's fonts, colors, design system
-- Hosted on ElsaAI subdomain (fit.elsaai.com)
-- Zero external branding
+- {Technology stack}
+- {Customization details}
+- {Deployment approach}
+- {Key technical feature}
 
 **Integration:**
-- 2-week implementation
-- 10 hours engineering time (ElsaAI team)
-- No infrastructure changes needed
-- API integration via REST endpoints
+- {Timeline}
+- {Resource requirement}
+- {Infrastructure changes}
+- {Integration method}
 
-**Fit accuracy:**
-- AI trained on 10M+ body scans
-- 94% accuracy on luxury dress category
-- Personalized per customer (not generic size charts)
+**Core capability:**
+- {Technical foundation}
+- {Accuracy/performance metric}
+- {Personalization/customization}
 
-**Why white-label mattered:**
+**Why {approach} mattered:**
 
-ElsaAI customers pay $150-$500 per dress. At this price point:
-- Brand consistency is non-negotiable
-- Co-branded widgets signal "outsourced" (reduces trust)
-- Mobile experience must be seamless
+{Customer} customers {customer profile}. At this {context}:
+- {Requirement 1}
+- {Requirement 2}
+- {Requirement 3}
 
-White-label removed trust friction while delivering 94% accuracy—
-crossing the luxury credibility threshold (>90%).
+{Solution approach} removed {friction} while delivering {result}—
+crossing the {segment} credibility threshold.
 
 **Architecture:**
 ```
-Customer → Product Page → fit.elsaai.com/widget (white-label)
-                              ↓
-                        Body Measurement API
-                              ↓
-                        Recommendation Engine (94% accuracy)
-                              ↓
-                        Size Recommendation
+{Component 1} → {Component 2} → {Component 3}
+                                      ↓
+                              {Processing layer}
+                                      ↓
+                              {Result/output}
 ```
 
 **Implementation details:**
-- SDK loaded asynchronously (no page speed impact)
-- Body measurement API: <200ms latency
-- Recommendation cache: 99.9% uptime
-- Analytics dashboard: Real-time fit data
+- {Performance characteristic 1}
+- {Performance characteristic 2}
+- {Reliability metric}
+- {Additional capability}
 ```
 
 **Don't:**
@@ -232,47 +228,46 @@ Customer → Product Page → fit.elsaai.com/widget (white-label)
 ```
 ## Results
 
-**30-day pilot (dress category only):**
-- Return rate: 25% → 18% (28% reduction)
-- Fit accuracy: 94% (vs 68% baseline)
-- Customer satisfaction: 3.2 → 4.1 (27% improvement)
-- Mobile conversion: +12% (cleaner UI, no third-party branding)
+**{Timeframe} pilot ({scope}):**
+- {Primary metric}: {before} → {after} ({X}% improvement)
+- {Secondary metric}: {value} (vs {baseline} baseline)
+- {Tertiary metric}: {before} → {after} ({X}% improvement)
+- {Additional metric}: +{X}% ({explanation})
 
 **Annual projection:**
-- Returns avoided: 3,500 (7% of 50K orders)
-- Revenue retained: $420K
-- Logistics saved: $280K
-- Customer service saved: $105K
-- Total annual savings: $805K
+- {Benefit 1}: {quantity} ({calculation})
+- {Benefit 2}: {$X}
+- {Benefit 3}: {$Y}
+- {Benefit 4}: {$Z}
+- Total annual {benefit}: {$Total}
 
 **ROI:**
-- Implementation cost: $500K/year (white-label tier)
-- Savings: $805K/year
-- Net benefit: $305K (61% ROI)
-- Payback: 7.4 months
+- Implementation cost: {$X}/year
+- {Benefit type}: {$Y}/year
+- Net benefit: {$Z} ({X}% ROI)
+- Payback: {X} months
 
 **Unexpected benefits:**
 
-1. **Mobile conversion increased 12%**
-   - Cleaner UI without third-party branding
-   - Faster load time (SDK optimized for mobile)
-   - Higher trust signal (seamless brand experience)
+1. **{Benefit 1}**
+   - {Reason 1}
+   - {Reason 2}
+   - {Reason 3}
 
-2. **Customer service tickets reduced 15%**
-   - Fewer fit-related questions pre-purchase
-   - Fewer return requests
-   - Higher confidence in recommendations
+2. **{Benefit 2}**
+   - {Reason 1}
+   - {Reason 2}
+   - {Reason 3}
 
-3. **Marketing asset: White-label as luxury signal**
-   - ElsaAI now markets "proprietary fit technology"
-   - White-label enables brand storytelling
-   - Competitive differentiation in luxury segment
+3. **{Benefit 3}**
+   - {Reason 1}
+   - {Reason 2}
+   - {Reason 3}
 
 **Customer quote:**
 
-"Our customers don't care who powers fit recommendations. They care 
-that it looks like ElsaAI. White-label gave us 94% accuracy without 
-compromising our brand." — Sarah Chen, CTO, ElsaAI
+"{Quote that captures key value proposition and result}"
+— {Name}, {Title}, {Customer}
 ```
 
 **Don't:**
@@ -295,37 +290,37 @@ compromising our brand." — Sarah Chen, CTO, ElsaAI
 ## Technical Details
 
 **Architecture:**
-- SDK loaded asynchronously (no page speed impact)
-- Body measurement API: <200ms latency
-- Recommendation cache: 99.9% uptime
-- Analytics dashboard: Real-time fit data
+- {Component}: {characteristic}
+- {Component}: {performance metric}
+- {Component}: {reliability metric}
+- {Component}: {capability}
 
 **Challenges overcome:**
 
-1. **Brand consistency:** Custom CSS matching ElsaAI's design system exactly
-   - Solution: React SDK with CSS-in-JS, inherits ElsaAI theme
-   - Result: Zero visual distinction from native components
+1. **{Challenge 1}:** {Brief description}
+   - Solution: {Technical approach}
+   - Result: {Measurable outcome}
 
-2. **Mobile performance:** Lazy loading prevented slowdown
-   - Solution: Async script loading, critical path optimization
-   - Result: No impact on Lighthouse score (98 → 97)
+2. **{Challenge 2}:** {Brief description}
+   - Solution: {Technical approach}
+   - Result: {Measurable outcome}
 
-3. **Data privacy:** GDPR-compliant body measurement storage
-   - Solution: EU data residency, 30-day data retention
-   - Result: Legal approval in 5 EU markets
+3. **{Challenge 3}:** {Brief description}
+   - Solution: {Technical approach}
+   - Result: {Measurable outcome}
 
 **Why it worked:**
-- White-label removed trust friction (no third-party branding)
-- 94% accuracy exceeded luxury threshold (>90%)
-- Fast integration minimized engineering burden (2 weeks vs 3 months custom)
+- {Factor 1}
+- {Factor 2}
+- {Factor 3}
 
 **Applicability:**
 
-This approach works for fashion brands with:
-- Strong brand identity (luxury, premium positioning)
-- High average order value (>$100)
-- Technical team for integration (5-10 hours engineering time)
-- Volume to justify cost ($400K+/year white-label tier)
+This approach works for {industry} companies with:
+- {Characteristic 1}
+- {Characteristic 2}
+- {Characteristic 3}
+- {Characteristic 4}
 ```
 
 **Don't:**
@@ -347,21 +342,17 @@ This approach works for fashion brands with:
 ```
 ## Conclusion
 
-ElsaAI's success validates three insights:
+{Customer}'s success validates three insights:
 
-1. **Luxury brands won't compromise on brand consistency** - Co-branded 
-   solutions are non-starters regardless of accuracy
+1. **{Insight 1}** - {Explanation}
 
-2. **Fit accuracy >90% is table stakes** - Luxury customers expect 
-   near-perfect recommendations
+2. **{Insight 2}** - {Explanation}
 
-3. **Fast implementation matters** - 2-week integration vs 3-month 
-   custom build enabled rapid validation
+3. **{Insight 3}** - {Explanation}
 
-This approach works for fashion brands with strong brand identity, 
-high AOV (>$100), and technical capacity for integration.
+This approach works for {industry} companies with {key characteristics}.
 
-White-label SDK technical docs: [link]
+{Product/solution} technical docs: [link]
 ```
 
 **Don't:**
@@ -392,14 +383,14 @@ Before completing case study:
 
 **Wrong:**
 ```
-ElsaAI saw significant improvements in return rates and customer 
+{Customer} saw significant improvements in {metric} and customer
 satisfaction after implementing our solution.
 ```
 
 **Right:**
 ```
-ElsaAI: Return rate 25% → 18% (28% reduction). Customer satisfaction 
-3.2 → 4.1 (27% improvement). Annual savings: $805K.
+{Customer}: {Metric} {before} → {after} ({X}% improvement). Customer satisfaction
+{before} → {after} ({Y}% improvement). Annual savings: {$Z}.
 ```
 
 ### ❌ Skipping Technical Details
@@ -411,9 +402,9 @@ We integrated our AI-powered SDK and it worked great.
 
 **Right:**
 ```
-React SDK with custom CSS matching ElsaAI design system. Async loading 
-(no page speed impact). API latency <200ms. 94% fit accuracy on 10M+ 
-body scan training data.
+{Technology} with {customization} matching {Customer} design system. Async loading
+(no page speed impact). API latency <{X}ms. {Accuracy}% accuracy on {training data
+size}.
 ```
 
 ### ❌ Promotional Tone
@@ -426,7 +417,7 @@ to see the magic yourself!
 
 **Right:**
 ```
-White-label SDK gave them 94% accuracy without compromising brand. 
+{Solution approach} gave them {X}% accuracy without compromising {priority}.
 Technical docs: [link]
 ```
 
@@ -440,8 +431,8 @@ all expectations.
 
 **Right:**
 ```
-Challenges: CSS matching took 3 iterations. Mobile performance required 
-lazy loading. GDPR compliance delayed EU launch 2 weeks. But 94% accuracy 
+Challenges: {Challenge 1} took {X} iterations. {Challenge 2} required
+{solution}. {Challenge 3} delayed {milestone} {timeframe}. But {result}
 made it worth solving.
 ```
 

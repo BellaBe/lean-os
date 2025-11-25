@@ -77,7 +77,7 @@ Use the `foundation-builder` skill to populate and validate all 15 Canvas sectio
 ```
 skill: foundation-builder
 phase: discovery
-focus: "AI fashion recommendations for DTC brands"
+focus: "{your business idea}"
 
 Output: 6 Canvas sections with evidence-based market intelligence
 ```
@@ -158,7 +158,7 @@ Output: 6 additional Canvas sections defining product and economics
 ```
 skill: foundation-builder
 phase: validation
-assumptions: "Luxury brands prefer white-label SDK, DTC brands will pay $500/month"
+assumptions: "{critical assumptions to test}"
 
 Output: Validated (or invalidated) assumptions with confidence scores
 ```
@@ -215,77 +215,6 @@ Output: GTM strategy and operational readiness
 - **Bottleneck: Building and testing the actual product**
 
 **Total elapsed:** 4-8 weeks (MVP build is the constraint)
-
----
-
-## Phase 1c: Engineering (System Building - OPTIONAL)
-
-**⚠️ CONDITIONAL:** Only activate this phase if building technical products (microservices, backend systems). Skip entirely for non-technical products.
-
-**Goal:** Build production-ready backend using category-theoretic design
-
-**Skills activated:**
-- `category-theoretic-system-design`: 8-skill pipeline for mathematically correct systems
-- `standardization-layer`: 5 cross-cutting concerns (auth, validation, response, logging, rate-limiting)
-
-**Engineering artifacts generated:**
-- `engineering/services/{service}/`: Service code (FastAPI/Python), OpenAPI specs
-- `engineering/standards/`: Standardization patterns for all services
-- `engineering/domain/`: Domain models, ADTs, entity relationships
-- `threads/engineering/services/{service}/`: Engineering decision threads (6-stage flow)
-
-**Example invocation:**
-```
-skill: category-theoretic-system-design
-requirements: "Build fit-analysis service that composes with color-analysis"
-canvas_section: "09-solution.md"
-
-Output: Mathematically correct, composable microservices
-```
-
-**Human input required (2-4 hours per service):**
-- Provide system requirements and architecture vision (30 min)
-- Review domain models and type definitions (45 min)
-- Approve service blueprints and OpenAPI specs (30 min)
-- Review generated code for business logic accuracy (60 min)
-
-**AI execution time:** 4-8 hours per service
-- ADT analysis → Domain modeling → Type validation → Functor mapping
-- Service composition → Code generation → Blueprint creation → Correctness validation
-- Standardization layer applied (auth, validation, response, logging, rate-limiting)
-
-**Real-world validation (1-4 weeks):**
-- Deploy services to staging environment
-- Integration testing with other system components
-- Load testing and performance validation
-- **Bottleneck: Testing production-readiness of generated code**
-
-**Validation gates:**
-- ✅ Services pass 100% type safety validation
-- ✅ Standardization layer applied to all services
-- ✅ OpenAPI specs generated for all services
-- ✅ Integration tests passing
-- ✅ Code generation success rate >95%
-- ✅ Correctness validation complete (composition laws verified)
-
-**When to activate:**
-- Building B2B SaaS with backend API
-- Microservices architecture required
-- Need type safety and mathematical correctness
-- Custom features for sales pilots (white-label SDKs, integrations)
-
-**When to skip:**
-- Selling services (consulting, agency)
-- No-code/low-code MVP sufficient
-- Using off-the-shelf platforms
-- Non-technical product
-
-**Total elapsed:** 1-4 weeks (conditional on technical complexity)
-
-**Integration points:**
-- **Phase 1b → Phase 1c:** MVP requirements drive system design
-- **Phase 1c → Phase 2:** Engineering threads feed sales demos and marketing content
-- **Sales pilots:** Custom features trigger new engineering threads during operations
 
 ---
 

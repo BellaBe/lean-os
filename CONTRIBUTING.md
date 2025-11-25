@@ -24,7 +24,7 @@ Skills are the execution layer of LeanOS. To contribute a new skill:
   - Input/output specifications
   - Step-by-step execution instructions
   - Examples
-- Follow the pattern of existing skills (see `icp-generator`, `sales-narrative`, `marketing-execution`)
+- Follow the pattern of existing skills (see `foundations-icp-generator`, `foundations-sales-narrative`, `marketing-execution`)
 - If the skill includes Python code, add scripts to `scripts/` subdirectory
 - Update README.md to document the new skill
 
@@ -148,31 +148,7 @@ If contributing Python code for engineering skills:
 - API keys or credentials
 - Company-specific configurations
 - "Future ideas" lists (use active threads or don't document)
-- **Modifications to `.claude/skills/document-skills/`** - These are proprietary Anthropic materials
-
-## Third-Party Components
-
-**IMPORTANT:** The `.claude/skills/document-skills/` directory contains proprietary skills provided by Anthropic, PBC.
-
-**License:** © 2025 Anthropic, PBC. All rights reserved.
-
-**Restrictions:**
-- ❌ Cannot modify these skills
-- ❌ Cannot create derivative works
-- ❌ Cannot redistribute outside this repository
-- ✅ Can use within Claude AI as authorized by Anthropic
-
-**What you CAN do:**
-- Report bugs or issues with these skills (open an issue)
-- Suggest improvements (we'll forward to Anthropic)
-- Use these skills in your LeanOS workflows
-
-**What you CANNOT do:**
-- Edit files in `document-skills/`
-- Copy these skills to other projects
-- Create modified versions
-
-See [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md) for complete licensing information.
+- Product-specific examples (use `{placeholder}` syntax instead)
 
 ## Philosophy Alignment
 
@@ -220,6 +196,5 @@ Thank you for helping make LeanOS better!
 
 ---
 
-**Maintainer:** Bella Belgarokova (https://www.linkedin.com/in/bellabelgarokova/)
 **License:** MIT
-**Version:** 1.0 (Marketing Layer Complete)
+**Version:** 1.2 (Engineering + Business Operations Complete)

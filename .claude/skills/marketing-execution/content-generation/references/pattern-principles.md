@@ -24,27 +24,27 @@ Patterns are structure guides, not rigid templates.
 **Problem Analysis Pattern:**
 - Use when: Explaining industry problem, sharing research, analyzing trends
 - Structure: Problem → Data → Analysis → Implication
-- Example: "Why 70% of Fashion Returns Are Fit Issues"
+- Example: "Why {X}% of {Industry} {Problems} Are {Root Cause}"
 
 **Implementation Guide Pattern:**
 - Use when: Teaching how to solve problem, technical tutorial
 - Structure: Challenge → Approach → Implementation → Results
-- Example: "Building Real-Time Fit Recommendations with React SDK"
+- Example: "Building Real-Time {Recommendations} with {Technology}"
 
 **Case Study Pattern:**
 - Use when: Sharing customer success, validating approach
 - Structure: Customer → Problem → Solution → Results
-- Example: "How ElsaAI Reduced Returns 38% with White-Label SDK"
+- Example: "How {Customer} Reduced {Key Metric} 38% with {Solution Approach}"
 
 **Announcement Pattern:**
 - Use when: Launching product/feature, major milestone
 - Structure: What → Why → How → Who → When
-- Example: "White-Label SDK Now Available for Enterprise"
+- Example: "{Solution Approach} Now Available for {Target Segment}"
 
 **LinkedIn Insight Pattern:**
 - Use when: Sharing business learning, industry observation
 - Structure: Insight → Analysis → Implication
-- Example: "100% of Luxury Brands Chose White-Label Over Co-Branded"
+- Example: "{X}% of {Premium Segment} Chose {Option A} Over {Option B}"
 
 ### 2. Adapt Structure to Content
 
@@ -60,14 +60,14 @@ Introduction (100-150 words)
 
 You write:
 ```
-When we launched our SDK, we assumed enterprise brands would prefer 
-co-branded widgets. After 5 deals, we learned we were wrong.
+When we launched our {product}, we assumed {segment} companies would prefer
+{alternative approach}. After {N} deals, we learned we were wrong.
 
-100% of luxury brands ($100M+ GMV) chose white-label. This wasn't 
-about hiding our technology—it was about brand consistency being 
-non-negotiable in luxury e-commerce.
+{X}% of {premium segment} (${revenue}+ {metric}) chose {solution approach}. This wasn't
+about {misconception}—it was about {key differentiator} being
+non-negotiable in {industry}.
 
-Here's what $5.5M in contracts taught us about brand positioning.
+Here's what ${revenue} in contracts taught us about {positioning topic}.
 ```
 
 **Use pattern as guide, not script.**
@@ -87,18 +87,18 @@ Every pattern follows brand voice:
 
 ❌ Template-following (wrong):
 ```
-Our revolutionary AI-powered solution leverages cutting-edge 
+Our revolutionary AI-powered solution leverages cutting-edge
 machine learning to dramatically improve customer satisfaction.
 Book a demo to see the magic!
 ```
 
 ✅ Pattern + Voice (right):
 ```
-We trained our fit model on 10M+ body scans. Accuracy went from 
-68% (generic size charts) to 94% (personalized recommendations).
+We trained our {model} on {N}+ {data points}. Accuracy went from
+{X}% ({baseline approach}) to {Y}% ({improved approach}).
 
-The challenge: luxury customers expect >90% accuracy. At 94%, 
-we cross the credibility threshold. Below 90%, returns stay high.
+The challenge: {premium segment} customers expect >{Z}% accuracy. At {Y}%,
+we cross the credibility threshold. Below {Z}%, {key metric} stays high.
 ```
 
 ### 4. Include Technical Depth
@@ -120,20 +120,20 @@ You write:
 ## Technical Details
 
 **Architecture:**
-- SDK loaded asynchronously (no page speed impact)
-- Body measurement API: <200ms latency
-- Recommendation cache: 99.9% uptime
-- Analytics dashboard: Real-time fit data
+- {Component} loaded asynchronously (no page speed impact)
+- {API type}: <{X}ms latency
+- {System component}: {uptime}% uptime
+- {Dashboard}: Real-time {data type}
 
 **Challenges overcome:**
-1. Brand consistency: Custom CSS matching ElsaAI design system
-2. Mobile performance: Lazy loading prevented slowdown
-3. Data privacy: GDPR-compliant body measurement storage
+1. {Challenge 1}: {Solution approach} matching {Customer} {requirements}
+2. {Challenge 2}: {Optimization technique} prevented slowdown
+3. {Challenge 3}: {Compliance}-compliant {data handling}
 
 **Why it worked:**
-- White-label removed trust friction
-- 94% accuracy exceeded luxury threshold
-- Fast integration minimized engineering burden
+- {Solution approach} removed {friction point}
+- {X}% accuracy exceeded {segment} threshold
+- Fast integration minimized {resource} burden
 ```
 
 ### 5. Use Source Material
@@ -170,13 +170,13 @@ All content comes from:
 **Wrong:**
 ```
 Introduction (exactly 150 words)
-The problem with fashion returns is... [fills exactly 150 words 
+The problem with {industry} {problems} is... [fills exactly 150 words
 even if unnatural]
 ```
 
 **Right:**
 ```
-When we launched, we assumed brands wanted co-branded widgets. 
+When we launched, we assumed {segment} wanted {alternative approach}.
 We were wrong. [Natural length, ~30 words]
 ```
 
@@ -184,13 +184,13 @@ We were wrong. [Natural length, ~30 words]
 
 **Wrong:**
 ```
-We used AI to improve fit recommendations. It worked well.
+We used AI to improve {recommendations}. It worked well.
 ```
 
 **Right:**
 ```
-We trained our model on 10M+ body scans. Accuracy: 94% vs 68% 
-baseline. Challenge: luxury customers expect >90% accuracy to trust.
+We trained our model on {N}+ {data points}. Accuracy: {Y}% vs {X}%
+baseline. Challenge: {premium segment} customers expect >{Z}% accuracy to trust.
 ```
 
 ### ❌ Adding Sales Language
@@ -203,7 +203,7 @@ Book a demo today!
 
 **Right:**
 ```
-White-label SDK available for enterprise brands ($400K+ tier). 
+{Solution approach} available for {target segment} (${price}+ tier).
 Technical docs: [link]
 ```
 
@@ -216,8 +216,8 @@ Many customers saw significant improvements in conversion rates.
 
 **Right:**
 ```
-ElsaAI: Return rate 25% → 18% (28% reduction). Mobile conversion +12%.
-[Sources from threads/sales/elsa-white-label/6-learning.md]
+{Customer}: {Key metric} {before} → {after} ({X}% reduction). {Secondary metric} +{Y}%.
+[Sources from threads/sales/{customer-thread}/6-learning.md]
 ```
 
 ## Quality Checklist

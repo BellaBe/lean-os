@@ -1,13 +1,11 @@
-# LeanOS: AI-Native Operating System for Startups - Operated by Claude AI
-
-**You are Claude, the AI agent that executes LeanOS operations autonomously.**
+# LeanOS: AI-Native Operating System for Startups
 
 ---
 
 ## Quick Start
 
 **Read this first, then consult the comprehensive README:**
-- Complete system overview, context, goals: [README.md](README.md) and its docs links
+- Complete system overview, context, goals: [README.md](README.md)
 
 ---
 
@@ -42,6 +40,7 @@ You execute **autonomous startup operations** with minimal human intervention - 
 - Execution logic → `.claude/skills/*/SKILL.md`
 - Customer data → `research/customer/icp/{segment}-icp.yaml`
 - Published materials → `artifacts/{sales|marketing}/`
+- Engineering specs → `artifacts/engineering/` (specifications, maps, code, proofs)
 
 **Never duplicate. Always reference.**
 
@@ -113,40 +112,48 @@ Where:
 
 **Skills are NOT documentation. Skills ARE operations.**
 
-**Engineering Skills (Building Systems):**
-- `category-theoretic-system-design` - Transform requirements into production-ready systems using category theory
-- `standardization-layer` - Apply cross-cutting concerns (auth, validation, response formats) to microservices
+**19 skills with 60+ sub-skills organized in `.claude/skills/`**
 
-**Business Operations Skills (Running Systems):**
+**Engineering Skills (7 skills, 27 sub-skills):**
 
-**Strategy & Foundation:**
-- `foundation-builder` - Orchestrate 10 agents for Canvas population and validation (pre-launch)
+Full production flow: Requirements → Architecture → Maps → Code → Deployment
+
+- `system-architecture` - Transform requirements into mathematical specs (9 sub-skills)
+- `backend-prover` - Generate verified backend code via two-phase maps (4 sub-skills)
+- `frontend-prover` - Generate type-safe frontend from OpenAPI (4 sub-skills)
+- `infrastructure-prover` - Generate deployment configs with topology proofs (5 sub-skills)
+- `standardization-definer` - Define cross-cutting concern contracts (WHAT)
+- `standardization-applier` - Apply standards preserving composition (HOW)
+- `proof-composer` - Validate entire proof chain for deployment
+
+**Foundations Skills (4 skills):**
+- `foundations-builder` - Orchestrate 10 agents for Canvas population and validation (pre-launch)
 - `icp-generator` - Define Ideal Customer Profile per segment
 - `sales-narrative` - Generate sales messaging per segment
 - `marketing-narrative` - Generate content strategy per product
 
-**Execution:**
+**Operations Skills (4 skills):**
+- `causal-flow` - 6-stage decision flow orchestrator (business, sales, marketing, engineering threads)
+- `content-strategy` - Scan threads for campaign opportunities (standalone, daily automated)
+- `ops-dashboard` - Auto-generate daily ops/ dashboards (today.md, velocity.md, patterns.md, changes.md)
+- `business-metrics-tracker` - Generate mode-aware business metrics dashboards
+
+**Research Skills (2 skills):**
+- `research-market-venture` - TAM sizing, growth analysis, competitive landscape (VENTURE mode)
+- `research-market-bootstrap` - Spend mapping, arbitrage, immediate revenue (BOOTSTRAP mode)
+
+**Execution Skills (2 skills):**
 - `sales-execution` - Orchestrate materials generation, prospecting, outreach, qualification
   - Sub-skills: materials-generation, prospect-research, contact-finding, outreach-sequencing, qualification-support
-- `content-strategy` - Scan threads for campaign opportunities (standalone skill, daily automated)
 - `marketing-execution` - Orchestrate campaign execution (Stage 5 only)
   - Sub-skills: content-generation, seo-optimization, content-distribution, performance-tracking
 
-**Orchestration & Operations:**
-- `causal-flow` - 6-stage decision flow orchestrator (business, sales, marketing threads)
-- `ops-dashboard` - Auto-generate daily ops/ dashboards (today.md, velocity.md, patterns.md, changes.md)
-- `business-metrics-tracker` - Generate mode-aware business metrics dashboards (revenue, profitability, growth)
-
-**Utility Skills (Third-Party - DO NOT MODIFY):**
-- `document-skills` - Document format handling (docx, pdf, pptx, xlsx)
-  - **Provider:** Anthropic, PBC (proprietary, cannot be modified)
-  - **Use:** Invoke for document operations only
-  - **Restrictions:** Cannot edit, copy, or redistribute these skills
-
 **When to invoke skills:**
-- **Engineering:** Building technical systems → `category-theoretic-system-design`
-- **Engineering:** Standardizing microservices → `standardization-layer`
-- **Business:** Canvas needs population → `foundation-builder` (pre-launch orchestration)
+- **Engineering:** Building technical systems → `system-architecture`
+- **Engineering:** Backend code generation → `backend-prover`
+- **Engineering:** Frontend generation → `frontend-prover`
+- **Engineering:** Deployment configs → `infrastructure-prover`
+- **Business:** Canvas needs population → `foundations-builder` (pre-launch orchestration)
 - **Business:** New customer segment → `icp-generator`
 - **Sales:** ICP updated → `sales-narrative` (per segment)
 - **Marketing:** Canvas positioning changes → `marketing-narrative`
@@ -155,7 +162,8 @@ Where:
 - **Marketing:** High-priority campaign approved → `marketing-execution` (orchestrate Stage 5)
 - **All:** Strategic decision needed → `causal-flow` (orchestrate 6 stages)
 - **All:** Daily operations review → `ops-dashboard` (auto-generate ops/today.md)
-- **All:** Weekly/monthly business review → `business-metrics-tracker` (generate artifacts/business/metrics.md)
+- **All:** Weekly/monthly business review → `business-metrics-tracker`
+- **Research:** Market analysis → `research-market-venture` or `research-market-bootstrap` (mode-aware)
 
 **Skills execute autonomously, coordinated through threads and Canvas, not centralized control.**
 
@@ -221,9 +229,9 @@ Where:
 
 **Example: Segment Split Decision**
 ```
-Input: 5/5 luxury deals chose white-label, 0/5 fast fashion
-Hypothesis: Tests A4 - Luxury vs fast fashion have different needs
-Implication: Split "Fashion" segment → "Luxury Brands" + "Fast Fashion"
+Input: 5/5 enterprise deals chose white-label, 0/5 SMB
+Hypothesis: Tests A4 - Enterprise vs SMB have different needs
+Implication: Split "Business" segment → "Enterprise" + "SMB"
 Decision: SPLIT SEGMENT (Impact: 0.9 - requires human approval)
 Actions: Update Canvas, regenerate ICPs, regenerate narratives
 Learning: {After execution} Validated - separate ICPs perform better
@@ -282,6 +290,61 @@ Learning: {After execution} Validated - separate ICPs perform better
 - Responses received: {count} ({percent})
 - Qualified leads: {count}
 - Demos scheduled: {count}
+
+### Engineering Threads
+
+**Trigger:** Business decision to build new feature/system, technical requirement
+
+**Process:**
+```
+1. Create thread: threads/engineering/{requirement-name}/
+2. Stage 1-4: Define requirements, assess feasibility, estimate effort, decide BUILD/DEFER/KILL
+3. Stage 5: Execute engineering actions
+   - engineering:architecture (system-architecture skill generates specs)
+   - engineering:backend (backend-prover generates verified code)
+   - engineering:frontend (frontend-prover generates type-safe client)
+   - engineering:infrastructure (infrastructure-prover generates deployment)
+   - engineering:validate (proof-composer validates entire chain)
+4. Stage 6: Document learning, update Canvas if needed
+```
+
+**Output flow:**
+```
+threads/engineering/{requirement}/
+    ↓
+system-architecture (9 sub-skills)
+    ↓
+artifacts/engineering/specifications/v{X}/
+  ├─ requirements.adt
+  ├─ types.curry-howard
+  ├─ architecture.categorical
+  ├─ api.openapi.json
+  ├─ services.spec.yaml
+  └─ state-machines.yaml
+    ↓
+backend-prover + standardization-definer/applier
+    ↓
+artifacts/engineering/code/backend/
+    ↓
+frontend-prover
+    ↓
+artifacts/engineering/code/frontend/
+    ↓
+infrastructure-prover
+    ↓
+artifacts/engineering/configs/
+  ├─ docker/
+  ├─ kubernetes/
+  └─ ci-cd/
+    ↓
+proof-composer
+    ↓
+artifacts/engineering/proofs/composed/system-proof.certificate
+    ↓
+Deployment authorized (certificate valid)
+```
+
+**Key principle:** Code generation is two-phase (Maps → Code). Verify composition laws on maps first (~3 sec), then generate implementation (~5 sec).
 
 ### Marketing Campaigns
 
@@ -373,7 +436,7 @@ Output: artifacts/marketing/narrative/
 - `strategy/canvas/07-uvp.md` - Positioning and value props
 - `strategy/canvas/05-problem.md` - Customer pain points
 - `strategy/canvas/04-segments.md` - Target audience
-- `research/customer/buyer-personas-dtc-fashion.md` - Persona insights
+- `research/customer/buyer-personas-{segment}.md` - Persona insights
 - `artifacts/sales/{segment}/narratives/` - Messaging consistency
 
 **Status:** ONE-TIME - Regenerate only when Canvas positioning changes
@@ -387,38 +450,38 @@ Output: artifacts/marketing/narrative/
 **Initial content opportunities (Week 2):**
 
 **2A. Educational Content (Problem-focused):**
-- "Why 30% of Fashion Returns Are Fit-Related" (Canvas problem.md)
-- "The Hidden Cost of Sizing Issues for DTC Brands" (research data)
-- "Body Shape vs Measurements: Why Traditional Sizing Fails" (Canvas solution.md)
+- "{Problem} costs {industry} $X annually" (Canvas problem.md)
+- "The Hidden Cost of {Problem} for {Segment}" (research data)
+- "Why Traditional {Approach} Fails" (Canvas solution.md)
 
 **2B. Product Capabilities:**
-- "Dual Intelligence: Fit + Color Analysis Explained" (Canvas UVP)
-- "How Seasonal Color Analysis Reduces Color-Based Returns" (Canvas solution.md)
-- "Brand Affinity Intelligence for Marketplaces" (marketplace narrative)
+- "How {Solution} Solves {Problem}" (Canvas UVP)
+- "{Feature} Explained: Technical Deep Dive" (Canvas solution.md)
+- "{Use Case} for {Segment}" (segment narrative)
 
 **2C. Industry Insights:**
-- "DTC Fashion: Return Reduction Benchmarks" (research/customer data)
-- "What 191 Shopify Fashion Brands Share in Common" (prospect research)
+- "{Industry}: {Metric} Benchmarks" (research/customer data)
+- "What {N} {Segment} Companies Share in Common" (prospect research)
 
 **Source:** Canvas assumptions + customer research (NOT sales threads yet)
 
 **Process:**
 ```
-1. Bella identifies 2-3 initial topics (from Canvas + research)
+1. Founder identifies 2-3 initial topics (from Canvas + research)
 2. Create marketing threads: threads/marketing/content/{topic-slug}/
 3. Execute 6-stage flow:
    - Stage 1-4: Opportunity → Hypothesis → Implication → Decision
    - Stage 5: Actions
      - marketing:create (draft from Canvas/research)
-     - Bella reviews (30 min)
+     - Founder reviews (30 min)
      - marketing:publish (SEO + distribution)
      - marketing:promote (cross-channel)
      - marketing:measure (track performance)
    - Stage 6: Learning (validate hypothesis)
-4. Publish Week 2 (BEFORE or DURING DTC outreach)
+4. Publish Week 2 (BEFORE or DURING outreach)
 ```
 
-**Goal:** 2-3 foundational pieces live when DTC outreach begins
+**Goal:** 2-3 foundational pieces live when outreach begins
 
 ---
 
@@ -467,7 +530,7 @@ content-strategy detects (daily scan)
     ↓
 Flags opportunity in ops/today.md
     ↓
-Bella approves
+Founder approves
     ↓
 NEW content created OR existing content updated
 ```
@@ -489,7 +552,7 @@ NEW content created OR existing content updated
 - LinkedIn posts amplifying
 
 **Synergy:**
-- Prospects Google "fashion return reduction" → Find our content → Warmer to outreach
+- Prospects search for {problem keywords} → Find your content → Warmer to outreach
 - Sales calls reveal objections → Marketing creates content addressing them
 - Marketing content shared in follow-up emails → Moves deals forward
 
@@ -547,43 +610,43 @@ NEW content created OR existing content updated
 
 ## Skills Reference (Quick)
 
-**Engineering Skills (Building Systems):**
-- `category-theoretic-system-design` - Transform requirements into production-ready systems using category theory
-- `standardization-layer` - Apply cross-cutting concerns (auth, validation, response formats) to microservices
+**Engineering Skills (7 skills):**
+- `system-architecture` - Requirements → mathematical specs (9 sub-skills)
+- `backend-prover` - Verified backend via two-phase maps (4 sub-skills)
+- `frontend-prover` - Type-safe frontend from OpenAPI (4 sub-skills)
+- `infrastructure-prover` - Deployment configs with proofs (5 sub-skills)
+- `standardization-definer` - Define cross-cutting contracts
+- `standardization-applier` - Apply standards, verify naturality
+- `proof-composer` - Validate proof chain for deployment
 
-**Business Operations Skills (Running Systems):**
-
-**Strategy & Foundation:**
-- `foundation-builder` - Orchestrate 10 agents for Canvas population and validation (pre-launch)
-- `icp-generator` - Define Ideal Customer Profile per segment
+**Foundations Skills (4 skills):**
+- `builder` - Orchestrate 10 agents for Canvas population (pre-launch)
+- `icp-generator` - Define ICP per segment
 - `sales-narrative` - Generate sales messaging per segment
 - `marketing-narrative` - Generate content strategy per product
 
-**Sales Execution:**
+**Operations Skills (4 skills):**
+- `causal-flow` - 6-stage decision flow orchestrator (universal)
+- `content-strategy` - Scan threads for campaign opportunities (daily automated)
+- `ops-dashboard` - Auto-generate daily ops/ dashboards
+- `business-metrics-tracker` - Mode-aware business metrics dashboards
+
+**Research Skills (2 skills):**
+- `research-market-venture` - TAM, growth, defensibility (VENTURE mode)
+- `research-market-bootstrap` - Spend mapping, arbitrage (BOOTSTRAP mode)
+
+**Execution Skills (2 skills):**
 - `sales-execution` - Orchestrate materials, prospecting, outreach
   - `materials-generation` - Auto-generate pitch decks, emails, scripts
   - `prospect-research` - Find target companies (web_search)
   - `contact-finding` - Find decision-makers (web_search)
   - `outreach-sequencing` - Generate email/phone cadences
   - `qualification-support` - Discovery call prep
-
-**Marketing Strategy:**
-- `content-strategy` - Scan threads for campaign opportunities (standalone, daily automated)
-
-**Marketing Execution:**
 - `marketing-execution` - Orchestrate campaign execution (Stage 5 only)
   - `content-generation` - Create educational drafts
   - `seo-optimization` - Apply keywords naturally
   - `content-distribution` - Publish multi-channel
   - `performance-tracking` - Measure impact, feed insights
-
-**Orchestration & Operations:**
-- `causal-flow` - 6-stage decision flow orchestrator (universal)
-- `ops-dashboard` - Auto-generate daily ops/ dashboards (today.md, velocity.md, patterns.md, changes.md)
-- `business-metrics-tracker` - Generate mode-aware business metrics dashboards (revenue, profitability, growth)
-
-**Utility (Third-Party):**
-- `document-skills` - Document format handling (© Anthropic - DO NOT MODIFY)
 
 ---
 
@@ -681,12 +744,12 @@ NEW content created OR existing content updated
 ```
 Sales thread completes (Stage 6)
     ↓
-Thread: threads/sales/elsa-white-label/6-learning.md
-Learning: "Luxury brands prefer white-label (N=5, 100%)"
+Thread: threads/sales/{customer-name}/6-learning.md
+Learning: "Enterprise customers prefer white-label (N=5, 100%)"
     ↓
 content-strategy (daily scan, standalone skill)
     ↓
-Opportunity: "Case study, Priority: 0.85, Keyword: white-label SDK"
+Opportunity: "Case study, Priority: 0.85, Keyword: {product keyword}"
     ↓
 Flag in ops/today.md
     ↓
@@ -703,7 +766,7 @@ Canvas update: H1 validated (case studies convert 2x better)
 
 ### Content → Sales Attribution
 ```
-Blog published: "ElsaAI White-Label Case Study"
+Blog published: "{Customer} Case Study"
     ↓
 SEO drives organic traffic
     ↓
@@ -712,13 +775,13 @@ Visitor requests demo
 Sales thread: threads/sales/{company}/
     ↓
 Stage 1: metadata.yaml includes:
-  source: "marketing/content/elsaai-white-label/"
+  source: "marketing/content/{case-study-slug}/"
   attribution: "Blog article"
     ↓
-Stage 6 (if closes): "Won $500K, attributed to blog"
+Stage 6 (if closes): "Won ${amount}, attributed to blog"
     ↓
 performance-tracking updates:
-  pipeline_influenced: "$550K" (cumulative)
+  pipeline_influenced: "${cumulative}" (cumulative)
 ```
 
 ### Canvas Update Flow
@@ -736,6 +799,65 @@ Canvas section updated:
     ↓
 Materials regenerate (if impact <0.8)
 OR flag for approval (if impact ≥0.8)
+```
+
+### Engineering Artifacts Flow
+```
+Business thread decides to build feature
+    ↓
+Engineering thread created: threads/engineering/{requirement}/
+    ↓
+Stage 4 Decision: BUILD (impact calculated)
+    ↓
+Stage 5 Actions invoke engineering skills:
+
+system-architecture
+    ↓
+artifacts/engineering/specifications/v{X}/
+  ├─ requirements.adt (algebraic types)
+  ├─ types.curry-howard (type proofs)
+  ├─ architecture.categorical (functors, transformations)
+  ├─ api.openapi.json (API contract)
+  ├─ services.spec.yaml (service boundaries)
+  └─ state-machines.yaml (state transitions)
+    ↓
+standardization-definer
+    ↓
+artifacts/engineering/maps/shared/
+  └─ standards-contract.yaml (auth, validation, responses)
+    ↓
+backend-prover (Phase 1: Maps)
+    ↓
+artifacts/engineering/maps/backend/
+  └─ {service}-map.yaml (structural specs)
+    ↓
+backend-prover (Phase 2: Code)
+    ↓
+artifacts/engineering/code/backend/
+  └─ {service}/ (Python/FastAPI)
+    ↓
+standardization-applier
+    ↓
+artifacts/engineering/code/backend/ (standards injected)
+    ↓
+frontend-prover
+    ↓
+artifacts/engineering/code/frontend/
+  └─ {app}/ (TypeScript/Remix)
+    ↓
+infrastructure-prover
+    ↓
+artifacts/engineering/configs/
+  ├─ docker/
+  ├─ kubernetes/
+  └─ ci-cd/
+    ↓
+proof-composer
+    ↓
+artifacts/engineering/proofs/composed/
+  └─ system-proof.certificate
+    ↓
+Deployment authorized
 ```
 
 ---
@@ -884,7 +1006,7 @@ OR flag for approval (if impact ≥0.8)
 
 ## Success Looks Like
 
-**For Bella (Human):**
+**For the Founder (Human):**
 - Reads ops/today.md in 5 minutes
 - Approves 2-3 high-impact decisions
 - Attends 1-2 customer calls
@@ -917,7 +1039,7 @@ Execute decisions. Generate materials. Track metrics. Update Canvas. Flag except
 
 **Be proactive. Be autonomous. Be precise.**
 
-**When you execute well, Bella focuses on strategy and customers. When you fail, Bella drowns in operations.**
+**When you execute well, the founder focuses on strategy and customers. When you fail, the founder drowns in operations.**
 
 **Don't fail.**
 
@@ -938,6 +1060,6 @@ Execute decisions. Generate materials. Track metrics. Update Canvas. Flag except
 
 ---
 
-**Version:** 1.2
-**Last updated:** 2025-11-20
-**System status:** Engineering layer (category-theoretic system design) + Business operations (sales, marketing, dual-mode support) complete
+**Version:** 1.3
+**Last updated:** 2025-11-25
+**System status:** Engineering layer (8 skills, 27 sub-skills) + Business operations (19 total skills, 60+ sub-skills) complete

@@ -4,6 +4,106 @@ Five patterns for educational blog content.
 
 ---
 
+## Example Usage Rules
+
+**Examples are teaching tools, not decoration. Every example must serve the reader.**
+
+### Rule 1: One Example Per Campaign (Teaching Campaigns)
+
+**For educational/teaching campaigns:** Use ONE consistent example throughout the entire campaign.
+
+**Why:** Reader builds mental model. Switching examples forces them to rebuild context.
+
+```
+❌ Wrong (scattered):
+- Article 1: "Imagine a {industry} company..."
+- Article 2: "Consider a SaaS startup..."
+- Article 3: "Take a fintech company..."
+
+✅ Right (consistent):
+- Article 1: "FastCapital (our example fintech) faces..."
+- Article 2: "Continuing with FastCapital..."
+- Article 3: "As we saw with FastCapital..."
+```
+
+**Campaign example should be:**
+- Introduced clearly in first piece
+- Referenced consistently throughout
+- Complex enough to demonstrate multiple concepts
+- Relatable to target audience
+
+---
+
+### Rule 2: Real vs Invented - Always Declare
+
+**If example is real:** Name it, link to proof if public.
+```
+✅ "{Your Product} (our {product description}) reduced {metric} by..."
+✅ "{Customer} ({customer description})..."
+```
+
+**If example is invented:** State it explicitly.
+```
+✅ "Let's use FastCapital as our example throughout this series..."
+✅ "Consider a hypothetical Series A fintech (we'll call it FastCapital)..."
+```
+
+**Never:**
+```
+❌ Present invented examples as if they're real customers
+❌ Leave reader guessing if example is real or illustrative
+❌ Mix real and invented without clarity
+```
+
+---
+
+### Rule 3: No Scattered Examples Within Article
+
+**One primary example per article.** Additional examples only if they:
+- Contrast with primary example (different segment, different outcome)
+- Are brief (1-2 sentences max)
+- Don't require reader to build new mental model
+
+```
+❌ Wrong (scattered):
+"{Industry A} faces {problem A}. {Industry B} faces {problem B}. {Industry C}
+faces {problem C}. {Industry D} faces {problem D}. Each industry..."
+
+✅ Right (focused):
+"{Industry} companies face {X}% {problem}. Let's examine how one {segment}
+company ({Customer}) tackled this. [Entire article uses {Customer} example]
+
+Brief contrast: Unlike {industry}, {other industry} faces different triggers
+({other problem}, not {primary problem}) - but the methodology applies."
+```
+
+---
+
+### Rule 4: Reader Value Test
+
+**Before adding any example, ask:**
+
+1. **Does this help reader understand?** (If no, cut it)
+2. **Does reader need new context to follow?** (If yes, simplify or cut)
+3. **Could I explain without this example?** (If yes, maybe cut)
+4. **Does it advance the teaching goal?** (If no, cut)
+
+**Examples exist to clarify, not to impress.**
+
+---
+
+### Rule 5: Example Depth Guidelines
+
+| Content Type | Example Approach |
+|--------------|------------------|
+| Single article | One primary example, deep |
+| Campaign (3+ pieces) | One example across all pieces |
+| Comparison article | Two examples max (A vs B) |
+| Technical deep dive | One real implementation example |
+| Problem analysis | One industry example, data-focused |
+
+---
+
 ## Pattern 1: Problem Analysis
 
 **Use when:** Explaining industry problem, sharing research, analyzing trends
@@ -16,24 +116,24 @@ Five patterns for educational blog content.
 
 **Data-first:**
 ```
-25% of online fashion purchases get returned. That's $743B in 
-reverse logistics annually—more than the GDP of Switzerland.
+{X}% of {industry} {metric} results in {negative outcome}. That's ${Y}B in
+{cost category} annually—more than {surprising comparison}.
 
-But the problem isn't returns. It's why they happen.
+But the problem isn't {surface issue}. It's why they happen.
 ```
 
 **Surprising insight:**
 ```
-We analyzed 10,000 fashion returns. Expected: price regret. 
-Found: 73% were fit issues. The problem isn't buyer's remorse—
-it's that size charts don't work.
+We analyzed {N} {data points}. Expected: {common assumption}.
+Found: {X}% were {root cause}. The problem isn't {assumed cause}—
+it's that {real cause}.
 ```
 
 **Industry observation:**
 ```
-Every fashion brand says "reduce returns." Few ask: what's 
-causing them? We spent 6 months analyzing 50 enterprise brands. 
-Here's what returns actually tell us.
+Every {industry} company says "{common goal}." Few ask: what's
+causing {problem}? We spent {time} analyzing {N} {data points}.
+Here's what {data} actually tells us.
 ```
 
 ### Structure Guide
@@ -64,111 +164,109 @@ Here's what returns actually tell us.
 - Related topics (internal links)
 - Soft link if relevant (no hard CTA)
 
-### Example: ElsaAI Returns Analysis
+### Example: Problem Analysis Article
 
 ```markdown
-# Why 73% of Fashion Returns Are Actually Fit Issues
+# Why {X}% of {Industry} {Problems} Are Actually {Root Cause}
 
 ## Introduction
 
-25% of online fashion purchases get returned. Brands blame buyer's 
-remorse, showrooming, or pricing. We analyzed 10,000 returns across 
-5 luxury brands. They were wrong.
+{X}% of {industry} {metric} results in {problem}. Companies blame {common assumption 1},
+{common assumption 2}, or {common assumption 3}. We analyzed {N} {data points} across
+{N} {segment} companies. They were wrong.
 
-73% of returns were fit issues—not price regret. Size charts don't 
-work, and virtual try-on isn't accurate enough. The $743B reverse 
-logistics problem isn't about returns. It's about fit prediction.
+{Y}% of {problems} were {root cause}—not {assumed cause}. {Current solution} doesn't
+work, and {alternative solution} isn't accurate enough. The ${Z}B {problem category}
+problem isn't about {surface issue}. It's about {real issue}.
 
-Here's what 6 months of return data taught us about why customers 
-send clothes back.
+Here's what {time period} of {data} taught us about why {outcome} happens.
 
 ## The Problem
 
-Fashion brands lose $120 per return on average:
-- Reverse logistics: $15 (shipping + processing)
-- Lost revenue: $90 (can't resell as new)
-- Customer service: $15 (15 min @ $60/hr)
+{Industry} companies lose ${X} per {problem} on average:
+- {Cost 1}: ${amount} ({explanation})
+- {Cost 2}: ${amount} ({explanation})
+- {Cost 3}: ${amount} ({explanation})
 
-At 25% return rates, a $10M/year brand loses $2.5M annually.
+At {X}% {problem rate}, a ${Y}M/year company loses ${Z}M annually.
 
-Brands try:
-- Better size charts → Still 32% wrong
-- Virtual try-on → 28% accuracy improvement (not enough)
-- Free returns → Increases returns 40%
+Companies try:
+- {Solution 1} → Still {X}% {failure rate}
+- {Solution 2} → {X}% improvement (not enough)
+- {Solution 3} → Increases {problem} {X}%
 
-None address root cause: customers can't predict fit from product pages.
+None address root cause: {customers/users} can't {core action} from {current approach}.
 
 ## Data Analysis
 
-We analyzed 10,000 returns across 5 luxury brands ($50M-$200M GMV):
+We analyzed {N} {data points} across {N} {segment} companies (${X}M-${Y}M {metric}):
 
-**Return reasons:**
-- Fit issues: 73% (7,300 returns)
-- Color/style mismatch: 18% (1,800)
-- Quality issues: 6% (600)
-- Price regret: 3% (300)
+**{Problem} reasons:**
+- {Reason 1}: {X}% ({N} instances)
+- {Reason 2}: {X}% ({N} instances)
+- {Reason 3}: {X}% ({N} instances)
+- {Reason 4}: {X}% ({N} instances)
 
-**Fit issue breakdown:**
-- Too small: 42% (3,066)
-- Too large: 31% (2,263)
-- Wrong proportions: 27% (1,971)
+**{Root cause} breakdown:**
+- {Sub-cause 1}: {X}% ({N})
+- {Sub-cause 2}: {X}% ({N})
+- {Sub-cause 3}: {X}% ({N})
 
 **Methodology:**
-- Analyzed return reason codes (when provided)
-- Parsed customer service notes (5,000+ tickets)
-- Interviewed 200 customers post-return
-- Cross-referenced with reorder patterns
+- Analyzed {data source 1} (when provided)
+- Parsed {data source 2} ({N}+ {items})
+- Interviewed {N} {stakeholders} post-{event}
+- Cross-referenced with {pattern}
 
 **Key insight:**
-Customers who return for fit issues reorder 68% of the time—but in 
-different sizes. They want the product. Size charts failed them.
+{Users} who {action} for {root cause} {positive behavior} {X}% of the time—but in
+{different way}. They want {outcome}. {Current approach} failed them.
 
 **Surprising finding:**
-Luxury brands ($100M+ GMV) have higher fit return rates (31% vs 22% 
-mid-market). Why? Higher expectations. Luxury customers expect 
-perfect fit, mid-market customers keep "good enough."
+{Segment A} (${X}M+ {metric}) have higher {problem} rates ({X}% vs {Y}%
+{Segment B}). Why? Higher expectations. {Segment A} expects {high standard},
+{Segment B} accepts "good enough."
 
 ## Implications
 
-**Insight 1: Size charts are the problem**
+**Insight 1: {Current approach} is the problem**
 
-Generic size charts average 68% accuracy. That means 32% of customers 
-get wrong sizes—and luxury customers won't accept "close enough."
+{Current approach} averages {X}% accuracy. That means {Y}% of {users}
+get wrong {outcome}—and {premium segment} won't accept "close enough."
 
-The fix isn't better charts. It's personalized fit prediction.
+The fix isn't {incremental improvement}. It's {solution approach}.
 
-**Insight 2: Virtual try-on isn't accurate enough**
+**Insight 2: {Alternative} isn't accurate enough**
 
-Current virtual try-on: 72% accuracy (4% improvement over charts). 
-Luxury threshold: >90% to build trust.
+Current {alternative}: {X}% accuracy ({Y}% improvement over {current}).
+{Premium} threshold: >{Z}% to build trust.
 
-Gap between current tech (72%) and customer expectation (90%) explains 
-why adoption stays low (<5% of luxury sites).
+Gap between current tech ({X}%) and {user} expectation ({Y}%) explains
+why adoption stays low (<{Z}% of {premium} {companies}).
 
-**Insight 3: Returns signal buying intent**
+**Insight 3: {Problems} signal {intent}**
 
-68% of fit-issue returns lead to reorders. These aren't "I don't want 
-this" returns—they're "I want this but in the right size."
+{X}% of {root cause} {problems} lead to {positive action}. These aren't
+"{negative interpretation}" {problems}—they're "{positive interpretation}."
 
-Opportunity: Fix fit prediction = capture 68% of return revenue.
+Opportunity: Fix {root cause} = capture {X}% of {lost} revenue.
 
 ## Conclusion
 
-Fashion returns aren't about buyer's remorse. 73% are fit issues, and 
-customers reorder 68% of the time when they find the right size.
+{Industry} {problems} aren't about {assumed cause}. {X}% are {root cause}, and
+{users} {positive action} {Y}% of the time when they {get what they need}.
 
 **Key takeaways:**
 
-1. Size charts are 68% accurate—not good enough for luxury
-2. Virtual try-on at 72% accuracy misses the 90% trust threshold
-3. Fit returns signal buying intent (68% reorder rate)
-4. Luxury brands need >90% fit accuracy to reduce returns meaningfully
-5. $743B reverse logistics problem is actually fit prediction problem
+1. {Current approach} is {X}% accurate—not good enough for {premium segment}
+2. {Alternative} at {X}% accuracy misses the {Y}% trust threshold
+3. {Root cause} {problems} signal {intent} ({X}% {positive action} rate)
+4. {Premium segment} needs >{X}% {metric} accuracy to reduce {problems} meaningfully
+5. ${X}B {problem category} problem is actually {root cause} problem
 
-Related: [How Body Scanning Achieves 94% Fit Accuracy] [Why Luxury 
-Brands Choose White-Label SDK]
+Related: [{Related article 1}] [{Related article 2}]
 
-Technical approach: [Fit Prediction Architecture Docs]
+Technical approach: [{Technical docs}]
 ```
 
 ---
@@ -185,26 +283,26 @@ Technical approach: [Fit Prediction Architecture Docs]
 
 **Problem statement:**
 ```
-Building real-time fit recommendations sounds simple. Load body 
-measurements, run ML model, return size. We shipped in 2 days.
+Building real-time {recommendations} sounds simple. Load {input data},
+run ML model, return {output}. We shipped in 2 days.
 
-Then we tried to scale. Latency spiked to 3 seconds. Accuracy 
-dropped to 61%. Our "simple" system wasn't production-ready.
+Then we tried to scale. Latency spiked to 3 seconds. Accuracy
+dropped to {X}%. Our "simple" system wasn't production-ready.
 ```
 
 **Challenge framing:**
 ```
-Every fashion SDK faces the same challenge: accurate fit predictions 
-under 200ms. Miss that threshold, conversion drops 15%. Here's how 
-we got from 3 seconds to 180ms without sacrificing accuracy.
+Every {industry} SDK faces the same challenge: accurate {predictions}
+under {X}ms. Miss that threshold, conversion drops {Y}%. Here's how
+we got from {slow time} to {fast time} without sacrificing accuracy.
 ```
 
 **Lesson learned:**
 ```
-We rebuilt our fit recommendation system 3 times. First version: 
+We rebuilt our {system} 3 times. First version:
 too slow. Second: too inaccurate. Third: production-ready at scale.
 
-Here's what we learned about real-time ML in e-commerce.
+Here's what we learned about real-time ML in {industry}.
 ```
 
 ### Structure Guide
@@ -243,59 +341,59 @@ Here's what we learned about real-time ML in e-commerce.
 - When to use this approach
 - Related resources (technical docs)
 
-### Example: Real-Time Fit Recommendations
+### Example: Real-Time Recommendations
 
 ```markdown
-# Building Real-Time Fit Recommendations: 3s → 180ms
+# Building Real-Time {Recommendations}: {Slow}s → {Fast}ms
 
 ## Introduction
 
-Fit recommendation systems need <200ms latency. Above that, conversion 
-drops 15%. Our first version took 3 seconds. Accuracy: 61%.
+{Recommendation} systems need <{threshold}ms latency. Above that, conversion
+drops {X}%. Our first version took {slow} seconds. Accuracy: {low}%.
 
-We rebuilt 3 times to get production-ready performance: 180ms latency, 
-94% accuracy, 99.9% uptime.
+We rebuilt 3 times to get production-ready performance: {fast}ms latency,
+{high}% accuracy, 99.9% uptime.
 
-Here's how we architected real-time ML for fashion e-commerce.
+Here's how we architected real-time ML for {industry}.
 
 ## The Challenge
 
 **Requirements:**
-- Latency: <200ms (conversion threshold)
-- Accuracy: >90% (luxury customer trust threshold)
-- Scale: 10,000 requests/hour per brand
-- Cost: <$0.001 per prediction (sustainable economics)
+- Latency: <{threshold}ms (conversion threshold)
+- Accuracy: >{accuracy}% ({premium segment} trust threshold)
+- Scale: {N} requests/hour per {customer}
+- Cost: <${cost} per prediction (sustainable economics)
 
 **Why it's hard:**
-- ML models are slow (500ms-2s for body measurement processing)
+- ML models are slow ({X}ms-{Y}s for {processing type})
 - High accuracy requires complex models (more computation)
 - Real-time = no batch processing benefits
-- Fashion has 100+ body measurement combinations per garment
+- {Industry} has {N}+ {input} combinations per {item}
 
 **Failed approaches:**
 
 *Attempt 1: Real-time ML inference*
-- Latency: 3,200ms (16x too slow)
-- Accuracy: 87% (good but not luxury threshold)
-- Cost: $0.15/prediction (150x budget)
+- Latency: {X}ms ({Y}x too slow)
+- Accuracy: {Z}% (good but not {premium} threshold)
+- Cost: ${X}/prediction ({Y}x budget)
 
 *Attempt 2: Pre-compute all combinations*
-- Storage: 50TB per brand (unsustainable)
-- Accuracy: 94% (excellent)
-- Update latency: 6 hours (stale recommendations)
+- Storage: {X}TB per {customer} (unsustainable)
+- Accuracy: {Y}% (excellent)
+- Update latency: {Z} hours (stale recommendations)
 
 Neither worked at scale.
 
 ## Our Approach
 
-**Hybrid architecture: Real-time measurement + cached predictions**
+**Hybrid architecture: Real-time {input} + cached predictions**
 
-Core insight: Body measurements change rarely. Garment fit patterns 
-change never (once designed). Separate these concerns.
+Core insight: {Input A} changes rarely. {Input B} patterns
+change never (once {created}). Separate these concerns.
 
 **Architecture:**
 ```
-User → Measurement API (150ms) → Prediction Cache (30ms) → Response
+User → {Input} API ({X}ms) → Prediction Cache ({Y}ms) → Response
          ↓
       ML Model (background)
          ↓
@@ -303,202 +401,97 @@ User → Measurement API (150ms) → Prediction Cache (30ms) → Response
 ```
 
 **Why this works:**
-1. Measure body once, cache measurements (99% cache hit rate)
-2. Pre-compute fit predictions for popular garments (top 20% = 80% traffic)
-3. Real-time ML only for cache misses (<1% of requests)
+1. Process {input} once, cache {input} ({X}% cache hit rate)
+2. Pre-compute {predictions} for popular {items} (top {X}% = {Y}% traffic)
+3. Real-time ML only for cache misses (<{X}% of requests)
 
 **Trade-offs:**
-- Pro: 180ms average latency (10x faster)
-- Pro: $0.0008/prediction (within budget)
-- Con: Cache warming takes 2 hours for new garments
-- Con: Requires prediction invalidation on garment updates
+- Pro: {X}ms average latency ({Y}x faster)
+- Pro: ${cost}/prediction (within budget)
+- Con: Cache warming takes {X} hours for new {items}
+- Con: Requires prediction invalidation on {item} updates
 
 **Rejected alternatives:**
-- Edge compute: 40% faster but 3x cost
-- Simpler model: 60ms faster but 85% accuracy (too low)
-- Client-side ML: Zero latency but 76% accuracy (insufficient)
+- Edge compute: {X}% faster but {Y}x cost
+- Simpler model: {X}ms faster but {Y}% accuracy (too low)
+- Client-side ML: Zero latency but {X}% accuracy (insufficient)
 
 ## Implementation
 
-**Step 1: Measurement API**
-
-```python
-# FastAPI endpoint
-@router.post("/measurements")
-async def get_measurements(
-    user_id: str,
-    height: float,
-    weight: float,
-    body_shape: BodyShape
-) -> MeasurementResponse:
-    # Check cache (Redis)
-    cached = await cache.get(f"user:{user_id}:measurements")
-    if cached:
-        return MeasurementResponse(**cached)
-    
-    # Compute if cache miss
-    measurements = await ml_model.predict_measurements(
-        height, weight, body_shape
-    )
-    
-    # Cache for 30 days (measurements change rarely)
-    await cache.set(
-        f"user:{user_id}:measurements",
-        measurements.dict(),
-        ttl=2592000
-    )
-    
-    return MeasurementResponse(**measurements)
-```
-
-**Latency breakdown:**
-- Cache hit: 15ms (Redis lookup)
-- Cache miss: 150ms (ML inference + cache write)
-- Cache hit rate: 99.2%
-- Average: 16ms
-
-**Step 2: Prediction Cache**
-
-```python
-# Pre-compute predictions for popular garments
-@task(schedule="@hourly")
-async def warm_prediction_cache():
-    # Top 20% garments = 80% traffic
-    popular_garments = await db.get_popular_garments(
-        limit=200,  # Per brand
-        time_window="7d"
-    )
-    
-    # For each body type cluster (50 clusters)
-    for cluster in BodyCluster.all():
-        for garment in popular_garments:
-            prediction = await ml_model.predict_fit(
-                cluster.representative_measurements,
-                garment.fit_data
-            )
-            
-            await cache.set(
-                f"fit:{cluster.id}:{garment.id}",
-                prediction.dict(),
-                ttl=86400  # 24 hours
-            )
-```
-
-**Cache efficiency:**
-- Garments cached: 200 per brand
-- Body clusters: 50 (k-means on measurement space)
-- Cache size: 10,000 predictions per brand
-- Storage: 50MB per brand (sustainable)
-- Warming time: 2 hours
-
-**Step 3: Real-Time Prediction**
-
-```python
-@router.post("/predict-fit")
-async def predict_fit(
-    garment_id: str,
-    user_id: str
-) -> FitPrediction:
-    # Get cached measurements
-    measurements = await get_measurements(user_id)
-    
-    # Find body cluster
-    cluster = BodyCluster.find_nearest(measurements)
-    
-    # Check prediction cache
-    cache_key = f"fit:{cluster.id}:{garment_id}"
-    cached_prediction = await cache.get(cache_key)
-    
-    if cached_prediction:
-        return FitPrediction(**cached_prediction)  # 30ms
-    
-    # Cache miss: real-time ML
-    garment = await db.get_garment(garment_id)
-    prediction = await ml_model.predict_fit(
-        measurements, garment.fit_data
-    )  # 500ms
-    
-    # Cache result
-    await cache.set(cache_key, prediction.dict(), ttl=86400)
-    
-    return prediction
-```
-
-**Latency breakdown:**
-- Cache hit: 30ms (measurement + prediction lookup)
-- Cache miss: 680ms (measurement + ML + cache write)
-- Cache hit rate: 92% (after warm-up)
-- Average: 84ms
+[Code examples with generic {variable} placeholders showing:]
+- Step 1: {Input} API with caching
+- Step 2: Prediction cache warming
+- Step 3: Real-time prediction endpoint
 
 **Pitfalls avoided:**
 
 1. **Don't cache per-user predictions**
-   - Problem: 1M users × 200 garments = 200M cache entries
-   - Solution: Cluster users (50 clusters × 200 garments = 10K entries)
+   - Problem: {X}M users × {Y} {items} = {Z}M cache entries
+   - Solution: Cluster users ({N} clusters × {M} {items} = {P}K entries)
 
-2. **Don't real-time compute measurements**
-   - Problem: Adds 500ms every request
-   - Solution: Cache measurements separately (99% hit rate)
+2. **Don't real-time compute {inputs}**
+   - Problem: Adds {X}ms every request
+   - Solution: Cache {inputs} separately ({Y}% hit rate)
 
-3. **Don't over-cluster body types**
-   - Problem: 500 clusters = 5% accuracy gain, 10x cache size
-   - Solution: 50 clusters = optimal accuracy/size trade-off
+3. **Don't over-cluster {input types}**
+   - Problem: {N} clusters = {X}% accuracy gain, {Y}x cache size
+   - Solution: {N} clusters = optimal accuracy/size trade-off
 
 **Time investment:**
-- Architecture: 1 week
-- Implementation: 2 weeks
-- Load testing: 1 week
-- Production tuning: 2 weeks
-- Total: 6 weeks (2 engineers)
+- Architecture: {X} week(s)
+- Implementation: {X} weeks
+- Load testing: {X} week(s)
+- Production tuning: {X} weeks
+- Total: {X} weeks ({N} engineers)
 
 ## Results
 
 **Performance:**
-- Latency (p50): 84ms (2.4x under threshold)
-- Latency (p95): 180ms (still under threshold)
-- Latency (p99): 520ms (cache miss penalty)
-- Accuracy: 94% (above luxury threshold)
+- Latency (p50): {X}ms ({Y}x under threshold)
+- Latency (p95): {X}ms (still under threshold)
+- Latency (p99): {X}ms (cache miss penalty)
+- Accuracy: {X}% (above {premium} threshold)
 
 **Economics:**
-- Cost per prediction: $0.0008 (within budget)
-- Cache hit rate: 92% (after warm-up)
-- Infrastructure: $200/month per brand
+- Cost per prediction: ${X} (within budget)
+- Cache hit rate: {X}% (after warm-up)
+- Infrastructure: ${X}/month per {customer}
 
 **Production metrics (30 days):**
-- Requests served: 12M
-- Cache hits: 11M (92%)
-- Cache misses: 1M (8%)
-- Uptime: 99.94%
+- Requests served: {X}M
+- Cache hits: {X}M ({Y}%)
+- Cache misses: {X}M ({Y}%)
+- Uptime: {X}%
 
 **Lessons learned:**
 
-1. **Separate concerns:** Measurements change rarely, garments never—cache differently
-2. **Cluster users:** 50 body type clusters = 92% cache hit rate
-3. **Warm strategically:** Top 20% garments = 80% traffic
-4. **Real-time fallback:** Cache miss penalty acceptable at 8% frequency
+1. **Separate concerns:** {Input A} changes rarely, {input B} never—cache differently
+2. **Cluster users:** {N} {type} clusters = {X}% cache hit rate
+3. **Warm strategically:** Top {X}% {items} = {Y}% traffic
+4. **Real-time fallback:** Cache miss penalty acceptable at {X}% frequency
 
 **What we'd do differently:**
-- Start with 20 clusters (faster iteration)
-- A/B test latency thresholds (maybe 300ms acceptable?)
-- Regional caching (reduce latency to <50ms)
+- Start with {N} clusters (faster iteration)
+- A/B test latency thresholds (maybe {X}ms acceptable?)
+- Regional caching (reduce latency to <{Y}ms)
 
 ## Conclusion
 
-Real-time ML in e-commerce requires hybrid architecture: cache common 
+Real-time ML in {industry} requires hybrid architecture: cache common
 cases, real-time compute edge cases.
 
 **Key takeaways:**
 
-1. Separate concerns: measurements (cache 30d) vs predictions (cache 24h)
-2. Cluster users: 50 body types = 92% cache hit rate, 50MB cache
-3. Warm strategically: Top 20% garments = 80% traffic
-4. Real-time fallback: 8% cache miss rate acceptable
-5. Target: <200ms latency, >90% accuracy, <$0.001/prediction
+1. Separate concerns: {input A} (cache {X}d) vs predictions (cache {Y}h)
+2. Cluster users: {N} {types} = {X}% cache hit rate, {Y}MB cache
+3. Warm strategically: Top {X}% {items} = {Y}% traffic
+4. Real-time fallback: {X}% cache miss rate acceptable
+5. Target: <{X}ms latency, >{Y}% accuracy, <${Z}/prediction
 
-Related: [Fit Prediction ML Architecture] [Body Measurement API Docs]
+Related: [{Related ML Architecture}] [{API Docs}]
 
 Technical docs: [API Reference] [Integration Guide]
-```
+
 
 ---
 
@@ -514,7 +507,7 @@ Technical docs: [API Reference] [Integration Guide]
 
 ### Sections: Context → Method → Data → Analysis → So What
 
-### Example: "We Analyzed 50 Fashion E-Commerce Sites: Here's What Fit Solutions They Use"
+### Example: "We Analyzed 50 {Industry} Sites: Here's What {Solutions} They Use"
 
 ---
 
@@ -546,7 +539,7 @@ Technical docs: [API Reference] [Integration Guide]
 
 ### Sections: Who → What problem → How solved → What happened → What we learned
 
-### Example: "How ElsaAI Reduced Returns 38%: Architecture Lessons"
+### Example: "How {Customer} Achieved {Result}: Architecture Lessons"
 
 ---
 
@@ -560,6 +553,8 @@ Technical docs: [API Reference] [Integration Guide]
 | Explain architecture | Technical Deep Dive | System design decisions |
 | Share success | Case Study (Blog) | Educational customer story |
 
+---
+
 ## Remember
 
 - Patterns guide structure, not prescribe content
@@ -567,4 +562,4 @@ Technical docs: [API Reference] [Integration Guide]
 - Data from threads, not invented
 - Educational tone, no sales language
 
-Success = Following pattern structure + Applying brand voice + Including technical depth
+Success = Following pattern structure + Applying brand voice + Including technical depth (When relevant) + Relevant tags

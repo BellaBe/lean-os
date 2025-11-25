@@ -1,6 +1,6 @@
 # 6-Stage Causal Flow
 
-Universal decision framework for engineering, business, sales, and marketing threads.
+Universal decision framework for business, sales, marketing, and engineering threads.
 
 ## Overview
 
@@ -18,9 +18,9 @@ Every decision flows through 6 stages:
 
 **Example:**
 ```
-ElsaAI deal closed: $1.1M ARR, 38% return reduction
+{Customer} deal closed: ${ARR} ARR, {X}% {metric} improvement
 Source: Signed contract + pilot results
-Date: 2024-11-15
+Date: {date}
 ```
 
 **Skill:** `causal-flow/stages/causal-flow-input/`
@@ -38,8 +38,8 @@ Date: 2024-11-15
 
 **Example:**
 ```
-Tests: A4 - Luxury brands prefer white-label
-Result: Validated (5/5 chose white-label)
+Tests: A4 - {Segment} prefer {option}
+Result: Validated (5/5 chose {option})
 Confidence: 60% → 95%
 ```
 
@@ -123,10 +123,9 @@ Rationale: High confidence, immediate revenue, excellent margins
 **Purpose:** Execute tasks
 
 **Typed actions:**
-- Engineering: analyze, design, implement, test, deploy
-- Business: research, analyze, decide, communicate
 - Sales: lead-intake, qualify, demo, pilot, close
 - Marketing: create, publish, promote, measure
+- Engineering: architecture, backend, frontend, infrastructure, validate
 
 **Templates:** `causal-flow/actions/templates/`
 
@@ -152,18 +151,6 @@ Rationale: High confidence, immediate revenue, excellent margins
 
 ## Thread Types
 
-**Engineering threads (optional):** `threads/engineering/{type}/{name}/`
-- **Architecture:** System design decisions (`architecture/{system-name}/`)
-- **Services:** Microservice implementation (`services/{service-name}/`)
-- **Standards:** Standardization application (`standards/{concern-name}/`)
-- 6-stage flow with technical actions
-- **Stage 1:** Requirements, feature requests
-- **Stage 2:** Design hypothesis, architectural assumptions
-- **Stage 3:** Implementation effort, system impact
-- **Stage 4:** Technical approach, alternatives considered
-- **Stage 5:** Code generation, testing, deployment
-- **Stage 6:** Validation results, performance metrics
-
 **Business threads:** `threads/business/{name}/`
 - Strategic decisions
 - Canvas updates
@@ -179,9 +166,41 @@ Rationale: High confidence, immediate revenue, excellent margins
 - Campaign tracking
 - Performance analysis
 
+**Engineering threads:** `threads/engineering/{requirement}/`
+- Technical requirements
+- System architecture decisions
+- Feature implementation
+
+**Engineering action types:**
+- `engineering:architecture` - Generate mathematical specs (system-architecture skill)
+- `engineering:backend` - Generate verified backend code (backend-prover skill)
+- `engineering:frontend` - Generate type-safe frontend (frontend-prover skill)
+- `engineering:infrastructure` - Generate deployment configs (infrastructure-prover skill)
+- `engineering:validate` - Validate proof chain (proof-composer skill)
+
+**Engineering artifacts:**
+```
+artifacts/engineering/
+├── specifications/v{X}/    # Mathematical specs (ADT, proofs, API)
+├── maps/                   # Structural specs before code
+│   ├── backend/           # Service maps
+│   └── shared/            # Standards contracts
+├── code/                   # Generated code
+│   ├── backend/           # Python/FastAPI
+│   └── frontend/          # TypeScript/Remix
+├── configs/               # Deployment
+│   ├── docker/
+│   ├── kubernetes/
+│   └── ci-cd/
+└── proofs/                # Verification proofs
+    └── composed/          # system-proof.certificate
+```
+
 ---
 
 For complete examples, see:
 - [Sales Workflow](sales-workflow.md)
 - [Marketing Workflow](marketing-workflow.md)
+- [Engineering Workflow](engineering-workflow.md)
 - [How It Works](../overview/how-it-works.md)
+- [All Skills](../skills/all-skills.md)

@@ -58,9 +58,9 @@ Generate discovery call prep materials, qualification checklists, and scoring fr
 
 **Industry Context**:
 - Industry trends affecting segment:
-  - E-commerce: Holiday season, supply chain, return rates
-  - Financial services: Regulatory changes, market conditions
-  - SaaS: Funding environment, competition
+  - {Industry A}: {trend 1}, {trend 2}, {key metric}
+  - {Industry B}: {trend 1}, {trend 2}
+  - {Industry C}: {trend 1}, {trend 2}
 - Competitive landscape:
   - Who else solves this problem?
   - What are prospects using today?
@@ -72,12 +72,12 @@ Generate discovery call prep materials, qualification checklists, and scoring fr
 - From ICP problem signal patterns:
   - Website mentions problem explicitly
   - Reviews mention problem (Trustpilot, G2, etc.)
-  - Job postings for roles that indicate problem (Returns Coordinator = high return rates)
+  - Job postings for roles that indicate problem ({Problem-related role} = {problem indicator})
   - Social media mentions problem
 - Quantify if possible:
-  - "60-day return policy" suggests high return volume
-  - "Hiring 3 CS roles" suggests support volume growth
-  - "Generous sizing guide" suggests sizing issues
+  - "{Observable indicator}" suggests {problem volume}
+  - "Hiring {N} {Problem-related role} roles" suggests {implication}
+  - "{Feature indicator}" suggests {problem area}
 
 ### 2. Discovery Question Framework
 
@@ -107,8 +107,8 @@ Generate discovery call prep materials, qualification checklists, and scoring fr
 5. "What have you tried so far to solve this?" (alternatives, urgency)
 
 **Scoring rubric**:
-- **1.0**: Clear, quantified problem matching our solution (e.g., "20-30% return rates, costing $500K/year")
-- **0.7**: Problem exists but not quantified (e.g., "Returns are high, not sure exact number")
+- **1.0**: Clear, quantified problem matching our solution (e.g., "{X-Y}% {key metric} rates, costing $500K/year")
+- **0.7**: Problem exists but not quantified (e.g., "{Problem area} is high, not sure exact number")
 - **0.5**: Problem exists but not prioritized (e.g., "It's a challenge but we're managing")
 - **0.3**: Vague problem (e.g., "Things could be better")
 - **0.0**: No problem or already solved (e.g., "We don't see this as an issue")
@@ -179,10 +179,10 @@ Generate discovery call prep materials, qualification checklists, and scoring fr
 5. "What's your ideal solution look like?" (expectation alignment)
 
 **Scoring rubric**:
-- **1.0**: Perfect fit for our solution (e.g., "On Shopify, 50-200 employees, 20% return rates")
-- **0.7**: Good fit, minor gaps (e.g., "On WooCommerce [acceptable alternative], 180 employees")
+- **1.0**: Perfect fit for our solution (e.g., "On {required platform}, 50-200 employees, {problem indicator}")
+- **0.7**: Good fit, minor gaps (e.g., "On {acceptable alternative}, 180 employees")
 - **0.5**: Can work but requires customization (e.g., "Custom platform, would need integration work")
-- **0.3**: Poor fit, significant gaps (e.g., "Wrong platform, too small, low return rates")
+- **0.3**: Poor fit, significant gaps (e.g., "Wrong platform, too small, doesn't match ICP")
 - **0.0**: We can't help effectively (e.g., "Entirely different problem than we solve")
 
 ### 3. Qualification Scoring
@@ -194,12 +194,12 @@ Total Score = (Problem × 0.3) + (Authority × 0.2) + (Budget × 0.2) + (Urgency
 
 **Example calculation**:
 ```
-Company: ChicThreads
-Problem: 0.9 (clear problem: "25% return rates, costing $400K/year")
-Authority: 0.7 (CMO on call, needs CFO approval for >$50K)
+Company: {Company Name}
+Problem: 0.9 (clear problem: "{X}% {key metric} rates, costing $400K/year")
+Authority: 0.7 ({Role} on call, needs {Approver Role} approval for >${threshold})
 Budget: 0.8 (budget allocated, need to show ROI)
-Urgency: 0.6 (important for Q1, 60-day timeline)
-Solution Fit: 1.0 (perfect fit: Shopify, 120 employees, DTC fashion)
+Urgency: 0.6 (important for {timeframe}, {N}-day timeline)
+Solution Fit: 1.0 (perfect fit: {required platform}, {employees} employees, {industry})
 
 Total = (0.9 × 0.3) + (0.7 × 0.2) + (0.8 × 0.2) + (0.6 × 0.15) + (1.0 × 0.15)
      = 0.27 + 0.14 + 0.16 + 0.09 + 0.15
@@ -334,7 +334,7 @@ Interpretation: High qualification (>0.8) → Schedule demo immediately
 - **No budget**: "Without allocated budget, it's hard to move forward. Let's reconnect when budget opens up."
 - **No urgency**: "It sounds like this isn't a priority for at least 6 months. Let's reconnect then."
 - **No authority**: "Since you're researching for someone else, it would be better if I spoke directly with the decision-maker."
-- **Wrong platform**: "We only support Shopify, and you're on Magento. Not a good fit right now."
+- **Wrong platform**: "We only support {required platform}, and you're on {other platform}. Not a good fit right now."
 
 **Next steps checklist**:
 - [ ] Thank them for their time (respectful, professional)
@@ -348,7 +348,7 @@ Interpretation: High qualification (>0.8) → Schedule demo immediately
 ## Input Parameters
 
 **Required**:
-- `product`: Product name (e.g., "GlamYouUp", "Detekta")
+- `product`: Product name (e.g., "{Your Product}")
 - `company_name`: Target company for call prep
 - `company_domain`: Company domain for research
 

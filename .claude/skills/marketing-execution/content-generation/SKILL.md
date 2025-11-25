@@ -179,7 +179,7 @@ threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{slug}-draft.md
 ### Confidential Information
 **If thread contains confidential data:**
 - Anonymize customer names, specific metrics
-- Generalize: "A luxury brand" vs "BrandName"
+- Generalize: "A {premium segment} company" vs "BrandName"
 - Flag for human review before proceeding
 
 ### Customer Approval Required
@@ -214,22 +214,22 @@ threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{slug}-draft.md
 
 **Input opportunity:**
 ```yaml
-topic: "How Enterprise Fashion Brands Use White-Label SDKs"
+topic: "How {Premium Segment} Use {Solution Approach}"
 content_type: "case-study"
-target_keyword: "white-label SDK"
-source_thread: "threads/sales/elsa-white-label/"
+target_keyword: "{target keyword}"
+source_thread: "threads/sales/{customer-thread}/"
 pillar: "Product capabilities"
 ```
 
 **Process:**
-1. Read campaign: `threads/marketing/campaigns/luxury-validation-nov-2024/4-decision.md`
-2. Read source: `threads/sales/elsa-white-label/6-learning.md`
+1. Read campaign: `threads/marketing/campaigns/{campaign-slug}/4-decision.md`
+2. Read source: `threads/sales/{customer-thread}/6-learning.md`
 3. Read positioning: `strategy/canvas/07-uvp.md`
 4. Read voice: `artifacts/marketing/narrative/brand-voice.md`
 5. Load pattern: `{baseDir}/references/case-study-pattern.md`
 6. Generate draft following pattern structure
 7. Validate with `validate_draft.py`
-8. Save to `drafts/elsaai-case-study-draft.md`
+8. Save to `drafts/{customer}-case-study-draft.md`
 9. Flag in `ops/today.md` for human review
 
 **Output:** 1,450-word case study with metrics from thread, technical details, educational tone, ready for human review.

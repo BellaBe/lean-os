@@ -44,19 +44,19 @@ The most important dimension (30% weight) because no problem = no sale, regardle
 - Quantified (e.g., "20-30% return rates")
 - Cost understood (e.g., "costing $500K/year")
 - Tried alternatives (urgency indicator)
-- **Example**: "Our return rate is 28%, mostly fit-related. It's costing us $400K/year in shipping and processing. We've tried sizing guides but they don't work well enough."
+- **Example**: "Our {key metric} is {X}%, mostly {root cause}-related. It's costing us ${cost}/year in {cost category}. We've tried {current approach} but they don't work well enough."
 
 **0.7 - Problem exists but not quantified**:
 - Problem confirmed but no specific metrics
 - Cost not calculated
 - Awareness exists
-- **Example**: "Returns are definitely high. We know it's a problem but haven't quantified exactly how much."
+- **Example**: "{Problem area} is definitely high. We know it's a problem but haven't quantified exactly how much."
 
 **0.5 - Problem exists but not prioritized**:
 - Problem acknowledged but not a focus
 - Other problems are higher priority
 - No urgency to solve
-- **Example**: "Returns are a challenge, but we're managing. It's not our top priority right now."
+- **Example**: "{Problem area} is a challenge, but we're managing. It's not our top priority right now."
 
 **0.3 - Vague problem**:
 - Problem is generic or unclear
@@ -68,7 +68,7 @@ The most important dimension (30% weight) because no problem = no sale, regardle
 - Don't see it as a problem
 - Already have satisfactory solution
 - Not relevant to their business
-- **Example**: "Our return rate is 5%, which is industry-leading. We're really happy with where we are."
+- **Example**: "Our {key metric} is 5%, which is industry-leading. We're really happy with where we are."
 
 ### Red Flags (Low Problem Fit)
 
@@ -374,13 +374,13 @@ Important for customer success (15% weight). Poor solution fit = churn, bad case
 - Meets all ICP criteria
 - Problem matches our solution exactly
 - No customization needed
-- **Example**: "We're on Shopify, 120 employees, $50M revenue, 25% return rate. We've tried sizing guides and they don't work well enough. Looking for AI-powered solution."
+- **Example**: "We're on {required platform}, 120 employees, $50M revenue, {X}% {key metric}. We've tried {current approach} and it doesn't work well enough. Looking for {solution type}."
 
 **0.7 - Good fit, minor gaps**:
 - Meets most ICP criteria
 - Slight deviation acceptable
 - Standard implementation
-- **Example**: "We're on WooCommerce (not Shopify), but it's a standard setup. 180 employees, just above your typical range. Return rate is 22%."
+- **Example**: "We're on {acceptable platform} (not {required platform}), but it's a standard setup. 180 employees, just above your typical range. {Key metric} is {X}%."
 
 **0.5 - Can work but requires customization**:
 - Some ICP criteria not met
@@ -392,13 +392,13 @@ Important for customer success (15% weight). Poor solution fit = churn, bad case
 - Multiple ICP criteria not met
 - Major customization required
 - May not be able to deliver value
-- **Example**: "We're on Magento, 15 employees, return rate is 8%. We want the solution but not sure if we're a good fit."
+- **Example**: "We're on {incompatible platform}, 15 employees, {key metric} is 8%. We want the solution but not sure if we're a good fit."
 
 **0.0 - Not a fit**:
 - Wrong ICP entirely
 - Different problem
 - Can't help effectively
-- **Example**: "We're a B2B SaaS company with no physical products. We don't have return rates. We were interested in your AI technology for a different use case."
+- **Example**: "We're a {different industry} company with no {problem area}. We don't have {key metric}. We were interested in your technology for a different use case."
 
 ### Solution Fit Criteria
 
@@ -566,8 +566,8 @@ Total: (0.3 × 0.3) + (0.3 × 0.2) + (0.0 × 0.2) + (0.3 × 0.15) + (0.5 × 0.15
 **Example log**:
 ```csv
 company,domain,date,reason,problem_score,authority_score,budget_score,urgency_score,fit_score,total_score,re_engage_date
-TinyShop,tinyshop.com,2024-11-14,"Company size: 15 employees (ICP: 50-200)",0.7,0.5,0.3,0.5,0.3,0.43,2025-05-01
-MegaCorp,megacorp.com,2024-11-14,"Company size: 5000 employees (ICP: 50-200)",0.8,0.3,0.7,0.5,0.3,0.54,N/A
+{Customer A},{domain}.com,2024-11-14,"Company size: 15 employees (ICP: 50-200)",0.7,0.5,0.3,0.5,0.3,0.43,2025-05-01
+{Customer B},{domain}.com,2024-11-14,"Company size: 5000 employees (ICP: 50-200)",0.8,0.3,0.7,0.5,0.3,0.54,N/A
 ```
 
 ---

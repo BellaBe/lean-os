@@ -38,7 +38,7 @@ Identify decision-makers at target companies and provide contact research strate
   - End user (implementation user)
 - Map persona focus parameter to titles
 
-**Example** (GlamYouUp):
+**Example** ({Product Name}):
 ```yaml
 buyer_personas:
   economic_buyer:
@@ -46,11 +46,11 @@ buyer_personas:
     - CFO
     - CMO
   technical_buyer:
-    - Ecommerce Director
-    - Head of Operations
+    - {Technical role 1}
+    - {Technical role 2}
   end_user:
-    - Customer Service Manager
-    - Returns Coordinator
+    - {End user role 1}
+    - {End user role 2}
 ```
 
 ### 2. Identify Decision-Maker Titles
@@ -92,9 +92,9 @@ site:linkedin.com/in "{company name}" "{title}"
 
 **Examples**:
 ```
-site:linkedin.com/in "ChicThreads" "Founder"
-site:linkedin.com/in "ChicThreads" "CMO"
-site:linkedin.com/in "TrendyStyles" "Ecommerce Director"
+site:linkedin.com/in "{Company Name}" "Founder"
+site:linkedin.com/in "{Company Name}" "CMO"
+site:linkedin.com/in "{Company Name}" "{Technical Role}"
 ```
 
 **Verification indicators** (look for in search results):
@@ -182,9 +182,9 @@ company_name,domain,target_title,buyer_persona,linkedin_search_query,email_patte
 
 **Example rows**:
 ```csv
-ChicThreads,chicthreads.com,Founder,economic,"site:linkedin.com/in ""ChicThreads"" ""Founder""",firstname.lastname@chicthreads.com,Company website contact page,high
-ChicThreads,chicthreads.com,CMO,economic,"site:linkedin.com/in ""ChicThreads"" ""CMO""",firstname.lastname@chicthreads.com,Company website contact page,medium
-TrendyStyles,trendystyles.com,Ecommerce Director,technical,"site:linkedin.com/in ""TrendyStyles"" ""Ecommerce Director""",first.last@trendystyles.com,LinkedIn company page,high
+{Company A},{companya.com},Founder,economic,"site:linkedin.com/in ""{Company A}"" ""Founder""",firstname.lastname@companya.com,Company website contact page,high
+{Company A},{companya.com},CMO,economic,"site:linkedin.com/in ""{Company A}"" ""CMO""",firstname.lastname@companya.com,Company website contact page,medium
+{Company B},{companyb.com},{Technical Role},technical,"site:linkedin.com/in ""{Company B}"" ""{Technical Role}""",first.last@companyb.com,LinkedIn company page,high
 ```
 
 **Confidence calculation**:
@@ -195,7 +195,7 @@ TrendyStyles,trendystyles.com,Ecommerce Director,technical,"site:linkedin.com/in
 ## Input Parameters
 
 **Required**:
-- `product`: Product name (e.g., "GlamYouUp", "Detekta")
+- `product`: Product name (e.g., "{Your Product}")
 - `prospect_list_path`: Path to prospect CSV (default: `research/customer/prospects/{segment}-prospects-{date}.csv`, use most recent)
 - `icp_path`: Path to ICP (default: `research/customer/icp/{segment}-icp.md`)
 
@@ -402,10 +402,10 @@ phone_research_method
 
 **Examples**:
 ```
-✓ site:linkedin.com/in "ChicThreads" "Founder"
-✓ site:linkedin.com/in "TrendyStyles" "CMO"
-✗ "CMO fashion" (too broad)
-✗ site:linkedin.com "Ecommerce Director" (no company)
+✓ site:linkedin.com/in "{Company Name}" "Founder"
+✓ site:linkedin.com/in "{Company Name}" "CMO"
+✗ "CMO {industry}" (too broad)
+✗ site:linkedin.com "{Technical Role}" (no company)
 ```
 
 ## Error Handling

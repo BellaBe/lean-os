@@ -45,8 +45,7 @@ Before reviewing metrics, check `strategy/canvas/00-business-model-mode.md` to c
 
 ### Dashboard Location
 
-Template: `.claude/skills/ops-dashboard/references/metrics-venture-template.md`
-Generated: `ops/metrics.md` (auto-populated from threads and Canvas)
+`ops/metrics-venture-template.md` (auto-populated from threads and Canvas)
 
 ---
 
@@ -84,8 +83,7 @@ Generated: `ops/metrics.md` (auto-populated from threads and Canvas)
 
 ### Dashboard Location
 
-Template: `.claude/skills/ops-dashboard/references/metrics-bootstrap-template.md`
-Generated: `ops/metrics.md` (auto-populated from threads and Canvas)
+`ops/metrics-bootstrap-template.md` (auto-populated from threads and Canvas)
 
 ---
 
@@ -128,30 +126,6 @@ Generated: `ops/metrics.md` (auto-populated from threads and Canvas)
 | **Demos from Content** | Pipeline attributed to content | Track |
 | **Content Conversion Rate** | Visitors � demo requests | >0.5% |
 | **Top Performer Rate** | % content above avg conversion | >50% |
-
-### Engineering Performance (Optional - if building systems)
-
-| Metric | Definition | Target |
-|--------|------------|--------|
-| **System Correctness Rate** | % services passing type validation | 100% |
-| **Standardization Coverage** | % services with all 5 standards applied | 100% |
-| **Code Generation Success** | % requirements → working code | >95% |
-| **Composition Validity** | % service compositions passing validation | 100% |
-| **Type Safety Coverage** | % functions with type annotations | 100% |
-| **Blueprint Completeness** | % services with OpenAPI specs | 100% |
-| **Engineering Thread Velocity** | Days from requirement → deployed service | Decreasing |
-| **System Integration Time** | Hours to integrate with sales/marketing | <24 hours |
-
-**Engineering Quality Indicators:**
-- All services pass correctness validation
-- Zero type safety violations
-- Standards applied uniformly (auth, validation, response, logging, rate-limiting)
-- Category-theoretic composition laws verified
-
-**Integration Success:**
-- Engineering supports sales pilots (custom features delivered on time)
-- Marketing content accurately reflects product capabilities
-- Canvas solution (09-solution.md) stays synchronized with implementation
 
 ---
 

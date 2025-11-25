@@ -10,7 +10,7 @@ Systematic web search patterns for finding companies that match ICP observable c
 
 **BuiltWith (via web search)**:
 ```
-Search: site:builtwith.com Shopify {industry}
+Search: site:builtwith.com {platform} {industry}
 Search: "companies using {platform}" {industry}
 ```
 
@@ -21,10 +21,10 @@ Search: site:stackshare.io {platform} {technology}
 
 ### 2. Industry Directories
 
-**Fashion/Apparel**:
-- "top fashion e-commerce brands 2024"
-- "DTC fashion companies United States"
-- "Shopify fashion stores list"
+**{Industry A}**:
+- "top {industry} e-commerce brands {year}"
+- "{business model} {industry} companies {geography}"
+- "{platform} {industry} stores list"
 
 **Financial Services**:
 - "SEC registered investment advisors {state}"
@@ -88,7 +88,7 @@ Search: "{company name}" uses {technology}
 ```
 Search: site:{domain} "{problem keyword}"
 Search: site:{domain} FAQ
-Search: site:{domain} "return policy"
+Search: site:{domain} "{policy type}"
 ```
 
 **What to look for**:
@@ -124,10 +124,10 @@ Search: "{company name}" careers {role}
 ```
 
 **Roles indicating problems**:
-- "Customer Service" (high support volume)
-- "Returns Coordinator" (high return rates)
-- "Compliance Manager" (regulatory issues)
-- "Operations" (scaling challenges)
+- "{Problem-related role 1}" ({problem indicator 1})
+- "{Problem-related role 2}" ({problem indicator 2})
+- "{Problem-related role 3}" ({problem indicator 3})
+- "{Problem-related role 4}" ({problem indicator 4})
 
 ### Social Media
 
@@ -148,8 +148,8 @@ Look for: Company updates mentioning challenges
 
 **Platform + Industry**:
 ```
-"Shopify stores fashion"
-"WooCommerce {industry} brands"
+"{platform} stores {industry}"
+"{platform B} {industry} brands"
 "{platform} customers {industry}"
 ```
 
@@ -194,9 +194,9 @@ site:builtwith.com "{company name}"
 
 **Website Problem Detection**:
 ```
-site:{domain} "returns"
-site:{domain} "return policy"
-site:{domain} "sizing guide"
+site:{domain} "{problem keyword 1}"
+site:{domain} "{policy type}"
+site:{domain} "{problem indicator feature}"
 site:{domain} FAQ
 ```
 
@@ -235,14 +235,14 @@ site:lever.co OR site:greenhouse.io "{company name}" "{role}"
 ## Search Tips
 
 **Boolean Operators**:
-- Use quotes for exact phrases: "Shopify stores"
-- Use OR for alternatives: (Shopify OR WooCommerce)
+- Use quotes for exact phrases: "{platform} stores"
+- Use OR for alternatives: ({platform A} OR {platform B})
 - Use site: for specific domains: site:linkedin.com
 
 **Time Constraints**:
-- Add "2024" or "2023" for recent results
+- Add "{year}" or "{year-1}" for recent results
 - Use "recent" or "latest" for current data
 
 **Exclude Noise**:
-- Use -word to exclude: "fashion brands" -blog
+- Use -word to exclude: "{industry} brands" -blog
 - Exclude job boards if looking for company pages: -indeed -glassdoor

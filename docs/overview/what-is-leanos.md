@@ -2,138 +2,194 @@
 
 ## The Problem
 
-Traditional startups face critical operational bottlenecks:
+Running a startup manually doesn't scale:
 
-- **Founder bottleneck:** Every decision requires human input, limiting growth
-- **Information fragmentation:** Data scattered across Notion, Slack, email, docs
-- **Context switching:** 20+ switches per day destroying productivity
-- **No clear priorities:** "What needs my attention NOW?" is unclear
-- **Linear human scaling:** Company growth requires proportional human scaling
+- **Decision bottleneck:** Founder reviews every decision, creating delays
+- **No systematic approach:** Ad-hoc processes without traceability
+- **Context switching:** Jumping between sales, marketing, engineering, operations
+- **Knowledge silos:** Information scattered across tools, documents, conversations
+- **Scaling wall:** Can't add headcount fast enough, can't afford specialists
 
 ## The Solution
 
-LeanOS is an AI-native operating system designed to run a company with minimal human intervention. Initially built for GlamYouUp (AI fashion recommendations SaaS), it automates 95%+ of operational decisions while maintaining strategic human oversight.
+LeanOS is an **AI-native operating system** for startups, small teams, and founders. It automates 95%+ of business operations while maintaining human oversight for strategic decisions.
 
 **Core capabilities:**
 
-- **Builds + runs systems:** Category-theoretic system design for building production-ready backends, then autonomous sales, marketing, and business operations
-- **AI-first execution:** Claude agents process engineering, sales, marketing, and business decisions autonomously
+- **AI-first execution:** Claude agents process business, sales, marketing, and engineering decisions autonomously
 - **Single source of truth:** Lean Canvas (15 living documents) drives all operations
-- **Thread-based decisions:** Complete decision narratives with causal flow (6 stages)
+- **6-stage causal flow:** Every decision follows INPUT → HYPOTHESIS → IMPLICATION → DECISION → ACTIONS → LEARNING
+- **Impact-based autonomy:** Auto-execute low-impact (<0.8), flag high-impact (≥0.8) for approval
 - **Human touchpoint:** ops/today.md - Single daily entry point (auto-generated)
-- **Learning-driven content:** Marketing creates content when business generates insights
-- **Closed-loop attribution:** Sales learning triggers marketing, marketing drives sales
+- **Mode-aware operations:** Adapts to VENTURE (scale) or BOOTSTRAP (profit) business models
 
-**Result:** Company scales without linear human scaling. Founder focuses on high-leverage activities: <30 min/day on operations.
+**Result:** 2-person team operates with 10-person velocity. Founder spends <30 min/day on operations.
+
+---
+
+## Who Is LeanOS For?
+
+**Ideal fit:**
+- Technical or non-technical founders running lean startups
+- Small teams (1-5 people) wearing multiple hats
+- B2B SaaS, services, or product companies
+- Teams that want AI augmentation, not replacement
+- Founders who value evidence-based decisions over gut feel
+
+**Not ideal for:**
+- Large enterprises with established processes
+- Teams preferring manual control over every decision
+- Companies without clear product/service focus
+- Those uncomfortable with AI-assisted operations
+
+---
 
 ## Core Principles
 
 ### 1. AI-First Execution
-Claude skills handle operations, not just documentation. Skills make decisions, generate materials, publish content, and track performance autonomously.
+Claude skills handle operations, not just documentation. Skills make decisions, generate materials, track performance, and update strategy autonomously.
 
-### 2. Context-Shaping Over Generalization
-Each skill targets specific decision types with domain-specific reasoning. No generic "AI assistant" - specialized agents for ICP generation, sales narratives, content strategy, etc.
+### 2. Zero Information Duplication
+Information exists in ONE location only:
+- **Strategy:** `strategy/canvas/` (15 living documents)
+- **Decisions:** `threads/{type}/{name}/` (6-stage causal flow)
+- **Execution logic:** `.claude/skills/*/SKILL.md`
+- **Published materials:** `artifacts/{sales|marketing|engineering}/`
 
-### 3. Zero Redundancy
-Information exists in ONE location only. Canvas is source of truth. Threads store decisions. Artifacts contain deliverables. No duplication across systems.
+No duplication. Always reference.
 
-### 4. Evidence-Based Decisions
-All choices trace to Canvas assumptions or thread results. No opinions without data. Every decision links to hypothesis being tested.
+### 3. 6-Stage Causal Flow (Universal)
+Every decision flows through:
+```
+Stage 1: INPUT       - Factual observation (not opinion)
+Stage 2: HYPOTHESIS  - Canvas assumption being tested
+Stage 3: IMPLICATION - Business impact with numbers
+Stage 4: DECISION    - Official commitment + alternatives
+Stage 5: ACTIONS     - Executable tasks (typed by function)
+Stage 6: LEARNING    - Measured outcomes → Canvas updates
+```
 
-### 5. Human Touchpoint (ops/today.md)
-Single daily entry point (auto-generated). Founder reviews priorities, approves high-leverage decisions, ignores 95% of autonomous operations.
+No shortcuts. All 6 stages required.
 
-### 6. Learning-Driven Content
-Marketing creates content when business generates insights worth sharing. No arbitrary calendars. Sales learning triggers content opportunities.
+### 4. Impact-Based Autonomy
+- **<0.8:** Auto-execute, log in thread, proceed autonomously
+- **≥0.8:** Flag in `ops/today.md`, wait for human approval
+- **Canvas-altering:** Always require approval
+- **Customer relationships:** Always human (calls, negotiations)
 
-### 7. Closed-Loop Attribution
-Sales threads capture learning → Marketing creates content → Content drives demos → Demo threads track attribution → Learning validates assumptions.
+### 5. Learning-Driven Operations
+Marketing creates content when business generates insights. Sales validates marketing assumptions. Engineering builds what sales learns customers need. Everything traces back to Canvas.
 
-### 8. Mode-Aware Operations
-Adapts to VENTURE (scale-focused) or BOOTSTRAP (profit-focused) business models. Decision criteria, metrics, and research approaches adjust based on mode. Same system, different priorities.
+### 6. Mode-Aware Operations
+LeanOS adapts to your business model:
 
-### 9. Compositional System Design (Engineering Layer)
-Category theory principles for building mathematically correct, composable systems. Transform natural language requirements into production-ready microservices with type safety, standardization, and automatic validation. Engineering layer optional - activate only when building technical products.
+**VENTURE Mode** (scale-focused):
+- Impact formula: `(Strategic Value × Market Size × Defensibility) / 3`
+- Tracks: MAU, ARR growth, market share, runway
+
+**BOOTSTRAP Mode** (profit-focused):
+- Impact formula: `(Revenue Impact × Time to Cash × Margin) / 3`
+- Tracks: MRR, monthly profit, cash flow, LTV:CAC
+
+---
 
 ## How It's Different
 
-| Traditional Startup | LeanOS |
-|---------------------|--------|
-| Manual system architecture | Category-theoretic design (mathematically correct) |
-| Human decides everything | AI decides 95%, human approves high-leverage items |
-| Information scattered | Single source of truth (Canvas) |
-| Ad-hoc decision-making | 6-stage causal flow (evidence-based) |
-| One-size-fits-all metrics | Mode-aware (VENTURE vs BOOTSTRAP execution) |
-| Calendar-driven marketing | Learning-driven content |
-| Manual attribution tracking | Automated closed-loop attribution |
-| Founder works 60+ hours/week | Founder works <30 min/day on operations |
+| Traditional Operations | LeanOS |
+|------------------------|--------|
+| Manual decision-making (hours per decision) | AI processes 95%+ autonomously |
+| Information scattered everywhere | Single source of truth (Canvas) |
+| Reactive ("something's broken") | Proactive (anomalies detected, flagged) |
+| Context switching all day | Single 5-min daily review |
+| Tribal knowledge in founders' heads | Decisions documented in threads |
+| Scaling requires hiring | 2-person team, 10-person velocity |
 
-## Design Philosophy
+---
 
-**Production-ready, not theoretical:** Every skill produces executable outputs. No conceptual frameworks without implementation.
+## What LeanOS Does
 
-**Question assumptions:** Canvas tracks hypotheses with confidence scores. Learning validates or invalidates assumptions continuously.
+### Engineering Layer (7 skills)
+- **System architecture:** Transform requirements into mathematical specifications
+- **Backend generation:** Two-phase verification (maps → code)
+- **Frontend generation:** Type-safe client from OpenAPI
+- **Infrastructure:** Deployment configs with topology proofs
+- **Proof composition:** Validate entire chain before deployment
 
-**Designed for universality:** Built for GlamYouUp, designed for any B2B SaaS. Same skills, different Canvas.
+### Foundations Layer (4 skills)
+- **Canvas builder:** Orchestrate 10 agents for pre-launch population
+- **ICP generator:** Define Ideal Customer Profile per segment
+- **Sales narrative:** Generate messaging per customer segment
+- **Marketing narrative:** Generate content strategy
 
-**Continuous improvement:** Performance tracking feeds insights back to strategy. Meta-learning detects patterns across threads.
+### Operations Layer (4 skills)
+- **Causal flow:** 6-stage decision orchestrator
+- **Content strategy:** Detect campaign opportunities from business learning
+- **Ops dashboard:** Auto-generate daily operational dashboards
+- **Metrics tracker:** Mode-aware business metrics
 
-**Authority through depth:** Educational content with technical depth. No engagement tricks or sales CTAs.
+### Research Layer (2 skills)
+- **Venture research:** TAM sizing, growth analysis, competitive landscape
+- **Bootstrap research:** Spend mapping, arbitrage opportunities, immediate revenue
 
-**AI-operated, human-supervised:** Human provides strategic direction and quality control. AI handles execution and optimization.
+### Execution Layer (2 skills)
+- **Sales execution:** Materials, prospecting, outreach, qualification
+- **Marketing execution:** Content generation, SEO, distribution, tracking
+
+---
 
 ## Success Metrics
 
 **Operational efficiency:**
-- <30 min/day human time on operations
-- >95% AI autonomy rate
+- Decision latency: <24h (any decision)
+- Auto-execution rate: >95% (human approves only high-impact)
+- Human review time: <30 min/day
 
 **Information quality:**
 - Zero duplication (1 source of truth)
-- 100% decision traceability
+- 100% decision traceability (every action traces to Canvas)
 - >95% Canvas auto-update accuracy
 
-**Business impact:**
-- Sales pipeline velocity tracked per stage
-- Marketing content attribution to pipeline
-- Validated assumptions drive strategy
+**Business velocity:**
+- 2-person team operates like 10-person team
+- Cost: ~$200/month AI operations vs traditional $200k+/year for specialists
+- Time to first revenue: depends on business, but accelerated
 
-## Who Should Use LeanOS?
-
-**Ideal fit:**
-- Solo founders or small teams (1-3 people)
-- B2B SaaS or marketplace businesses (especially technical products)
-- Pre-product to early traction stage
-- Technical founder comfortable with AI tools and category theory concepts
-- Building microservices/backend systems (engineering layer)
-- Values evidence-based decision-making
-- **Both venture-backed (scale focus) and bootstrapped (profit focus) founders**
-
-**Not ideal for:**
-- Large teams with established processes
-- Consumer apps requiring high-touch support
-- Businesses without clear ICP/segments
-- Founders preferring human-driven operations
+---
 
 ## What You Need
 
 **Technical:**
-- Claude AI access (Sonnet 4.5)
+- Claude AI access (Sonnet 4.5 recommended)
 - Git for version control
 - Terminal/command line comfort
 - Markdown editing capability
 
 **Business:**
-- Clear business idea or existing product
+- Clear product or service focus (one at a time)
 - Willingness to populate Lean Canvas
 - Commitment to evidence-based decisions
-- Time for customer validation (real-world bottleneck)
+- Trust in AI for execution, human for strategy
 
 **Mindset:**
-- Trust AI for execution, human for strategy
-- Embrace learning-driven content (no arbitrary calendars)
-- Accept 95% of operations happen without your input
-- Focus on high-leverage activities only
+- Accept that 95% of operations happen without your direct input
+- Focus on high-leverage activities (strategy, customer relationships)
+- Value systematic processes over ad-hoc heroics
+
+---
+
+## Design Philosophy
+
+**Production-ready, not theoretical:** Every skill produces executable outputs. No conceptual frameworks without implementation.
+
+**Evidence over opinion:** All decisions trace to Canvas assumptions or measured outcomes. No gut feelings.
+
+**AI-operated, human-supervised:** AI handles execution. Humans provide strategic direction and maintain relationships.
+
+**Context-shaping over generalization:** Each skill targets specific decision types. Specialized beats generalized.
+
+**Zero redundancy:** Information exists in one place. References, not copies.
+
+---
 
 ## Next Steps
 
@@ -141,3 +197,8 @@ Category theory principles for building mathematically correct, composable syste
 2. **Learn the flow:** Read [How It Works](how-it-works.md)
 3. **Start building:** Follow [Canvas Setup](../foundation/canvas-setup.md)
 4. **See timeline:** Review [Timeline Guide](../foundation/timeline.md)
+
+---
+
+**Version:** 2.0
+**Last updated:** 2025-11-25

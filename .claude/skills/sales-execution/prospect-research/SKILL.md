@@ -35,31 +35,31 @@ Extract observable characteristics:
 ```markdown
 firmographics:
   company_size:
-    employees: "50-200"
+    employees: "{min}-{max}"
   geography:
-    primary: ["US", "CA", "UK"]
+    primary: ["{geo1}", "{geo2}", "{geo3}"]
   industry:
-    primary: ["Fashion & Apparel e-commerce"]
+    primary: ["{Industry}"]
 
 technographics:
-  required_platforms: ["Shopify"]
-  tech_stack_indicators: ["Klaviyo", "Stripe"]
+  required_platforms: ["{platform}"]
+  tech_stack_indicators: ["{tech1}", "{tech2}"]
 
 problem_signals:
   website_indicators:
-    - signal: "FAQ mentions sizing/returns"
-    - signal: "Generous return policy (>30 days)"
+    - signal: "FAQ mentions {problem area}"
+    - signal: "{Problem indicator}"
   job_posting_signals:
-    - role: "Returns Coordinator"
-    - role: "Customer Service"
+    - role: "{Problem-related role 1}"
+    - role: "{Problem-related role 2}"
 ```
 
 **Parse into searchable filters**:
-- Platform: "Shopify"
-- Industry: "Fashion & Apparel e-commerce"
-- Geography: "US, CA, UK"
-- Size: "50-200 employees"
-- Problem keywords: "returns", "sizing", "fit"
+- Platform: "{platform}"
+- Industry: "{Industry}"
+- Geography: "{geo1}, {geo2}, {geo3}"
+- Size: "{min}-{max} employees"
+- Problem keywords: "{keyword1}", "{keyword2}", "{keyword3}"
 
 ---
 
@@ -69,12 +69,12 @@ Use systematic web search to find companies matching ICP filters.
 
 #### Search Pattern 1: Platform + Industry Discovery
 
-**For Shopify-based ICP** (GlamYouUp example):
+**For platform-based ICP** (Example):
 ```
-Search: "Shopify stores fashion apparel United States"
-Search: site:builtwith.com Shopify fashion
-Search: "Shopify Plus fashion brands"
-Search: "best Shopify fashion stores 2024"
+Search: "{platform} stores {industry} {geography}"
+Search: site:builtwith.com {platform} {industry}
+Search: "{platform} Plus {industry} brands"
+Search: "best {platform} {industry} stores {year}"
 ```
 
 **Extract from results**:
@@ -83,26 +83,26 @@ Search: "best Shopify fashion stores 2024"
 - Brief descriptions
 
 **For other platforms**:
-- WooCommerce: "WooCommerce stores {industry}"
-- BigCommerce: "BigCommerce {industry} stores"
-- Custom: "{industry} e-commerce sites"
+- {Platform A}: "{Platform A} stores {industry}"
+- {Platform B}: "{Platform B} {industry} stores"
+- Custom: "{industry} {business type} sites"
 
 #### Search Pattern 2: Industry Directory Discovery
 
-**Fashion/Apparel** (GlamYouUp):
+**E-commerce/Retail** (Example):
 ```
-Search: "fashion e-commerce brands United States"
-Search: "DTC fashion brands list"
-Search: "apparel companies {city/region}"
-Search: "fashion retailers Shopify"
+Search: "{industry} e-commerce brands {geography}"
+Search: "DTC {industry} brands list"
+Search: "{industry} companies {city/region}"
+Search: "{industry} retailers {platform}"
 ```
 
-**Financial Services** (Detekta):
+**Professional Services** (Example):
 ```
-Search: "registered investment advisors {state}"
-Search: "RIA firms {city}"
-Search: "financial advisory companies"
-Search: "SEC registered advisors"
+Search: "{service type} firms {state}"
+Search: "{industry} firms {city}"
+Search: "{industry} companies"
+Search: "{regulatory body} registered {service type}"
 ```
 
 **Extract from results**:
@@ -114,8 +114,8 @@ Search: "SEC registered advisors"
 
 **For required technologies**:
 ```
-Search: "companies using Klaviyo fashion"
-Search: site:stackshare.io Shopify Stripe
+Search: "companies using {technology} {industry}"
+Search: site:stackshare.io {platform} {tech stack}
 Search: "{technology} customers {industry}"
 ```
 
@@ -329,11 +329,11 @@ company_name,domain,industry,employee_count,revenue_estimate,geography,platform,
 
 **Example rows**:
 ```csv
-ChicThreads,chicthreads.com,Fashion Apparel,45,$3M,US,Shopify,0.85,0.30,0.20,0.20,0.15,0.00,"Perfect platform match (Shopify); size within range (45 employees); US-based; strong problem signals (FAQ mentions sizing, 15+ reviews about fit, hiring Returns Coordinator)","Website FAQ mentions sizing issues; Trustpilot reviews mention fit problems (18 reviews); Job posting for Returns Coordinator on Lever; Generous 60-day return policy",1,primary,"Excellent fit. High return rate mentioned in Trustpilot reviews. Recently posted Customer Service role suggesting volume issues."
+{Company1},{domain1}.com,{Industry},{employees},$XM,{geo},{platform},0.85,0.30,0.20,0.20,0.15,0.00,"Perfect platform match ({platform}); size within range ({employees} employees); {geo}-based; strong problem signals ({observable indicators})","Website FAQ mentions {problem area}; Reviews mention {problem} ({N} reviews); Job posting for {Problem-related role} on {job board}; {Observable signal}",1,primary,"Excellent fit. {Problem area} mentioned in reviews. Recently posted {Problem-related role} suggesting {implication}."
 
-TrendyStyles,trendystyles.com,Fashion Apparel,120,$8M,US,Shopify,0.70,0.30,0.20,0.20,0.00,0.00,"Perfect platform match; size within range; US-based; no problem signals detected","No obvious problem signals on website; Returns policy standard (30 days); No relevant job postings found",2,primary,"Good ICP fit but lacking problem signals. Consider for outreach with generic value prop or monitor for problem signals."
+{Company2},{domain2}.com,{Industry},{employees},$XM,{geo},{platform},0.70,0.30,0.20,0.20,0.00,0.00,"Perfect platform match; size within range; {geo}-based; no problem signals detected","No obvious problem signals on website; Standard policies; No relevant job postings found",2,primary,"Good ICP fit but lacking problem signals. Consider for outreach with generic value prop or monitor for problem signals."
 
-UrbanWear,urbanwear.co.uk,Fashion Apparel,80,$5M,UK,Shopify,0.60,0.30,0.20,0.10,0.00,0.00,"Perfect platform match; size within range; UK-based (secondary geography); no problem signals","No problem signals detected",3,secondary,"Good platform and size fit but secondary geography. Low priority unless expanding UK market."
+{Company3},{domain3}.com,{Industry},{employees},$XM,{geo-secondary},{platform},0.60,0.30,0.20,0.10,0.00,0.00,"Perfect platform match; size within range; {geo-secondary}-based (secondary geography); no problem signals","No problem signals detected",3,secondary,"Good platform and size fit but secondary geography. Low priority unless expanding {geo-secondary} market."
 ```
 
 Also create `research/customer/prospects/{segment}-prospects-{date}-summary.md`:
@@ -417,30 +417,30 @@ tags
 
 **Pattern 1: Platform + Industry**
 ```
-"Shopify stores fashion apparel"
-"WooCommerce jewelry brands"
-"BigCommerce home goods"
+"{platform} stores {industry}"
+"{platform} {industry} brands"
+"{platform} {industry} {category}"
 ```
 
 **Pattern 2: Industry + Geography**
 ```
-"fashion e-commerce companies United States"
-"DTC apparel brands California"
-"online fashion retailers New York"
+"{industry} e-commerce companies {geography}"
+"DTC {industry} brands {region}"
+"online {industry} retailers {city}"
 ```
 
 **Pattern 3: Industry Lists/Rankings**
 ```
-"top fashion e-commerce brands 2024"
-"best Shopify fashion stores"
-"fastest growing apparel companies"
+"top {industry} e-commerce brands {year}"
+"best {platform} {industry} stores"
+"fastest growing {industry} companies"
 ```
 
 **Pattern 4: Technology + Industry**
 ```
-"companies using Klaviyo fashion"
-"Shopify Plus fashion customers"
-"Stripe fashion e-commerce"
+"companies using {technology} {industry}"
+"{platform} Plus {industry} customers"
+"{payment provider} {industry} e-commerce"
 ```
 
 ### Verification Searches (Confirming Fit)

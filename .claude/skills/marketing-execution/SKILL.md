@@ -260,7 +260,7 @@ Call subskill: marketing-execution/content-generation
 Parameters:
   - campaign_slug: String (e.g., "luxury-validation-nov-2024")
   - decision_path: String (path to 4-decision.md)
-  - piece_name: String (e.g., "elsaai-case-study")
+  - piece_name: String (e.g., "{customer}-case-study")
 
 Subskill will:
   1. Read Stage 4 Decision
@@ -281,7 +281,7 @@ Call subskill: marketing-execution/seo-optimization
 
 Parameters:
   - draft_path: String (path to draft article)
-  - target_keyword: String (e.g., "white-label SDK")
+  - target_keyword: String (e.g., "{primary keyword}")
   - secondary_keywords: Array of Strings
 
 Subskill will:
@@ -372,10 +372,10 @@ You wait for: Reports appear in ops/today.md
 - [x] Tracking started: 2024-11-17 (performance-tracking invoked)
 
 **Published URLs:**
-- Blog: https://glamyouup.com/blog/elsaai-white-label-sdk (UTM: ?utm_campaign={slug})
-- LinkedIn: https://linkedin.com/company/glamyouup/posts/... (UTM: ?utm_source=linkedin&utm_campaign={slug})
-- Twitter: https://twitter.com/glamyouup/status/... (UTM: ?utm_source=twitter&utm_campaign={slug})
-- Substack: https://glamyouup.substack.com/p/elsaai-white-label (UTM: ?utm_source=substack&utm_campaign={slug})
+- Blog: https://{product}.com/blog/{slug} (UTM: ?utm_campaign={slug})
+- LinkedIn: https://linkedin.com/company/{product}/posts/... (UTM: ?utm_source=linkedin&utm_campaign={slug})
+- Twitter: https://twitter.com/{product}/status/... (UTM: ?utm_source=twitter&utm_campaign={slug})
+- Substack: https://{product}.substack.com/p/{slug} (UTM: ?utm_source=substack&utm_campaign={slug})
 
 **Performance (Days 1-7):**
 - Sessions: 650 (performance-tracking monitoring)
@@ -523,81 +523,81 @@ If missing:
 
 ## Usage Example
 
-**Scenario:** Execute luxury validation campaign
+**Scenario:** Execute {segment} validation campaign
 
 ```
 1. Read Stage 4 Decision:
-   Campaign: threads/marketing/campaigns/luxury-validation-nov-2024/
+   Campaign: threads/marketing/campaigns/{segment}-validation-{date}/
    Content: 2 case studies + 4 LinkedIn posts
-   Keywords: "white-label SDK", "luxury fashion fit"
+   Keywords: "{primary keyword}", "{secondary keyword}"
    Channels: blog, LinkedIn, Twitter, Substack
 
-2. Execute Content Piece 1: "ElsaAI Case Study"
+2. Execute Content Piece 1: "{Customer} Case Study"
 
    Step 1: Invoke content-generation
    ↓
    Parameters:
-     - campaign_slug: "luxury-validation-nov-2024"
-     - decision_path: "threads/marketing/campaigns/luxury-validation-nov-2024/4-decision.md"
-     - piece_name: "elsaai-case-study"
+     - campaign_slug: "{segment}-validation-{date}"
+     - decision_path: "threads/marketing/campaigns/{segment}-validation-{date}/4-decision.md"
+     - piece_name: "{customer}-case-study"
    ↓
    Wait for: Drafts created
    ✓ Files exist: article.md, linkedin.md, twitter.md, substack.md
    ↓
    Update execution-log.md: [x] Drafts created
-   
+
    Step 2: Flag for human review
    ↓
-   Update ops/today.md: "Drafts ready: ElsaAI Case Study"
+   Update ops/today.md: "Drafts ready: {Customer} Case Study"
    ↓
    Wait for: Human approval
    ✓ Human approved with minor edits
    ↓
    Update execution-log.md: [x] Human reviewed
-   
+
    Step 3: Invoke seo-optimization
    ↓
    Parameters:
-     - draft_path: "threads/.../drafts/elsaai-case-study-article.md"
-     - target_keyword: "white-label SDK"
-     - secondary_keywords: ["enterprise fashion SDK", "luxury fashion returns"]
+     - draft_path: "threads/.../drafts/{customer}-case-study-article.md"
+     - target_keyword: "{primary keyword}"
+     - secondary_keywords: ["{secondary keyword 1}", "{secondary keyword 2}"]
    ↓
    Wait for: Optimization complete
    ✓ Drafts updated with SEO
    ↓
    Update execution-log.md: [x] SEO optimized
-   
+
    Step 4: Flag for human approval
    ↓
-   Update ops/today.md: "Optimized content ready: ElsaAI Case Study"
+   Update ops/today.md: "Optimized content ready: {Customer} Case Study"
    ↓
    Wait for: Human approval
    ✓ Human approved
    ↓
    Update execution-log.md: [x] Human approved
-   
+
    Step 5: Invoke content-distribution
    ↓
    Parameters:
      - optimized_drafts_path: "threads/.../drafts/"
-     - campaign_slug: "luxury-validation-nov-2024"
+     - campaign_slug: "{segment}-validation-{date}"
      - channels: ["blog", "linkedin", "twitter", "substack"]
-     - piece_name: "elsaai-case-study"
+     - piece_name: "{customer}-case-study"
    ↓
    Wait for: Publishing complete
-   ✓ Files created in artifacts/marketing/campaigns/luxury-validation-nov-2024/
+   ✓ Files created in artifacts/marketing/campaigns/{segment}-validation-{date}/
    ↓
    Update execution-log.md: [x] Published (URLs added)
-   
+
    Step 6: Delete drafts
    ↓
    Action: rm -rf threads/.../5-actions/drafts/
    ✓ Temporary files removed
-   
+
    Step 7: Invoke performance-tracking
    ↓
    Parameters:
-     - campaign_slug: "luxury-validation-nov-2024"
+     - campaign_slug: "{segment}-validation-{date}"
      - distribution_record: "artifacts/.../distribution-record.yaml"
      - tracking_period: "30 days"
    ↓

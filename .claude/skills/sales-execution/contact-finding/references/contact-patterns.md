@@ -252,14 +252,14 @@ Common decision-maker titles by industry, product type, and buyer persona for B2
 
 **Search Priority**: Start with Compliance Officer (subject matter expert with influence)
 
-### E-commerce Platform Tools / Apps
+### {Product Category} Tools / Apps
 
 **Decision-Maker Hierarchy**:
 1. Economic: Founder, CEO, CFO (larger)
-2. Technical: Ecommerce Director, VP Digital, CMO
-3. End User: Ecommerce Manager, Digital Marketing Manager
+2. Technical: {Domain} Director, VP {Domain}, {C-level}
+3. End User: {Domain} Manager, {Domain} Marketing Manager
 
-**Search Priority**: Start with Ecommerce Director (technical buyer with budget influence)
+**Search Priority**: Start with {Domain} Director (technical buyer with budget influence)
 
 ### Analytics / Data Tools
 

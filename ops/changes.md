@@ -4,6 +4,217 @@ Record of significant system optimizations, refactorings, and architectural impr
 
 ---
 
+## 2025-11-25: Major LeanOS Restructure - Generic Framework Release
+
+### Summary
+Complete restructure of LeanOS as a generic, industry-agnostic framework. Removed all product-specific content (PersonalOS/GlamYouUp), reorganized skill architecture with consistent naming conventions, and removed third-party document skills.
+
+### Changes Made
+
+#### 1. Removed All Product-Specific Content
+
+**What was removed:**
+- All references to "Bella Belgarokova", "GlamYouUp", "ElsaAI", "PersonalOS"
+- Fashion/luxury/fit-specific examples throughout all skill files
+- Product-specific metrics (return rates, sizing, fit recommendations)
+
+**Replaced with:**
+- Generic placeholders: `{Customer}`, `{industry}`, `{segment}`, `{key metric}`, `{solution approach}`
+- Industry-agnostic examples applicable to any B2B SaaS startup
+- Updated copyright to "LeanOS Contributors"
+
+**Files cleaned:** 60+ skill files, all documentation, legal files
+
+#### 2. Skill Architecture Reorganization
+
+**New naming convention:** `{category}-{function}`
+
+**Categories:**
+- `engineering-*` - System building skills (7 skills)
+- `foundations-*` - Business foundation skills (4 skills)
+- `ops-*` - Operational skills (4 skills)
+- `research-*` - Market research skills (2 skills)
+- `sales-execution` - Sales orchestration (1 skill + 5 subskills)
+- `marketing-execution` - Marketing orchestration (1 skill + 4 subskills)
+
+**Renamed skills:**
+
+| Old Name | New Name |
+|----------|----------|
+| `category-theoretic-system-design` | `engineering-system-architecture` |
+| `standardization-layer` | `engineering-standardization-definer` + `engineering-standardization-applier` |
+| `foundation-builder` | `foundations-builder` |
+| `icp-generator` | `foundations-icp-generator` |
+| `sales-narrative` | `foundations-sales-narrative` |
+| `marketing-narrative` | `foundations-marketing-narrative` |
+| `causal-flow` | `ops-causal-flow` |
+| `ops-dashboard` | `ops-dashboard` (unchanged) |
+| `content-strategy` | `ops-content-strategy` |
+| `business-metrics-tracker` | `ops-business-metrics-tracker` |
+| `market-research-venture` | `research-market-venture` |
+| `market-research-bootstrap` | `research-market-bootstrap` |
+
+**New engineering skills added:**
+- `engineering-backend-prover` - Generate verified backend code
+- `engineering-frontend-prover` - Generate type-safe frontend code
+- `engineering-infrastructure-prover` - Generate deployment configs
+- `engineering-proof-composer` - Validate entire proof chain
+
+#### 3. Removed Third-Party Document Skills
+
+**Deleted:** `.claude/skills/document-skills/` (entire directory)
+- `docx/` - Word document handling
+- `pdf/` - PDF document handling
+- `pptx/` - PowerPoint handling
+- `xlsx/` - Excel handling
+
+**Reason:** Third-party proprietary skills from Anthropic removed to keep LeanOS as pure open-source framework.
+
+**Also deleted:** `THIRD-PARTY-LICENSES.md` (no longer needed)
+
+#### 4. Updated Legal/Attribution Files
+
+**LICENSE:**
+- Copyright holder: "Bella Belgarokova" → "LeanOS Contributors"
+
+**CONTRIBUTING.md:**
+- Removed maintainer personal information
+- Updated version to 1.2
+- Removed references to document-skills restrictions
+
+### Current Skill Inventory (19 skills)
+
+**Engineering Layer (7 skills):**
+```
+engineering-system-architecture/     # Requirements → Mathematical specs
+engineering-backend-prover/          # Specs → Verified backend code
+engineering-frontend-prover/         # Specs → Type-safe frontend
+engineering-infrastructure-prover/   # Specs → Deployment configs
+engineering-proof-composer/          # Validate proof chain
+engineering-standardization-definer/ # Define cross-cutting standards
+engineering-standardization-applier/ # Apply standards to services
+```
+
+**Foundations Layer (4 skills):**
+```
+foundations-builder/                 # Orchestrate Canvas population
+foundations-icp-generator/           # Generate ICPs per segment
+foundations-sales-narrative/         # Generate sales messaging
+foundations-marketing-narrative/     # Generate content strategy
+```
+
+**Operations Layer (4 skills):**
+```
+ops-causal-flow/                     # 6-stage decision orchestrator
+ops-dashboard/                       # Generate daily dashboards
+ops-content-strategy/                # Detect campaign opportunities
+ops-business-metrics-tracker/        # Mode-aware metrics dashboards
+```
+
+**Research Layer (2 skills):**
+```
+research-market-venture/             # TAM, growth, competitive analysis
+research-market-bootstrap/           # Spend mapping, immediate revenue
+```
+
+**Execution Layer (2 orchestrators + 9 subskills):**
+```
+sales-execution/                     # Sales orchestrator
+  ├── materials-generation/
+  ├── prospect-research/
+  ├── contact-finding/
+  ├── outreach-sequencing/
+  └── qualification-support/
+
+marketing-execution/                 # Marketing orchestrator
+  ├── content-generation/
+  ├── seo-optimization/
+  ├── content-distribution/
+  └── performance-tracking/
+```
+
+### Files Deleted
+
+**Skill directories removed:**
+- `.claude/skills/document-skills/` (all subdirectories)
+- `.claude/skills/category-theoretic-system-design/`
+- `.claude/skills/causal-flow/`
+- `.claude/skills/content-strategy/`
+- `.claude/skills/business-metrics-tracker/`
+- `.claude/skills/icp-generator/`
+- `.claude/skills/sales-narrative/`
+- `.claude/skills/marketing-narrative/`
+- `.claude/skills/foundation-builder/`
+- `.claude/skills/standardization-layer/`
+- `.claude/skills/market-research-venture/` (old location)
+- `.claude/skills/market-research-bootstrap/` (old location)
+
+**Other files removed:**
+- `THIRD-PARTY-LICENSES.md`
+- `_sitemap.md`
+
+### Files Added
+
+**New skill directories:**
+- `.claude/skills/engineering-backend-prover/`
+- `.claude/skills/engineering-frontend-prover/`
+- `.claude/skills/engineering-infrastructure-prover/`
+- `.claude/skills/engineering-proof-composer/`
+- `.claude/skills/engineering-standardization-applier/`
+- `.claude/skills/engineering-standardization-definer/`
+- `.claude/skills/engineering-system-architecture/`
+- `.claude/skills/foundations-builder/`
+- `.claude/skills/foundations-icp-generator/`
+- `.claude/skills/foundations-marketing-narrative/`
+- `.claude/skills/foundations-sales-narrative/`
+- `.claude/skills/ops-business-metrics-tracker/`
+- `.claude/skills/ops-causal-flow/`
+- `.claude/skills/ops-content-strategy/`
+- `.claude/skills/research-market-bootstrap/`
+- `.claude/skills/research-market-venture/`
+
+**Documentation:**
+- `docs/operations/engineering-workflow.md`
+
+### Migration Notes
+
+**For existing LeanOS users:**
+- Update any skill references to use new naming convention
+- Remove any references to document-skills
+- Update CLAUDE.md references if customized
+
+**For new users:**
+- LeanOS is now fully generic - no product-specific assumptions
+- All examples use placeholders - replace with your domain
+- No third-party dependencies
+
+### Success Metrics
+
+**Genericization:**
+- ✅ Zero product-specific references (verified via grep)
+- ✅ All examples use `{placeholder}` syntax
+- ✅ Framework applicable to any industry
+
+**Consistency:**
+- ✅ All skills follow `{category}-{function}` naming
+- ✅ Clear layer separation (engineering, foundations, ops, research, execution)
+- ✅ Predictable skill locations
+
+**Simplification:**
+- ✅ Removed third-party dependencies
+- ✅ Pure open-source framework
+- ✅ Single LICENSE file (MIT)
+
+---
+
+**Change type:** Major restructure
+**Impact:** High (skill renaming, content genericization)
+**Breaking changes:** Yes (skill paths changed, document-skills removed)
+**Version:** 1.2
+**Status:** Complete
+
+---
+
 ## 2025-11-21: Marketing Execution Layer Optimization
 
 ### Summary

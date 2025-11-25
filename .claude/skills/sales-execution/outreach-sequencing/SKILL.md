@@ -123,7 +123,7 @@ Day 21: Email (if applicable)
 - **Use**: Large prospect lists (100+ prospects)
 - **Personalization**: Segment-level only
 - **Template**: "{Segment problem} + generic value prop"
-- **Example**: "DTC fashion brands typically struggle with 20-30% return rates due to sizing issues..."
+- **Example**: "{Segment} companies typically struggle with {X-Y}% {problem rate} due to {root cause}..."
 - **Effort**: Low (no per-company research)
 - **Response rate**: 1-3%
 
@@ -131,7 +131,7 @@ Day 21: Email (if applicable)
 - **Use**: Medium lists (20-50 prospects)
 - **Personalization**: Company name + observable trait from prospect CSV
 - **Template**: "Segment problem + {company_name} + {observed_trait}"
-- **Example**: "ChicThreads, I noticed you're on Shopify and have a sizing guide - curious if return rates are still a challenge?"
+- **Example**: "{Company}, I noticed you're on {platform} and have {observable trait} - curious if {problem area} is still a challenge?"
 - **Effort**: Medium (automated from prospect data)
 - **Response rate**: 5-10%
 
@@ -139,7 +139,7 @@ Day 21: Email (if applicable)
 - **Use**: High-value targets (5-10 prospects, Tier 1 only)
 - **Personalization**: Custom first line based on manual research
 - **Template**: "Custom observation + segment problem + value prop"
-- **Example**: "Sarah, saw your recent LinkedIn post about customer experience challenges. For DTC brands like ChicThreads, we've found that sizing issues drive 30% of returns - is that resonating with your team?"
+- **Example**: "{Name}, saw your recent LinkedIn post about {topic}. For {segment} companies like {Company}, we've found that {root cause} drives {X}% of {problem area} - is that resonating with your team?"
 - **Effort**: High (requires manual research per prospect)
 - **Response rate**: 15-25%
 
@@ -238,8 +238,8 @@ Day 21: Email (if applicable)
 ## Input Parameters
 
 **Required**:
-- `product`: Product name (e.g., "GlamYouUp", "Detekta")
-- `segment`: ICP segment name (e.g., "dtc-fashion-smb", "ria-50-200-employees")
+- `product`: Product name (from Canvas)
+- `segment`: ICP segment name (from ICP)
 
 **Optional**:
 - `prospect_list_path`: Path to prospect CSV (default: none - generates segment-level sequence)
@@ -364,11 +364,11 @@ Day 21: Email (if applicable)
 
 **Email example**:
 ```
-Subject: 20% return rates killing margins?
+Subject: {X}% {problem} killing margins?
 
 Hi {FirstName},
 
-DTC fashion brands typically face 20-30% return rates, with sizing issues being the #1 driver. We've helped brands like Stitch Fix and Rent the Runway reduce returns by 35% using AI-powered virtual sizing.
+{Segment} companies typically face {X-Y}% {problem rates}, with {root cause} being the #1 driver. We've helped companies like {reference customers} {achieve outcome} by {X}% using {solution approach}.
 
 Curious if this resonates with your team at {Company}?
 
@@ -379,8 +379,8 @@ Best,
 **Personalization tokens**:
 - `{FirstName}`: Decision-maker first name (from prospect list or generic "there")
 - `{Company}`: Company name (from prospect list)
-- Segment problem: "20-30% return rates"
-- Generic value prop: "reduce returns by 35%"
+- Segment problem: "{X-Y}% {problem rates}"
+- Generic value prop: "{outcome} by {X}%"
 
 **Effort**: 2-3 minutes per prospect (just fill in name/company)
 
@@ -388,13 +388,13 @@ Best,
 
 **Email example**:
 ```
-Subject: ChicThreads - 20% return rates?
+Subject: {Company} - {X}% {problem}?
 
-Hi Sarah,
+Hi {FirstName},
 
-I noticed ChicThreads is on Shopify and has a detailed sizing guide on your site - curious if you're still seeing high return rates despite this?
+I noticed {Company} is on {platform} and has {observable trait} on your site - curious if you're still seeing {problem} despite this?
 
-We've helped similar DTC fashion brands reduce returns by 35% using AI-powered virtual sizing that goes beyond static sizing charts.
+We've helped similar {segment} companies {achieve outcome} by {X}% using {solution approach} that goes beyond {current approach}.
 
 Quick 15-min call to share what we're seeing?
 
@@ -403,11 +403,11 @@ Best,
 ```
 
 **Personalization tokens**:
-- `{FirstName}`: Sarah (from prospect list or research)
-- `{Company}`: ChicThreads (from prospect list)
-- `{ObservedTrait}`: "on Shopify" + "has sizing guide" (from prospect research CSV)
-- Segment problem: "high return rates"
-- Specific value prop: "AI-powered virtual sizing" (goes beyond their current approach)
+- `{FirstName}`: {Name} (from prospect list or research)
+- `{Company}`: {Company} (from prospect list)
+- `{ObservedTrait}`: "{platform}" + "{observable feature}" (from prospect research CSV)
+- Segment problem: "{problem}"
+- Specific value prop: "{solution approach}" (goes beyond their current approach)
 
 **Effort**: 5-10 minutes per prospect (research observable trait, insert into template)
 
@@ -415,13 +415,13 @@ Best,
 
 **Email example**:
 ```
-Subject: Your LinkedIn post on CX challenges
+Subject: Your LinkedIn post on {topic}
 
-Hi Sarah,
+Hi {FirstName},
 
-Saw your recent LinkedIn post about improving customer experience at ChicThreads. For DTC fashion brands with great products like yours, we've found that sizing issues are often the hidden CX killer - 30% of returns are fit-related, driving up costs and frustrating customers.
+Saw your recent LinkedIn post about {topic} at {Company}. For {segment} companies with {compliment} like yours, we've found that {root cause} is often the hidden {problem category} killer - {X}% of {problems} are {root cause}-related, driving up costs and frustrating customers.
 
-We've helped similar brands reduce returns by 35% with AI-powered virtual sizing. Would love to share a quick case study from a brand your size.
+We've helped similar companies {achieve outcome} by {X}% with {solution approach}. Would love to share a quick case study from a company your size.
 
 15 minutes this week?
 
@@ -430,10 +430,10 @@ Best,
 ```
 
 **Personalization tokens**:
-- Custom intro: "Saw your recent LinkedIn post on CX challenges" (requires manual LinkedIn research)
-- `{Company}`: ChicThreads
-- `{ObservedTrait}`: "great products" + "DTC fashion" (contextual compliment)
-- Segment problem: "sizing issues" (tied to their CX focus)
+- Custom intro: "Saw your recent LinkedIn post on {topic}" (requires manual LinkedIn research)
+- `{Company}`: {Company}
+- `{ObservedTrait}`: "{compliment}" + "{segment}" (contextual compliment)
+- Segment problem: "{root cause}" (tied to their {topic} focus)
 - Specific ask: "15 minutes this week?" (time-bound)
 
 **Effort**: 15-20 minutes per prospect (LinkedIn research, custom first line, polish)
@@ -473,7 +473,7 @@ Best,
 
 **Example**:
 ```
-"Hi Sarah, this is {Your Name} from {Company}. I've sent you a couple emails about reducing return rates for DTC fashion brands - wanted to try to reach you by phone. Is now a good time for a quick conversation?"
+"Hi {FirstName}, this is {Your Name} from {Company}. I've sent you a couple emails about {solving problem} for {segment} companies - wanted to try to reach you by phone. Is now a good time for a quick conversation?"
 ```
 
 **NOT allowed**:

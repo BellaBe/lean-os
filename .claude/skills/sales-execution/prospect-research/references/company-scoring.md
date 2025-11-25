@@ -11,18 +11,18 @@ Total score: 0.0 to 1.0 (sum of component scores)
 - Acceptable alternative platform: **0.15**
 - Platform unknown or wrong: **0.0**
 
-**Examples** (Shopify required):
+**Examples** ({required platform}):
 ```
-Company A: Shopify confirmed (page source) → 0.3
-Company B: WooCommerce (ICP lists as acceptable) → 0.15
-Company C: Magento (not in ICP) → 0.0
+Company A: {required platform} confirmed (page source) → 0.3
+Company B: {acceptable alternative platform} (ICP lists as acceptable) → 0.15
+Company C: {incompatible platform} (not in ICP) → 0.0
 Company D: Platform unknown (can't verify) → 0.0
 ```
 
 **Verification methods**:
 1. Page source inspection (look for platform-specific code)
 2. Footer "Powered by {platform}" badge
-3. URL patterns (myshopify.com subdomain)
+3. URL patterns ({platform-specific subdomain})
 4. BuiltWith search results
 5. Stack Share listings
 
@@ -94,18 +94,18 @@ Company D: Germany (not in ICP) → 0.0
 - Weak signals (1 point): **0.05**
 - No signals: **0.0**
 
-**Examples** (Returns/sizing problem for GlamYouUp):
+**Examples** ({Problem area} for {Product Name}):
 ```
 Company A:
-- FAQ mentions sizing: +1
-- 18 Trustpilot reviews about fit: +1
-- Hiring "Returns Coordinator": +1
+- FAQ mentions {problem}: +1
+- 18 Trustpilot reviews about {problem}: +1
+- Hiring "{Problem-related role}": +1
 - Twitter mentions: +0.5
 Total: 3.5 points → Score: 0.2
 
 Company B:
-- Generous return policy (60 days): +1
-- 3 reviews mention sizing (< 5 threshold): +0
+- {Problem indicator} (60 days): +1
+- 3 reviews mention {problem} (< 5 threshold): +0
 Total: 1 point → Score: 0.05
 
 Company C:
@@ -162,12 +162,12 @@ Total: 0.05
 
 **Example**:
 ```
-Company: ChicThreads
-Platform: 0.3 (Shopify confirmed)
+Company: {Customer}
+Platform: 0.3 ({required platform} confirmed)
 Size: 0.2 (45 employees, in range)
-Geography: 0.2 (US)
+Geography: 0.2 ({primary geography})
 Problem: 0.2 (3.5 problem signals)
-Secondary: 0.05 (uses Klaviyo)
+Secondary: 0.05 (uses {tech stack tool})
 Total: 0.95 → Tier 1
 ```
 
@@ -178,10 +178,10 @@ Total: 0.95 → Tier 1
 
 **Example**:
 ```
-Company: TrendyStyles
-Platform: 0.3 (Shopify confirmed)
+Company: {Customer}
+Platform: 0.3 ({required platform} confirmed)
 Size: 0.2 (120 employees, in range)
-Geography: 0.2 (US)
+Geography: 0.2 ({primary geography})
 Problem: 0.0 (no signals)
 Secondary: 0.0
 Total: 0.7 → Tier 2
@@ -194,10 +194,10 @@ Total: 0.7 → Tier 2
 
 **Example**:
 ```
-Company: UrbanWear
-Platform: 0.3 (Shopify confirmed)
+Company: {Customer}
+Platform: 0.3 ({required platform} confirmed)
 Size: 0.1 (35 employees, slightly below)
-Geography: 0.1 (UK, secondary)
+Geography: 0.1 ({secondary geography})
 Problem: 0.0 (no signals)
 Secondary: 0.0
 Total: 0.5 → Tier 3 (on the edge)
@@ -209,10 +209,10 @@ Total: 0.5 → Tier 3 (on the edge)
 
 **Example**:
 ```
-Company: FastFashion
-Platform: 0.0 (Magento, not in ICP)
+Company: {Customer}
+Platform: 0.0 ({incompatible platform}, not in ICP)
 Size: 0.0 (2000 employees, enterprise)
-Geography: 0.2 (US)
+Geography: 0.2 ({primary geography})
 Problem: 0.0
 Secondary: 0.0
 Total: 0.2 → Disqualified
@@ -227,16 +227,16 @@ Total: 0.2 → Disqualified
 ### High Score Example (0.85)
 ```
 Match Reason:
-"Perfect platform match (Shopify confirmed in page source); size within ICP range (45 employees per LinkedIn); US-based (primary geography); strong problem signals detected (FAQ mentions sizing issues, 18 Trustpilot reviews about fit problems, actively hiring Returns Coordinator role on Lever, 60-day return policy suggests high return rate); uses Klaviyo for email marketing (tech stack match)."
+"Perfect platform match ({required platform} confirmed in page source); size within ICP range (45 employees per LinkedIn); US-based (primary geography); strong problem signals detected (FAQ mentions {problem area}, 18 Trustpilot reviews about {problem}, actively hiring {Problem-related role} role on Lever, {problem indicator} suggests high {metric} rate); uses {tech stack tool} for {function} (tech stack match)."
 
 Problem Signals:
-"Website FAQ section has 'How do I find my size?' and 'What if it doesn't fit?' questions; Trustpilot has 18 reviews (out of 87 total) mentioning 'too small', 'sizing off', or 'fit issues'; Lever job posting for 'Returns Coordinator' posted 2 weeks ago; Return policy is 60 days free returns (vs industry standard 30 days, suggesting high return volume)."
+"Website FAQ section has '{Problem question 1}' and '{Problem question 2}' questions; Trustpilot has 18 reviews (out of 87 total) mentioning '{problem keyword 1}', '{problem keyword 2}', or '{problem keyword 3}'; Lever job posting for '{Problem-related role}' posted 2 weeks ago; {Problem indicator} (vs industry standard, suggesting high {metric})."
 ```
 
 ### Medium Score Example (0.70)
 ```
 Match Reason:
-"Perfect platform match (Shopify); size within range (120 employees); US-based; no problem signals detected on website, reviews, or job postings; standard 30-day return policy; no relevant customer service roles posted."
+"Perfect platform match ({required platform}); size within range (120 employees); {primary geography}-based; no problem signals detected on website, reviews, or job postings; standard {policy}; no relevant customer service roles posted."
 
 Problem Signals:
 "No obvious problem signals found. May not be experiencing significant pain or problem is not publicly visible."
@@ -245,7 +245,7 @@ Problem Signals:
 ### Low Score Example (0.50)
 ```
 Match Reason:
-"Platform match (Shopify); size slightly below range (35 employees, ICP is 50-200); UK-based (secondary geography, primary is US); no problem signals."
+"Platform match ({required platform}); size slightly below range (35 employees, ICP is 50-200); {secondary geography}-based (secondary geography, primary is {primary geography}); no problem signals."
 
 Problem Signals:
 "None detected."
@@ -274,10 +274,10 @@ Problem Signals:
 
 ### Mixed Geography (HQ vs Markets)
 **Approach**: Prioritize where decision-makers are located
-- HQ in US, sells globally → Score as US
-- HQ in UK, US subsidiary → Score as UK (decision-makers likely there)
+- HQ in {geography A}, sells globally → Score as {geography A}
+- HQ in {geography B}, {geography A} subsidiary → Score as {geography B} (decision-makers likely there)
 
-**Scoring**: Use HQ geography unless explicit US operations with autonomy
+**Scoring**: Use HQ geography unless explicit {target geography} operations with autonomy
 
 ### Conflicting Data Sources
 **Approach**: Prioritize source reliability
