@@ -4,6 +4,246 @@ Record of significant system optimizations, refactorings, and architectural impr
 
 ---
 
+## 2025-12-01: Marketing Layer Loop-Centric Optimization
+
+### Summary
+Complete optimization of marketing execution layer adopting loop-centric distribution philosophy (Elena Verna framework). Reduced skill complexity by 70%, consolidated subskills, removed verbose pattern documentation in favor of lightweight templates, and reoriented all skills around loop mechanics over funnel thinking.
+
+### Philosophy Shift
+
+**From:** Funnel-based marketing (Create → Publish → Hope → End)
+**To:** Loop-based distribution (Content → Engagement → Implementation → User-Generated Content → Amplify → Repeat)
+
+**Core principles adopted:**
+- "Loops > Funnels" — every piece of content must generate its own next input
+- "Velocity as proof" — before → after time compression as positioning
+- "Distribution physics" — invest where loops work, not dying channels
+- Track loop activations, not vanity metrics (impressions, likes)
+
+### Changes Made
+
+#### 1. Marketing Execution Orchestrator (Simplified)
+
+**Previous state:**
+- 638-line SKILL.md with verbose orchestration logic
+- 4 subskills: content-generation, seo-optimization, content-distribution, performance-tracking
+
+**New state:**
+- 413-line SKILL.md focused on loop mechanics
+- 3 subskills: content-generation, content-delivery (merged), seo-optimization (optional)
+
+**Key changes:**
+- Merged `content-distribution` + `performance-tracking` → `content-delivery` (distribution and tracking are one cycle)
+- SEO demoted to optional (SEO is dying channel per distribution physics)
+- Added loop trigger requirements to all workflow steps
+- Added first-comment tracking for LinkedIn algorithm optimization
+- Simplified workflow: Generate → Validate Loop → Review → Deliver → Track Activations
+
+#### 2. Content Generation (Loop-First)
+
+**Previous state:**
+- 324 lines with complex pattern references
+- 5 separate pattern files (blog, case study, LinkedIn, email, general principles)
+- Pattern-heavy approach requiring reference lookups
+
+**New state:**
+- 203 lines with inline loop intelligence
+- Patterns moved to marketing-narrative (templates, not prescriptive)
+- Every draft requires: loop trigger + velocity framing
+
+**Key changes:**
+- Removed verbose pattern files (2,146 lines deleted)
+- Added loop trigger types: implementation, question, challenge, offer
+- Added velocity framing requirement (before → after with time)
+- Simplified validation to loop-focused checks
+- Brand voice loaded from marketing-narrative context
+
+#### 3. Content Delivery (NEW — Merged Skill)
+
+**What it replaces:**
+- `content-distribution/` (825 lines) — deleted
+- `performance-tracking/` (775 lines) — deleted
+
+**New unified approach (305 lines):**
+- Phase 1: Publish (format for each channel with loop triggers)
+- Phase 2: Activate Loop (first-comment, URL tracking)
+- Phase 3: Track Loop Activations (shares, implementations, DMs, UGC)
+- Phase 4: Amplify Loop Fuel (user-generated content detection)
+
+**Critical innovation:**
+- Tracks loop activations, NOT vanity metrics
+- First-comment critical for LinkedIn (5-minute rule)
+- UGC detection and amplification workflow
+- Distribution-metadata.yaml for tracking state
+
+#### 4. SEO Optimization (Demoted to Optional)
+
+**Previous state:**
+- 676 lines of comprehensive SEO guidance
+- Equal priority with other subskills
+
+**New state:**
+- 80 lines of basic checklist
+- Explicitly marked as "declining channel"
+- Use only for evergreen long-tail content
+- Loop triggers > SEO optimization
+
+#### 5. Content Strategy (Active Discovery)
+
+**Previous state:**
+- 515 lines focused on thread scanning
+- Campaign opportunity detection only
+- Passive daily scans
+
+**New state:**
+- 142 lines focused on loop opportunity detection
+- Two modes: Active Discovery + Loop Opportunity Detection
+- Evaluates opportunities by loop potential, not just relevance
+- Reads from distribution-model.md for channel priorities
+
+**Key changes:**
+- Added WebSearch, WebFetch capabilities for active discovery
+- Prioritizes UGC amplification opportunities
+- Reduced from campaign framework to loop triggers
+
+#### 6. Marketing Narrative (Distribution Model Added)
+
+**Previous state:**
+- 529 lines generating pillars, SEO strategy, brand voice, channels
+- Output: 4 files in artifacts/marketing/narrative/
+
+**New state:**
+- 139 lines focused on distribution physics
+- Output: 6 files including `distribution-model.md` (critical)
+
+**New outputs:**
+- `distribution-model.md` — Loop mechanics, velocity framing, channel strategy
+- `positioning.md` — Core positioning (extracted from pillars)
+- Templates in `references/` for lightweight patterns
+
+**Key addition:** Distribution model is now REQUIRED context for all content generation
+
+#### 7. Reference Files Consolidated
+
+**Deleted (verbose patterns moved to narrative templates):**
+- `content-generation/references/blog-patterns.md` (565 lines)
+- `content-generation/references/case-study-pattern.md` (447 lines)
+- `content-generation/references/announcement-linkedin-pattern.md` (397 lines)
+- `content-generation/references/email-patterns.md` (496 lines)
+- `content-generation/references/pattern-principles.md` (241 lines)
+- `ops-content-strategy/references/campaign-framework.md` (301 lines)
+
+**Added (lightweight templates):**
+- `foundations-marketing-narrative/references/distribution-model-template.md`
+- `foundations-marketing-narrative/references/loop-content-pattern.md`
+- `foundations-marketing-narrative/references/brand-voice-template.md`
+- `foundations-marketing-narrative/references/positioning-template.md`
+- `foundations-marketing-narrative/references/content-pillars-template.md`
+- `foundations-marketing-narrative/references/channel-guidelines-template.md`
+- `marketing-execution/references/subskill-contracts.md`
+- `marketing-execution/references/human-touchpoints.md`
+- `marketing-execution/references/execution-log-template.md`
+
+### Files Deleted
+
+**Skill directories removed:**
+- `.claude/skills/marketing-execution/content-distribution/` (entire directory)
+- `.claude/skills/marketing-execution/performance-tracking/` (entire directory)
+
+**Pattern files removed:**
+- `.claude/skills/marketing-execution/content-generation/references/blog-patterns.md`
+- `.claude/skills/marketing-execution/content-generation/references/case-study-pattern.md`
+- `.claude/skills/marketing-execution/content-generation/references/announcement-linkedin-pattern.md`
+- `.claude/skills/marketing-execution/content-generation/references/email-patterns.md`
+- `.claude/skills/marketing-execution/content-generation/references/pattern-principles.md`
+- `.claude/skills/ops-content-strategy/references/campaign-framework.md`
+
+### Files Added
+
+**New skill directory:**
+- `.claude/skills/marketing-execution/content-delivery/SKILL.md`
+
+**New reference directories:**
+- `.claude/skills/foundations-marketing-narrative/references/` (6 template files)
+- `.claude/skills/marketing-execution/references/` (3 contract/template files)
+
+### Updated Skill Inventory
+
+**Marketing Execution (1 orchestrator + 3 subskills):**
+```
+marketing-execution/                 # Loop-centric campaign orchestrator
+├── content-generation/              # Generate loop-triggering drafts
+├── content-delivery/                # Publish + track loop activations (NEW)
+└── seo-optimization/                # Optional, for evergreen only
+```
+
+**Note:** Reduced from 4 to 3 subskills by merging distribution + tracking
+
+### Metrics Shift
+
+**What to track (loop activations):**
+| Metric | Definition |
+|--------|------------|
+| Shares | Reposts, quote tweets |
+| Implementations | Users trying the method |
+| Inbound DMs | Conversations started |
+| User-generated content | Others creating based on ours |
+| Replies to loop trigger | Direct responses |
+
+**What to ignore (vanity):**
+| Metric | Why Ignore |
+|--------|------------|
+| Impressions | Doesn't indicate value |
+| Likes | Low-effort, no loop |
+| Follower count | Lagging indicator |
+| Page views alone | Without conversion meaningless |
+
+### Migration Notes
+
+**For existing campaigns:**
+- Update to use `content-delivery` instead of `content-distribution` + `performance-tracking`
+- Add loop triggers to all content
+- Track loop activations, not impressions
+
+**For new campaigns:**
+- Run `marketing-narrative` first to generate `distribution-model.md`
+- All content must include loop trigger + velocity framing
+- SEO is optional, not required
+
+**Critical context files now required:**
+- `artifacts/marketing/narrative/distribution-model.md` — All content generation needs this
+- `artifacts/marketing/narrative/brand-voice.md` — Voice consistency
+- `artifacts/marketing/narrative/positioning.md` — Core positioning
+
+### Success Metrics
+
+**Complexity reduction:**
+- ✅ Skills reduced from 4 to 3 subskills
+- ✅ Total lines reduced by ~5,700 (7,792 deleted, ~2,000 added)
+- ✅ Pattern files consolidated to templates (2,447 lines → 6 template files)
+
+**Philosophy alignment:**
+- ✅ Loop triggers required in all content
+- ✅ Velocity framing required in all content
+- ✅ Vanity metrics explicitly deprioritized
+- ✅ SEO demoted to optional status
+
+**Operational clarity:**
+- ✅ Distribution + tracking merged (single cycle)
+- ✅ First-comment workflow documented (LinkedIn critical)
+- ✅ UGC detection and amplification workflow
+- ✅ Clear subskill contracts defined
+
+---
+
+**Change type:** Major optimization (philosophy + structure)
+**Impact:** High (all marketing workflows affected)
+**Breaking changes:** Yes (subskill paths changed, new required context files)
+**Version:** 1.3
+**Status:** Complete
+
+---
+
 ## 2025-11-25: Major LeanOS Restructure - Generic Framework Release
 
 ### Summary

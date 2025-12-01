@@ -78,12 +78,6 @@ Output: specifications-inferred/v{X}/
 - Generate specs from competitor's SDK
 - Document undocumented legacy systems
 
-### Build Pipeline Additions (Phase 2)
-```bash
-15-verify-effect-system.sh              # Effects explicit?
-16-validate-requirements-equivalence.sh # Specs = Requirements?
-17-analyze-existing-code.sh             # Optional: import legacy
-18-verify-inferred-specs.sh             # Optional: validate import
 ```
 
 ---
@@ -139,12 +133,6 @@ Result: 57% code reduction
 - Generate adapter layer
 - Prove behavioral equivalence
 
-### Build Pipeline Additions (Phase 3)
-```bash
-19-generate-contract-tests.sh           # Generate behavioral tests
-20-run-contract-tests.sh                # Run 10K property tests
-21-verify-coproduct-optimization.sh     # Verify optimizations
-22-final-verification.sh                # All phases complete?
 ```
 
 ---

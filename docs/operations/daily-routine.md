@@ -1,4 +1,4 @@
-# Daily Routine: Founder's 5-Minute Review
+# Daily Routine: Bella's 5-Minute Review
 
 Human touchpoint: <30 min/day on operations.
 
@@ -9,20 +9,22 @@ Human touchpoint: <30 min/day on operations.
 Auto-generated daily summary containing:
 
 **High-priority items (human approval required):**
-1. Content opportunities [Priority score]
-2. Content drafts ready for review
-3. Sales calls scheduled
-4. Strategic decisions flagged
+1. Loop opportunities [Priority score]
+2. Content drafts ready for review (with loop validation)
+3. Content ready to publish (with first-comment)
+4. Loop fuel detected (UGC to amplify)
+5. Sales calls scheduled
+6. Strategic decisions flagged
 
 **Decisions made by AI (last 24h):**
+- Marketing activities (opportunities detected, drafts created, loop tracking)
 - Sales activities (qualified, contacted, generated)
-- Marketing activities (published, tracked, detected)
 - Canvas updates (assumptions, metrics)
 
-**Performance alerts:**
-- Top performers (content, deals)
-- Underperformers (campaigns, channels)
-- SEO milestones (ranking improvements)
+**Loop performance alerts:**
+- Loop activations (shares, implementations, DMs)
+- User-generated content detected
+- Loops stalled (no activations by Day 7)
 
 **Anomalies detected:**
 - Process bottlenecks
@@ -31,27 +33,41 @@ Auto-generated daily summary containing:
 
 ---
 
-## Human Actions (3 minutes)
+## Human Actions (3-5 minutes)
 
-### 1. Approve content opportunities (30 seconds)
-Review high-priority content opportunities (≥0.7):
-- [x] Approve to generate draft
+### 1. Approve loop opportunities (30 seconds)
+Review high-priority opportunities (≥0.7):
+- [x] Approve to create campaign thread
 - [ ] Defer to backlog
 - [ ] Reject with reason
 
-### 2. Review content drafts (2 minutes)
-Check technical accuracy:
-- Verify metrics correct
-- Confirm customer names/case studies accurate
-- Approve for publication
+### 2. Review content drafts (1-2 minutes)
+Validate:
+- [ ] Loop trigger present at end
+- [ ] Velocity proof in content
+- [ ] Technical accuracy
+- [ ] Brand voice applied
 
-### 3. Review prep materials (30 seconds)
+### 3. Publish content + first-comment (1 minute)
+For content flagged "Ready to publish":
+- Publish to each channel
+- **Post first-comment on LinkedIn within 5 minutes**
+- Add URLs to execution-log
+- Confirm "published"
+
+### 4. Amplify loop fuel (30 seconds)
+When UGC detected:
+- [ ] Comment on their post
+- [ ] Reshare with commentary
+- [ ] Consider for next content
+
+### 5. Review call prep materials (30 seconds)
 For scheduled calls:
 - Skim custom pitch deck
 - Note key talking points
 - Confirm ready
 
-**Total time:** 3 minutes
+**Total time:** 3-5 minutes
 
 ---
 
@@ -60,16 +76,18 @@ For scheduled calls:
 ### Human-required touchpoints:
 - **Demo calls:** 30-60 min (as scheduled)
 - **Discovery calls:** 30-45 min (as scheduled)
+- **Loop fuel amplification:** As flagged (quick action)
 - **Strategic decisions:** As needed (rare)
 
 ### AI handles autonomously:
-- Qualification call prep
+- Loop opportunity detection
+- Content draft generation
+- Channel formatting
+- Loop tracking (Day 1, 3, 7, 14, 30)
+- UGC detection and flagging
+- Sales qualification prep
 - Follow-up emails
-- Content publication (blog, LinkedIn, email)
-- Performance tracking
 - Pipeline updates
-- Next opportunity detection
-- Materials generation
 - Prospect research
 
 ---
@@ -78,6 +96,11 @@ For scheduled calls:
 
 ### Sunday evening or Monday morning:
 
+**Review loop performance:**
+- Which triggers activated loops?
+- Which content generated UGC?
+- Channel performance (LinkedIn vs others)
+
 **Review velocity.md:**
 - Throughput per stage
 - Bottleneck identification
@@ -85,15 +108,10 @@ For scheduled calls:
 
 **Review patterns.md:**
 - Cross-thread patterns
-- Anomaly analysis
+- Loop patterns emerging
 - Meta-learning insights
 
-**Review changes.md:**
-- Strategic flags
-- Canvas section updates
-- Assumption validation status changes
-
-**Action:** Adjust priorities, update Canvas manually if needed
+**Action:** Adjust loop triggers, update distribution-model.md if needed
 
 ---
 
@@ -101,138 +119,151 @@ For scheduled calls:
 
 ### End of month:
 
+**Loop audit:**
+- Total loop activations
+- UGC generated
+- Conversations started
+- Best-performing triggers
+
+**Distribution model review:**
+- Channel priorities still correct?
+- New channels emerging?
+- Update distribution-model.md
+
 **Canvas audit:**
 - Review assumption confidence scores
-- Update market size estimates
-- Refine ICP based on closed deals
-- Adjust pricing based on sales cycles
-
-**Performance analysis:**
-- Sales metrics (ARR, cycle time, win rate)
-- Marketing metrics (sessions, demos, pipeline influenced)
-- Content performance (top/underperformers)
-
-**Strategic adjustments:**
-- Segment prioritization
-- Channel allocation
-- Content pillar rebalancing
+- Update based on loop learnings
 
 ---
 
 ## Example ops/today.md
-
 ```markdown
 # Today's Review - 2024-11-16
 
 ## High-Priority Items (Human Approval Required)
 
-### 1. Content Opportunity [Priority: 0.85]
-Type: Case study
-Topic: {Customer} {feature} success
-Source: threads/sales/{customer}-{feature}/6-learning.md
-Impact: 500 sessions/month, 25 demos
-Action: Approve to generate draft?
+### 1. Loop Opportunity [Priority: 0.85]
+**Topic:** ElsaAI white-label success
+**Source:** threads/sales/elsa-white-label/6-learning.md
+**Loop mechanic:** Case study → implementations shared → authority
+**Velocity proof:** "3 months integration → 2 weeks with SDK"
+**Action:** Approve to create campaign thread?
   [ ] Approve
   [ ] Defer
   [ ] Reject
 
-### 2. Content Draft Ready [Word count: 1,450]
-Topic: {Customer} {feature} case study
-Location: artifacts/marketing/{product}/drafts/{date}/
-Quality checks: ✓ SEO optimized, ✓ Voice compliant, ✓ No confidential info
-Action: Review for technical accuracy, approve for publication
+### 2. Content Drafts Ready [Validation: ✓]
+**Topic:** ElsaAI white-label SDK case study
+**Location:** threads/marketing/campaigns/elsa-case-study/5-actions/drafts/
+
+**Validation:**
+- Loop trigger: ✓ Challenge type ("Share your integration timeline")
+- Velocity proof: ✓ "3 months → 2 weeks"
+- Brand voice: ✓ Applied
+
+**Files:**
+- elsa-article.md (1,450 words)
+- elsa-linkedin.md (420 words)
+- elsa-twitter.md (thread, 5 tweets)
+- elsa-email.md (380 words)
+
+**Action:** Review for technical accuracy
   [ ] Approve
   [ ] Request revisions
-  [ ] Reject
 
-### 3. Demo Call Scheduled
-Thread: threads/sales/{customer}-inbound/
-Time: 2:00 PM today
-Prep: Custom pitch deck generated
-Action: Review prep materials (5 min recommended)
+### 3. Ready to Publish
+**Topic:** Premium segment validation case study
+**Location:** artifacts/marketing/campaigns/premium-validation/
+
+**Loop trigger:** "What's your version of this problem?"
+**First-comment (LinkedIn):**
+> "We thought premium brands wanted X. They actually needed Y. What assumptions have you had to unlearn?"
+
+**Action:**
+1. Publish to each channel
+2. Post first-comment on LinkedIn IMMEDIATELY
+3. Add URLs to execution-log
+4. Reply "published"
+
+### 4. Loop Fuel Detected — Action Required
+**User:** @sarah_founder
+**Platform:** LinkedIn
+**Content:** Shared our ABT framework post with her own before/after rewrite
+
+**Actions:**
+- [ ] Comment on her post (engage authentically)
+- [ ] Reshare with your commentary
+- [ ] Consider featuring in newsletter
+
+**Priority:** HIGH (1,200 followers in target segment)
+
+---
+
+## Loop Performance (Last 7 Days)
+
+### Premium Validation Case Study
+**Published:** 2024-11-09
+**Loop trigger:** Challenge ("Share your premium segment story")
+
+| Metric | Day 1 | Day 7 |
+|--------|-------|-------|
+| Shares | 12 | 34 |
+| Implementations | 3 | 8 |
+| Inbound DMs | 2 | 5 |
+| UGC pieces | 0 | 2 |
+
+**Loop status:** ✓ ACTIVATED
+**Loop velocity:** 5 days to first UGC
 
 ---
 
 ## Decisions Made by AI (Last 24h)
 
+**Marketing:**
+✓ Detected 2 loop opportunities (1 high priority, 1 medium)
+✓ Generated drafts for ElsaAI case study
+✓ Tracking: Premium case study Day 7 (loop activated!)
+✓ Flagged UGC from @sarah_founder
+
 **Sales:**
 ✓ Qualified 3 leads (2 high priority, 1 medium)
-✓ Sent 45 outreach emails ({segment} campaign)
-✓ Generated pilot results for {customer}-pilot
-
-**Marketing:**
-✓ Published: {Customer} case study (blog, LinkedIn, email)
-✓ Tracked: 650 sessions, 8 demos (1.23% conversion - top performer!)
-✓ Detected: New opportunity ({feature} implementation guide, priority 0.72)
+✓ Sent 45 outreach emails
+✓ Generated pilot results
 
 **Canvas Updates:**
-✓ A4: {Segment} prefer {option} (validated, 95% confidence)
-✓ H1: Case studies convert 2x better than guides (validated, 85% confidence)
+✓ A4: Luxury brands prefer white-label (validated, 95% confidence)
 
 ---
 
 ## Active Operations Summary
 
+**Marketing Campaigns:**
+- 1 in drafting (ElsaAI case study)
+- 1 ready to publish (Premium validation)
+- 1 tracking (Premium case study - Day 7, loop activated)
+
+**Loop Fuel Queue:**
+- 2 UGC pieces to amplify
+
 **Sales Pipeline:**
 - 5 in qualification
 - 3 in demo prep
 - 2 in pilot
-- 1 in contract negotiation
-
-**Sales Campaigns:**
-- {segment}-{date}: 45/100 prospects contacted, 8 responses
-
-**Marketing Content:**
-- 2 drafts awaiting review
-- 1 published this week ({Customer} case study)
-- 3 LinkedIn posts scheduled (Days 2, 9, 16)
 
 ---
 
-## Performance Alerts
+## Alerts
 
-🎉 **Top Performer (Last 7 Days)**
-- {Customer} case study: 650 sessions, 8 demos (1.23% rate vs 0.6% avg)
-- Action: Create follow-up content, use in sales enablement
+🔄 **Loop Activated**
+- Premium case study: 8 implementations shared, 5 DMs
+- Action: Continue tracking, prepare follow-up content
 
-⚠️ **Underperformer (Last 30 Days)**
-- API rate limiting post: 42 sessions, 0 demos
-- Issue: Niche topic, no pillar alignment
-- Action: Reassess technical content strategy
+🎯 **Loop Fuel Available**
+- @sarah_founder shared ABT framework with own example
+- Action: Amplify (high priority — target segment)
 
-📈 **SEO Milestone**
-- "{target keyword}" reached position 8 (top 10!)
-- Traffic potential: +500 sessions/month
-- Action: Create cluster content around this keyword
-
----
-
-## Anomalies Detected
-
-⚠️ Legal review taking 2x longer than estimated (5 days vs 3 days)
-→ Meta-thread suggested: Investigate legal bottleneck
+⚠️ **Loop Stalled**
+- Technical deep-dive post: Day 7, 0 activations
+- Issue: No clear loop trigger
+- Action: Review trigger strategy for technical content
 ```
-
----
-
-## Success Metrics
-
-**Operational efficiency:**
-- Target: <30 min/day human time
-- Breakdown: Review 5 min, Approvals 3 min, Calls as scheduled
-
-**AI autonomy:**
-- Target: >95% of decisions autonomous
-- Tracked: Decisions requiring human approval vs total decisions
-
-**Information quality:**
-- ops/today.md accuracy: >95%
-- False positives (unnecessary flags): <5%
-- Missed priorities (should have flagged): 0%
-
----
-
-For complete workflow context, see:
-- [Sales Workflow](sales-workflow.md)
-- [Marketing Workflow](marketing-workflow.md)
-- [How It Works](../overview/how-it-works.md)

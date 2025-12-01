@@ -1,515 +1,142 @@
 ---
 name: content-strategy
-description: Scans completed strategy/canvas business and sales threads daily to detect marketing campaign opportunities. Calculates impact scores, suggests campaign types (awareness, education, launch, validation), and flags high-priority opportunities in ops/today.md for human approval. Does NOT execute campaigns.
-allowed-tools: "Read,Write"
+description: Active content discovery with loop-aware opportunity detection. Use when: searching communities for engagement opportunities, detecting campaign triggers from patterns, finding warm leads, evaluating content loop potential. Reads strategy from Canvas and distribution-model.md.
+allowed-tools: "Read,Write,WebSearch,WebFetch,AskUserQuestion"
 ---
+# Content Strategy: Discovery & Loop Opportunity Detection
 
-# Content Strategy: Campaign Opportunity Detection
+Proactively find opportunities that generate loops, not just content.
 
-**Campaign Framework:** `{baseDir}/references/campaign-framework.md`
+## Core Principle
 
-You scan completed threads daily to identify marketing campaign opportunities based on business events.
+> "Funnels is an f-word. Loops are so much better."
 
-## Purpose
+Every opportunity evaluated for loop potential — can it generate its own next input?
 
-Strategy Canvas and Thread learning → Campaign opportunities → Human creates campaign thread
+## Context Loading
 
-**Core principle:** Campaign opportunities emerge from strategy and business events (sales readiness, product launches, strategic shifts), not arbitrary calendars.
+**Required:**
+- `strategy/canvas/04-segments.md` — Target audience, where to find them
+- `strategy/canvas/05-problem.md` — Problems we solve
+- `strategy/canvas/07-uvp.md` — Value proposition
+- `strategy/canvas/15-gtm.md` — Channels, search queries, constraints
+- `artifacts/marketing/narrative/distribution-model.md` — Loop mechanics, channel strategy
 
--
+If distribution-model.md missing → Flag "Run marketing-narrative first"
 
-## Your Role
+## Mode 1: Active Discovery
 
-**You are a DETECTION tool, NOT an execution tool.**
+1. Read search queries from `15-gtm.md`
+2. Read segment locations from `04-segments.md`
+3. Read channel priorities from `distribution-model.md`
+4. Execute searches across configured platforms
+5. Score by loop potential (not just relevance)
+6. Flag actionable items in `ops/today.md`
 
-### What You DO:
+**Prioritize channels from distribution-model.md** — invest where distribution physics work.
 
-✅ Scan `threads/*/6-learning.md` daily (automated)
-✅ Scan `strategy/canvas/*.md` daily (automated)
-✅ Detect content that trigger campaign opportunities
-✅ Match content to campaign types (awareness, education, launch, validation)
-✅ Calculate impact scores (reach × conversion × revenue)
-✅ Flag high-priority opportunities in `ops/today.md`
-✅ Wait for human decision
+## Mode 2: Loop Opportunity Detection
 
-### What You DON'T DO:
-❌ Create campaign threads (causal-flow does this)
-❌ Execute campaigns (marketing-execution does this)
-❌ Generate content (content-generation does this)
-❌ Publish content (content-distribution does this)
+Scan for triggers that fuel content loops:
 
----
+| Trigger Source | Loop Opportunity |
+|----------------|------------------|
+| User implements our method | Feature their before/after |
+| Community question answered | Expand to article, cite questioner |
+| Client success documented | Case study → social proof → more clients |
+| Strategic insight validated | Thought leadership → authority → inbound |
+| Someone shares our content | Engage, amplify, strengthen relationship |
 
-## Execution Flow
+**User-generated content is loop fuel.** Prioritize opportunities to amplify others.
 
+## Opportunity Scoring (Loop-Aware)
 ```
-content-strategy (daily scan)
-    ↓
-Detects content that trigger campaign opportunities → Calculates impact → Suggests campaign
-    ↓
-Flags in ops/today.md: "Create campaign thread at threads/marketing/campaigns/{slug}/?"
-    ↓
-Human reviews → Approves
-    ↓
-Human manually creates campaign thread (Stages 1-4)
-    ↓
-marketing-execution reads Stage 4 decision
-    ↓
-marketing-execution orchestrates execution (Stage 5)
+Impact = (Loop Potential × Velocity Story × Audience Alignment) / 3
 ```
 
-**Your job ends at flagging. The human decides next.**
+### Loop Potential
+| Score | Criteria |
+|-------|----------|
+| 1.0 | Explicitly generates user response/implementation |
+| 0.8 | High probability of sharing/engagement |
+| 0.6 | Could trigger loop if executed well |
+| 0.4 | Standalone value, weak loop |
+| 0.2 | Pure broadcast, no loop possible |
 
----
+### Velocity Story
+| Score | Criteria |
+|-------|----------|
+| 1.0 | Clear before → after with time compression |
+| 0.7 | Transformation story without time element |
+| 0.4 | Insight without transformation |
+| 0.2 | Information only |
 
-## Input Sources
+### Audience Alignment
+| Score | Criteria |
+|-------|----------|
+| 1.0 | Exact target segment problem |
+| 0.7 | Adjacent segment or problem |
+| 0.4 | General audience relevance |
+| 0.2 | Tangential connection |
 
-### Threads to Scan
-
-**Sales threads (threads/sales/):**
-- `6-learning.md` - Hypothesis validation, customer insights
-- **Trigger:** Segment ready for outreach (need awareness campaign)
-- Look for: ICP validated, common objections, success patterns
-
-**Business threads (threads/business/):**
-- `6-learning.md` - Strategic insights, Canvas updates
-- **Trigger:** Strategic shift, market trend, competitive move
-- Look for: Positioning changes, market insights, thought leadership opportunities
-
-**Sales campaigns (threads/sales/campaigns/):**
-- `6-learning.md` - Completed campaigns with learnings
-- **Trigger:** Segment complete (package learnings into content)
-- Look for: Deal patterns, case study opportunities, validated messaging
-
-**Strategy Canvas (strategy/canvas/):**
-- `*.md` - Business model, value propositions, customer segments
-- **Trigger:** New segments, value props, channels
-- Look for: New ICPs, emerging needs, competitive gaps
-- Identify segments with high potential for content marketing
-
-**Engineering threads (threads/engineering/):**
-- `6-learning.md` - Product updates, technical insights
-- **Trigger:** New features, integrations
-- Look for: Product launches, technical thought leadership
-- Identify features with strong market interest
-
-### Marketing Context
-
-**Content pillars:**
-```
-artifacts/marketing/narrative/content-pillars.md
-```
-- What themes to focus on
-- Which segments to target
-
-**SEO strategy:**
-```
-artifacts/marketing/narrative/seo-strategy.md
-```
-- Priority keywords
-- Content gaps to fill
-
----
-
-## Daily Scan Process
-
-### Step 1: Identify Business Events
-
-**Scan all learning files:**
-```bash
-strategy/canvas/*.md
-threads/sales/*/6-learning.md
-threads/business/*/6-learning.md
-threads/sales/campaigns/*/6-learning.md
-```
-
-**Look for completed threads:**
-- Status: "completed" or "validated"
-- Stage 6 exists and has content
-- Learning is substantive (not "pending" or "in-progress")
-
-### Step 2: Classify Campaign Triggers
-
-**Reference:** `{baseDir}/references/campaign-framework.md` for complete definitions.
-
-**Strong triggers (always suggest):**
-- **Segment ready:** ICP validated, prospects identified → Awareness campaign
-- **Product launch:** New feature/capability → Launch campaign
-- **Strategic pivot:** Canvas positioning changed → Education campaign
-- **Deal patterns:** ≥3 deals with similar learning → Validation campaign (case studies)
-- **Market event:** Competitor move, industry trend → Education campaign
-
-**Moderate triggers (suggest if multiple present):**
-- Single deal success (wait for pattern unless exceptional)
-- Partial ICP validation (wait for more data)
-- Internal improvement (not customer-facing)
-
-**Not campaign-worthy:**
-- Failed experiments without insights
-- Proprietary/confidential information
-- Process improvements (internal only)
-
-### Step 3: Determine Campaign Type
-
-**Match business event to campaign type:**
-
-**1. Awareness Campaign** (segment ready):
-- Trigger: Sales segment validated, prospects identified
-- Goal: Generate inbound demos (organic discovery)
-- Content: 3-5 educational articles (SEO-focused)
-- Timeline: 2-3 weeks
-- Example: "{Segment} ready → Awareness campaign on {problem}"
-
-**2. Education Campaign** (thought leadership):
-- Trigger: Strategic insight, market trend, competitive gap
-- Goal: Build authority, shift market thinking
-- Content: 2-3 deep-dive articles (technical analysis)
-- Timeline: 3-4 weeks
-- Example: "{Key insight} → Education campaign"
-
-**3. Launch Campaign** (product announcement):
-- Trigger: New feature, capability, integration
-- Goal: Existing customer adoption + new customer awareness
-- Content: 1 announcement + 3-5 LinkedIn posts + 1 email
-- Timeline: 1 week
-- Example: "{Feature} launched → Launch campaign"
-
-**4. Validation Campaign** (case studies):
-- Trigger: ≥3 deals closed with quantified results
-- Goal: Prove value, overcome objections, close pipeline
-- Content: 1-2 case studies + 2-4 LinkedIn posts + 1 email
-- Timeline: 2 weeks
-- Example: "5 {segment} customers → {metric} improvement → Case study"
-
-### Step 4: Calculate Impact Score
-
-**Formula:**
-```
-Impact Score = (Reach × Conversion × Revenue) / 3
-
-Reach (estimated traffic):
-- 1.0: >5,000 sessions/month (high-volume SEO keywords)
-- 0.7: 1,000-5,000 sessions/month
-- 0.5: 500-1,000 sessions/month
-- 0.3: <500 sessions/month
-
-Conversion (demos/signups):
-- 1.0: >2% conversion expected (strong buying intent)
-- 0.7: 1-2% conversion (education + intent)
-- 0.5: 0.5-1% conversion (pure education)
-- 0.3: <0.5% conversion (awareness only)
-
-Revenue Impact:
-- 1.0: Directly supports active sales campaign (immediate pipeline)
-- 0.7: Supports segment with ready prospects (near-term pipeline)
-- 0.5: Evergreen (continuous pipeline)
-- 0.3: Speculative (future pipeline)
-```
-
-**Impact thresholds:**
-- ≥0.75: High (flag immediately)
-- 0.60-0.75: Medium (suggest if resources available)
-- <0.60: Low (defer unless strategic)
-
-### Step 5: Flag in ops/today.md
-
-**High-impact opportunities (≥0.75):**
-```markdown
-## Campaign Opportunities
-
-### High Impact (≥0.75)
-
-1. **[Impact: 0.85] {Segment} Validation Campaign**
-   - Type: Validation (case studies + proof)
-   - Trigger: 5 {segment} customers chose {option} (100% pattern)
-   - Goal: 20 demos from organic (2,000 sessions target)
-   - Content: 2 case studies + 4 LinkedIn posts
-   - Timeline: 2 weeks to create, 30 days to measure
-   - Expected ROI: $10M pipeline influenced
-   - Action: Create campaign thread at threads/marketing/campaigns/{segment}-validation-{date}/?
-```
-
-**Medium-impact opportunities (0.60-0.75):**
-```markdown
-### Medium Impact (0.60-0.75)
-
-2. **[Impact: 0.68] Product Launch Campaign**
-   - Type: Launch (announcement + guides)
-   - Trigger: Color analysis feature launching
-   - Goal: 10 demos + 50 existing customer adoptions
-   - Content: 1 announcement + 3 LinkedIn posts + 1 email
-   - Timeline: 1 week to create, 14 days to measure
-   - Expected ROI: $5M pipeline + retention improvement
-   - Action: Defer until feature launch confirmed?
-```
-
-**Low-priority opportunities (<0.60):**
-```markdown
-### Low Priority (<0.60)
-
-3. **[0.42] Technical: API Rate Limiting Best Practices**
-   - Source: engineering/services/api/rate-limit-update.md
-   - Pillar: None (orphan)
-   - Keyword: Low search volume
-   - Impact: Minimal
-   - Action: Skip or create as technical doc (not marketing)
-```
-
----
+**Thresholds:**
+- ≥0.7: Flag immediately — high loop potential
+- 0.5-0.7: Add to backlog
+- <0.5: Skip unless strategic (or no loop = no priority)
 
 ## Output Format
+```markdown
+## Discovery Results - {date}
 
-### Internal Tracking File
+### Loop Opportunities (Priority)
+| Source | Opportunity | Loop Mechanic | Score | Action |
+|--------|-------------|---------------|-------|--------|
+| {where} | {what} | {how it loops} | {score} | {next step} |
 
-**Save opportunity record:**
-```yaml
-# campaign-opportunity-{date}-{slug}.yaml
+### User-Generated Loop Fuel
+| User | Content | Amplification Action |
+|------|---------|---------------------|
+| {who} | {what they shared/implemented} | {how to amplify} |
 
-campaign_name: "{Segment} Validation Campaign"
-campaign_slug: "{segment}-validation-{date}"
-campaign_type: "validation"  # awareness, education, launch, validation
-
-trigger_event: "5 {segment} customers chose {option} (100% pattern)"
-source_threads:
-  - "strategy/canvas/{segment}-{feature}.md"
-  - "threads/sales/{customer-1}/6-learning.md"
-  - "threads/sales/{customer-2}/6-learning.md"
-  - "threads/sales/{customer-3}/6-learning.md"
-
-business_goal: "Generate 20 qualified demos from organic discovery"
-target_segment: "{segment}"
-
-campaign_hypothesis: "Validation campaigns (case studies) convert better than awareness content"
-canvas_link: "10-assumptions.md → H1 (campaign performance)"
-
-impact_score: 0.85
-impact_breakdown:
-  reach: 0.8           # 1,000-5,000 sessions/month
-  conversion: 0.9      # 1-2% conversion (strong proof)
-  revenue: 1.0         # Directly supports active {segment}
-
-estimated_results:
-  target_sessions: "2,000/month"
-  target_demos: "20/month"
-  target_pipeline: "$10M influenced"
-  timeline: "2 weeks to create, 30 days to measure"
-
-content_plan:
-  - type: "case study"
-    title: "{Customer} Achieves {Result} with {Feature}"
-    keyword: "{primary keyword}"
-    channel: ["blog", "linkedin"]
-  - type: "case study"
-    title: "How {Segment} Achieve {Outcome}"
-    keyword: "{secondary keyword}"
-    channel: ["blog"]
-  - type: "linkedin post"
-    title: "Key stat: {metric} improvement"
-    channel: ["linkedin"]
-  - type: "linkedin post"
-    title: "Customer quote from {Customer}"
-    channel: ["linkedin"]
-
-next_steps:
-  - "Flag in ops/today.md for human approval"
-  - "If approved: Human creates campaign thread at threads/marketing/campaigns/{segment}-validation-{date}/"
-  - "Then: marketing-execution executes Stage 5"
-
-created: "2024-11-16"
-status: "pending_approval"
+### Questions to Answer
+| Platform | Question | Loop Potential | Action |
+|----------|----------|----------------|--------|
+| {platform} | "{question}" | {can answer generate follow-up?} | {action} |
 ```
 
-**Location:**
-```
-threads/marketing/opportunities/campaign-opportunity-{date}-{slug}.yaml
-```
+## Content Triggers (When to Create)
 
----
+**Create when:**
+- User success story available (loop fuel)
+- Genuine learning occurred (from threads)
+- Velocity story to tell (shipped fast)
+- Community question has loop potential
+- Strategic insight worth sharing
 
-## Automation Rules
+**Don't create:**
+- Calendar says so
+- Engagement bait without substance
+- Content without loop potential
+- Regurgitated advice
 
-### Daily Scan Triggers
+## Boundaries
 
-**Automated (no user invocation needed):**
-- Runs daily at configured time
-- Checks threads updated in last 24 hours
-- Generates new opportunities
-- Updates ops/today.md
+**DO:**
+- Search communities for loop opportunities
+- Detect user-generated content to amplify
+- Score by loop potential
+- Flag opportunities in ops/today.md
+- Prioritize distribution-model.md channels
 
-**Manual scan (when user requests):**
-- User says: "Scan for content opportunities"
-- Check all threads updated in last 30 days
-- Generate comprehensive report
+**DON'T:**
+- Prioritize SEO-first opportunities (dying channel)
+- Recommend content without loop trigger
+- Create for calendar, not learning
+- Ignore user-generated loop fuel
 
-### Auto-Flagging Rules
+## Handoff to Execution
 
-**Flag in ops/today.md if:**
-- Impact ≥0.7 (high priority)
-- OR keyword is top 10 priority from seo-strategy.md
-- OR thread explicitly mentions "worth sharing publicly"
-
-**Save to backlog only (don't flag) if:**
-- Impact 0.5-0.7 (medium)
-- Keyword has SEO potential
-- Content aligns with pillar
-
-**Skip entirely if:**
-- Impact <0.5 (low)
-- Confidential/proprietary learning
-- No pillar match and no strategic value
-
----
-
-## Quality Validation
-
-**Before flagging opportunity:**
-
-- [ ] Learning is validated (not hypothesis)
-- [ ] Maps to content pillar (or flags orphan)
-- [ ] Impact score calculated with reasoning
-- [ ] Target keyword identified
-- [ ] Content type appropriate for learning
-- [ ] Estimated impact has reasoning
-- [ ] No confidential information included
-
----
-
-## Edge Cases
-
-### Multiple Threads with Same Learning
-
-**Pattern detected across N threads:**
-- Combine into single opportunity
-- Note: "Pattern validated across 5 deals"
-- Higher confidence score
-- Stronger case for campaign
-
-**Example:**
-```
-Trigger: "5 {segment} customers chose {option} (100% pattern)"
-Source: threads/sales/{deal-1, deal-2, deal-3, deal-4, deal-5}/6-learning.md
-Confidence: 1.0 (pattern, not outlier)
-```
-
-### Orphan Learning (No Pillar Match)
-
-**Learning doesn't fit existing pillars:**
-- Flag separately in ops/today.md
-- Suggest: "Consider adding pillar" OR "Skip content"
-- Lower priority (0.4-0.5)
-
-**Example:**
-```
-Learning: "API rate limiting best practices"
-Pillars: "Product capabilities", "Customer success", "Industry insights"
-Match: None (technical documentation, not marketing)
-Action: Skip or move to developer docs
-```
-
-### Confidential Customer Data
-
-**Learning contains sensitive information:**
-- Flag for human review
-- Suggest anonymization: "A {segment} company" vs "{Customer}"
-- If cannot anonymize: Skip opportunity
-
-**Example:**
-```
-Learning: "Customer X (stealth mode) achieved 50% reduction"
-Action: Skip until customer approves public use
-```
-
-### Learning Contradicts Previous Content
-
-**New learning invalidates published content:**
-- Flag as HIGH priority (correction needed)
-- Suggest: Update existing content + new campaign
-- Higher impact score (correct misinformation)
-
-**Example:**
-```
-Previous: "Option A converts better"
-New learning: "{Segment} prefers Option B (100% pattern)"
-Action: Update old content + validation campaign (case studies)
-```
-
----
-
-## Success Metrics
-
-**Detection accuracy:**
-- Opportunities flagged: {count}/week
-- High-priority approval rate: >70% (human agrees it's worth pursuing)
-- False positives: <20% (flagged but human rejects)
-
-**Content-pillar coverage:**
-- Pillar balance: Opportunities spread across pillars
-- Orphans: <10% (indicates good pillar alignment)
-
-**Business impact:**
-- Campaign conversion: {percent} flagged → campaign created → published
-- Content from detected opportunities: {percent} of total traffic
-- Demo requests from opportunity-driven content: {count}
-
----
-
-## Usage Example
-
-**Scenario:** {Customer} deal closes (daily scan detects opportunity)
-
-```
-1. Daily scan runs (automated)
-
-2. Detects completed thread:
-   - threads/sales/{customer}-{feature}/6-learning.md
-   - Status: "completed"
-   - Learning: "{Segment} prefers {option} (N=5)"
-
-3. Analyzes learning:
-   - Pattern: 5 deals, 100% chose {option}
-   - Segment: {Segment} ($XXM+ {metric})
-   - Validated: Yes (quantified results)
-
-4. Classifies trigger:
-   - Type: Deal patterns (≥3 deals)
-   - Campaign type: Validation (case studies)
-
-5. Calculates impact:
-   - Reach: 0.8 (1,000-5,000 sessions for "{keyword}")
-   - Conversion: 0.9 (1-2%, strong proof)
-   - Revenue: 1.0 (directly supports {segment})
-   - Score: 0.85 (HIGH)
-
-6. Generates opportunity record:
-   - Save: threads/marketing/opportunities/campaign-opportunity-{date}-{segment}-validation.yaml
-   - Includes: Campaign type, content plan, impact breakdown
-
-7. Flags in ops/today.md:
-   "[Impact: 0.85] {Segment} Validation Campaign
-    Action: Create campaign thread at threads/marketing/campaigns/{segment}-validation-{date}/?"
-
-8. Waits for human decision
-   - Human reviews in ops/today.md
-   - Human decides: "Yes, create campaign"
-   - Human manually creates campaign thread
-   - Human completes Stages 1-4
-   - marketing-execution executes Stage 5
-```
-
----
-
-## Remember
-
-**You are a detection tool:**
-- Scan threads daily (automated)
-- Calculate impact objectively
-- Flag high-value opportunities
-- Wait for human decision
-
-**You are NOT an execution tool:**
-- Don't create campaign threads (human does this)
-- Don't generate content (content-generation does this)
-- Don't publish content (content-distribution does this)
-- Don't measure results (performance-tracking does this)
-
-**Success = Right opportunities flagged at right time, human decides rest.**
+When opportunity approved:
+1. Create thread: `threads/marketing/campaigns/{slug}/`
+2. Complete stages 1-4 (input → hypothesis → implication → decision)
+3. 4-decision.md triggers marketing-execution

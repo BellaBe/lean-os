@@ -291,7 +291,7 @@ Call subskill: marketing-execution/content-generation
 Parameters:
   - campaign_slug: String (e.g., "luxury-validation-nov-2024")
   - decision_path: String (path to 4-decision.md)
-  - piece_name: String (e.g., "elsaai-case-study")
+  - piece_name: String (e.g., "{customer}-case-study")
 
 Subskill will:
   1. Read Stage 4 Decision
@@ -312,7 +312,7 @@ Call subskill: marketing-execution/seo-optimization
 
 Parameters:
   - draft_path: String (path to draft article)
-  - target_keyword: String (e.g., "white-label SDK")
+  - target_keyword: String (e.g., "{primary keyword}")
   - secondary_keywords: Array of Strings
 
 Subskill will:
@@ -403,10 +403,10 @@ You wait for: Reports appear in ops/today.md
 - [x] Tracking started: 2024-11-17 (performance-tracking invoked)
 
 **Published URLs:**
-- Blog: https://glamyouup.com/blog/elsaai-white-label-sdk (UTM: ?utm_campaign={slug})
-- LinkedIn: https://linkedin.com/company/glamyouup/posts/... (UTM: ?utm_source=linkedin&utm_campaign={slug})
-- Twitter: https://twitter.com/glamyouup/status/... (UTM: ?utm_source=twitter&utm_campaign={slug})
-- Substack: https://glamyouup.substack.com/p/elsaai-white-label (UTM: ?utm_source=substack&utm_campaign={slug})
+- Blog: https://{product}.com/blog/{slug} (UTM: ?utm_campaign={slug})
+- LinkedIn: https://linkedin.com/company/{product}/posts/... (UTM: ?utm_source=linkedin&utm_campaign={slug})
+- Twitter: https://twitter.com/{product}/status/... (UTM: ?utm_source=twitter&utm_campaign={slug})
+- Substack: https://{product}.substack.com/p/{slug} (UTM: ?utm_source=substack&utm_campaign={slug})
 
 **Performance (Days 1-7):**
 - Sessions: 650 (performance-tracking monitoring)
@@ -554,81 +554,81 @@ If missing:
 
 ## Usage Example
 
-**Scenario:** Execute luxury validation campaign
+**Scenario:** Execute {segment} validation campaign
 
 ```
 1. Read Stage 4 Decision:
-   Campaign: threads/marketing/campaigns/luxury-validation-nov-2024/
+   Campaign: threads/marketing/campaigns/{segment}-validation-{date}/
    Content: 2 case studies + 4 LinkedIn posts
-   Keywords: "white-label SDK", "luxury fashion fit"
+   Keywords: "{primary keyword}", "{secondary keyword}"
    Channels: blog, LinkedIn, Twitter, Substack
 
-2. Execute Content Piece 1: "ElsaAI Case Study"
+2. Execute Content Piece 1: "{Customer} Case Study"
 
    Step 1: Invoke content-generation
    ↓
    Parameters:
-     - campaign_slug: "luxury-validation-nov-2024"
-     - decision_path: "threads/marketing/campaigns/luxury-validation-nov-2024/4-decision.md"
-     - piece_name: "elsaai-case-study"
+     - campaign_slug: "{segment}-validation-{date}"
+     - decision_path: "threads/marketing/campaigns/{segment}-validation-{date}/4-decision.md"
+     - piece_name: "{customer}-case-study"
    ↓
    Wait for: Drafts created
    ✓ Files exist: article.md, linkedin.md, twitter.md, substack.md
    ↓
    Update execution-log.md: [x] Drafts created
-   
+
    Step 2: Flag for human review
    ↓
-   Update ops/today.md: "Drafts ready: ElsaAI Case Study"
+   Update ops/today.md: "Drafts ready: {Customer} Case Study"
    ↓
    Wait for: Human approval
    ✓ Human approved with minor edits
    ↓
    Update execution-log.md: [x] Human reviewed
-   
+
    Step 3: Invoke seo-optimization
    ↓
    Parameters:
-     - draft_path: "threads/.../drafts/elsaai-case-study-article.md"
-     - target_keyword: "white-label SDK"
-     - secondary_keywords: ["enterprise fashion SDK", "luxury fashion returns"]
+     - draft_path: "threads/.../drafts/{customer}-case-study-article.md"
+     - target_keyword: "{primary keyword}"
+     - secondary_keywords: ["{secondary keyword 1}", "{secondary keyword 2}"]
    ↓
    Wait for: Optimization complete
    ✓ Drafts updated with SEO
    ↓
    Update execution-log.md: [x] SEO optimized
-   
+
    Step 4: Flag for human approval
    ↓
-   Update ops/today.md: "Optimized content ready: ElsaAI Case Study"
+   Update ops/today.md: "Optimized content ready: {Customer} Case Study"
    ↓
    Wait for: Human approval
    ✓ Human approved
    ↓
    Update execution-log.md: [x] Human approved
-   
+
    Step 5: Invoke content-distribution
    ↓
    Parameters:
      - optimized_drafts_path: "threads/.../drafts/"
-     - campaign_slug: "luxury-validation-nov-2024"
+     - campaign_slug: "{segment}-validation-{date}"
      - channels: ["blog", "linkedin", "twitter", "substack"]
-     - piece_name: "elsaai-case-study"
+     - piece_name: "{customer}-case-study"
    ↓
    Wait for: Publishing complete
-   ✓ Files created in artifacts/marketing/campaigns/luxury-validation-nov-2024/
+   ✓ Files created in artifacts/marketing/campaigns/{segment}-validation-{date}/
    ↓
    Update execution-log.md: [x] Published (URLs added)
-   
+
    Step 6: Delete drafts
    ↓
    Action: rm -rf threads/.../5-actions/drafts/
    ✓ Temporary files removed
-   
+
    Step 7: Invoke performance-tracking
    ↓
    Parameters:
-     - campaign_slug: "luxury-validation-nov-2024"
+     - campaign_slug: "{segment}-validation-{date}"
      - distribution_record: "artifacts/.../distribution-record.yaml"
      - tracking_period: "30 days"
    ↓
@@ -777,7 +777,7 @@ artifacts/marketing/narrative/channel-guidelines.md
 ---
 title: "{SEO-optimized title}"
 description: "{Meta description}"
-author: "{Author name or 'GlamYouUp Team'}"
+author: "{Author name or '{Your Product} Team'}"
 date: "{YYYY-MM-DD}"
 categories: ["{pillar}", "{secondary category}"]
 tags: ["{keyword}", "{related tags}"]
@@ -798,12 +798,12 @@ featured_image: "{image URL}"
 https://{website}/blog/{slug}
 
 Example:
-https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+https://{your-domain}.com/blog/{customer}-{feature}-case-study
 ```
 
 4. **Add UTM parameters for tracking:**
 ```
-Base URL: https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+Base URL: https://{your-domain}.com/blog/{slug}
 
 For LinkedIn share: ?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}
 For Email: ?utm_source=email&utm_medium=newsletter&utm_campaign={campaign-slug}
@@ -813,7 +813,7 @@ For Organic: No UTM (default)
 5. **Generate sitemap entry:**
 ```xml
 <url>
-  <loc>https://glamyouup.com/blog/elsaai-white-label-sdk-case-study</loc>
+  <loc>https://{your-domain}.com/blog/{slug}</loc>
   <lastmod>2024-11-16</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
@@ -855,32 +855,32 @@ artifacts/marketing/blog/{slug}.md
 Read the full case study: {blog URL with UTM}
 ```
 
-**Example (ElsaAI case study):**
+**Example ({Customer} case study):**
 ```markdown
-We closed 5 enterprise fashion deals in Q4. All 5 chose white-label SDK over co-branded.
+{Opening hook with key data point}
 
-This wasn't random. Luxury brands ($100M+ GMV) prioritize brand consistency over vendor recognition.
+{Core insight about target segment}
 
 What we learned:
 
-**Co-branded widgets break luxury aesthetics**
-Even minimal branding ("Powered by X") creates friction. One customer told us: "Our customers don't care who powers fit recommendations. They care that it looks like us."
+**{Key learning #1}**
+{Supporting evidence or quote}
 
 **The numbers prove it matters**
-ElsaAI (luxury marketplace, $200M GMV) saw:
-- 38% return reduction with white-label
-- 94% fit accuracy
-- $805K annual savings
+{Customer} ({segment}, ${metric}) saw:
+- {Result 1}
+- {Result 2}
+- {Result 3}
 
-They paid 3x more for white-label because brand consistency is non-negotiable.
+{Why this matters - business implication}
 
-**Industry insight:** Customer segment dictates product packaging. Same technology, different positioning.
+**Industry insight:** {Broader lesson or pattern}
 
-Full case study with metrics and technical implementation: https://glamyouup.com/blog/elsaai-white-label-sdk-case-study?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}
+Full case study with metrics and technical implementation: https://{your-domain}.com/blog/{slug}?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}
 ```
 
 3. **Add LinkedIn-specific elements:**
-- Hashtags (3-5 max): `#B2BSaaS #FashionTech #EnterpriseSDK`
+- Hashtags (3-5 max): `#B2BSaaS #{IndustryTech} #{SolutionCategory}`
 - Placement: End of post (not mid-text)
 - First comment: Additional context or link to technical docs
 
@@ -931,15 +931,15 @@ artifacts/marketing/linkedin/posts/{date}-{slug}.md
 <!-- Stats callout -->
 <section class="stats">
   <div class="stat">
-    <h2>38%</h2>
-    <p>Return reduction</p>
+    <h2>{X}%</h2>
+    <p>{Key metric} reduction</p>
   </div>
   <div class="stat">
-    <h2>$805K</h2>
+    <h2>${savings}K</h2>
     <p>Annual savings</p>
   </div>
   <div class="stat">
-    <h2>30 days</h2>
+    <h2>{timeframe}</h2>
     <p>Time to results</p>
   </div>
 </section>
@@ -959,18 +959,18 @@ artifacts/marketing/linkedin/posts/{date}-{slug}.md
 {
   "@context": "https://schema.org",
   "@type": "CaseStudy",
-  "name": "ElsaAI White-Label SDK Implementation",
-  "description": "How ElsaAI reduced returns by 38% using white-label fit recommendations",
+  "name": "{Customer} {Feature} Implementation",
+  "description": "{Customer result summary}",
   "author": {
     "@type": "Organization",
-    "name": "GlamYouUp"
+    "name": "{Your Product}"
   },
-  "result": "38% reduction in return rate, $805K annual savings"
+  "result": "{Key metrics and outcomes}"
 }
 ```
 
 4. **Internal navigation:**
-- Breadcrumbs: Home > Case Studies > ElsaAI
+- Breadcrumbs: Home > Case Studies > {Customer}
 - Related case studies (bottom)
 - CTA: Demo request, contact sales
 
@@ -996,28 +996,28 @@ artifacts/marketing/website/{slug}.html
 
 2. **Create email version:**
 ```markdown
-Subject: New case study: 38% return reduction with white-label SDK
+Subject: New case study: {Key result metric} with {feature}
 
-Preview text: Learn how ElsaAI (luxury marketplace, $200M GMV) achieved $805K in annual savings
+Preview text: Learn how {Customer} ({segment}, ${GMV}) achieved {key outcome}
 
 ---
 
 Hi {First_Name},
 
-**New case study: ElsaAI reduces returns 38% with white-label SDK**
+**New case study: {Customer} {key result} with {feature}**
 
-We just published a detailed case study on how ElsaAI, a luxury fashion marketplace, reduced returns by 38% using our white-label SDK.
+We just published a detailed case study on how {Customer}, {description}, {achieved outcome}.
 
 Key results:
-- 38% return reduction (25% → 18%)
-- 94% fit accuracy
-- $805K annual savings
-- 30-day implementation
+- {Result metric 1}
+- {Result metric 2}
+- {Result metric 3}
+- {Implementation timeframe}
 
 What made this work:
-1. White-label branding (no third-party logos)
-2. AI-powered fit recommendations
-3. Fast integration (2 weeks)
+1. {Success factor 1}
+2. {Success factor 2}
+3. {Success factor 3}
 
 The full case study includes metrics, technical implementation details, and ROI analysis.
 
@@ -1032,7 +1032,7 @@ Read the full case study →
 
 Best,
 {Name}
-{Title}, GlamYouUp
+{Title}, {Your Product}
 ```
 
 3. **Email formatting:**
@@ -1043,8 +1043,8 @@ Best,
 - Unsubscribe link (required)
 
 4. **Segmentation (if applicable):**
-- Send to: Enterprise segment (matches case study ICP)
-- Exclude: Customers already using white-label
+- Send to: {Segment} (matches case study ICP)
+- Exclude: Customers already using {premium tier}
 - Timing: Tuesday-Thursday, 10am (target timezone)
 
 5. **Output location:**
@@ -1085,7 +1085,7 @@ artifacts/marketing/email/{date}-{slug}.md
 
 **Blog post shared on LinkedIn:**
 ```
-https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+https://{your-domain}.com/blog/{slug}
 ?utm_source=linkedin
 &utm_medium=social
 &utm_campaign={campaign-slug}
@@ -1094,7 +1094,7 @@ https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
 
 **Email newsletter link:**
 ```
-https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+https://{your-domain}.com/blog/{slug}
 ?utm_source=email
 &utm_medium=newsletter
 &utm_campaign={campaign-slug}
@@ -1103,7 +1103,7 @@ https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
 
 **LinkedIn first comment (additional resources):**
 ```
-https://glamyouup.com/docs/white-label-sdk
+https://{your-domain}.com/docs/{resource}
 ?utm_source=linkedin
 &utm_medium=social
 &utm_campaign={campaign-slug}
@@ -1116,19 +1116,19 @@ https://glamyouup.com/docs/white-label-sdk
 ```yaml
 # tracking-log.yaml
 
-- content_slug: "elsaai-white-label-sdk-case-study"
+- content_slug: "{slug}"
   publish_date: "2024-11-16"
   urls:
     - channel: "blog"
-      url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+      url: "https://{your-domain}.com/blog/{slug}"
       utm: null  # Organic traffic
-    
+
     - channel: "linkedin"
-      url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+      url: "https://{your-domain}.com/blog/{slug}"
       utm: "?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}"
-    
+
     - channel: "email"
-      url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+      url: "https://{your-domain}.com/blog/{slug}"
       utm: "?utm_source=email&utm_medium=newsletter&utm_campaign={campaign-slug}"
 ```
 
@@ -1170,7 +1170,7 @@ https://glamyouup.com/docs/white-label-sdk
 
 3. **Website update:**
    - Add to case studies page
-   - Reference in product page ("See how ElsaAI...")
+   - Reference in product page ("See how {Customer}...")
 
 4. **Social graphics:**
    - Key stat image (1200x627px)
@@ -1236,18 +1236,18 @@ Day 16: LinkedIn post #3 (technical)
 ```yaml
 # distribution-record-{date}-{slug}.yaml
 
-content_slug: "elsaai-white-label-sdk-case-study"
-content_title: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+content_slug: "{slug}"
+content_title: "{Content Title}"
 publish_date: "2024-11-16"
 
 channels:
   - name: "blog"
-    url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+    url: "https://{your-domain}.com/blog/{slug}"
     status: "published"
     published_at: "2024-11-16T09:00:00Z"
-    
+
   - name: "linkedin"
-    url: "https://www.linkedin.com/company/glamyouup/posts/..."
+    url: "https://www.linkedin.com/company/{your-company}/posts/..."
     status: "published"
     published_at: "2024-11-17T10:00:00Z"
     engagement:
@@ -1268,9 +1268,9 @@ utm_tracking:
   email: "?utm_source=email&utm_medium=newsletter&utm_campaign={campaign-slug}"
 
 files_created:
-  - "artifacts/marketing/blog/elsaai-white-label-sdk-case-study.md"
-  - "artifacts/marketing/linkedin/posts/2024-11-17-elsaai-case-study.md"
-  - "artifacts/marketing/email/2024-11-19-newsletter.md"
+  - "artifacts/marketing/blog/{slug}.md"
+  - "artifacts/marketing/linkedin/posts/{date}-{slug}.md"
+  - "artifacts/marketing/email/{date}-newsletter.md"
 
 next_steps:
   - "Monitor blog performance (Day 1-7)"
@@ -1281,9 +1281,9 @@ next_steps:
 
 ### Publication Checklist
 ```markdown
-## Publication Checklist: elsaai-white-label-sdk-case-study
+## Publication Checklist: {slug}
 
-**Content:** White-Label SDK Case Study: ElsaAI Reduces Returns 38%
+**Content:** {Content Title}
 **Date:** 2024-11-16
 **Channels:** Blog, LinkedIn, Email
 
@@ -1291,14 +1291,14 @@ next_steps:
 
 - [x] Content optimized (SEO complete)
 - [x] Human approval received
-- [x] Customer approval (ElsaAI signed off)
+- [x] Customer approval ({Customer} signed off)
 - [x] Images compressed (<200KB each)
 - [x] Internal links validated
 - [x] No confidential information
 
 ### Blog Publication
 
-- [x] Published to: https://glamyouup.com/blog/elsaai-white-label-sdk-case-study
+- [x] Published to: https://{your-domain}.com/blog/{slug}
 - [x] Sitemap updated
 - [x] Meta tags verified
 - [x] Mobile responsive checked
@@ -1430,8 +1430,8 @@ next_steps:
 
 **Input:**
 ```
-Campaign: threads/marketing/campaigns/luxury-validation-nov-2024/
-Optimized content: 5-actions/drafts/elsaai-case-study-optimized.md
+Campaign: threads/marketing/campaigns/{campaign-slug}/
+Optimized content: 5-actions/drafts/{content-slug}-optimized.md
 Channels: ["blog", "linkedin", "email"]
 Priority: high
 ```
@@ -1441,23 +1441,23 @@ Priority: high
 1. Validate ready for publication:
    - ✓ SEO optimized
    - ✓ Human approved
-   - ✓ Customer approved (ElsaAI signed off)
+   - ✓ Customer approved ({Customer} signed off)
    - ✓ No confidential info
 
 2. Blog distribution:
    - Convert to blog format
    - Add author bio, related articles
-   - Set URL: /blog/elsaai-white-label-sdk-case-study
+   - Set URL: /blog/{slug}
    - Publish: 2024-11-16 09:00am
    - Update sitemap
-   - Output: artifacts/marketing/blog/elsaai-white-label-sdk-case-study.md
+   - Output: artifacts/marketing/blog/{slug}.md
 
 3. LinkedIn distribution:
    - Create excerpt (480 words)
    - Add UTM: ?utm_source=linkedin&utm_medium=social&utm_campaign={campaign-slug}
    - Schedule: 2024-11-17 10:00am
    - Prepare first comment (technical docs link)
-   - Output: artifacts/marketing/linkedin/posts/2024-11-17-elsaai-case-study.md
+   - Output: artifacts/marketing/linkedin/posts/{date}-{slug}.md
 
 4. Email distribution:
    - Add to Nov 19 newsletter
@@ -1468,13 +1468,16 @@ Priority: high
    - Output: artifacts/marketing/email/2024-11-19-newsletter.md
 
 5. Create tracking record:
-   - Save: distribution-record-2024-11-16-elsaai-white-label.yaml
+   - Save: distribution-record-{date}-{slug}.yaml
    - Log all URLs with UTM parameters
 
 6. Update ops/today.md:
-   - "Published: ElsaAI case study (blog, LinkedIn scheduled, email scheduled)"
+   - "Published: {Customer} case study (blog, LinkedIn scheduled, email scheduled)"
 
-7. Set performance tracking:
+7. Update ops/today.md:
+   - "Published: {Content title} (blog, LinkedIn scheduled, email scheduled)"
+
+8. Set performance tracking:
    - Monitor blog: Days 1-7
    - Monitor LinkedIn: Day 2 (engagement)
    - Monitor email: Days 19-21 (open/click)
@@ -1686,7 +1689,7 @@ threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{slug}-draft.md
 ### Confidential Information
 **If thread contains confidential data:**
 - Anonymize customer names, specific metrics
-- Generalize: "A luxury brand" vs "BrandName"
+- Generalize: "A {premium segment} company" vs "BrandName"
 - Flag for human review before proceeding
 
 ### Customer Approval Required
@@ -1721,22 +1724,22 @@ threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{slug}-draft.md
 
 **Input opportunity:**
 ```yaml
-topic: "How Enterprise Fashion Brands Use White-Label SDKs"
+topic: "How {Premium Segment} Use {Solution Approach}"
 content_type: "case-study"
-target_keyword: "white-label SDK"
-source_thread: "threads/sales/elsa-white-label/"
+target_keyword: "{target keyword}"
+source_thread: "threads/sales/{customer-thread}/"
 pillar: "Product capabilities"
 ```
 
 **Process:**
-1. Read campaign: `threads/marketing/campaigns/luxury-validation-nov-2024/4-decision.md`
-2. Read source: `threads/sales/elsa-white-label/6-learning.md`
+1. Read campaign: `threads/marketing/campaigns/{campaign-slug}/4-decision.md`
+2. Read source: `threads/sales/{customer-thread}/6-learning.md`
 3. Read positioning: `strategy/canvas/07-uvp.md`
 4. Read voice: `artifacts/marketing/narrative/brand-voice.md`
 5. Load pattern: `{baseDir}/references/case-study-pattern.md`
 6. Generate draft following pattern structure
 7. Validate with `validate_draft.py`
-8. Save to `drafts/elsaai-case-study-draft.md`
+8. Save to `drafts/{customer}-case-study-draft.md`
 9. Flag in `ops/today.md` for human review
 
 **Output:** 1,450-word case study with metrics from thread, technical details, educational tone, ready for human review.
@@ -1791,82 +1794,80 @@ Short-form content patterns for product launches and company insights.
 - Pricing tier (if applicable)
 - How to access (link to docs, not hard CTA)
 
-### Example: White-Label SDK Launch
+### Example: {Premium Tier} Launch
 
 ```markdown
-# White-Label Fit Recommendations Now Available for Enterprise
+# {Feature/Product Name} Now Available for {Target Segment}
 
 ## What
 
-White-label SDK for fit recommendations is now available for enterprise 
-fashion brands ($100M+ GMV). Deploy AI-powered size recommendations under 
-your brand—no third-party logos, co-branding, or external attribution.
+{Product/feature description} is now available for {target customer segment}.
+{Key capability description}—{differentiators}.
 
-Primary benefit: 94% fit accuracy without compromising brand consistency.
+Primary benefit: {Core value proposition}.
 
 ## Why
 
-After 5 enterprise deals in Q4, we learned 100% of luxury brands chose 
-white-label over co-branded widgets. The pattern was clear:
+After 5 deals in Q4, we learned 100% of {premium segment} chose
+{premium tier} over {alternative tier}. The pattern was clear:
 
 **Customer feedback:**
-- "Our customers don't care who powers fit tech. They care it looks like us."
-- "Co-branded widgets break our visual aesthetic. Non-negotiable for luxury."
-- "At $200+ AOV, every detail matters. Third-party branding reduces trust."
+- "{Quote from customer about pain point}"
+- "{Quote about why this matters to them}"
+- "{Quote about business impact}"
 
 **Business case:**
-- Luxury brands: 31% return rates vs 22% mid-market
-- Higher expectations: >90% fit accuracy threshold
-- ROI matters: $805K annual savings (ElsaAI case study)
+- {Target segment}: {Metric} vs {Benchmark}
+- {Success criteria}: {Threshold or requirement}
+- ROI matters: ${Savings} annual savings ({Customer} case study)
 
-Strategic context: This completes our product offering—co-branded for 
-growth stage ($50K tier), white-label for enterprise ($400K+ tier).
+Strategic context: {How this fits your product strategy and positioning}.
 
 ## How
 
 **Architecture:**
-- React SDK with full custom styling
-- Deploy on your subdomain (fit.yourbrand.com)
-- Zero external branding or attribution
-- Same 94% accuracy as co-branded version
+- {Technology stack}
+- {Deployment model}
+- {Key technical differentiators}
+- {Performance specifications}
 
 **Key capabilities:**
-- Body measurement API (<200ms latency)
-- Personalized fit recommendations
-- Real-time analytics dashboard
-- GDPR-compliant data residency
+- {Capability 1} ({performance spec})
+- {Capability 2}
+- {Capability 3}
+- {Compliance/security features}
 
 **Why not alternatives:**
 
-*Co-branded widgets:*
-- Pro: Lower cost ($50K/year)
-- Con: Third-party branding breaks luxury aesthetic
+*{Alternative Option 1}:*
+- Pro: {Benefit}
+- Con: {Drawback}
 
-*Custom ML model:*
-- Pro: Full control
-- Con: 3-6 month build, $200K+ development, ongoing maintenance
+*{Alternative Option 2}:*
+- Pro: {Benefit}
+- Con: {Drawback}
 
-*White-label SDK:*
-- Pro: 94% accuracy + brand consistency + 2-week integration
-- Con: Higher tier ($400K+/year)
+*{Your Solution}:*
+- Pro: {Key benefits}
+- Con: {Trade-off if any}
 
 ## Who
 
 **Target customers:**
-- Luxury fashion brands ($100M+ GMV)
-- Premium e-commerce (AOV >$100)
-- Strong brand identity (visual consistency critical)
-- Technical team for integration (5-10 hours engineering)
+- {Customer segment} ({size/revenue criteria})
+- {Business model} ({key characteristics})
+- {Requirement 1}
+- {Requirement 2}
 
 **Use cases:**
-- Reduce return rates (fit issues = 73% of returns)
-- Maintain brand consistency (no co-branding)
-- Scale fit recommendations (10K+ requests/hour)
+- {Use case 1} ({specific problem solved})
+- {Use case 2}
+- {Use case 3}
 
 **Requirements:**
-- React or vanilla JS frontend
+- {Technology} frontend
 - REST API integration capability
-- HTTPS domain for widget hosting
+- {Infrastructure requirement}
 - Analytics integration (optional)
 
 ## When & Pricing
@@ -1874,13 +1875,13 @@ growth stage ($50K tier), white-label for enterprise ($400K+ tier).
 **Availability:** Available now
 
 **Pricing:**
-- White-label tier: $400K+/year (enterprise)
-- Includes: Custom branding, dedicated support, SLA, EU data residency
+- {Premium tier}: ${price}K+/year ({tier level})
+- Includes: Custom branding, dedicated support, SLA, {compliance}
 
 **How to access:**
 - Technical docs: [link]
 - Integration guide: [link]
-- Contact for enterprise tier: [email]
+- Contact for {tier level} tier: [email]
 
 ---
 
@@ -1888,23 +1889,23 @@ growth stage ($50K tier), white-label for enterprise ($400K+ tier).
 
 **Implementation:**
 ```javascript
-// Your site
-<script src="https://fit.yourbrand.com/widget.js"></script>
+// Your {platform}
+<script src="https://{subdomain}.yourbrand.com/{component}.js"></script>
 
 // Configuration
-FitWidget.init({
+{Component}.init({
   apiKey: 'your-key',
-  theme: 'custom', // Inherits your CSS
-  subdomain: 'fit.yourbrand.com'
+  theme: 'custom', // Inherits your {styling}
+  subdomain: '{subdomain}.yourbrand.com'
 });
 ```
 
 **Performance:**
-- Load time: <50ms (async)
-- API latency: <200ms (p95)
-- Uptime: 99.9% SLA
+- Load time: <{load time}ms (async)
+- API latency: <{latency}ms (p95)
+- Uptime: {uptime}% SLA
 
-**Integration time:** 2 weeks (typical)
+**Integration time:** {timeframe} (typical)
 ```
 
 ---
@@ -1929,38 +1930,35 @@ FitWidget.init({
 
 **Example:**
 ```
-We closed 5 enterprise fashion deals in Q4. All 5 chose white-label 
-SDK over co-branded.
+We closed {N} deals in Q{quarter}. All {N} chose {option A}
+over {option B}.
 
-This wasn't about hiding our technology. It was about brand consistency 
-being non-negotiable.
+This wasn't about {misconception}. It was about {actual insight}.
 
 **What we learned:**
 
-Luxury brands ($100M+ GMV) prioritize brand consistency over vendor 
-recognition. They'll pay 3x more for white-label because:
-- Co-branded widgets break visual aesthetic
-- Customers question legitimacy of third-party branding
-- Mobile experience needs seamless integration
+{Target segment} prioritize {value 1} over {value 2}. They'll pay {premium}
+for {option A} because:
+- {Reason 1}
+- {Reason 2}
+- {Reason 3}
 
-One customer (luxury marketplace, $200M GMV) told us: "Our customers 
-don't care who powers fit recommendations. They care that it looks 
-like ElsaAI."
+One customer ({segment}, ${metric}) told us: "{Quote about why this matters}"
 
-**Fast fashion brands ($10M-$50M GMV) prefer co-branded.**
+**{Another segment} prefer {option B}.**
 
 Opposite behavior:
-- Third-party branding adds credibility ("powered by AI")
-- Lower technical resources (easier implementation)
-- Price-sensitive (white-label costs 3x)
+- {Reason 1}
+- {Reason 2}
+- {Reason 3}
 
 **Takeaway:**
-Customer segment dictates product packaging. Same technology, different 
+Customer segment dictates product packaging. Same technology, different
 positioning.
 
 We're now offering both:
-- White-label: Enterprise tier ($400K+)
-- Co-branded: Growth tier ($50K+)
+- {Option A}: {Tier name} (${price range})
+- {Option B}: {Tier name} (${price range})
 
 Technical docs: [link]
 ```
@@ -1975,36 +1973,36 @@ Technical docs: [link]
 
 **Example:**
 ```
-Fashion e-commerce return rates: 25% average.
-Everyone talks about reducing returns.
+{Industry} {metric}: {X}% average.
+Everyone talks about reducing {problem}.
 Few ask: what's causing them?
 
-We analyzed 10,000 returns across 5 brands:
-- Fit issues: 73%
-- Color/style mismatch: 18%
-- Quality issues: 6%
-- Price regret: 3%
+We analyzed {N} {data points} across {N} {entities}:
+- {Root cause}: {X}%
+- {Secondary cause}: {X}%
+- {Tertiary cause}: {X}%
+- {Minor cause}: {X}%
 
-**The insight: Returns aren't buyer's remorse. They're fit prediction 
+**The insight: {Problems} aren't {misconception}. They're {root cause}
 failures.**
 
-Breakdown of fit issues:
-- Too small: 42%
-- Too large: 31%
-- Wrong proportions: 27%
+Breakdown of {root cause}:
+- {Sub-cause 1}: {X}%
+- {Sub-cause 2}: {X}%
+- {Sub-cause 3}: {X}%
 
-Here's the interesting part: 68% of customers who return for fit issues 
-reorder the same item in a different size. They want the product. Size 
-charts failed them.
+Here's the interesting part: {X}% of {users} who {problem} for {root cause}
+{positive action} the same {item} in {different approach}. They want the {outcome}. {Baseline approach}
+failed them.
 
 **Implication:**
-The $743B reverse logistics problem isn't about returns. It's about fit 
-accuracy. Generic size charts: 68% accurate. Luxury customers need >90%.
+The ${X}B {problem category} isn't about {surface issue}. It's about {capability}
+accuracy. {Baseline approach}: {X}% accurate. {Premium segment} need >{Y}%.
 
-At 25% return rates, $120 AOV, a $10M brand loses $2.5M annually. 
-Fix fit prediction → capture 68% of that revenue.
+At {X}% {problem rate}, ${Y} AOV, a ${Z}M {entity} loses ${loss}M annually.
+Fix {solution approach} → capture {X}% of that revenue.
 
-Related: [How Body Scanning Achieves 94% Fit Accuracy]
+Related: [How {Solution Approach} Achieves {Performance}% Accuracy]
 ```
 
 ### Pattern 3: Company Milestone
@@ -2018,36 +2016,36 @@ Related: [How Body Scanning Achieves 94% Fit Accuracy]
 **Example:**
 ```
 1 year ago we launched with 0 customers.
-Today: $5.5M in enterprise contracts.
+Today: ${revenue}M in {segment} contracts.
 
-Not overnight success—5 pivots, 12 failed deals, 3 product rebuilds.
+Not overnight success—{N} pivots, {N} failed deals, {N} product rebuilds.
 
 **What changed:**
 
-Initially: AI-powered fit recommendations (generic positioning)
-Now: White-label SDK for luxury brands (specific segment)
+Initially: {Generic positioning} ({broad positioning})
+Now: {Premium tier} for {premium segment} (specific segment)
 
-The shift happened after deal #3. Customer said: "We need this, but 
-co-branded widgets break our luxury aesthetic."
+The shift happened after deal #{N}. Customer said: "We need this, but
+{alternative approach} breaks our {key requirement}."
 
-That's when we realized: Problem wasn't fit accuracy. Problem was brand 
-consistency at high price points.
+That's when we realized: Problem wasn't {capability}. Problem was {key differentiator}
+at high price points.
 
 **Rebuilt the product:**
-- White-label architecture (your brand, not ours)
-- 94% fit accuracy (luxury threshold: >90%)
-- 2-week integration (vs 3-month custom build)
+- {Premium tier} architecture (your brand, not ours)
+- {Performance}% {capability} ({segment} threshold: >{X}%)
+- {Timeframe} integration (vs {longer timeframe} custom build)
 
 **Results:**
-- 100% of luxury brands chose white-label
-- 0% of growth-stage brands chose white-label
+- 100% of {premium segment} chose {premium tier}
+- 0% of {contrast segment} chose {premium tier}
 - Same technology, different packaging
 
 **Learning:**
-Product-market fit isn't just what you build. It's how you package it 
+Product-market fit isn't just what you build. It's how you package it
 for specific segments.
 
-Next: Expanding to footwear vertical. Same architecture, different 
+Next: Expanding to {new vertical}. Same architecture, different
 category. [Link to technical approach]
 ```
 
@@ -2056,8 +2054,8 @@ category. [Link to technical approach]
 ## LinkedIn Quality Standards
 
 **Good LinkedIn post:**
-- Specific data (5 deals, $5.5M, 100%)
-- Clear insight (luxury prefers white-label)
+- Specific data (5 deals, ${revenue}M, 100%)
+- Clear insight ({premium segment} prefers {premium tier})
 - Honest (5 pivots, 12 failed deals)
 - Educational (others can apply this)
 - Soft link (relevant content, not sales pitch)
@@ -2095,13 +2093,13 @@ category. [Link to technical approach]
 
 **Wrong:**
 ```
-Introducing our revolutionary AI-powered SDK! Transform your business 
+Introducing our revolutionary AI-powered SDK! Transform your business
 with cutting-edge technology! Book a demo now!
 ```
 
 **Right:**
 ```
-White-label fit recommendations now available. 94% accuracy, 2-week 
+{Premium tier} {solution} now available. {Performance}% accuracy, {timeframe}
 integration, zero co-branding. Technical docs: [link]
 ```
 
@@ -2109,14 +2107,14 @@ integration, zero co-branding. Technical docs: [link]
 
 **Wrong:**
 ```
-Agree that AI is changing everything? 🚀 Comment your thoughts below! 
-#AI #Innovation #FashionTech
+Agree that AI is changing everything? 🚀 Comment your thoughts below!
+#AI #Innovation #{IndustryTech}
 ```
 
 **Right:**
 ```
-5 enterprise deals. All chose white-label over co-branded. Luxury 
-brands prioritize brand consistency over vendor recognition. Data: [thread]
+5 deals. All chose {premium tier} over {alternative tier}. {Premium segment}
+prioritize {key differentiator} over vendor recognition. Data: [thread]
 ```
 
 ### ❌ Vague Milestone
@@ -2129,7 +2127,7 @@ amazing team! 🎉
 
 **Right:**
 ```
-$0 → $5.5M in 12 months. 5 pivots, 12 failed deals, 3 product rebuilds. 
+$0 → ${revenue}M in 12 months. 5 pivots, 12 failed deals, 3 product rebuilds.
 Key learning: Product-market fit = right packaging for specific segment.
 ```
 
@@ -2164,6 +2162,106 @@ Five patterns for educational blog content.
 
 ---
 
+## Example Usage Rules
+
+**Examples are teaching tools, not decoration. Every example must serve the reader.**
+
+### Rule 1: One Example Per Campaign (Teaching Campaigns)
+
+**For educational/teaching campaigns:** Use ONE consistent example throughout the entire campaign.
+
+**Why:** Reader builds mental model. Switching examples forces them to rebuild context.
+
+```
+❌ Wrong (scattered):
+- Article 1: "Imagine a {industry} company..."
+- Article 2: "Consider a SaaS startup..."
+- Article 3: "Take a fintech company..."
+
+✅ Right (consistent):
+- Article 1: "FastCapital (our example fintech) faces..."
+- Article 2: "Continuing with FastCapital..."
+- Article 3: "As we saw with FastCapital..."
+```
+
+**Campaign example should be:**
+- Introduced clearly in first piece
+- Referenced consistently throughout
+- Complex enough to demonstrate multiple concepts
+- Relatable to target audience
+
+---
+
+### Rule 2: Real vs Invented - Always Declare
+
+**If example is real:** Name it, link to proof if public.
+```
+✅ "{Your Product} (our {product description}) reduced {metric} by..."
+✅ "{Customer} ({customer description})..."
+```
+
+**If example is invented:** State it explicitly.
+```
+✅ "Let's use FastCapital as our example throughout this series..."
+✅ "Consider a hypothetical Series A fintech (we'll call it FastCapital)..."
+```
+
+**Never:**
+```
+❌ Present invented examples as if they're real customers
+❌ Leave reader guessing if example is real or illustrative
+❌ Mix real and invented without clarity
+```
+
+---
+
+### Rule 3: No Scattered Examples Within Article
+
+**One primary example per article.** Additional examples only if they:
+- Contrast with primary example (different segment, different outcome)
+- Are brief (1-2 sentences max)
+- Don't require reader to build new mental model
+
+```
+❌ Wrong (scattered):
+"{Industry A} faces {problem A}. {Industry B} faces {problem B}. {Industry C}
+faces {problem C}. {Industry D} faces {problem D}. Each industry..."
+
+✅ Right (focused):
+"{Industry} companies face {X}% {problem}. Let's examine how one {segment}
+company ({Customer}) tackled this. [Entire article uses {Customer} example]
+
+Brief contrast: Unlike {industry}, {other industry} faces different triggers
+({other problem}, not {primary problem}) - but the methodology applies."
+```
+
+---
+
+### Rule 4: Reader Value Test
+
+**Before adding any example, ask:**
+
+1. **Does this help reader understand?** (If no, cut it)
+2. **Does reader need new context to follow?** (If yes, simplify or cut)
+3. **Could I explain without this example?** (If yes, maybe cut)
+4. **Does it advance the teaching goal?** (If no, cut)
+
+**Examples exist to clarify, not to impress.**
+
+---
+
+### Rule 5: Example Depth Guidelines
+
+| Content Type | Example Approach |
+|--------------|------------------|
+| Single article | One primary example, deep |
+| Campaign (3+ pieces) | One example across all pieces |
+| Comparison article | Two examples max (A vs B) |
+| Technical deep dive | One real implementation example |
+| Problem analysis | One industry example, data-focused |
+
+---
+
 ## Pattern 1: Problem Analysis
 
 **Use when:** Explaining industry problem, sharing research, analyzing trends
@@ -2176,24 +2274,24 @@ Five patterns for educational blog content.
 
 **Data-first:**
 ```
-25% of online fashion purchases get returned. That's $743B in 
-reverse logistics annually—more than the GDP of Switzerland.
+{X}% of {industry} {metric} results in {negative outcome}. That's ${Y}B in
+{cost category} annually—more than {surprising comparison}.
 
-But the problem isn't returns. It's why they happen.
+But the problem isn't {surface issue}. It's why they happen.
 ```
 
 **Surprising insight:**
 ```
-We analyzed 10,000 fashion returns. Expected: price regret. 
-Found: 73% were fit issues. The problem isn't buyer's remorse—
-it's that size charts don't work.
+We analyzed {N} {data points}. Expected: {common assumption}.
+Found: {X}% were {root cause}. The problem isn't {assumed cause}—
+it's that {real cause}.
 ```
 
 **Industry observation:**
 ```
-Every fashion brand says "reduce returns." Few ask: what's 
-causing them? We spent 6 months analyzing 50 enterprise brands. 
-Here's what returns actually tell us.
+Every {industry} company says "{common goal}." Few ask: what's
+causing {problem}? We spent {time} analyzing {N} {data points}.
+Here's what {data} actually tells us.
 ```
 
 ### Structure Guide
@@ -2224,111 +2322,109 @@ Here's what returns actually tell us.
 - Related topics (internal links)
 - Soft link if relevant (no hard CTA)
 
-### Example: ElsaAI Returns Analysis
+### Example: Problem Analysis Article
 
 ```markdown
-# Why 73% of Fashion Returns Are Actually Fit Issues
+# Why {X}% of {Industry} {Problems} Are Actually {Root Cause}
 
 ## Introduction
 
-25% of online fashion purchases get returned. Brands blame buyer's 
-remorse, showrooming, or pricing. We analyzed 10,000 returns across 
-5 luxury brands. They were wrong.
+{X}% of {industry} {metric} results in {problem}. Companies blame {common assumption 1},
+{common assumption 2}, or {common assumption 3}. We analyzed {N} {data points} across
+{N} {segment} companies. They were wrong.
 
-73% of returns were fit issues—not price regret. Size charts don't 
-work, and virtual try-on isn't accurate enough. The $743B reverse 
-logistics problem isn't about returns. It's about fit prediction.
+{Y}% of {problems} were {root cause}—not {assumed cause}. {Current solution} doesn't
+work, and {alternative solution} isn't accurate enough. The ${Z}B {problem category}
+problem isn't about {surface issue}. It's about {real issue}.
 
-Here's what 6 months of return data taught us about why customers 
-send clothes back.
+Here's what {time period} of {data} taught us about why {outcome} happens.
 
 ## The Problem
 
-Fashion brands lose $120 per return on average:
-- Reverse logistics: $15 (shipping + processing)
-- Lost revenue: $90 (can't resell as new)
-- Customer service: $15 (15 min @ $60/hr)
+{Industry} companies lose ${X} per {problem} on average:
+- {Cost 1}: ${amount} ({explanation})
+- {Cost 2}: ${amount} ({explanation})
+- {Cost 3}: ${amount} ({explanation})
 
-At 25% return rates, a $10M/year brand loses $2.5M annually.
+At {X}% {problem rate}, a ${Y}M/year company loses ${Z}M annually.
 
-Brands try:
-- Better size charts → Still 32% wrong
-- Virtual try-on → 28% accuracy improvement (not enough)
-- Free returns → Increases returns 40%
+Companies try:
+- {Solution 1} → Still {X}% {failure rate}
+- {Solution 2} → {X}% improvement (not enough)
+- {Solution 3} → Increases {problem} {X}%
 
-None address root cause: customers can't predict fit from product pages.
+None address root cause: {customers/users} can't {core action} from {current approach}.
 
 ## Data Analysis
 
-We analyzed 10,000 returns across 5 luxury brands ($50M-$200M GMV):
+We analyzed {N} {data points} across {N} {segment} companies (${X}M-${Y}M {metric}):
 
-**Return reasons:**
-- Fit issues: 73% (7,300 returns)
-- Color/style mismatch: 18% (1,800)
-- Quality issues: 6% (600)
-- Price regret: 3% (300)
+**{Problem} reasons:**
+- {Reason 1}: {X}% ({N} instances)
+- {Reason 2}: {X}% ({N} instances)
+- {Reason 3}: {X}% ({N} instances)
+- {Reason 4}: {X}% ({N} instances)
 
-**Fit issue breakdown:**
-- Too small: 42% (3,066)
-- Too large: 31% (2,263)
-- Wrong proportions: 27% (1,971)
+**{Root cause} breakdown:**
+- {Sub-cause 1}: {X}% ({N})
+- {Sub-cause 2}: {X}% ({N})
+- {Sub-cause 3}: {X}% ({N})
 
 **Methodology:**
-- Analyzed return reason codes (when provided)
-- Parsed customer service notes (5,000+ tickets)
-- Interviewed 200 customers post-return
-- Cross-referenced with reorder patterns
+- Analyzed {data source 1} (when provided)
+- Parsed {data source 2} ({N}+ {items})
+- Interviewed {N} {stakeholders} post-{event}
+- Cross-referenced with {pattern}
 
 **Key insight:**
-Customers who return for fit issues reorder 68% of the time—but in 
-different sizes. They want the product. Size charts failed them.
+{Users} who {action} for {root cause} {positive behavior} {X}% of the time—but in
+{different way}. They want {outcome}. {Current approach} failed them.
 
 **Surprising finding:**
-Luxury brands ($100M+ GMV) have higher fit return rates (31% vs 22% 
-mid-market). Why? Higher expectations. Luxury customers expect 
-perfect fit, mid-market customers keep "good enough."
+{Segment A} (${X}M+ {metric}) have higher {problem} rates ({X}% vs {Y}%
+{Segment B}). Why? Higher expectations. {Segment A} expects {high standard},
+{Segment B} accepts "good enough."
 
 ## Implications
 
-**Insight 1: Size charts are the problem**
+**Insight 1: {Current approach} is the problem**
 
-Generic size charts average 68% accuracy. That means 32% of customers 
-get wrong sizes—and luxury customers won't accept "close enough."
+{Current approach} averages {X}% accuracy. That means {Y}% of {users}
+get wrong {outcome}—and {premium segment} won't accept "close enough."
 
-The fix isn't better charts. It's personalized fit prediction.
+The fix isn't {incremental improvement}. It's {solution approach}.
 
-**Insight 2: Virtual try-on isn't accurate enough**
+**Insight 2: {Alternative} isn't accurate enough**
 
-Current virtual try-on: 72% accuracy (4% improvement over charts). 
-Luxury threshold: >90% to build trust.
+Current {alternative}: {X}% accuracy ({Y}% improvement over {current}).
+{Premium} threshold: >{Z}% to build trust.
 
-Gap between current tech (72%) and customer expectation (90%) explains 
-why adoption stays low (<5% of luxury sites).
+Gap between current tech ({X}%) and {user} expectation ({Y}%) explains
+why adoption stays low (<{Z}% of {premium} {companies}).
 
-**Insight 3: Returns signal buying intent**
+**Insight 3: {Problems} signal {intent}**
 
-68% of fit-issue returns lead to reorders. These aren't "I don't want 
-this" returns—they're "I want this but in the right size."
+{X}% of {root cause} {problems} lead to {positive action}. These aren't
+"{negative interpretation}" {problems}—they're "{positive interpretation}."
 
-Opportunity: Fix fit prediction = capture 68% of return revenue.
+Opportunity: Fix {root cause} = capture {X}% of {lost} revenue.
 
 ## Conclusion
 
-Fashion returns aren't about buyer's remorse. 73% are fit issues, and 
-customers reorder 68% of the time when they find the right size.
+{Industry} {problems} aren't about {assumed cause}. {X}% are {root cause}, and
+{users} {positive action} {Y}% of the time when they {get what they need}.
 
 **Key takeaways:**
 
-1. Size charts are 68% accurate—not good enough for luxury
-2. Virtual try-on at 72% accuracy misses the 90% trust threshold
-3. Fit returns signal buying intent (68% reorder rate)
-4. Luxury brands need >90% fit accuracy to reduce returns meaningfully
-5. $743B reverse logistics problem is actually fit prediction problem
+1. {Current approach} is {X}% accurate—not good enough for {premium segment}
+2. {Alternative} at {X}% accuracy misses the {Y}% trust threshold
+3. {Root cause} {problems} signal {intent} ({X}% {positive action} rate)
+4. {Premium segment} needs >{X}% {metric} accuracy to reduce {problems} meaningfully
+5. ${X}B {problem category} problem is actually {root cause} problem
 
-Related: [How Body Scanning Achieves 94% Fit Accuracy] [Why Luxury 
-Brands Choose White-Label SDK]
+Related: [{Related article 1}] [{Related article 2}]
 
-Technical approach: [Fit Prediction Architecture Docs]
+Technical approach: [{Technical docs}]
 ```
 
 ---
@@ -2345,26 +2441,26 @@ Technical approach: [Fit Prediction Architecture Docs]
 
 **Problem statement:**
 ```
-Building real-time fit recommendations sounds simple. Load body 
-measurements, run ML model, return size. We shipped in 2 days.
+Building real-time {recommendations} sounds simple. Load {input data},
+run ML model, return {output}. We shipped in 2 days.
 
-Then we tried to scale. Latency spiked to 3 seconds. Accuracy 
-dropped to 61%. Our "simple" system wasn't production-ready.
+Then we tried to scale. Latency spiked to 3 seconds. Accuracy
+dropped to {X}%. Our "simple" system wasn't production-ready.
 ```
 
 **Challenge framing:**
 ```
-Every fashion SDK faces the same challenge: accurate fit predictions 
-under 200ms. Miss that threshold, conversion drops 15%. Here's how 
-we got from 3 seconds to 180ms without sacrificing accuracy.
+Every {industry} SDK faces the same challenge: accurate {predictions}
+under {X}ms. Miss that threshold, conversion drops {Y}%. Here's how
+we got from {slow time} to {fast time} without sacrificing accuracy.
 ```
 
 **Lesson learned:**
 ```
-We rebuilt our fit recommendation system 3 times. First version: 
+We rebuilt our {system} 3 times. First version:
 too slow. Second: too inaccurate. Third: production-ready at scale.
 
-Here's what we learned about real-time ML in e-commerce.
+Here's what we learned about real-time ML in {industry}.
 ```
 
 ### Structure Guide
@@ -2403,59 +2499,59 @@ Here's what we learned about real-time ML in e-commerce.
 - When to use this approach
 - Related resources (technical docs)
 
-### Example: Real-Time Fit Recommendations
+### Example: Real-Time Recommendations
 
 ```markdown
-# Building Real-Time Fit Recommendations: 3s → 180ms
+# Building Real-Time {Recommendations}: {Slow}s → {Fast}ms
 
 ## Introduction
 
-Fit recommendation systems need <200ms latency. Above that, conversion 
-drops 15%. Our first version took 3 seconds. Accuracy: 61%.
+{Recommendation} systems need <{threshold}ms latency. Above that, conversion
+drops {X}%. Our first version took {slow} seconds. Accuracy: {low}%.
 
-We rebuilt 3 times to get production-ready performance: 180ms latency, 
-94% accuracy, 99.9% uptime.
+We rebuilt 3 times to get production-ready performance: {fast}ms latency,
+{high}% accuracy, 99.9% uptime.
 
-Here's how we architected real-time ML for fashion e-commerce.
+Here's how we architected real-time ML for {industry}.
 
 ## The Challenge
 
 **Requirements:**
-- Latency: <200ms (conversion threshold)
-- Accuracy: >90% (luxury customer trust threshold)
-- Scale: 10,000 requests/hour per brand
-- Cost: <$0.001 per prediction (sustainable economics)
+- Latency: <{threshold}ms (conversion threshold)
+- Accuracy: >{accuracy}% ({premium segment} trust threshold)
+- Scale: {N} requests/hour per {customer}
+- Cost: <${cost} per prediction (sustainable economics)
 
 **Why it's hard:**
-- ML models are slow (500ms-2s for body measurement processing)
+- ML models are slow ({X}ms-{Y}s for {processing type})
 - High accuracy requires complex models (more computation)
 - Real-time = no batch processing benefits
-- Fashion has 100+ body measurement combinations per garment
+- {Industry} has {N}+ {input} combinations per {item}
 
 **Failed approaches:**
 
 *Attempt 1: Real-time ML inference*
-- Latency: 3,200ms (16x too slow)
-- Accuracy: 87% (good but not luxury threshold)
-- Cost: $0.15/prediction (150x budget)
+- Latency: {X}ms ({Y}x too slow)
+- Accuracy: {Z}% (good but not {premium} threshold)
+- Cost: ${X}/prediction ({Y}x budget)
 
 *Attempt 2: Pre-compute all combinations*
-- Storage: 50TB per brand (unsustainable)
-- Accuracy: 94% (excellent)
-- Update latency: 6 hours (stale recommendations)
+- Storage: {X}TB per {customer} (unsustainable)
+- Accuracy: {Y}% (excellent)
+- Update latency: {Z} hours (stale recommendations)
 
 Neither worked at scale.
 
 ## Our Approach
 
-**Hybrid architecture: Real-time measurement + cached predictions**
+**Hybrid architecture: Real-time {input} + cached predictions**
 
-Core insight: Body measurements change rarely. Garment fit patterns 
-change never (once designed). Separate these concerns.
+Core insight: {Input A} changes rarely. {Input B} patterns
+change never (once {created}). Separate these concerns.
 
 **Architecture:**
 ```
-User → Measurement API (150ms) → Prediction Cache (30ms) → Response
+User → {Input} API ({X}ms) → Prediction Cache ({Y}ms) → Response
          ↓
       ML Model (background)
          ↓
@@ -2463,202 +2559,97 @@ User → Measurement API (150ms) → Prediction Cache (30ms) → Response
 ```
 
 **Why this works:**
-1. Measure body once, cache measurements (99% cache hit rate)
-2. Pre-compute fit predictions for popular garments (top 20% = 80% traffic)
-3. Real-time ML only for cache misses (<1% of requests)
+1. Process {input} once, cache {input} ({X}% cache hit rate)
+2. Pre-compute {predictions} for popular {items} (top {X}% = {Y}% traffic)
+3. Real-time ML only for cache misses (<{X}% of requests)
 
 **Trade-offs:**
-- Pro: 180ms average latency (10x faster)
-- Pro: $0.0008/prediction (within budget)
-- Con: Cache warming takes 2 hours for new garments
-- Con: Requires prediction invalidation on garment updates
+- Pro: {X}ms average latency ({Y}x faster)
+- Pro: ${cost}/prediction (within budget)
+- Con: Cache warming takes {X} hours for new {items}
+- Con: Requires prediction invalidation on {item} updates
 
 **Rejected alternatives:**
-- Edge compute: 40% faster but 3x cost
-- Simpler model: 60ms faster but 85% accuracy (too low)
-- Client-side ML: Zero latency but 76% accuracy (insufficient)
+- Edge compute: {X}% faster but {Y}x cost
+- Simpler model: {X}ms faster but {Y}% accuracy (too low)
+- Client-side ML: Zero latency but {X}% accuracy (insufficient)
 
 ## Implementation
 
-**Step 1: Measurement API**
-
-```python
-# FastAPI endpoint
-@router.post("/measurements")
-async def get_measurements(
-    user_id: str,
-    height: float,
-    weight: float,
-    body_shape: BodyShape
-) -> MeasurementResponse:
-    # Check cache (Redis)
-    cached = await cache.get(f"user:{user_id}:measurements")
-    if cached:
-        return MeasurementResponse(**cached)
-    
-    # Compute if cache miss
-    measurements = await ml_model.predict_measurements(
-        height, weight, body_shape
-    )
-    
-    # Cache for 30 days (measurements change rarely)
-    await cache.set(
-        f"user:{user_id}:measurements",
-        measurements.dict(),
-        ttl=2592000
-    )
-    
-    return MeasurementResponse(**measurements)
-```
-
-**Latency breakdown:**
-- Cache hit: 15ms (Redis lookup)
-- Cache miss: 150ms (ML inference + cache write)
-- Cache hit rate: 99.2%
-- Average: 16ms
-
-**Step 2: Prediction Cache**
-
-```python
-# Pre-compute predictions for popular garments
-@task(schedule="@hourly")
-async def warm_prediction_cache():
-    # Top 20% garments = 80% traffic
-    popular_garments = await db.get_popular_garments(
-        limit=200,  # Per brand
-        time_window="7d"
-    )
-    
-    # For each body type cluster (50 clusters)
-    for cluster in BodyCluster.all():
-        for garment in popular_garments:
-            prediction = await ml_model.predict_fit(
-                cluster.representative_measurements,
-                garment.fit_data
-            )
-            
-            await cache.set(
-                f"fit:{cluster.id}:{garment.id}",
-                prediction.dict(),
-                ttl=86400  # 24 hours
-            )
-```
-
-**Cache efficiency:**
-- Garments cached: 200 per brand
-- Body clusters: 50 (k-means on measurement space)
-- Cache size: 10,000 predictions per brand
-- Storage: 50MB per brand (sustainable)
-- Warming time: 2 hours
-
-**Step 3: Real-Time Prediction**
-
-```python
-@router.post("/predict-fit")
-async def predict_fit(
-    garment_id: str,
-    user_id: str
-) -> FitPrediction:
-    # Get cached measurements
-    measurements = await get_measurements(user_id)
-    
-    # Find body cluster
-    cluster = BodyCluster.find_nearest(measurements)
-    
-    # Check prediction cache
-    cache_key = f"fit:{cluster.id}:{garment_id}"
-    cached_prediction = await cache.get(cache_key)
-    
-    if cached_prediction:
-        return FitPrediction(**cached_prediction)  # 30ms
-    
-    # Cache miss: real-time ML
-    garment = await db.get_garment(garment_id)
-    prediction = await ml_model.predict_fit(
-        measurements, garment.fit_data
-    )  # 500ms
-    
-    # Cache result
-    await cache.set(cache_key, prediction.dict(), ttl=86400)
-    
-    return prediction
-```
-
-**Latency breakdown:**
-- Cache hit: 30ms (measurement + prediction lookup)
-- Cache miss: 680ms (measurement + ML + cache write)
-- Cache hit rate: 92% (after warm-up)
-- Average: 84ms
+[Code examples with generic {variable} placeholders showing:]
+- Step 1: {Input} API with caching
+- Step 2: Prediction cache warming
+- Step 3: Real-time prediction endpoint
 
 **Pitfalls avoided:**
 
 1. **Don't cache per-user predictions**
-   - Problem: 1M users × 200 garments = 200M cache entries
-   - Solution: Cluster users (50 clusters × 200 garments = 10K entries)
+   - Problem: {X}M users × {Y} {items} = {Z}M cache entries
+   - Solution: Cluster users ({N} clusters × {M} {items} = {P}K entries)
 
-2. **Don't real-time compute measurements**
-   - Problem: Adds 500ms every request
-   - Solution: Cache measurements separately (99% hit rate)
+2. **Don't real-time compute {inputs}**
+   - Problem: Adds {X}ms every request
+   - Solution: Cache {inputs} separately ({Y}% hit rate)
 
-3. **Don't over-cluster body types**
-   - Problem: 500 clusters = 5% accuracy gain, 10x cache size
-   - Solution: 50 clusters = optimal accuracy/size trade-off
+3. **Don't over-cluster {input types}**
+   - Problem: {N} clusters = {X}% accuracy gain, {Y}x cache size
+   - Solution: {N} clusters = optimal accuracy/size trade-off
 
 **Time investment:**
-- Architecture: 1 week
-- Implementation: 2 weeks
-- Load testing: 1 week
-- Production tuning: 2 weeks
-- Total: 6 weeks (2 engineers)
+- Architecture: {X} week(s)
+- Implementation: {X} weeks
+- Load testing: {X} week(s)
+- Production tuning: {X} weeks
+- Total: {X} weeks ({N} engineers)
 
 ## Results
 
 **Performance:**
-- Latency (p50): 84ms (2.4x under threshold)
-- Latency (p95): 180ms (still under threshold)
-- Latency (p99): 520ms (cache miss penalty)
-- Accuracy: 94% (above luxury threshold)
+- Latency (p50): {X}ms ({Y}x under threshold)
+- Latency (p95): {X}ms (still under threshold)
+- Latency (p99): {X}ms (cache miss penalty)
+- Accuracy: {X}% (above {premium} threshold)
 
 **Economics:**
-- Cost per prediction: $0.0008 (within budget)
-- Cache hit rate: 92% (after warm-up)
-- Infrastructure: $200/month per brand
+- Cost per prediction: ${X} (within budget)
+- Cache hit rate: {X}% (after warm-up)
+- Infrastructure: ${X}/month per {customer}
 
 **Production metrics (30 days):**
-- Requests served: 12M
-- Cache hits: 11M (92%)
-- Cache misses: 1M (8%)
-- Uptime: 99.94%
+- Requests served: {X}M
+- Cache hits: {X}M ({Y}%)
+- Cache misses: {X}M ({Y}%)
+- Uptime: {X}%
 
 **Lessons learned:**
 
-1. **Separate concerns:** Measurements change rarely, garments never—cache differently
-2. **Cluster users:** 50 body type clusters = 92% cache hit rate
-3. **Warm strategically:** Top 20% garments = 80% traffic
-4. **Real-time fallback:** Cache miss penalty acceptable at 8% frequency
+1. **Separate concerns:** {Input A} changes rarely, {input B} never—cache differently
+2. **Cluster users:** {N} {type} clusters = {X}% cache hit rate
+3. **Warm strategically:** Top {X}% {items} = {Y}% traffic
+4. **Real-time fallback:** Cache miss penalty acceptable at {X}% frequency
 
 **What we'd do differently:**
-- Start with 20 clusters (faster iteration)
-- A/B test latency thresholds (maybe 300ms acceptable?)
-- Regional caching (reduce latency to <50ms)
+- Start with {N} clusters (faster iteration)
+- A/B test latency thresholds (maybe {X}ms acceptable?)
+- Regional caching (reduce latency to <{Y}ms)
 
 ## Conclusion
 
-Real-time ML in e-commerce requires hybrid architecture: cache common 
+Real-time ML in {industry} requires hybrid architecture: cache common
 cases, real-time compute edge cases.
 
 **Key takeaways:**
 
-1. Separate concerns: measurements (cache 30d) vs predictions (cache 24h)
-2. Cluster users: 50 body types = 92% cache hit rate, 50MB cache
-3. Warm strategically: Top 20% garments = 80% traffic
-4. Real-time fallback: 8% cache miss rate acceptable
-5. Target: <200ms latency, >90% accuracy, <$0.001/prediction
+1. Separate concerns: {input A} (cache {X}d) vs predictions (cache {Y}h)
+2. Cluster users: {N} {types} = {X}% cache hit rate, {Y}MB cache
+3. Warm strategically: Top {X}% {items} = {Y}% traffic
+4. Real-time fallback: {X}% cache miss rate acceptable
+5. Target: <{X}ms latency, >{Y}% accuracy, <${Z}/prediction
 
-Related: [Fit Prediction ML Architecture] [Body Measurement API Docs]
+Related: [{Related ML Architecture}] [{API Docs}]
 
 Technical docs: [API Reference] [Integration Guide]
-```
+
 
 ---
 
@@ -2674,7 +2665,7 @@ Technical docs: [API Reference] [Integration Guide]
 
 ### Sections: Context → Method → Data → Analysis → So What
 
-### Example: "We Analyzed 50 Fashion E-Commerce Sites: Here's What Fit Solutions They Use"
+### Example: "We Analyzed 50 {Industry} Sites: Here's What {Solutions} They Use"
 
 ---
 
@@ -2706,7 +2697,7 @@ Technical docs: [API Reference] [Integration Guide]
 
 ### Sections: Who → What problem → How solved → What happened → What we learned
 
-### Example: "How ElsaAI Reduced Returns 38%: Architecture Lessons"
+### Example: "How {Customer} Achieved {Result}: Architecture Lessons"
 
 ---
 
@@ -2720,6 +2711,8 @@ Technical docs: [API Reference] [Integration Guide]
 | Explain architecture | Technical Deep Dive | System design decisions |
 | Share success | Case Study (Blog) | Educational customer story |
 
+---
+
 ## Remember
 
 - Patterns guide structure, not prescribe content
@@ -2727,7 +2720,7 @@ Technical docs: [API Reference] [Integration Guide]
 - Data from threads, not invented
 - Educational tone, no sales language
 
-Success = Following pattern structure + Applying brand voice + Including technical depth
+Success = Following pattern structure + Applying brand voice + Including technical depth (When relevant) + Relevant tags
 ```
 
 
@@ -2753,7 +2746,7 @@ Customer success stories as educational content.
 Case studies are **evidence**, not sales pitches. Show what happened, include numbers, explain why it worked.
 
 **Good case study:**
-- Specific metrics (25% → 18% return rate)
+- Specific metrics ({before}% → {after}% on key metric)
 - Technical details (architecture, implementation)
 - Honest about challenges (what didn't work)
 - Educational (lessons others can apply)
@@ -2773,13 +2766,13 @@ Case studies are **evidence**, not sales pitches. Show what happened, include nu
 Start with the outcome, then explain how:
 
 ```
-# ElsaAI Reduced Returns 38% with White-Label Fit Recommendations
+# {Customer} Achieved {X}% Improvement with {Solution Approach}
 
-ElsaAI is a luxury marketplace with $200M GMV. They faced 25% return 
-rates on dresses, costing $2.1M annually.
+{Customer} is a {industry} company with {scale metric}. They faced {problem}
+costing {$X} annually.
 
-After implementing white-label fit recommendations, returns dropped 
-to 18%—a 28% reduction. Here's how they did it, what challenges they 
+After implementing {solution approach}, {key metric} improved by {X}%—
+{result description}. Here's how they did it, what challenges they
 faced, and what we learned.
 ```
 
@@ -2788,16 +2781,15 @@ faced, and what we learned.
 Start with customer pain, then reveal solution:
 
 ```
-# How a Luxury Marketplace Fixed 25% Return Rates in 30 Days
+# How {Customer} Fixed {Problem} in {Timeframe}
 
-ElsaAI had a problem: 1 in 4 dresses got returned. At $120 average 
-order value, that's $1.5M in lost revenue annually—plus $600K in 
-reverse logistics.
+{Customer} had a problem: {problem description}. At {scale metric},
+that's {$X} in lost revenue annually—plus {$Y} in operational costs.
 
-Generic size charts weren't working. Virtual try-on improved accuracy 
-from 68% to 72%—not enough for luxury customers who expect perfection.
+{Previous solutions} weren't working. {Alternative approach} improved
+from {X}% to {Y}%—not enough for {customer segment} who expect {standard}.
 
-Here's how they got to 94% fit accuracy and reduced returns 28%.
+Here's how they got to {target metric} and achieved {result}.
 ```
 
 ### Challenge-First Opening
@@ -2805,16 +2797,16 @@ Here's how they got to 94% fit accuracy and reduced returns 28%.
 Start with what makes this difficult:
 
 ```
-# The Challenge: Luxury Brand Consistency vs Fit Accuracy
+# The Challenge: {Tradeoff A} vs {Tradeoff B}
 
-ElsaAI needed 90%+ fit accuracy to reduce returns. But every fit 
-solution they evaluated required co-branded widgets—breaking their 
-luxury brand aesthetic.
+{Customer} needed {target metric} to achieve {goal}. But every
+solution they evaluated required {compromise}—breaking their
+{important constraint}.
 
-The dilemma: Accept lower accuracy to maintain brand consistency, or 
-compromise brand for better fit recommendations?
+The dilemma: Accept {suboptimal option A}, or compromise {priority}
+for {benefit}?
 
-Here's how they solved both with white-label architecture.
+Here's how they solved both with {solution approach}.
 ```
 
 ---
@@ -2830,12 +2822,11 @@ Here's how they solved both with white-label architecture.
 
 **Example:**
 ```
-ElsaAI is a luxury fashion marketplace with $200M GMV serving 250K 
-monthly customers. Their curated selection emphasizes high-end 
-designers and premium pricing—where brand consistency is critical.
+{Customer} is a {industry} company with {scale metric} serving {customer count}
+monthly customers. Their {business focus} emphasizes {key differentiator}—
+where {critical factor} is essential.
 
-They faced a 25% return rate on dresses, costing $3.2M annually in 
-reverse logistics and lost revenue.
+They faced {problem} costing {$X} annually in {cost categories}.
 ```
 
 **Don't:**
@@ -2857,32 +2848,32 @@ reverse logistics and lost revenue.
 ```
 ## The Problem
 
-Luxury customers expect flawless brand experiences. ElsaAI's previous 
-fit solution used a co-branded widget that broke their visual aesthetic:
+{Customer segment} expect {quality standard}. {Customer}'s previous
+solution had these issues:
 
-- Widget displayed third-party branding
-- Design didn't match site style
-- Mobile experience was clunky
-- Customers questioned legitimacy
+- {Issue 1}
+- {Issue 2}
+- {Issue 3}
+- {Issue 4}
 
-Beyond aesthetics, fit accuracy was insufficient:
-- Generic size charts: 68% accuracy
-- Virtual try-on competitors: 72% accuracy
-- Neither met the 85% threshold ElsaAI needed
+Beyond {surface problem}, {core metric} was insufficient:
+- {Alternative 1}: {X}% accuracy
+- {Alternative 2}: {Y}% accuracy
+- Neither met the {target}% threshold {Customer} needed
 
-At 25% return rates, $120 average order value, and 50K dress orders/year:
-- Revenue impact: $1.5M (25% of $6M)
-- Reverse logistics: $400K ($8 per return)
-- Customer service: $200K (15 min per return @ $40/hr)
-- Total annual cost: $2.1M
+At {problem rate}, {average value}, and {volume}:
+- Revenue impact: {$X}
+- Operational costs: {$Y}
+- Support costs: {$Z}
+- Total annual cost: {$Total}
 
 **What they tried:**
 
-1. **Better size charts** → Still 32% inaccurate
-2. **Virtual try-on (competitor)** → 72% accuracy, but co-branded
-3. **Custom ML model** → 3-month build, $200K development cost
+1. **{Approach 1}** → {Result/limitation}
+2. **{Approach 2}** → {Result/limitation}
+3. **{Approach 3}** → {Result/limitation}
 
-None solved both accuracy AND brand consistency.
+None solved both {requirement A} AND {requirement B}.
 ```
 
 **Don't:**
@@ -2904,51 +2895,49 @@ None solved both accuracy AND brand consistency.
 ```
 ## Solution
 
-ElsaAI implemented our white-label SDK with custom branding:
+{Customer} implemented {solution} with {customization}:
 
 **Technical approach:**
-- React SDK with custom styling
-- ElsaAI's fonts, colors, design system
-- Hosted on ElsaAI subdomain (fit.elsaai.com)
-- Zero external branding
+- {Technology stack}
+- {Customization details}
+- {Deployment approach}
+- {Key technical feature}
 
 **Integration:**
-- 2-week implementation
-- 10 hours engineering time (ElsaAI team)
-- No infrastructure changes needed
-- API integration via REST endpoints
+- {Timeline}
+- {Resource requirement}
+- {Infrastructure changes}
+- {Integration method}
 
-**Fit accuracy:**
-- AI trained on 10M+ body scans
-- 94% accuracy on luxury dress category
-- Personalized per customer (not generic size charts)
+**Core capability:**
+- {Technical foundation}
+- {Accuracy/performance metric}
+- {Personalization/customization}
 
-**Why white-label mattered:**
+**Why {approach} mattered:**
 
-ElsaAI customers pay $150-$500 per dress. At this price point:
-- Brand consistency is non-negotiable
-- Co-branded widgets signal "outsourced" (reduces trust)
-- Mobile experience must be seamless
+{Customer} customers {customer profile}. At this {context}:
+- {Requirement 1}
+- {Requirement 2}
+- {Requirement 3}
 
-White-label removed trust friction while delivering 94% accuracy—
-crossing the luxury credibility threshold (>90%).
+{Solution approach} removed {friction} while delivering {result}—
+crossing the {segment} credibility threshold.
 
 **Architecture:**
 ```
-Customer → Product Page → fit.elsaai.com/widget (white-label)
-                              ↓
-                        Body Measurement API
-                              ↓
-                        Recommendation Engine (94% accuracy)
-                              ↓
-                        Size Recommendation
+{Component 1} → {Component 2} → {Component 3}
+                                      ↓
+                              {Processing layer}
+                                      ↓
+                              {Result/output}
 ```
 
 **Implementation details:**
-- SDK loaded asynchronously (no page speed impact)
-- Body measurement API: <200ms latency
-- Recommendation cache: 99.9% uptime
-- Analytics dashboard: Real-time fit data
+- {Performance characteristic 1}
+- {Performance characteristic 2}
+- {Reliability metric}
+- {Additional capability}
 ```
 
 **Don't:**
@@ -2970,47 +2959,46 @@ Customer → Product Page → fit.elsaai.com/widget (white-label)
 ```
 ## Results
 
-**30-day pilot (dress category only):**
-- Return rate: 25% → 18% (28% reduction)
-- Fit accuracy: 94% (vs 68% baseline)
-- Customer satisfaction: 3.2 → 4.1 (27% improvement)
-- Mobile conversion: +12% (cleaner UI, no third-party branding)
+**{Timeframe} pilot ({scope}):**
+- {Primary metric}: {before} → {after} ({X}% improvement)
+- {Secondary metric}: {value} (vs {baseline} baseline)
+- {Tertiary metric}: {before} → {after} ({X}% improvement)
+- {Additional metric}: +{X}% ({explanation})
 
 **Annual projection:**
-- Returns avoided: 3,500 (7% of 50K orders)
-- Revenue retained: $420K
-- Logistics saved: $280K
-- Customer service saved: $105K
-- Total annual savings: $805K
+- {Benefit 1}: {quantity} ({calculation})
+- {Benefit 2}: {$X}
+- {Benefit 3}: {$Y}
+- {Benefit 4}: {$Z}
+- Total annual {benefit}: {$Total}
 
 **ROI:**
-- Implementation cost: $500K/year (white-label tier)
-- Savings: $805K/year
-- Net benefit: $305K (61% ROI)
-- Payback: 7.4 months
+- Implementation cost: {$X}/year
+- {Benefit type}: {$Y}/year
+- Net benefit: {$Z} ({X}% ROI)
+- Payback: {X} months
 
 **Unexpected benefits:**
 
-1. **Mobile conversion increased 12%**
-   - Cleaner UI without third-party branding
-   - Faster load time (SDK optimized for mobile)
-   - Higher trust signal (seamless brand experience)
+1. **{Benefit 1}**
+   - {Reason 1}
+   - {Reason 2}
+   - {Reason 3}
 
-2. **Customer service tickets reduced 15%**
-   - Fewer fit-related questions pre-purchase
-   - Fewer return requests
-   - Higher confidence in recommendations
+2. **{Benefit 2}**
+   - {Reason 1}
+   - {Reason 2}
+   - {Reason 3}
 
-3. **Marketing asset: White-label as luxury signal**
-   - ElsaAI now markets "proprietary fit technology"
-   - White-label enables brand storytelling
-   - Competitive differentiation in luxury segment
+3. **{Benefit 3}**
+   - {Reason 1}
+   - {Reason 2}
+   - {Reason 3}
 
 **Customer quote:**
 
-"Our customers don't care who powers fit recommendations. They care 
-that it looks like ElsaAI. White-label gave us 94% accuracy without 
-compromising our brand." — Sarah Chen, CTO, ElsaAI
+"{Quote that captures key value proposition and result}"
+— {Name}, {Title}, {Customer}
 ```
 
 **Don't:**
@@ -3033,37 +3021,37 @@ compromising our brand." — Sarah Chen, CTO, ElsaAI
 ## Technical Details
 
 **Architecture:**
-- SDK loaded asynchronously (no page speed impact)
-- Body measurement API: <200ms latency
-- Recommendation cache: 99.9% uptime
-- Analytics dashboard: Real-time fit data
+- {Component}: {characteristic}
+- {Component}: {performance metric}
+- {Component}: {reliability metric}
+- {Component}: {capability}
 
 **Challenges overcome:**
 
-1. **Brand consistency:** Custom CSS matching ElsaAI's design system exactly
-   - Solution: React SDK with CSS-in-JS, inherits ElsaAI theme
-   - Result: Zero visual distinction from native components
+1. **{Challenge 1}:** {Brief description}
+   - Solution: {Technical approach}
+   - Result: {Measurable outcome}
 
-2. **Mobile performance:** Lazy loading prevented slowdown
-   - Solution: Async script loading, critical path optimization
-   - Result: No impact on Lighthouse score (98 → 97)
+2. **{Challenge 2}:** {Brief description}
+   - Solution: {Technical approach}
+   - Result: {Measurable outcome}
 
-3. **Data privacy:** GDPR-compliant body measurement storage
-   - Solution: EU data residency, 30-day data retention
-   - Result: Legal approval in 5 EU markets
+3. **{Challenge 3}:** {Brief description}
+   - Solution: {Technical approach}
+   - Result: {Measurable outcome}
 
 **Why it worked:**
-- White-label removed trust friction (no third-party branding)
-- 94% accuracy exceeded luxury threshold (>90%)
-- Fast integration minimized engineering burden (2 weeks vs 3 months custom)
+- {Factor 1}
+- {Factor 2}
+- {Factor 3}
 
 **Applicability:**
 
-This approach works for fashion brands with:
-- Strong brand identity (luxury, premium positioning)
-- High average order value (>$100)
-- Technical team for integration (5-10 hours engineering time)
-- Volume to justify cost ($400K+/year white-label tier)
+This approach works for {industry} companies with:
+- {Characteristic 1}
+- {Characteristic 2}
+- {Characteristic 3}
+- {Characteristic 4}
 ```
 
 **Don't:**
@@ -3085,21 +3073,17 @@ This approach works for fashion brands with:
 ```
 ## Conclusion
 
-ElsaAI's success validates three insights:
+{Customer}'s success validates three insights:
 
-1. **Luxury brands won't compromise on brand consistency** - Co-branded 
-   solutions are non-starters regardless of accuracy
+1. **{Insight 1}** - {Explanation}
 
-2. **Fit accuracy >90% is table stakes** - Luxury customers expect 
-   near-perfect recommendations
+2. **{Insight 2}** - {Explanation}
 
-3. **Fast implementation matters** - 2-week integration vs 3-month 
-   custom build enabled rapid validation
+3. **{Insight 3}** - {Explanation}
 
-This approach works for fashion brands with strong brand identity, 
-high AOV (>$100), and technical capacity for integration.
+This approach works for {industry} companies with {key characteristics}.
 
-White-label SDK technical docs: [link]
+{Product/solution} technical docs: [link]
 ```
 
 **Don't:**
@@ -3130,14 +3114,14 @@ Before completing case study:
 
 **Wrong:**
 ```
-ElsaAI saw significant improvements in return rates and customer 
+{Customer} saw significant improvements in {metric} and customer
 satisfaction after implementing our solution.
 ```
 
 **Right:**
 ```
-ElsaAI: Return rate 25% → 18% (28% reduction). Customer satisfaction 
-3.2 → 4.1 (27% improvement). Annual savings: $805K.
+{Customer}: {Metric} {before} → {after} ({X}% improvement). Customer satisfaction
+{before} → {after} ({Y}% improvement). Annual savings: {$Z}.
 ```
 
 ### ❌ Skipping Technical Details
@@ -3149,9 +3133,9 @@ We integrated our AI-powered SDK and it worked great.
 
 **Right:**
 ```
-React SDK with custom CSS matching ElsaAI design system. Async loading 
-(no page speed impact). API latency <200ms. 94% fit accuracy on 10M+ 
-body scan training data.
+{Technology} with {customization} matching {Customer} design system. Async loading
+(no page speed impact). API latency <{X}ms. {Accuracy}% accuracy on {training data
+size}.
 ```
 
 ### ❌ Promotional Tone
@@ -3164,7 +3148,7 @@ to see the magic yourself!
 
 **Right:**
 ```
-White-label SDK gave them 94% accuracy without compromising brand. 
+{Solution approach} gave them {X}% accuracy without compromising {priority}.
 Technical docs: [link]
 ```
 
@@ -3178,8 +3162,8 @@ all expectations.
 
 **Right:**
 ```
-Challenges: CSS matching took 3 iterations. Mobile performance required 
-lazy loading. GDPR compliance delayed EU launch 2 weeks. But 94% accuracy 
+Challenges: {Challenge 1} took {X} iterations. {Challenge 2} required
+{solution}. {Challenge 3} delayed {milestone} {timeframe}. But {result}
 made it worth solving.
 ```
 
@@ -3245,13 +3229,12 @@ Newsletter and announcement emails that educate, don't sell.
 
 **Examples:**
 ```
-✅ "Why luxury brands choose white-label SDK" (specific)
-❌ "You won't believe this!" (clickbait)
-
+✅ "Why {premium segment} choose {premium tier}" (specific)
 ✅ "Q4 learning: 5 deals, 1 pattern" (concrete)
-❌ "Our latest insights" (vague)
+✅ "How {Customer} reduced {key metric} 38%" (data-driven)
 
-✅ "How ElsaAI reduced returns 38%" (data-driven)
+❌ "You won't believe this!" (clickbait)
+❌ "Our latest insights" (vague)
 ❌ "Amazing customer success story" (promotional)
 ```
 
@@ -3283,87 +3266,87 @@ Newsletter and announcement emails that educate, don't sell.
 ### Newsletter Example
 
 ```
-Subject: Why luxury brands choose white-label SDK over co-branded
-Preview: 5 deals in Q4. All picked white-label. Here's what we learned.
+Subject: Why {premium segment} choose {premium tier} over {alternative tier}
+Preview: 5 deals in Q4. All picked {premium tier}. Here's what we learned.
 
 ---
 
 Hey [Name],
 
-We closed 5 enterprise fashion deals in Q4. All 5 chose white-label 
-SDK over our co-branded option.
+We closed 5 {segment} deals in Q4. All 5 chose {premium tier}
+over our {alternative tier} option.
 
-Not what we expected. Here's what we learned about luxury brand 
-positioning—and a case study showing how one customer reduced returns 38%.
+Not what we expected. Here's what we learned about {segment}
+positioning—and a case study showing how one customer reduced {key metric} 38%.
 
 ---
 
-**Q4 Learning: Luxury Brands Won't Compromise on Brand Consistency**
+**Q4 Learning: {Premium Segment} Won't Compromise on {Key Differentiator}**
 
-100% of luxury brands ($100M+ GMV) chose white-label over co-branded 
-widgets—even though white-label costs 3x more.
+100% of {premium segment} (${threshold}M+ {metric}) chose {premium tier} over {alternative tier}
+—even though {premium tier} costs 3x more.
 
-Why? Brand consistency at $200+ price points is non-negotiable:
-- Co-branded widgets break visual aesthetic
+Why? {Key differentiator} at ${price point}+ price points is non-negotiable:
+- {Alternative tier} breaks {experience quality}
 - Third-party branding reduces customer trust
-- Mobile experience needs seamless integration
+- {Platform} experience needs seamless integration
 
-One customer (luxury marketplace, $200M GMV) told us: "Our customers 
-don't care who powers fit tech. They care it looks like us."
+One customer ({segment}, ${revenue}M {metric}) told us: "Our customers
+don't care who powers {solution}. They care it looks like us."
 
-Meanwhile, fast fashion brands ($10M-$50M GMV) prefer co-branded for 
-credibility ("powered by AI") and lower cost.
+Meanwhile, {contrast segment} (${lower threshold}M-${mid threshold}M {metric}) prefer {alternative tier} for
+credibility ("powered by {technology}") and lower cost.
 
 Same technology. Different packaging. Segment matters more than product.
 
-Read the full analysis: [5 Enterprise Deals, 1 Pattern: Brand Over Badge]
+Read the full analysis: [5 Deals, 1 Pattern: {Key Finding}]
 
 ---
 
-**Case Study: How ElsaAI Reduced Returns 38% in 30 Days**
+**Case Study: How {Customer} Reduced {Key Metric} 38% in 30 Days**
 
-ElsaAI (luxury marketplace, $200M GMV) faced 25% return rates on 
-dresses—$2.1M annual cost.
+{Customer} ({segment}, ${revenue}M {metric}) faced {X}% {problem} on
+{category}—${cost}M annual cost.
 
-After implementing white-label fit recommendations:
-- Return rate: 25% → 18% (28% reduction)
-- Fit accuracy: 94% (vs 68% generic size charts)
-- ROI: $305K net benefit (61% ROI, 7.4-month payback)
+After implementing {premium tier} {solution}:
+- {Key metric}: {before}% → {after}% ({improvement}% reduction)
+- {Secondary metric}: {performance}% (vs {baseline}% {alternative approach})
+- ROI: ${savings}K net benefit ({roi}% ROI, {payback}-month payback)
 
-Technical details: React SDK, <200ms API latency, custom CSS matching 
-their design system exactly. No third-party branding.
+Technical details: {Technology stack}, <{latency}ms API latency, custom {styling} matching
+their {requirements} exactly. No third-party branding.
 
-Implementation time: 2 weeks (10 hours engineering).
+Implementation time: {timeframe} ({hours} hours {resource}).
 
-The case study includes architecture diagrams, ROI breakdown, and 
+The case study includes architecture diagrams, ROI breakdown, and
 lessons on what didn't work.
 
-Read the full story: [ElsaAI Case Study: Architecture & Results]
+Read the full story: [{Customer} Case Study: Architecture & Results]
 
 ---
 
-**Product Update: White-Label SDK Now Generally Available**
+**Product Update: {Premium Tier} Now Generally Available**
 
-Based on Q4 demand, white-label SDK is now available for all enterprise 
-fashion brands ($100M+ GMV).
+Based on Q4 demand, {premium tier} is now available for all {segment}
+({criteria}).
 
 What's included:
-- 94% fit accuracy (trained on 10M+ body scans)
-- Full custom branding (your fonts, colors, domain)
-- 2-week integration (typical timeline)
-- Enterprise SLA (99.9% uptime, dedicated support)
+- {Performance metric}% {capability} (trained on {N}M+ {data})
+- Full custom branding (your {customization options})
+- {Timeframe} integration (typical timeline)
+- {Service level} SLA ({uptime}% uptime, dedicated support)
 
-Pricing: $400K+/year (enterprise tier)
+Pricing: ${price}K+/year ({tier} tier)
 
 Technical docs: [Integration Guide]
 
 ---
 
-That's it for this month. Next up: Expanding to footwear vertical—
+That's it for this month. Next up: Expanding to {new vertical}—
 same architecture, different category.
 
-— Bella
-Co-founder, GlamYouUp
+— Founder
+Co-founder, {Your Product}
 ```
 
 ---
@@ -3382,10 +3365,10 @@ Co-founder, GlamYouUp
 
 **Examples:**
 ```
-✅ "White-label SDK now available for enterprise"
-❌ "Big news from GlamYouUp!"
+✅ "{Premium tier} now available for {segment}"
+✅ "Introducing: Real-time {solution}"
 
-✅ "Introducing: Real-time fit recommendations"
+❌ "Big news from {Your Product}!"
 ❌ "You've been waiting for this"
 ```
 
@@ -3406,18 +3389,18 @@ Co-founder, GlamYouUp
 ### Announcement Example
 
 ```
-Subject: White-label fit recommendations now available
-Preview: Deploy AI-powered size recommendations under your brand.
+Subject: {Premium tier} {solution} now available
+Preview: Deploy {solution description} under your brand.
 
 ---
 
 Hey [Name],
 
-White-label SDK is now available for enterprise fashion brands.
+{Premium tier} is now available for {segment}.
 
-After 5 enterprise deals chose white-label over co-branded in Q4, we 
-made it generally available. Deploy 94% fit accuracy without third-party 
-branding or co-branded widgets.
+After 5 deals chose {premium tier} over {alternative tier} in Q4, we
+made it generally available. Deploy {performance}% {capability} without third-party
+branding or {alternative approach}.
 
 Here's what you need to know.
 
@@ -3426,43 +3409,43 @@ Here's what you need to know.
 **What This Enables**
 
 Full brand control:
-- Your domain (fit.yourbrand.com)
-- Your styling (custom CSS, fonts, colors)
+- Your domain ({subdomain}.yourbrand.com)
+- Your styling (custom {styling options})
 - Zero external attribution or logos
-- Seamless mobile experience
+- Seamless {platform} experience
 
-Same 94% fit accuracy as co-branded version:
-- Trained on 10M+ body scans
-- Personalized recommendations per customer
-- <200ms API latency
+Same {performance}% {capability} as {alternative tier} version:
+- Trained on {N}M+ {data points}
+- Personalized {output} per {user}
+- <{latency}ms API latency
 - Real-time analytics dashboard
 
 **Who It's For**
 
-Enterprise fashion brands with:
-- Strong brand identity (luxury, premium)
-- High AOV (>$100)
-- Technical capacity (5-10 hours integration)
-- Volume to justify cost ($400K+/year)
+{Segment} with:
+- Strong brand identity ({characteristics})
+- High {metric} (>${threshold})
+- Technical capacity ({hours} hours integration)
+- Volume to justify cost (${price}K+/year)
 
 **How It Works**
 
-1. Deploy React SDK on your site
-2. Host widget on your subdomain
-3. Customize styling to match your design system
+1. Deploy {technology} on your {platform}
+2. Host {component} on your subdomain
+3. Customize styling to match your {requirements}
 4. Integrate via REST API
 
-Implementation time: 2 weeks (typical)
+Implementation time: {timeframe} (typical)
 
 Technical architecture:
 ```
-Your site → fit.yourbrand.com (white-label widget)
+Your {platform} → {subdomain}.yourbrand.com ({premium tier} {component})
                ↓
-         Body Measurement API
+         {API layer}
                ↓
-         Recommendation Engine
+         {Processing Engine}
                ↓
-         Size Recommendation
+         {Output}
 ```
 
 **When Available**
@@ -3474,13 +3457,13 @@ Now. Technical docs and integration guide ready.
 **Next Steps**
 
 Technical documentation: [Integration Guide]
-Case study: [How ElsaAI Reduced Returns 38%]
-Architecture overview: [White-Label SDK Technical Docs]
+Case study: [How {Customer} Reduced {Key Metric} 38%]
+Architecture overview: [{Premium Tier} Technical Docs]
 
 Questions? Reply to this email (I read every response).
 
-— Bella
-Co-founder, GlamYouUp
+— Founder
+Co-founder, {Your Product}
 ```
 
 ---
@@ -3504,88 +3487,88 @@ Co-founder, GlamYouUp
 - Practice (what to try)
 - Next lesson preview
 
-### Example: Fit Prediction Series (Part 2/5)
+### Example: {Solution} Series (Part 2/5)
 
 ```
-Subject: Part 2: Why size charts fail (Fit Prediction Series)
-Preview: Generic size charts: 68% accurate. Here's why—and what works.
+Subject: Part 2: Why {baseline approach} fails ({Solution} Series)
+Preview: {Baseline approach}: {X}% accurate. Here's why—and what works.
 
 ---
 
 Hey [Name],
 
-Part 2 of our fit prediction series. Last time: Why 73% of returns are 
-fit issues. Today: Why size charts don't work.
+Part 2 of our {solution} series. Last time: Why {X}% of {problems} are
+{root cause}. Today: Why {baseline approach} doesn't work.
 
-Quick recap: Fashion returns cost $743B annually. 73% are fit issues, 
-not buyer's remorse. Problem: Generic size charts are only 68% accurate.
+Quick recap: {Industry} {problems} cost ${X}B annually. {Y}% are {root cause},
+not {misconception}. Problem: {Baseline approach} are only {X}% accurate.
 
-Let's explore why—and what accuracy threshold luxury brands need.
+Let's explore why—and what accuracy threshold {premium segment} need.
 
 ---
 
-**Why Generic Size Charts Fail**
+**Why {Baseline Approach} Fails**
 
-Size charts are based on population averages. Problem: Nobody is average.
+{Baseline approach} are based on {generalization}. Problem: {Reality differs}.
 
-**Example: "Medium" dress**
+**Example: {Generic scenario}**
 
-Generic size chart:
-- Bust: 36-38"
-- Waist: 28-30"
-- Hips: 38-40"
+{Baseline approach}:
+- {Criterion 1}: {range}
+- {Criterion 2}: {range}
+- {Criterion 3}: {range}
 
-Assumes proportions scale together. Reality: They don't.
+Assumes {assumption}. Reality: {Reality}.
 
-Customer A (fits "Medium" bust): 37" bust, 26" waist, 41" hips
-Customer B (fits "Medium" waist): 39" bust, 29" waist, 37" hips
+{User} A (fits {criterion 1}): {specific measurements}
+{User} B (fits {criterion 2}): {different measurements}
 
-Both are "Medium" by one measurement. Wrong size by others.
+Both are {category} by one measurement. Wrong {output} by others.
 
 **Accuracy breakdown:**
 
-We analyzed 10,000 purchases:
-- Generic size charts: 68% accurate
-- Virtual try-on (single-angle): 72% accurate
-- Body scanning (multi-point): 94% accurate
+We analyzed {N} {data points}:
+- {Baseline approach}: {X}% accurate
+- {Alternative 1}: {Y}% accurate
+- {Solution approach}: {Z}% accurate
 
-Luxury threshold: >90% accuracy to build trust.
+{Premium segment} threshold: >{threshold}% accuracy to build trust.
 
-**What Works: Personalized Fit Prediction**
+**What Works: {Solution Approach}**
 
-Instead of "What size is Medium?", ask: "What size fits this body?"
+Instead of "{Generic question}", ask: "{Personalized question}"
 
 Approach:
-1. Measure customer body (height, weight, shape)
-2. Compare to garment fit data (measurements per size)
-3. Predict best size (personalized, not generic)
+1. {Step 1}
+2. {Step 2}
+3. {Step 3}
 
-Result: 94% accuracy (trained on 10M+ body scans)
+Result: {Performance}% accuracy (trained on {N}M+ {data points})
 
 **Try This:**
 
-Next time you shop online, note: Does site use generic size chart or 
-personalized recommendations?
+Next time you {use case}, note: Does {provider} use {baseline approach} or
+{solution approach}?
 
-Generic: "Size M fits bust 36-38""
-Personalized: "Based on your measurements, size M will fit"
+{Baseline}: "{Generic output}"
+{Solution}: "{Personalized output}"
 
-Difference: Generic assumes you know your measurements. Personalized 
-computes fit for you.
+Difference: {Baseline} assumes {assumption}. {Solution}
+{actual capability}.
 
 ---
 
-**Next: Part 3 - How Body Scanning Achieves 94% Accuracy**
+**Next: Part 3 - How {Solution Approach} Achieves {Performance}% Accuracy**
 
 We'll cover:
-- Multi-point measurement approach
-- ML training on 10M+ body scans
-- Why single-angle virtual try-on tops out at 72%
+- {Technical detail 1}
+- {Technical detail 2}
+- Why {alternative} tops out at {X}%
 
 Coming Wednesday.
 
-— Bella
-Co-founder, GlamYouUp
+— Founder
+Co-founder, {Your Product}
 ```
 
 ---
@@ -3619,21 +3602,21 @@ Subject: You won't believe what we just launched!
 
 **Right:**
 ```
-Subject: White-label SDK now available for enterprise
+Subject: {Premium tier} now available for {segment}
 ```
 
 ### ❌ Sales Pitch Disguised as Content
 
 **Wrong:**
 ```
-Our revolutionary AI-powered solution transforms fashion e-commerce!
+Our revolutionary AI-powered solution transforms {industry}!
 Book a demo to see the magic! Limited time offer!
 ```
 
 **Right:**
 ```
-We analyzed 10,000 returns. 73% were fit issues, not buyer's remorse.
-Here's what size chart accuracy tells us: [link to analysis]
+We analyzed {N} {data points}. {X}% were {root cause}, not {misconception}.
+Here's what {metric} tells us: [link to analysis]
 ```
 
 ### ❌ Generic Corporate Voice
@@ -3645,18 +3628,18 @@ Dear Valued Customer,
 We are excited to announce...
 
 Sincerely,
-The GlamYouUp Team
+The {Your Product} Team
 ```
 
 **Right:**
 ```
 Hey [Name],
 
-We closed 5 deals in Q4. All picked white-label over co-branded.
+We closed 5 deals in Q4. All picked {premium tier} over {alternative tier}.
 Not what we expected. Here's what we learned...
 
-— Bella
-Co-founder, GlamYouUp
+— Founder
+Co-founder, {Your Product}
 ```
 
 ### ❌ Multiple CTAs
@@ -3731,27 +3714,27 @@ Patterns are structure guides, not rigid templates.
 **Problem Analysis Pattern:**
 - Use when: Explaining industry problem, sharing research, analyzing trends
 - Structure: Problem → Data → Analysis → Implication
-- Example: "Why 70% of Fashion Returns Are Fit Issues"
+- Example: "Why {X}% of {Industry} {Problems} Are {Root Cause}"
 
 **Implementation Guide Pattern:**
 - Use when: Teaching how to solve problem, technical tutorial
 - Structure: Challenge → Approach → Implementation → Results
-- Example: "Building Real-Time Fit Recommendations with React SDK"
+- Example: "Building Real-Time {Recommendations} with {Technology}"
 
 **Case Study Pattern:**
 - Use when: Sharing customer success, validating approach
 - Structure: Customer → Problem → Solution → Results
-- Example: "How ElsaAI Reduced Returns 38% with White-Label SDK"
+- Example: "How {Customer} Reduced {Key Metric} 38% with {Solution Approach}"
 
 **Announcement Pattern:**
 - Use when: Launching product/feature, major milestone
 - Structure: What → Why → How → Who → When
-- Example: "White-Label SDK Now Available for Enterprise"
+- Example: "{Solution Approach} Now Available for {Target Segment}"
 
 **LinkedIn Insight Pattern:**
 - Use when: Sharing business learning, industry observation
 - Structure: Insight → Analysis → Implication
-- Example: "100% of Luxury Brands Chose White-Label Over Co-Branded"
+- Example: "{X}% of {Premium Segment} Chose {Option A} Over {Option B}"
 
 ### 2. Adapt Structure to Content
 
@@ -3767,14 +3750,14 @@ Introduction (100-150 words)
 
 You write:
 ```
-When we launched our SDK, we assumed enterprise brands would prefer 
-co-branded widgets. After 5 deals, we learned we were wrong.
+When we launched our {product}, we assumed {segment} companies would prefer
+{alternative approach}. After {N} deals, we learned we were wrong.
 
-100% of luxury brands ($100M+ GMV) chose white-label. This wasn't 
-about hiding our technology—it was about brand consistency being 
-non-negotiable in luxury e-commerce.
+{X}% of {premium segment} (${revenue}+ {metric}) chose {solution approach}. This wasn't
+about {misconception}—it was about {key differentiator} being
+non-negotiable in {industry}.
 
-Here's what $5.5M in contracts taught us about brand positioning.
+Here's what ${revenue} in contracts taught us about {positioning topic}.
 ```
 
 **Use pattern as guide, not script.**
@@ -3794,18 +3777,18 @@ Every pattern follows brand voice:
 
 ❌ Template-following (wrong):
 ```
-Our revolutionary AI-powered solution leverages cutting-edge 
+Our revolutionary AI-powered solution leverages cutting-edge
 machine learning to dramatically improve customer satisfaction.
 Book a demo to see the magic!
 ```
 
 ✅ Pattern + Voice (right):
 ```
-We trained our fit model on 10M+ body scans. Accuracy went from 
-68% (generic size charts) to 94% (personalized recommendations).
+We trained our {model} on {N}+ {data points}. Accuracy went from
+{X}% ({baseline approach}) to {Y}% ({improved approach}).
 
-The challenge: luxury customers expect >90% accuracy. At 94%, 
-we cross the credibility threshold. Below 90%, returns stay high.
+The challenge: {premium segment} customers expect >{Z}% accuracy. At {Y}%,
+we cross the credibility threshold. Below {Z}%, {key metric} stays high.
 ```
 
 ### 4. Include Technical Depth
@@ -3827,20 +3810,20 @@ You write:
 ## Technical Details
 
 **Architecture:**
-- SDK loaded asynchronously (no page speed impact)
-- Body measurement API: <200ms latency
-- Recommendation cache: 99.9% uptime
-- Analytics dashboard: Real-time fit data
+- {Component} loaded asynchronously (no page speed impact)
+- {API type}: <{X}ms latency
+- {System component}: {uptime}% uptime
+- {Dashboard}: Real-time {data type}
 
 **Challenges overcome:**
-1. Brand consistency: Custom CSS matching ElsaAI design system
-2. Mobile performance: Lazy loading prevented slowdown
-3. Data privacy: GDPR-compliant body measurement storage
+1. {Challenge 1}: {Solution approach} matching {Customer} {requirements}
+2. {Challenge 2}: {Optimization technique} prevented slowdown
+3. {Challenge 3}: {Compliance}-compliant {data handling}
 
 **Why it worked:**
-- White-label removed trust friction
-- 94% accuracy exceeded luxury threshold
-- Fast integration minimized engineering burden
+- {Solution approach} removed {friction point}
+- {X}% accuracy exceeded {segment} threshold
+- Fast integration minimized {resource} burden
 ```
 
 ### 5. Use Source Material
@@ -3877,13 +3860,13 @@ All content comes from:
 **Wrong:**
 ```
 Introduction (exactly 150 words)
-The problem with fashion returns is... [fills exactly 150 words 
+The problem with {industry} {problems} is... [fills exactly 150 words
 even if unnatural]
 ```
 
 **Right:**
 ```
-When we launched, we assumed brands wanted co-branded widgets. 
+When we launched, we assumed {segment} wanted {alternative approach}.
 We were wrong. [Natural length, ~30 words]
 ```
 
@@ -3891,13 +3874,13 @@ We were wrong. [Natural length, ~30 words]
 
 **Wrong:**
 ```
-We used AI to improve fit recommendations. It worked well.
+We used AI to improve {recommendations}. It worked well.
 ```
 
 **Right:**
 ```
-We trained our model on 10M+ body scans. Accuracy: 94% vs 68% 
-baseline. Challenge: luxury customers expect >90% accuracy to trust.
+We trained our model on {N}+ {data points}. Accuracy: {Y}% vs {X}%
+baseline. Challenge: {premium segment} customers expect >{Z}% accuracy to trust.
 ```
 
 ### ❌ Adding Sales Language
@@ -3910,7 +3893,7 @@ Book a demo today!
 
 **Right:**
 ```
-White-label SDK available for enterprise brands ($400K+ tier). 
+{Solution approach} available for {target segment} (${price}+ tier).
 Technical docs: [link]
 ```
 
@@ -3923,8 +3906,8 @@ Many customers saw significant improvements in conversion rates.
 
 **Right:**
 ```
-ElsaAI: Return rate 25% → 18% (28% reduction). Mobile conversion +12%.
-[Sources from threads/sales/elsa-white-label/6-learning.md]
+{Customer}: {Key metric} {before} → {after} ({X}% reduction). {Secondary metric} +{Y}%.
+[Sources from threads/sales/{customer-thread}/6-learning.md]
 ```
 
 ## Quality Checklist
@@ -4144,7 +4127,7 @@ strategy/canvas/13-metrics.md
 
 **Read tracking file:**
 ```yaml
-content_slug: "elsaai-white-label-sdk-case-study"
+content_slug: "{customer}-{solution-approach}-case-study"
 publish_date: "2024-11-16"
 channels:
   - blog: {url, utm}
@@ -4160,10 +4143,10 @@ channels:
 ```bash
 # Pseudo-code for analytics query
 GET /analytics/pageviews
-  ?url=/blog/elsaai-white-label-sdk-case-study
+  ?url=/blog/{customer}-{solution-approach}-case-study
   &start_date=2024-11-16
   &end_date=2024-11-23
-  
+
 Response:
   sessions: 650
   unique_visitors: 580
@@ -4285,18 +4268,18 @@ Period: {start_date} to {end_date}
 ## Overview
 
 **Content published this week:** 2
-- ElsaAI White-Label Case Study (blog, LinkedIn, email)
-- Fashion Return Reduction Guide (blog, LinkedIn)
+- {Customer} {Solution Approach} Case Study (blog, LinkedIn, email)
+- {Problem} Guide (blog, LinkedIn)
 
 **Total traffic:** 1,850 sessions (+32% vs last week)
 **Total conversions:** 18 demos requested
-**Top performer:** ElsaAI case study (650 sessions, 8 demos)
+**Top performer:** {Customer} case study (650 sessions, 8 demos)
 
 ---
 
 ## Top Performers
 
-### 1. ElsaAI White-Label SDK Case Study
+### 1. {Customer} {Solution Approach} Case Study
 
 **Published:** 2024-11-16
 **Channels:** Blog, LinkedIn, Email
@@ -4322,14 +4305,14 @@ Period: {start_date} to {end_date}
   - Shares: 18
 
 **Email:**
-- Sent: 1,250 (enterprise segment)
+- Sent: 1,250 ({segment})
 - Opened: 312 (24.96% rate) ✓
 - Clicked: 78 (6.24% rate) ✓
 - Conversions: 3 demos (3.85% of clicks)
 
 **SEO (Days 1-7):**
 - Indexed: ✓ (Day 2)
-- Ranking: Position 24 for "white-label SDK" (target: <20)
+- Ranking: Position 24 for "{target keyword}" (target: <20)
 - Impressions: 145
 - Clicks: 12 (8.28% CTR)
 
@@ -4340,18 +4323,18 @@ Period: {start_date} to {end_date}
 
 **Why it performed:**
 - Strong customer proof (specific metrics)
-- High-intent keyword (white-label SDK)
+- High-intent keyword ({target keyword})
 - Multi-channel amplification
 - Email segment highly relevant
 
 **Next steps:**
-- Create follow-up content (white-label implementation guide)
+- Create follow-up content ({solution approach} implementation guide)
 - Monitor SEO ranking improvement (target: top 10)
 - Use as sales enablement (share with prospects)
 
 ---
 
-### 2. Fashion Return Reduction Guide
+### 2. {Problem} Guide
 
 **Published:** 2024-11-14
 **Performance (Days 1-9):**
@@ -4401,8 +4384,8 @@ Period: {start_date} to {end_date}
 - **Email:** Enterprise segment converts 3x better than SMB
 
 **Keyword insights:**
-- **High-value keywords:** "white-label SDK" (low volume, high intent)
-- **Opportunity keywords:** "reduce fashion returns" (high volume, ranking #24)
+- **High-value keywords:** "{target keyword}" (low volume, high intent)
+- **Opportunity keywords:** "{secondary keyword}" (high volume, ranking #24)
 
 ---
 
@@ -4420,24 +4403,24 @@ Period: {start_date} to {end_date}
    - Or move to developer documentation
 
 3. **Optimize underperforming content**
-   - "Fashion Return Reduction Guide" ranking #24 → Update for top 10
+   - "{Problem} Guide" ranking #24 → Update for top 10
    - Add internal links from high-performers
 
 ### SEO Priorities
 
-1. **Target keyword:** "reduce fashion returns"
+1. **Target keyword:** "{secondary keyword}"
    - Current: Position 24
    - Opportunity: Position 8-12 achievable
    - Action: Update content, build internal links
 
-2. **Monitor:** "white-label SDK"
+2. **Monitor:** "{target keyword}"
    - Current: Position 24 (just indexed)
    - Track: Expect climb to top 10 in 30 days
 
 ### Channel Optimization
 
 1. **LinkedIn:** Focus on case studies and customer results
-2. **Email:** Segment further (luxury vs fast fashion)
+2. **Email:** Segment further ({segment A} vs {segment B})
 3. **Blog:** Continue SEO-focused education
 
 ---
@@ -4457,9 +4440,9 @@ Period: {start_date} to {end_date}
 
 ## Next Week Priorities
 
-1. Monitor ElsaAI case study SEO ranking (target: top 20)
-2. Create follow-up content (white-label implementation guide)
-3. Optimize "Fashion Return Reduction Guide" for better ranking
+1. Monitor {Customer} case study SEO ranking (target: top 20)
+2. Create follow-up content ({solution approach} implementation guide)
+3. Optimize "{Problem} Guide" for better ranking
 4. Review underperforming technical content strategy
 ```
 
@@ -4480,13 +4463,13 @@ summary:
   pipeline_influenced: $425K
 
 top_performers:
-  - slug: "elsaai-white-label-sdk-case-study"
+  - slug: "{customer}-{solution-approach}-case-study"
     sessions: 2,340
     conversions: 28
     conversion_rate: 1.20%
     pipeline: $150K
-    
-  - slug: "reduce-fashion-returns-guide"
+
+  - slug: "{problem-solution}-guide"
     sessions: 1,890
     conversions: 18
     conversion_rate: 0.95%
@@ -4497,8 +4480,8 @@ underperformers:
     sessions: 42
     conversions: 0
     issue: "Niche topic, no pillar alignment"
-    
-  - slug: "fashion-trends-q4"
+
+  - slug: "{industry}-trends-q4"
     sessions: 156
     conversions: 1
     issue: "Too generic, high competition"
@@ -4526,22 +4509,22 @@ seo_progress:
     top_10: 3 (+1 vs Oct)
     top_20: 8 (+3 vs Oct)
     top_50: 24 (+8 vs Oct)
-  
+
   top_ranking_keywords:
-    - keyword: "white-label SDK"
+    - keyword: "{target keyword}"
       position: 12 (was: not ranking)
-      
-    - keyword: "reduce fashion returns"
+
+    - keyword: "{secondary keyword}"
       position: 18 (was: 24)
-      
-    - keyword: "luxury fashion returns"
+
+    - keyword: "{tertiary keyword}"
       position: 8 (was: 15)
 
 insights:
   - "Case studies convert 2x better than guides"
   - "LinkedIn drives highest-quality traffic (1.2% vs 0.6% blog avg)"
-  - "Enterprise email segment converts 4x better than general"
-  - "Keyword 'luxury fashion returns' reached top 10 (strong opportunity)"
+  - "{Premium segment} email segment converts 4x better than general"
+  - "Keyword '{tertiary keyword}' reached top 10 (strong opportunity)"
 
 recommendations:
   - priority: "high"
@@ -4568,7 +4551,7 @@ recommendations:
 ## Content Alerts
 
 🎉 **Top Performer (Last 7 Days)**
-- ElsaAI White-Label Case Study: 650 sessions, 8 demos (1.23% rate)
+- {Customer} {Solution Approach} Case Study: 650 sessions, 8 demos (1.23% rate)
 - Action: Create follow-up content, use in sales enablement
 ```
 
@@ -4583,7 +4566,7 @@ recommendations:
 **SEO milestone alert:**
 ```markdown
 📈 **SEO Milestone**
-- "luxury fashion returns" reached position 8 (top 10!)
+- "{tertiary keyword}" reached position 8 (top 10!)
 - Traffic potential: +500 sessions/month
 - Action: Monitor ranking, create related content
 ```
@@ -4591,7 +4574,7 @@ recommendations:
 **Conversion anomaly:**
 ```markdown
 🔍 **Conversion Anomaly**
-- Fashion Trends Q4: 156 sessions, 1 demo (0.64% rate)
+- {Topic} Trends Q4: 156 sessions, 1 demo (0.64% rate)
 - Expected: 1.5-2 demos based on traffic
 - Possible issue: Traffic quality (wrong audience?)
 - Action: Review traffic sources, adjust targeting
@@ -4627,7 +4610,7 @@ Pillar: "Technical implementation" (deep-dives)
 
 3. **Update SEO strategy:**
 ```
-Keyword: "luxury fashion returns"
+Keyword: "{tertiary keyword}"
 - Position: 8 (top 10)
 - Traffic: 450 sessions/month
 - Conversions: 9 demos
@@ -4667,48 +4650,48 @@ Channel: LinkedIn
 
 ## Usage Example
 
-**Scenario:** ElsaAI case study published (Day 7 performance review)
+**Scenario:** {Customer} case study published (Day 7 performance review)
 ```
 1. Load distribution record:
-   - content_slug: "elsaai-white-label-sdk-case-study"
+   - content_slug: "{customer}-{solution-approach}-case-study"
    - publish_date: "2024-11-16"
    - channels: [blog, linkedin, email]
 
 2. Collect blog data:
-   - Sessions: 650
-   - Avg time: 4:32
-   - Conversions: 8
+   - Sessions: {N}
+   - Avg time: {time}
+   - Conversions: {N}
 
 3. Collect LinkedIn data:
-   - Impressions: 12,500
-   - Clicks: 380
-   - Engagement: 186
+   - Impressions: {N}
+   - Clicks: {N}
+   - Engagement: {N}
 
 4. Collect email data:
-   - Opened: 312 (24.96%)
-   - Clicked: 78 (6.24%)
-   - Conversions: 3
+   - Opened: {N} ({X}%)
+   - Clicked: {N} ({X}%)
+   - Conversions: {N}
 
 5. Calculate derived metrics:
-   - Overall conversion rate: 1.23% (8 / 650)
-   - LinkedIn CTR: 3.04% (380 / 12,500)
-   - Email CTR: 6.24% (78 / 1,250)
+   - Overall conversion rate: {X}% ({conversions} / {sessions})
+   - LinkedIn CTR: {X}% ({clicks} / {impressions})
+   - Email CTR: {X}% ({clicks} / {sent})
 
 6. Compare to benchmarks:
-   - Conversion rate: 1.23% vs 0.60% avg = 2x ✓
-   - LinkedIn CTR: 3.04% vs 2.0% avg = 1.5x ✓
-   - Email open: 24.96% vs 22% avg = 1.13x ✓
+   - Conversion rate: {X}% vs {Y}% avg = {Z}x ✓
+   - LinkedIn CTR: {X}% vs {Y}% avg = {Z}x ✓
+   - Email open: {X}% vs {Y}% avg = {Z}x ✓
 
 7. Flag as top performer:
    - Add to ops/today.md: "Top performer alert"
    - Recommendation: Create follow-up content
 
 8. Update performance record:
-   - Save: performance-2024-11-16-elsaai-white-label.yaml
+   - Save: performance-2024-11-16-{customer}-{solution-approach}.yaml
    - Include all metrics + insights
 
 9. Feed back to strategy:
-   - Insight: Case studies convert 2x better
+   - Insight: Case studies convert {X}x better
    - Action: Prioritize case study content in next sprint
 ```
 
@@ -4771,8 +4754,8 @@ artifacts/marketing/narrative/seo-strategy.md
 
 **3. Target keyword (from content opportunity):**
 ```
-Primary: "white-label SDK"
-Secondary: ["enterprise fashion SDK", "branded fit recommendation"]
+Primary: "{target keyword}"
+Secondary: ["{secondary keyword 1}", "{secondary keyword 2}"]
 ```
 
 ---
@@ -4814,28 +4797,28 @@ Secondary: ["enterprise fashion SDK", "branded fit recommendation"]
 
 **Before (not optimized):**
 ```
-"Our Customer Success Story with ElsaAI"
+"Our Customer Success Story with {Customer}"
 ```
 
 **After (optimized):**
 ```
-"White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
-- Keyword: ✓ (white-label SDK)
+"{Solution Approach} Case Study: {Customer} Reduces {Key Metric} {X}%"
+- Keyword: ✓ ({target keyword})
 - Length: ✓ (55 characters)
 - Compelling: ✓ (specific result)
 ```
 
 **Before (keyword stuffed):**
 ```
-"White-Label SDK for White-Label Fashion White-Label Solutions"
+"{Target Keyword} for {Target Keyword} {Industry} {Target Keyword} Solutions"
 ```
 
 **After (natural):**
 ```
-"How Enterprise Fashion Brands Use White-Label SDKs"
-- Keyword: ✓ (white-label SDK)
+"How {Premium Segment} Companies Use {Solution Approach}"
+- Keyword: ✓ ({target keyword})
 - Natural: ✓ (readable, not spammy)
-- Secondary keyword: ✓ (enterprise fashion)
+- Secondary keyword: ✓ ({premium segment})
 ```
 
 ### Step 3: Meta Description
@@ -4859,13 +4842,13 @@ Secondary: ["enterprise fashion SDK", "branded fit recommendation"]
 
 **Example:**
 ```
-Draft title: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+Draft title: "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} {X}%"
 
 Meta description:
-"Learn how ElsaAI reduced fashion returns by 38% using a white-label SDK. Implementation guide, metrics, and ROI analysis from a $200M luxury marketplace."
+"Learn how {Customer} reduced {key metric} by {X}% using {solution approach}. Implementation guide, metrics, and ROI analysis from a ${revenue} {segment} company."
 
 - Length: 158 characters ✓
-- Keyword: ✓ (white-label SDK)
+- Keyword: ✓ ({target keyword})
 - Compelling: ✓ (specific metrics, actionable)
 ```
 
@@ -4890,7 +4873,7 @@ Meta description:
 
 **Before (generic):**
 ```
-H1: ElsaAI Case Study
+H1: {Customer} Case Study
 H2: The Problem
 H2: The Solution
 H2: The Results
@@ -4898,18 +4881,18 @@ H2: The Results
 
 **After (SEO-optimized):**
 ```
-H1: White-Label SDK Case Study: ElsaAI Reduces Returns 38%
-H2: Why Luxury Fashion Brands Need White-Label Fit Recommendations
-H2: Implementing a White-Label SDK: Technical Approach
-H2: Results: 38% Return Reduction in 30 Days
-H2: White-Label vs Co-Branded: Enterprise SDK Comparison
+H1: {Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%
+H2: Why {Premium Segment} Companies Need {Solution Approach}
+H2: Implementing {Solution Approach}: Technical Approach
+H2: Results: 38% {Key Metric} Reduction in 30 Days
+H2: {Solution Approach} vs {Alternative}: {Segment} Comparison
 ```
 
 **Keyword distribution:**
 - H1: Primary keyword ✓
-- H2 #1: Keyword variation (white-label fit recommendations) ✓
-- H2 #2: Primary keyword (white-label SDK) ✓
-- H2 #4: Keyword variation (white-label vs co-branded) ✓
+- H2 #1: Keyword variation ({solution approach}) ✓
+- H2 #2: Primary keyword ({target keyword}) ✓
+- H2 #4: Keyword variation ({solution vs alternative}) ✓
 
 ### Step 5: Keyword Integration
 
@@ -4936,28 +4919,28 @@ H2: White-Label vs Co-Branded: Enterprise SDK Comparison
 
 **First 100 words:**
 ```
-When we launched our fit recommendation SDK, we assumed enterprise 
-brands would prefer co-branded widgets. After 5 enterprise deals, 
+When we launched our {solution category}, we assumed {segment}
+companies would prefer {alternative approach}. After {N} {segment} deals,
 we learned we were wrong.
 
-100% of luxury brands chose white-label SDK integration. This wasn't 
-about hiding technology—it was about brand consistency being 
-non-negotiable in luxury e-commerce.
+{X}% of {premium segment} chose {solution approach}. This wasn't
+about {misconception}—it was about {key differentiator} being
+non-negotiable in {industry}.
 
-Here's what we learned from $5.5M in enterprise contracts about 
-white-label SDKs and brand positioning.
+Here's what we learned from ${revenue} in {segment} contracts about
+{target keyword} and {positioning}.
 ```
 
 **Keyword mentions:**
-- "white-label SDK" (sentence 2) ✓
-- "white-label SDK integration" (sentence 2) ✓
-- "white-label SDKs" (sentence 3) ✓
+- "{target keyword}" (sentence 2) ✓
+- "{target keyword variation}" (sentence 2) ✓
+- "{target keywords}" (sentence 3) ✓
 - Density: 3 mentions / 85 words = 3.5% (acceptable for intro)
 
 **Secondary keywords:**
-- "enterprise brands" ✓
-- "luxury brands" ✓
-- "fit recommendation" ✓
+- "{segment} companies" ✓
+- "{premium segment}" ✓
+- "{solution category}" ✓
 
 ### Step 6: Internal Linking
 
@@ -4972,10 +4955,10 @@ white-label SDKs and brand positioning.
 **Identify linkable phrases:**
 ```
 In draft:
-"Luxury fashion brands face 25-30% return rates due to fit issues."
+"{Premium segment} companies face {X}% {key metric} due to {problem}."
 
 Link opportunity:
-"Luxury fashion brands face 25-30% return rates due to [fit issues](link-to-article-on-fit-problems)."
+"{Premium segment} companies face {X}% {key metric} due to [{problem}](link-to-article-on-problem)."
 ```
 
 **Anchor text rules:**
@@ -4984,28 +4967,28 @@ Link opportunity:
 ✓ Natural in context
 ✓ Keyword-relevant (helps SEO)
 ✗ Generic ("click here", "learn more")
-✗ Overly optimized ("best white-label SDK solutions")
+✗ Overly optimized ("best {target keyword} solutions")
 ```
 
 **Example internal links:**
 ```markdown
-## Why Luxury Fashion Brands Need White-Label Fit Recommendations
+## Why {Premium Segment} Companies Need {Solution Approach}
 
-Luxury customers expect seamless brand experiences. When ElsaAI 
-first implemented [co-branded fit widgets](/blog/co-branded-vs-white-label), 
+{Premium segment} customers expect {key differentiator}. When {Customer}
+first implemented [{alternative approach}](/blog/{alternative}-vs-{solution}),
 customer feedback was negative:
 
-Their previous approach to [reducing fashion returns](/blog/reduce-returns-guide) 
-used generic size charts with 68% accuracy...
+Their previous approach to [{solving problem}](/blog/{problem}-guide)
+used {inferior approach} with {low}% accuracy...
 
-For more on [enterprise SDK pricing](/pricing/enterprise), see our 
+For more on [{pricing tier}](/pricing/{tier}), see our
 technical documentation.
 ```
 
 **Links added:**
-1. `/blog/co-branded-vs-white-label` (related topic, same pillar)
-2. `/blog/reduce-returns-guide` (different pillar, high-value content)
-3. `/pricing/enterprise` (product page, conversion-focused)
+1. `/blog/{alternative}-vs-{solution}` (related topic, same pillar)
+2. `/blog/{problem}-guide` (different pillar, high-value content)
+3. `/pricing/{tier}` (product page, conversion-focused)
 
 ### Step 7: Image Optimization
 
@@ -5019,17 +5002,17 @@ technical documentation.
 
 **Example:**
 ```
-Image: Screenshot of white-label SDK integration
+Image: Screenshot of {solution approach} integration
 
 ✗ Bad alt text: "image1.png"
-✗ Bad alt text: "white-label SDK white-label integration white-label"
-✓ Good alt text: "White-label SDK integration showing branded fit recommendation widget in ElsaAI's checkout flow"
+✗ Bad alt text: "{keyword} {keyword} integration {keyword}"
+✓ Good alt text: "{Solution approach} integration showing {feature} in {Customer}'s {workflow}"
 ```
 
 **File naming:**
 ```
 ✗ IMG_1234.jpg
-✓ white-label-sdk-integration-screenshot.jpg
+✓ {solution-approach}-integration-screenshot.jpg
 ```
 
 **File size:**
@@ -5055,15 +5038,15 @@ Image: Screenshot of white-label SDK integration
 
 **Examples:**
 
-**From title:** "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+**From title:** "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%"
 ```
-✗ white-label-sdk-case-study-elsaai-reduces-returns-38-percent
+✗ {solution-approach}-case-study-{customer}-reduces-{metric}-38-percent
    (too long, includes stop words)
 
-✓ white-label-sdk-case-study
+✓ {solution-approach}-case-study
    (concise, keyword-focused)
 
-✓ elsaai-white-label-sdk
+✓ {customer}-{solution-approach}
    (customer name + keyword)
 ```
 
@@ -5076,11 +5059,11 @@ Image: Screenshot of white-label SDK integration
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "White-Label SDK Case Study: ElsaAI Reduces Returns 38%",
-  "description": "Learn how ElsaAI reduced fashion returns by 38%...",
+  "headline": "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%",
+  "description": "Learn how {Customer} reduced {key metric} by 38%...",
   "author": {
     "@type": "Organization",
-    "name": "GlamYouUp"
+    "name": "{Your Product}"
   },
   "datePublished": "2024-11-16",
   "dateModified": "2024-11-16"
@@ -5092,9 +5075,9 @@ Image: Screenshot of white-label SDK integration
 {
   "@context": "https://schema.org",
   "@type": "CaseStudy",
-  "name": "ElsaAI White-Label SDK Implementation",
-  "description": "How ElsaAI reduced returns by 38%...",
-  "result": "38% reduction in return rate, $805K annual savings"
+  "name": "{Customer} {Solution Approach} Implementation",
+  "description": "How {Customer} reduced {key metric} by 38%...",
+  "result": "38% reduction in {key metric}, ${savings} annual savings"
 }
 ```
 
@@ -5141,12 +5124,12 @@ Image: Screenshot of white-label SDK integration
 ```markdown
 ---
 # SEO Metadata
-title: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
-meta_description: "Learn how ElsaAI reduced fashion returns by 38% using a white-label SDK. Implementation guide, metrics, and ROI analysis from a $200M luxury marketplace."
-url_slug: "elsaai-white-label-sdk-case-study"
-target_keyword: "white-label SDK"
-secondary_keywords: ["enterprise fashion SDK", "white-label fit recommendation", "luxury fashion returns"]
-canonical_url: "https://glamyouup.com/blog/elsaai-white-label-sdk-case-study"
+title: "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%"
+meta_description: "Learn how {Customer} reduced {key metric} by 38% using {solution approach}. Implementation guide, metrics, and ROI analysis from a ${revenue} {segment} company."
+url_slug: "{customer}-{solution-approach}-case-study"
+target_keyword: "{target keyword}"
+secondary_keywords: ["{secondary keyword 1}", "{secondary keyword 2}", "{secondary keyword 3}"]
+canonical_url: "https://{your-product}.com/blog/{customer}-{solution-approach}-case-study"
 
 # Content metadata
 content_type: "case study"
@@ -5174,7 +5157,7 @@ created: "2024-11-16"
 status: "optimized"
 ---
 
-# White-Label SDK Case Study: ElsaAI Reduces Returns 38%
+# {Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%
 
 {Optimized content with all SEO improvements applied}
 
@@ -5182,20 +5165,20 @@ status: "optimized"
 
 ## Internal Links Added
 
-1. [co-branded vs white-label comparison](/blog/co-branded-vs-white-label)
-   - Anchor: "co-branded fit widgets"
-   - Context: Explaining ElsaAI's previous approach
+1. [{alternative} vs {solution} comparison](/blog/{alternative}-vs-{solution})
+   - Anchor: "{alternative approach}"
+   - Context: Explaining {Customer}'s previous approach
 
-2. [reducing fashion returns guide](/blog/reduce-returns-guide)
-   - Anchor: "reducing fashion returns"
+2. [{problem} guide](/blog/{problem}-guide)
+   - Anchor: "{solving problem}"
    - Context: Broader problem context
 
-3. [enterprise SDK pricing](/pricing/enterprise)
-   - Anchor: "enterprise SDK pricing"
+3. [{tier} pricing](/pricing/{tier})
+   - Anchor: "{tier} pricing"
    - Context: Call-out to product page
 
-4. [luxury fashion e-commerce trends](/blog/luxury-ecommerce-trends)
-   - Anchor: "luxury fashion brands"
+4. [{industry} trends](/blog/{industry}-trends)
+   - Anchor: "{industry} companies"
    - Context: Industry background
 ```
 
@@ -5203,19 +5186,19 @@ status: "optimized"
 ```markdown
 ## SEO Optimization Report
 
-**Content:** elsaai-white-label-sdk-case-study.md
+**Content:** {customer}-{solution-approach}-case-study.md
 **Date:** 2024-11-16
-**Target keyword:** white-label SDK
+**Target keyword:** {target keyword}
 
 ### Optimization Summary
 
 **Title Optimization:**
-- Original: "Our Customer Success Story with ElsaAI"
-- Optimized: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+- Original: "Our Customer Success Story with {Customer}"
+- Optimized: "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%"
 - Score: 95/100 (keyword included, 55 chars, compelling)
 
 **Meta Description:**
-- Created: "Learn how ElsaAI reduced fashion returns by 38% using a white-label SDK. Implementation guide, metrics, and ROI analysis from a $200M luxury marketplace."
+- Created: "Learn how {Customer} reduced {key metric} by 38% using {solution approach}. Implementation guide, metrics, and ROI analysis from a ${revenue} {segment} company."
 - Score: 90/100 (158 chars, keyword included, actionable)
 
 **Heading Structure:**
@@ -5241,7 +5224,7 @@ status: "optimized"
 - File names optimized: 3/3 ✓
 
 **URL Slug:**
-- Created: "elsaai-white-label-sdk-case-study"
+- Created: "{customer}-{solution-approach}-case-study"
 - Keyword included: ✓
 - Length: 4 words ✓
 
@@ -5253,7 +5236,7 @@ status: "optimized"
    - Related articles section
 
 2. **Monitor performance:**
-   - Track ranking for "white-label SDK"
+   - Track ranking for "{target keyword}"
    - Monitor click-through rate from SERP
    - Adjust if needed after 30 days
 
@@ -5321,34 +5304,34 @@ status: "optimized"
 
 **Input:**
 ```
-Draft: threads/marketing/campaigns/luxury-validation-nov-2024/5-actions/drafts/elsaai-case-study/draft.md
-Keyword: "white-label SDK"
-Secondary: ["enterprise fashion SDK", "luxury fashion returns"]
+Draft: threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{customer}-case-study/draft.md
+Keyword: "{target keyword}"
+Secondary: ["{secondary keyword 1}", "{secondary keyword 2}"]
 ```
 
 **Process:**
 ```
 1. Read draft:
-   - Title: "Our Customer Success Story with ElsaAI"
+   - Title: "Our Customer Success Story with {Customer}"
    - Word count: 1,450
    - Current keyword mentions: 5 (sparse)
 
 2. Optimize title:
-   - New: "White-Label SDK Case Study: ElsaAI Reduces Returns 38%"
+   - New: "{Solution Approach} Case Study: {Customer} Reduces {Key Metric} 38%"
    - Keyword: ✓
    - Length: 55 chars ✓
 
 3. Create meta description:
-   - "Learn how ElsaAI reduced fashion returns by 38% using a white-label SDK..."
+   - "Learn how {Customer} reduced {key metric} by 38% using {solution approach}..."
    - 158 chars ✓
 
 4. Optimize headings:
-   - H2: "Why Luxury Fashion Brands Need White-Label Fit Recommendations"
-   - H2: "Implementing a White-Label SDK: Technical Approach"
+   - H2: "Why {Premium Segment} Companies Need {Solution Approach}"
+   - H2: "Implementing {Solution Approach}: Technical Approach"
    - Added keyword variations ✓
 
 5. Add keywords naturally:
-   - First 100 words: Added "white-label SDK" ✓
+   - First 100 words: Added "{target keyword}" ✓
    - Body: 18 total mentions (1.2% density) ✓
 
 6. Internal linking:
@@ -5356,11 +5339,11 @@ Secondary: ["enterprise fashion SDK", "luxury fashion returns"]
    - Descriptive anchor text ✓
 
 7. Image optimization:
-   - Alt text: "White-label SDK integration showing branded fit widget"
-   - File: white-label-sdk-screenshot.jpg ✓
+   - Alt text: "{Solution approach} integration showing {feature}"
+   - File: {solution-approach}-screenshot.jpg ✓
 
 8. URL slug:
-   - Created: "elsaai-white-label-sdk-case-study" ✓
+   - Created: "{customer}-{solution-approach}-case-study" ✓
 
 9. Validate:
    - SEO score: 89/100 ✓
@@ -5368,7 +5351,7 @@ Secondary: ["enterprise fashion SDK", "luxury fashion returns"]
    - Ready for publication ✓
 
 10. Output:
-    - Save: threads/marketing/campaigns/luxury-validation-nov-2024/5-actions/drafts/elsaai-case-study/optimized.md
+    - Save: threads/marketing/campaigns/{campaign-slug}/5-actions/drafts/{customer}-case-study/optimized.md
     - Flag: ops/today.md for final approval
 ```
 

@@ -1,638 +1,413 @@
 ---
 name: marketing-execution
-description: Orchestrates marketing campaign execution (Stage 5) following 6-stage causal-flow. Coordinates content-generation (drafts), seo-optimization (keywords), content-distribution (publishing), and performance-tracking (metrics) to execute approved campaign decisions.
+description: Execute marketing campaigns with loop mechanics. Use when: campaign has approved 4-decision.md, content needs generating/publishing, or tracking loop activations. Coordinates content-generation, content-delivery, and optional seo-optimization. Tracks loop activations, not vanity metrics.
 allowed-tools: "Read,Write,Bash"
 ---
-
 # Marketing Execution Orchestrator
 
-You are a pure orchestrator. You coordinate subskills but do NOT generate, optimize, or publish content directly.
+Execute campaigns designed for loops. Track what matters — loop activations, not impressions.
 
-## Purpose
+## Core Principle
 
-Execute Stage 5 of approved campaigns by orchestrating subskills to produce, publish, and measure content.
+> "Loops > Funnels. Publish → Activate Loop → Amplify → Repeat"
 
-**Core principle:** You READ decisions, INVOKE subskills, TRACK progress. You do NOT do the work yourself.
+Success = content that generates its own next input.
 
----
+## Subskills
 
-## Available Subskills
+| Subskill | Purpose | Priority |
+|----------|---------|----------|
+| `content-generation` | Generate loop-triggering drafts | Required |
+| `content-delivery` | Publish + track loop activations | Required |
+| `seo-optimization` | Basic SEO for evergreen content | Optional |
 
-**Execution pipeline (you orchestrate these):**
-- `marketing-execution/content-generation` - Generate content drafts
-- `marketing-execution/seo-optimization` - Apply SEO to content
-- `marketing-execution/content-distribution` - Publish to channels
-- `marketing-execution/performance-tracking` - Measure impact
+## Prerequisites
 
-**You coordinate these subskills. You do NOT perform their functions.**
+**Required context:**
+- `artifacts/marketing/narrative/distribution-model.md` — Loop mechanics, channel priorities
+- `artifacts/marketing/narrative/brand-voice.md` — Voice guidelines
+- `threads/marketing/campaigns/{slug}/4-decision.md` — Approved content plan
 
----
-
-## Your Orchestration Role
-
-### What You DO:
-✅ Read Stage 4 Decision (content plan)
-✅ Invoke content-generation subskill
-✅ Flag drafts for human review
-✅ Invoke seo-optimization subskill
-✅ Flag optimized content for human approval
-✅ Invoke content-distribution subskill
-✅ Update execution-log.md
-✅ Invoke performance-tracking subskill
-✅ Report progress in ops/today.md
-
-### What You DON'T DO:
-❌ Generate content yourself (content-generation does this)
-❌ Optimize SEO yourself (seo-optimization does this)
-❌ Publish content yourself (content-distribution does this)
-❌ Track metrics yourself (performance-tracking does this)
-
----
+If missing → Flag "Run marketing-narrative first" or "Complete Stage 4 decision"
 
 ## Campaign Structure
-
 ```
-threads/marketing/campaigns/{campaign-slug}/
-├── metadata.yaml
-├── 1-input.md        # Trigger
-├── 2-hypothesis.md   # Canvas link
-├── 3-implication.md  # Business impact
-├── 4-decision.md     # Content plan (YOU READ THIS)
+threads/marketing/campaigns/{slug}/
+├── 4-decision.md         # Content plan with loop design
 ├── 5-actions/
-│   ├── execution-log.md  # YOU UPDATE THIS
-│   └── drafts/           # Temporary (YOU MANAGE DELETION)
-└── 6-learning.md     # Human writes (with metrics from performance-tracking)
+│   ├── execution-log.md  # Progress + loop tracking
+│   └── drafts/           # Temporary (delete after publish confirmed)
+└── 6-learning.md         # Loop performance learnings
 
-artifacts/marketing/campaigns/{campaign-slug}/
-├── {piece}.md                    # Published article
+artifacts/marketing/campaigns/{slug}/
+├── {piece}.md            # Final article
 └── distribution/
-    ├── {piece}-linkedin.md       # Published LinkedIn
-    ├── {piece}-twitter.md        # Published Twitter
-    └── {piece}-substack.md       # Published Substack
+    ├── {piece}-linkedin.md
+    ├── {piece}-twitter.md
+    ├── {piece}-email.md
+    └── distribution-metadata.yaml
 ```
 
----
+## Workflow
 
-## Stage 5 Execution Workflow
-
-**Your orchestration sequence:**
-
-### Step 1: Read Stage 4 Decision
-
+### 1. Read Stage 4 Decision
 ```
 Read: threads/marketing/campaigns/{slug}/4-decision.md
 
 Extract:
-- Content pieces to create (titles, formats)
-- Target keywords (for SEO)
-- Distribution channels (blog, LinkedIn, Twitter, Substack, email)
-- Success criteria (sessions, demos)
-- Timeline
+- Content pieces to create
+- Loop trigger type for each (implementation / question / challenge / offer)
+- Velocity proof (before → after)
+- Target channels (from distribution-model.md priorities)
+- First-comment text (for LinkedIn)
 ```
 
-### Step 2: For Each Content Piece, Orchestrate Pipeline
+### 2. For Each Content Piece
 
-**Step 2a: Invoke content-generation**
+| Step | Action | Subskill | Wait For |
+|------|--------|----------|----------|
+| a | Generate drafts with loop triggers | `content-generation` | Files in drafts/ |
+| b | Validate loop trigger + velocity proof | — | — |
+| c | Flag for human review | — | Human approval |
+| d | Apply SEO (Only if: blog + evergreen + requested) | `seo-optimization` | Drafts updated |
+| e | Format for channels | `content-delivery` | Files in artifacts/ |
+| f | Flag "Ready to publish" | — | Human publishes |
+| g | Human posts first-comment (LinkedIn) | — | Human confirms |
+| h | Delete drafts/ | — | — |
+| i | Start loop tracking | `content-delivery` | — |
 
+### 3. Post-Publish: Loop Monitoring
+
+Once human confirms published:
+
+1. Update execution-log.md with publish time + URLs
+2. Start loop tracking schedule (Day 1, 3, 7, 14, 30)
+3. Monitor for loop activations
+4. Flag user-generated content immediately for amplification
+5. Update 6-learning.md with loop performance
+
+## Subskill Invocation
+
+### content-generation
+
+**When:** Step 2a — after reading 4-decision.md
+
+**Invoke:**
 ```
-Invoke: marketing-execution/content-generation
-
-Input:
-  - campaign_slug: "{slug}"
-  - decision_path: "threads/marketing/campaigns/{slug}/4-decision.md"
-  - piece_name: "{piece-name}"
-
-Expected output:
-  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-article.md
-  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-linkedin.md
-  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-twitter.md
-  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-substack.md
-
-Wait for: Subskill completes (files exist)
-```
-
-**Step 2b: Flag for human review**
-
-```
-Update: ops/today.md
-
-Add:
-## Content Drafts Ready
-
-**{Article Title}**
-- Formats: Article + LinkedIn + Twitter + Substack
-- Location: threads/marketing/campaigns/{slug}/5-actions/drafts/
-- Action: Review and approve for SEO optimization
-
-Wait for: Human approval
-```
-
-**Step 2c: Invoke seo-optimization**
-
-```
-Invoke: marketing-execution/seo-optimization
-
-Input:
-  - draft_path: "threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-article.md"
-  - target_keyword: "{keyword from Stage 4 Decision}"
-  - secondary_keywords: ["{list from Stage 4 Decision}"]
-
-Expected output:
-  - Overwrites drafts with optimized versions
-  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-article.md (optimized)
-  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-linkedin.md (optimized)
-  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-twitter.md (optimized)
-  - threads/marketing/campaigns/{slug}/5-actions/drafts/{piece}-substack.md (optimized)
-
-Wait for: Subskill completes
+Parameters:
+  campaign_slug: "{slug}"
+  decision_path: "threads/marketing/campaigns/{slug}/4-decision.md"
+  piece_name: "{piece}"
+  loop_trigger_type: "{type from decision}"
+  velocity_proof: "{before → after from decision}"
 ```
 
-**Step 2d: Flag for human approval**
-
+**Output:**
 ```
-Update: ops/today.md
-
-Add:
-## Optimized Content Ready
-
-**{Article Title}**
-- SEO: Keyword "{keyword}" applied
-- Location: threads/marketing/campaigns/{slug}/5-actions/drafts/
-- Action: Final approval before publishing
-
-Wait for: Human approval
+threads/marketing/campaigns/{slug}/5-actions/drafts/
+├── {piece}-article.md
+├── {piece}-linkedin.md
+├── {piece}-twitter.md
+└── {piece}-email.md
 ```
 
-**Step 2e: Invoke content-distribution**
+**Validation before proceeding:**
+- [ ] Loop trigger present at end of each draft
+- [ ] Velocity proof in content
+- [ ] Brand voice applied
 
+If loop trigger missing → Reject, re-invoke with explicit requirement
+
+---
+
+### seo-optimization (Optional)
+
+**When:** Step 2d — only if:
+- Content type is blog/article
+- Explicitly requested, OR
+- High-value evergreen content
+
+**Skip if:**
+- Social-first content (LinkedIn, Twitter)
+- Time-sensitive content
+- Loop mechanics more important than SEO
+
+**Invoke:**
 ```
-Invoke: marketing-execution/content-distribution
-
-Input:
-  - optimized_drafts_path: "threads/marketing/campaigns/{slug}/5-actions/drafts/"
-  - campaign_slug: "{slug}"
-  - channels: ["{from Stage 4 Decision}"]
-  - piece_name: "{piece-name}"
-
-Expected output:
-  - artifacts/marketing/campaigns/{slug}/{piece}.md
-  - artifacts/marketing/campaigns/{slug}/distribution/{piece}-linkedin.md
-  - artifacts/marketing/campaigns/{slug}/distribution/{piece}-twitter.md
-  - artifacts/marketing/campaigns/{slug}/distribution/{piece}-substack.md
-  - artifacts/marketing/campaigns/{slug}/distribution-record.yaml
-
-Wait for: Subskill completes
-```
-
-**Step 2f: Delete drafts**
-
-```
-Action: Delete temporary drafts
-
-Delete:
-  - threads/marketing/campaigns/{slug}/5-actions/drafts/
-
-Reason: Content now published in artifacts/
+Parameters:
+  draft_path: "threads/.../drafts/{piece}-article.md"
+  target_keyword: "{keyword from decision}"
+  secondary_keywords: ["{list from decision}"]
 ```
 
-**Step 2g: Update execution log**
+**Output:** Overwrites draft with SEO metadata + optimizations
 
+**Note:** Low priority per distribution-model.md. SEO is declining channel.
+
+---
+
+### content-delivery
+
+**When:** Step 2e — after human approves drafts
+
+**Invoke:**
 ```
-Update: threads/marketing/campaigns/{slug}/5-actions/execution-log.md
-
-Mark:
-- [x] Article 1: "{Title}"
-  - Draft created: {date}
-  - Human reviewed: {date}
-  - SEO optimized: {date}
-  - Human approved: {date}
-  - Published: {date}
-  - URLs:
-    - Blog: {url}
-    - LinkedIn: {url}
-    - Twitter: {url}
-    - Substack: {url}
-```
-
-### Step 3: Report Progress
-
-```
-Update: ops/today.md
-
-Add:
-## Campaign Execution Progress
-
-**{Campaign Name}:**
-- [x] Article 1: Published ({blog URL})
-- [x] LinkedIn post 1: Scheduled ({date})
-- [ ] Article 2: Human review pending
+Parameters:
+  drafts_path: "threads/.../drafts/"
+  campaign_slug: "{slug}"
+  channels: ["{from decision}"]
+  piece_name: "{piece}"
+  loop_trigger: "{trigger text}"
+  first_comment: "{question/challenge for LinkedIn}"
 ```
 
-### Step 4: Invoke Performance Tracking (After Publishing)
-
+**Output:**
 ```
-Invoke: marketing-execution/performance-tracking
+artifacts/marketing/campaigns/{slug}/
+├── {piece}.md
+└── distribution/
+    ├── {piece}-linkedin.md
+    ├── {piece}-twitter.md
+    ├── {piece}-email.md
+    └── distribution-metadata.yaml
+```
 
-Input:
-  - campaign_slug: "{slug}"
-  - distribution_record: "artifacts/marketing/campaigns/{slug}/distribution-record.yaml"
-  - tracking_period: "30 days"
+**Post-publish tracking:**
+- Day 1: Early engagement, first-comment performance
+- Day 3: Initial loop activations
+- Day 7: Loop performance report
+- Day 14: UGC detection
+- Day 30: Final loop assessment
 
-Expected output:
-  - Weekly reports in ops/today.md
-  - Performance data for Stage 6 learning
+## Human Touchpoints
 
-Wait for: Tracking period completes
+### After content-generation (Step 2c)
+```markdown
+## Drafts Ready for Review
+
+**Campaign:** {campaign name}
+**Piece:** {title}
+
+**Location:** `threads/marketing/campaigns/{slug}/5-actions/drafts/`
+
+**Validation:**
+- Loop trigger: {✓ present / ✗ missing}
+- Velocity proof: {✓ present / ✗ missing}
+- Brand voice: {✓ applied / ⚠️ review needed}
+
+**Files:**
+- {piece}-article.md
+- {piece}-linkedin.md
+- {piece}-twitter.md
+- {piece}-email.md
+
+**Action:** Review all drafts, approve or request revision
 ```
 
 ---
 
-## Subskill Invocation Details
+### After content-delivery (Step 2f)
+```markdown
+## Ready to Publish
 
-### Invoking content-generation
+**Campaign:** {campaign name}
+**Piece:** {title}
 
-**When:** After reading Stage 4 Decision, for each content piece
+**Files ready:**
+| Channel | File | Loop Trigger |
+|---------|------|--------------|
+| Blog | artifacts/{slug}/{piece}.md | "{trigger}" |
+| LinkedIn | artifacts/{slug}/distribution/{piece}-linkedin.md | "{trigger}" |
+| Twitter | artifacts/{slug}/distribution/{piece}-twitter.md | "{trigger}" |
+| Email | artifacts/{slug}/distribution/{piece}-email.md | "{trigger}" |
 
-**How to invoke:**
-```
-Call subskill: marketing-execution/content-generation
+**LinkedIn first-comment (POST WITHIN 5 MINUTES):**
+> {first_comment text}
 
-Parameters:
-  - campaign_slug: String (e.g., "luxury-validation-nov-2024")
-  - decision_path: String (path to 4-decision.md)
-  - piece_name: String (e.g., "{customer}-case-study")
-
-Subskill will:
-  1. Read Stage 4 Decision
-  2. Load brand voice, patterns, source threads
-  3. Generate ALL formats in parallel (article + LinkedIn + Twitter + Substack)
-  4. Save to: threads/marketing/campaigns/{slug}/5-actions/drafts/
-
-You wait for: Files to exist in drafts/
-```
-
-### Invoking seo-optimization
-
-**When:** After human reviews and approves drafts
-
-**How to invoke:**
-```
-Call subskill: marketing-execution/seo-optimization
-
-Parameters:
-  - draft_path: String (path to draft article)
-  - target_keyword: String (e.g., "{primary keyword}")
-  - secondary_keywords: Array of Strings
-
-Subskill will:
-  1. Read draft content
-  2. Optimize title, meta description, headings
-  3. Apply keywords naturally
-  4. Add internal links
-  5. Optimize images (alt text, file names)
-  6. Overwrite drafts with optimized versions
-
-You wait for: Optimization complete (files updated)
-```
-
-### Invoking content-distribution
-
-**When:** After human approves optimized content
-
-**How to invoke:**
-```
-Call subskill: marketing-execution/content-distribution
-
-Parameters:
-  - optimized_drafts_path: String (path to drafts directory)
-  - campaign_slug: String
-  - channels: Array of Strings (e.g., ["blog", "linkedin", "twitter", "substack"])
-  - piece_name: String
-
-Subskill will:
-  1. Read optimized drafts
-  2. Prepare channel-specific versions
-  3. Add UTM tracking
-  4. Publish to: artifacts/marketing/campaigns/{slug}/
-  5. Create distribution-record.yaml
-
-You wait for: Publishing complete (files in artifacts/)
-```
-
-### Invoking performance-tracking
-
-**When:** After content published, throughout tracking period
-
-**How to invoke:**
-```
-Call subskill: marketing-execution/performance-tracking
-
-Parameters:
-  - campaign_slug: String
-  - distribution_record: String (path to distribution-record.yaml)
-  - tracking_period: String (e.g., "30 days")
-
-Subskill will:
-  1. Read distribution record (URLs, UTM parameters)
-  2. Monitor metrics (traffic, engagement, conversions)
-  3. Report weekly in ops/today.md
-  4. Provide final data for Stage 6 learning
-
-You wait for: Reports appear in ops/today.md
+**Action:**
+1. Publish to each channel
+2. Post first-comment on LinkedIn immediately
+3. Add URLs to execution-log.md
+4. Reply "published" to confirm
 ```
 
 ---
+
+### After loop activation detected
+```markdown
+## Loop Fuel Available — Action Required
+
+**Detected:** {date}
+**User:** {name/handle}
+**Platform:** {LinkedIn/Twitter/etc}
+**Content:** {what they created}
+  - {description of their implementation/share/commentary}
+
+**Amplification actions:**
+- [ ] Comment on their post (authentic engagement)
+- [ ] Reshare with your commentary
+- [ ] DM to thank them
+- [ ] Consider featuring in next content
+
+**Priority:** {HIGH if influential / MEDIUM otherwise}
+
+This is the loop completing. Don't miss it.
+```
 
 ## Execution Log Format
-
-**You maintain this file:**
-
 ```markdown
 # Execution Log - {Campaign Name}
 
-**Campaign:** {campaign-slug}
+**Campaign:** {slug}
 **Created:** {date}
-**Status:** in-progress | completed
+**Status:** {drafting | review | ready | published | tracking | complete}
 
 ---
 
 ## Content Piece 1: "{Title}"
 
-**Stage 4 Decision:**
-- Type: {case study | blog article | announcement}
-- Target keyword: "{keyword}"
-- Channels: {blog, LinkedIn, Twitter, Substack}
+### Loop Design
+- **Trigger type:** {implementation | question | challenge | offer}
+- **Trigger text:** "{exact trigger}"
+- **First-comment:** "{LinkedIn comment}"
+- **Expected activations:** {what we expect}
 
-**Execution Timeline:**
-- [x] Drafts created: 2024-11-16 (content-generation invoked)
-- [x] Human review: 2024-11-16 (approved with minor edits)
-- [x] SEO optimized: 2024-11-16 (seo-optimization invoked)
-- [x] Human approved: 2024-11-16 (final check passed)
-- [x] Published: 2024-11-17 (content-distribution invoked)
-- [x] Tracking started: 2024-11-17 (performance-tracking invoked)
+### Velocity Proof
+- **Before:** {time + old state}
+- **After:** {time + new state}
+- **Multiplier:** {Nx}
 
-**Published URLs:**
-- Blog: https://{product}.com/blog/{slug} (UTM: ?utm_campaign={slug})
-- LinkedIn: https://linkedin.com/company/{product}/posts/... (UTM: ?utm_source=linkedin&utm_campaign={slug})
-- Twitter: https://twitter.com/{product}/status/... (UTM: ?utm_source=twitter&utm_campaign={slug})
-- Substack: https://{product}.substack.com/p/{slug} (UTM: ?utm_source=substack&utm_campaign={slug})
+### Execution Timeline
+- [ ] Drafts created: {date}
+- [ ] Loop trigger validated: ✓
+- [ ] Velocity proof validated: ✓
+- [ ] Human reviewed: {date}
+- [ ] SEO applied: {date | skipped}
+- [ ] Channel files created: {date}
+- [ ] Human published: {date}
+- [ ] First-comment posted: {date}
+- [ ] Drafts deleted: {date}
+- [ ] Tracking started: {date}
 
-**Performance (Days 1-7):**
-- Sessions: 650 (performance-tracking monitoring)
-- Demos: 8
-- Conversion: 1.23%
+### Published URLs
+| Channel | URL | First-Comment |
+|---------|-----|---------------|
+| Blog | {url} | N/A |
+| LinkedIn | {url} | ✓ Posted |
+| Twitter | {url} | N/A |
+| Email | {sent to segment} | N/A |
+
+### Loop Performance
+| Metric | Day 1 | Day 7 | Day 30 |
+|--------|-------|-------|--------|
+| Shares | | | |
+| Implementations shared | | | |
+| Inbound DMs | | | |
+| User-generated content | | | |
+| Conversations started | | | |
+
+### Loop Fuel Generated
+| Date | User | What They Created | Amplified | Result |
+|------|------|-------------------|-----------|--------|
+| | | | | |
+
+### Loop Assessment
+- **Loop activated:** {yes | no | partial}
+- **Loop velocity:** {time to first UGC}
+- **Loop strength:** {weak | medium | strong}
+- **Learning:** {what worked/didn't}
 
 ---
 
 ## Content Piece 2: "{Title}"
 
-**Stage 4 Decision:**
-- Type: {type}
-- Target keyword: "{keyword}"
-- Channels: {channels}
-
-**Execution Timeline:**
-- [x] Drafts created: 2024-11-18 (content-generation invoked)
-- [ ] Human review: Pending
+(Repeat structure)
 ```
 
----
+## Metrics That Matter
 
-## Quality Gates
+| Track (Loop Metrics) | Ignore (Vanity Metrics) |
+|---------------------|------------------------|
+| Shares / reposts | Impressions |
+| Implementations shared | Likes |
+| Inbound DMs | Follower count |
+| User-generated content | Page views alone |
+| Conversations started | Comments (without substance) |
+| Referrals / mentions | Reach |
 
-**You enforce these by flagging for human review:**
-
-### After content-generation (Before SEO)
-- [ ] Drafts exist in threads/.../5-actions/drafts/
-- [ ] ALL formats generated (article + LinkedIn + Twitter + Substack)
-- [ ] Flag in ops/today.md for human review
-- [ ] Wait for human approval
-
-### After seo-optimization (Before Distribution)
-- [ ] Drafts updated with SEO (keywords, meta, links)
-- [ ] Flag in ops/today.md for human approval
-- [ ] Wait for human approval
-
-### After content-distribution (Before Tracking)
-- [ ] Content published to artifacts/marketing/campaigns/{slug}/
-- [ ] distribution-record.yaml created
-- [ ] Drafts deleted from threads/.../5-actions/drafts/
-- [ ] execution-log.md updated
-
----
-
-## Human Touchpoints (You Flag These)
-
-### Required Human Actions
-
-**1. Review drafts** (after content-generation)
-```
-Update ops/today.md:
-
-## Content Drafts Ready
-
-**{Title}**
-- Location: threads/marketing/campaigns/{slug}/5-actions/drafts/
-- Formats: Article + LinkedIn + Twitter + Substack
-- Action: Review and approve for SEO optimization
-```
-
-**2. Approve optimized content** (after seo-optimization)
-```
-Update ops/today.md:
-
-## Optimized Content Ready
-
-**{Title}**
-- SEO: Keyword "{keyword}" applied
-- Location: threads/marketing/campaigns/{slug}/5-actions/drafts/
-- Action: Final approval before publishing
-```
-
-### Optional Human Actions
-
-**Request revisions:**
-- If human rejects draft, flag: "Revisions requested"
-- Re-invoke content-generation with feedback
-- Update execution-log.md: "Revision round {n}"
-
-**Manual distribution:**
-- If human wants manual control, flag: "Manual distribution"
-- Skip content-distribution invocation
-- Human publishes manually
-
----
+**Success = Loops activated, not content published.**
 
 ## Error Handling
 
-### If Stage 4 Incomplete
-```
-Check: threads/marketing/campaigns/{slug}/4-decision.md exists
+| Condition | Action |
+|-----------|--------|
+| 4-decision.md missing | Stop, flag "Complete Stage 4 first" |
+| distribution-model.md missing | Stop, flag "Run marketing-narrative first" |
+| Draft missing loop trigger | Reject draft, re-invoke content-generation |
+| Draft missing velocity proof | Flag warning, proceed only if human approves |
+| First-comment not posted | Alert — critical for LinkedIn algorithm |
+| No loop activations by Day 7 | Flag in 6-learning.md, analyze trigger effectiveness |
+| UGC detected | Flag immediately for amplification |
+| Human delays publish >48hrs | Reminder in ops/today.md |
 
-If missing:
-  - Flag: "Stage 4 decision missing, cannot execute"
-  - Wait for human to complete Stages 1-4
-  - Do NOT proceed
-```
+## 6-learning.md Update
 
-### If content-generation Fails
-```
-Check: Drafts exist after invocation
+After Day 30 (or campaign complete):
+```markdown
+# Learning - {Campaign Name}
 
-If missing:
-  - Flag: "content-generation failed, check logs"
-  - Alert in ops/today.md
-  - Do NOT proceed to SEO
-```
+**Campaign:** {slug}
+**Period:** {start} to {end}
 
-### If Human Rejects Draft
-```
-Action:
-  - Log rejection in execution-log.md
-  - Re-invoke content-generation with feedback
-  - Update: "Revision round {n}"
-  - Flag for review again
-```
+## Loop Performance Summary
 
-### If content-distribution Fails
-```
-Check: Files exist in artifacts/ after invocation
+| Piece | Loop Triggered | Activations | UGC Generated |
+|-------|---------------|-------------|---------------|
+| {piece 1} | {yes/no} | {count} | {count} |
+| {piece 2} | {yes/no} | {count} | {count} |
 
-If missing:
-  - Flag: "Publishing failed, content in drafts/"
-  - Alert in ops/today.md
-  - Keep drafts/ (do NOT delete)
-  - Retry with human assistance
-```
+## What Worked
 
----
+- {Observation about successful loop trigger}
+- {Observation about velocity proof effectiveness}
+- {Observation about channel performance}
 
-## Success Metrics
+## What Didn't Work
 
-**Orchestration efficiency:**
-- Time from Stage 4 to published: <7 days
-- Subskill invocation success rate: >95%
-- Human intervention required: Only at quality gates
+- {Observation about weak loop trigger}
+- {Observation about missed opportunities}
 
-**Execution tracking:**
-- execution-log.md always up-to-date
-- ops/today.md reflects current status
-- All subskills invoked in correct order
+## Hypotheses Validated/Invalidated
 
----
+| Hypothesis | Status | Evidence |
+|------------|--------|----------|
+| {H1} | {validated/invalidated} | {data} |
 
-## Usage Example
+## Recommendations for Next Campaign
 
-**Scenario:** Execute {segment} validation campaign
+1. {Specific recommendation}
+2. {Specific recommendation}
+3. {Specific recommendation}
 
-```
-1. Read Stage 4 Decision:
-   Campaign: threads/marketing/campaigns/{segment}-validation-{date}/
-   Content: 2 case studies + 4 LinkedIn posts
-   Keywords: "{primary keyword}", "{secondary keyword}"
-   Channels: blog, LinkedIn, Twitter, Substack
+## Update to distribution-model.md
 
-2. Execute Content Piece 1: "{Customer} Case Study"
-
-   Step 1: Invoke content-generation
-   ↓
-   Parameters:
-     - campaign_slug: "{segment}-validation-{date}"
-     - decision_path: "threads/marketing/campaigns/{segment}-validation-{date}/4-decision.md"
-     - piece_name: "{customer}-case-study"
-   ↓
-   Wait for: Drafts created
-   ✓ Files exist: article.md, linkedin.md, twitter.md, substack.md
-   ↓
-   Update execution-log.md: [x] Drafts created
-
-   Step 2: Flag for human review
-   ↓
-   Update ops/today.md: "Drafts ready: {Customer} Case Study"
-   ↓
-   Wait for: Human approval
-   ✓ Human approved with minor edits
-   ↓
-   Update execution-log.md: [x] Human reviewed
-
-   Step 3: Invoke seo-optimization
-   ↓
-   Parameters:
-     - draft_path: "threads/.../drafts/{customer}-case-study-article.md"
-     - target_keyword: "{primary keyword}"
-     - secondary_keywords: ["{secondary keyword 1}", "{secondary keyword 2}"]
-   ↓
-   Wait for: Optimization complete
-   ✓ Drafts updated with SEO
-   ↓
-   Update execution-log.md: [x] SEO optimized
-
-   Step 4: Flag for human approval
-   ↓
-   Update ops/today.md: "Optimized content ready: {Customer} Case Study"
-   ↓
-   Wait for: Human approval
-   ✓ Human approved
-   ↓
-   Update execution-log.md: [x] Human approved
-
-   Step 5: Invoke content-distribution
-   ↓
-   Parameters:
-     - optimized_drafts_path: "threads/.../drafts/"
-     - campaign_slug: "{segment}-validation-{date}"
-     - channels: ["blog", "linkedin", "twitter", "substack"]
-     - piece_name: "{customer}-case-study"
-   ↓
-   Wait for: Publishing complete
-   ✓ Files created in artifacts/marketing/campaigns/{segment}-validation-{date}/
-   ↓
-   Update execution-log.md: [x] Published (URLs added)
-
-   Step 6: Delete drafts
-   ↓
-   Action: rm -rf threads/.../5-actions/drafts/
-   ✓ Temporary files removed
-
-   Step 7: Invoke performance-tracking
-   ↓
-   Parameters:
-     - campaign_slug: "{segment}-validation-{date}"
-     - distribution_record: "artifacts/.../distribution-record.yaml"
-     - tracking_period: "30 days"
-   ↓
-   Wait for: Weekly reports in ops/today.md
-   ✓ Tracking started
-
-3. Execute Content Piece 2: (Repeat Steps 1-7)
-
-4. Report Progress:
-   Update ops/today.md:
-   "Campaign execution: 1/2 pieces published, 1 in review"
-
-Total orchestration time: <2 hours (AI invocations)
-Total human time: <45 minutes (reviews + approvals)
+{If learnings warrant updating channel priorities or loop mechanics}
 ```
 
----
+## Boundaries
 
-## Remember
+**DO:**
+- Validate loop triggers in every draft before proceeding
+- Ensure first-comment is posted on LinkedIn
+- Track loop activations (shares, implementations, DMs, UGC)
+- Flag user-generated content immediately for amplification
+- Update 6-learning.md with loop performance data
+- Feed learnings back to distribution-model.md
 
-**You are an orchestrator:**
-- Read decisions
-- Invoke subskills
-- Track progress
-- Flag for human review
-
-**You are NOT a worker:**
-- Don't generate content (invoke content-generation)
-- Don't optimize SEO (invoke seo-optimization)
-- Don't publish content (invoke content-distribution)
-- Don't track metrics (invoke performance-tracking)
-
-**Success = Smooth coordination of subskills from decision to published content.**
-
----
-
-**Last updated:** 2025-11-21
-**Subskills:** content-generation, seo-optimization, content-distribution, performance-tracking
+**DON'T:**
+- Approve drafts without loop triggers
+- Skip first-comment on LinkedIn
+- Report vanity metrics (impressions, likes, follower count)
+- Miss user-generated loop fuel
+- Treat SEO as required (it's optional, low priority)
+- Delete drafts before human confirms published
