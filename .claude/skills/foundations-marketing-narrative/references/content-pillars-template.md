@@ -2,30 +2,56 @@
 
 Generated: {date}
 
-## Pillar 1: {Theme}
+## Overview
 
-**Description:** {What this covers}
-**Canvas alignment:** {Which sections}
-**Target segments:** {Who cares}
+3-5 strategic themes that all content maps to.
 
-**Content angles:**
-- {Angle}: {Topic approach, format, example}
+## Pillars
 
-**Keywords:** {Primary}, {secondary}
+### Pillar 1: {Name}
 
-## Pillar 2: {Theme}
-{Repeat structure}
+**Theme:** {What this pillar covers}
+**Why it matters:** {Connection to positioning}
+**Audience resonance:** {Why they care}
 
-## Pillar 3: {Theme}
-{Repeat structure}
+**Topics include:**
+- {topic}
+- {topic}
+- {topic}
 
-## Distribution
+### Pillar 2: {Name}
 
-{How to balance pillars — e.g., 40/30/30}
+**Theme:** {What this pillar covers}
+**Why it matters:** {Connection to positioning}
+**Audience resonance:** {Why they care}
 
-## Triggers
+**Topics include:**
+- {topic}
+- {topic}
+- {topic}
 
-Content created when:
-- Business thread reaches Stage 7 (learning)
-- Market event occurs
-- Product launches
+### Pillar 3: {Name}
+
+**Theme:** {What this pillar covers}
+**Why it matters:** {Connection to positioning}
+**Audience resonance:** {Why they care}
+
+**Topics include:**
+- {topic}
+- {topic}
+- {topic}
+
+## Pillar Balance
+
+| Pillar | Target Mix | Current |
+|--------|------------|---------|
+| {name} | {%} | {%} |
+| {name} | {%} | {%} |
+| {name} | {%} | {%} |
+
+## Anti-Pillars (What We Don't Cover)
+
+- {topic we avoid}
+- {topic we avoid}
+
+**Why:** {rationale}

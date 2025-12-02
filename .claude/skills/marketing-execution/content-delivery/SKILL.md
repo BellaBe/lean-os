@@ -1,18 +1,26 @@
 ---
 name: content-delivery
-description: Publish content with loop triggers and track loop activations. Use when: content approved for publishing, need to post first-comment, tracking loop performance, or amplifying user-generated content. Combines distribution and performance tracking with loop focus.
+description: Publish content and track performance based on GTM motion. Subskill of marketing-execution — receives mode parameter, does not detect motion. Use when content approved for publishing, tracking performance, or amplifying engagement.
 allowed-tools: "Read,Write,Bash"
 ---
 
 # Content Delivery
 
-Publish content designed to loop. Track what matters — loop activations, not impressions.
+Publish content and track what matters for your GTM motion.
 
 ## Core Principle
 
-> "Loops > Funnels. Publish → Activate Loop → Amplify → Repeat"
+Distribution and tracking serve strategy. Different modes need different metrics. Mode is determined by orchestrator.
 
-Distribution and tracking are one cycle, not separate phases.
+## Prerequisites
+
+**Required:**
+
+| File | Purpose | If Missing |
+|------|---------|------------|
+| Approved drafts | Content to publish | Cannot proceed |
+
+**Note:** This skill does not read `15.go-to-market.md` directly. It receives `mode` from orchestrator.
 
 ## Input
 
@@ -20,59 +28,58 @@ Distribution and tracking are one cycle, not separate phases.
 |-----------|----------|-------------|
 | `drafts_path` | Yes | Path to approved drafts |
 | `campaign_slug` | Yes | Campaign identifier |
-| `channels` | Yes | Array of target channels |
+| `channels` | Yes | Target channels |
 | `piece_name` | Yes | Content identifier |
-| `loop_trigger` | Yes | The trigger text to activate loop |
-| `first_comment` | Yes (LinkedIn) | Question/challenge for first comment |
+| `mode` | Yes | From orchestrator: `loop-driven`, `marketplace-driven`, or `sales-driven` |
 
-## Process
+**Mode is required.** If missing → Stop, flag "Invoke via marketing-execution orchestrator"
 
-### Phase 1: Publish
+**Mode-specific:**
 
-#### For Each Channel
+| Mode | Additional |
+|------|------------|
+| loop-driven | `loop_trigger`, `first_comment` |
+| marketplace-driven | `platform` |
+| sales-driven | `sales_stage`, `portal_path` |
+
+---
+
+## Mode: Loop-Driven (PLG, Content-Led)
+
+### Publish
+
+**LinkedIn:**
+```markdown
+Output: artifacts/{slug}/distribution/{piece}-linkedin.md
+
+{Hook — first 2 lines visible}
+
+{Body}
+
+{Loop trigger}
+
+---
+First comment (within 5 min):
+"{first_comment}"
+```
 
 **Blog:**
 ```markdown
 Output: artifacts/{slug}/{piece}.md
 
-Format:
 ---
 title: "{title}"
 description: "{meta}"
 date: "{date}"
 ---
 
-{Content}
-
----
-
-{Loop trigger at end}
+{Content with loop trigger at end}
 ```
-
-**LinkedIn:**
-```markdown
-Output: artifacts/{slug}/distribution/{piece}-linkedin.md
-
-Format:
-{Hook — first 2 lines visible}
-
-{Body — insight, velocity proof}
-
-{Loop trigger}
-
----
-
-First comment (post immediately):
-"{first_comment}"
-```
-
-**Critical:** First comment must be posted within 5 minutes of publishing. Algorithm rewards early engagement.
 
 **Email:**
 ```markdown
 Output: artifacts/{slug}/distribution/{piece}-email.md
 
-Format:
 Subject: {subject}
 Preview: {preview}
 
@@ -85,221 +92,341 @@ Preview: {preview}
 ```markdown
 Output: artifacts/{slug}/distribution/{piece}-twitter.md
 
-Format:
-Thread:
-1/ {Hook with velocity proof}
-2/ {Key insight}
-3/ {Method/framework}
-4/ {Result}
-5/ {Loop trigger — quote tweet invitation}
+1/ {Hook}
+2/ {Insight}
+3/ {Method}
+4/ {Loop trigger}
 ```
 
-#### Output: distribution-metadata.yaml
-```yaml
-campaign: {slug}
-piece: {piece-name}
-published: {datetime}
-channels:
-  blog:
-    file: {piece}.md
-    url: {to be filled by human}
-    loop_trigger: "{trigger text}"
-  linkedin:
-    file: distribution/{piece}-linkedin.md
-    url: {to be filled by human}
-    first_comment: "{comment text}"
-    first_comment_posted: false
-  email:
-    file: distribution/{piece}-email.md
-    sent: false
-    segment: {segment}
-status: ready_to_publish
-```
+### Track
 
-### Phase 2: Activate Loop
+| Track | Ignore |
+|-------|--------|
+| Shares | Impressions |
+| Implementations | Likes |
+| DMs | Followers |
+| UGC | Page views alone |
 
-**Human publishes, then:**
+### Schedule
 
-1. Posts first comment on LinkedIn (within 5 min)
-2. Updates distribution-metadata.yaml with URLs
-3. Confirms published
+| Day | Action |
+|-----|--------|
+| 1 | First-comment engagement |
+| 3 | Loop activations |
+| 7 | Performance report |
+| 14 | UGC detection |
+| 30 | Final assessment |
 
-**Skill then:**
+### Amplify UGC
 
-1. Marks `first_comment_posted: true`
-2. Starts loop monitoring
-3. Sets tracking schedule
-
-### Phase 3: Track Loop Activations
-
-**What to track (important):**
-
-| Metric | Definition | Why It Matters |
-|--------|------------|----------------|
-| Shares | Reposts, quote tweets | Content spreading |
-| Implementations | Users trying the method | Loop activating |
-| Inbound DMs | Conversations started | Qualified interest |
-| User-generated content | Others creating based on ours | Loop fuel |
-| Replies to loop trigger | Direct responses | Engagement quality |
-
-**What to ignore (vanity):**
-
-| Metric | Why Ignore |
-|--------|------------|
-| Impressions | Doesn't indicate value |
-| Likes | Low-effort, no loop |
-| Follower count | Lagging indicator |
-| Page views alone | Without conversion meaningless |
-
-**Tracking schedule:**
-
-| Timeframe | Action |
-|-----------|--------|
-| Day 1 | Check first-comment engagement, early shares |
-| Day 3 | First loop activation check |
-| Day 7 | Loop performance report |
-| Day 14 | Identify UGC for amplification |
-| Day 30 | Final loop assessment |
-
-### Phase 4: Amplify Loop Fuel
-
-**When user-generated content detected:**
 ```markdown
 ## Loop Fuel Detected
 
-**User:** {name/handle}
-**Platform:** {where}
-**Content:** {what they created}
-  - Implementation of our method
-  - Before/after using our framework
-  - Quote/reshare with commentary
+**User:** {handle}
+**Content:** {description}
 
-**Amplification actions:**
-- [ ] Comment on their post (engage authentically)
-- [ ] Reshare with your commentary (amplify)
-- [ ] DM to thank them (relationship)
-- [ ] Feature in next content (loop continues)
-
-**Priority:** {high if influential, medium otherwise}
+Actions:
+- [ ] Comment on their post
+- [ ] Reshare with commentary
+- [ ] Feature in next content
 ```
 
-**This is the loop completing.** Don't miss it.
+### Output
 
-## Output: Loop Performance Report
 ```markdown
 # Loop Performance: {piece}
-
-**Published:** {date}
-**Channels:** {list}
-**Loop trigger:** "{trigger text}"
-
-## Loop Activations
 
 | Metric | Day 1 | Day 7 | Day 30 |
 |--------|-------|-------|--------|
 | Shares | | | |
-| Implementations shared | | | |
-| Inbound DMs | | | |
-| User-generated content | | | |
-| Replies to trigger | | | |
+| Implementations | | | |
+| DMs | | | |
+| UGC | | | |
 
-## Conversations Generated
-
-| Date | Person | Channel | Context | Status |
-|------|--------|---------|---------|--------|
-| | | | | |
-
-## Loop Fuel (UGC)
-
-| User | What They Created | Amplified? | Result |
-|------|-------------------|------------|--------|
-| | | | |
-
-## Loop Assessment
-
-**Loop activated:** {yes/no}
-**Loop velocity:** {time from publish to first UGC}
-**Loop strength:** {weak/medium/strong}
-
-**What worked:**
-- {observation}
-
-**What didn't:**
-- {observation}
-
-**Next content should:**
-- {recommendation}
+**Assessment:**
+- Loop activated: {yes/no}
+- Loop velocity: {time to UGC}
+- Loop strength: {weak/medium/strong}
 ```
 
-## Channel Priorities
+---
 
-From distribution-model.md:
+## Mode: Marketplace-Driven (Partner-Led)
 
-| Channel | Investment | Loop Potential |
-|---------|------------|----------------|
-| LinkedIn (founder) | HIGH | High — comments, DMs, reshares |
-| Email | MEDIUM | Medium — replies, forwards |
-| Blog | LOW | Low — passive consumption |
-| Twitter/X | MEDIUM | High — quote tweets, threads |
+### Publish
 
-**Prioritize channels with loop mechanics.** Blog is for SEO long-tail (dying), not loops.
+**App Store Listing:**
+```markdown
+Output: artifacts/{slug}/marketplace/{platform}-listing.md
+
+Title: {title}
+Tagline: {tagline}
+Description: {description}
+Keywords: {keywords}
+```
+
+**Changelog:**
+```markdown
+Output: artifacts/{slug}/marketplace/changelog-{version}.md
+
+## {Version} — {Date}
+
+### New
+- {feature}
+
+### Improved
+- {improvement}
+
+### Fixed
+- {fix}
+```
+
+**Support:**
+```markdown
+Output: artifacts/{slug}/marketplace/support/{topic}.md
+
+# {Title}
+{Clear, actionable content}
+```
+
+### Track
+
+| Track | Ignore |
+|-------|--------|
+| Install velocity | Page views |
+| Rating | Impressions |
+| Reviews | Social shares |
+| Uninstall rate | Likes |
+| Keyword rankings | |
+
+### Schedule
+
+| Timeframe | Action |
+|-----------|--------|
+| Daily | Installs, rating |
+| Weekly | Reviews, rankings |
+| Monthly | Trends |
+
+### Review Response
+
+```markdown
+## Review Response Needed
+
+**Rating:** {stars}
+**Content:** "{text}"
+
+**Response:** {template}
+
+**SLA:** 24 hours
+```
+
+### Output
+
+```markdown
+# Marketplace Performance: {platform}
+
+| Metric | This Week | Last Week | Trend |
+|--------|-----------|-----------|-------|
+| Installs | | | |
+| Rating | | | |
+| Reviews | | | |
+| Uninstalls | | | |
+
+**Ranking:** {keyword positions}
+
+**Reviews:** {themes}
+```
+
+---
+
+## Mode: Sales-Driven (SLG)
+
+### Publish
+
+**Case Study:**
+```markdown
+Output: artifacts/{slug}/sales/{customer}-case-study.md
+
+Distribution:
+- Sales portal: {path}
+- Website (gated): {url}
+```
+
+**One-Pager:**
+```markdown
+Output: artifacts/{slug}/sales/{topic}-one-pager.md
+
+Distribution:
+- Sales portal: {path}
+```
+
+**Sequence:**
+```markdown
+Output: artifacts/{slug}/sales/sequences/{name}/
+
+email-1.md
+email-2.md
+email-3.md
+
+Load into: {tool}
+```
+
+**Battle Card:**
+```markdown
+Output: artifacts/{slug}/sales/battlecards/{competitor}.md
+
+Distribution:
+- Sales portal (internal)
+```
+
+### Track
+
+| Track | Ignore |
+|-------|--------|
+| Content delivered to portal | Raw downloads |
+| Content accessed by sales | Page views |
+| Sales feedback received | Social shares |
+
+**Note:** Pipeline influenced, deals closed, win/loss = Sales skill responsibility. Marketing tracks content availability and usage, not deal outcomes.
+
+### Schedule
+
+| Timeframe | Action |
+|-----------|--------|
+| Weekly | Content accessed |
+| Monthly | Sales feedback |
+| Quarterly | Content refresh needs |
+
+### Content Tracking
+
+```markdown
+## Sales Content Delivery: {piece}
+
+**Delivered:** {date}
+**Location:** {portal path}
+
+| Metric | This Week | Total |
+|--------|-----------|-------|
+| Accessed by sales | | |
+| Feedback received | | |
+
+**Sales Feedback:** {comments}
+
+**Refresh needed:** {yes/no, why}
+```
+
+### Output
+
+```markdown
+# Sales Content Delivery: {period}
+
+| Content | Delivered | Accessed | Feedback |
+|---------|-----------|----------|----------|
+| | | | |
+
+**Active in portal:** {count}
+**Needs refresh:** {list}
+**Sales requests:** {list}
+```
+
+---
+
+## Output: distribution-metadata.yaml
+
+```yaml
+campaign: {slug}
+piece: {piece}
+mode: {mode}
+published: {datetime}
+
+channels:
+  {channel}:
+    file: {path}
+    url: {url}
+
+tracking:
+  schedule: {schedule}
+  metrics: {list}
+
+status: {status}
+```
+
+---
 
 ## Human Touchpoints
 
-**Before publish:**
+### Loop-Driven
+
 ```markdown
 ## Ready to Publish
 
 **{Title}**
 
-Files:
-- Blog: artifacts/{slug}/{piece}.md
-- LinkedIn: artifacts/{slug}/distribution/{piece}-linkedin.md
+Files: {list}
 
-Loop activation:
-- Trigger in content: "{trigger}"
-- First comment: "{comment}"
+**First-comment (WITHIN 5 MIN):**
+> {text}
 
 Action:
-1. Publish to each channel
-2. Post first comment on LinkedIn IMMEDIATELY
-3. Add URLs to distribution-metadata.yaml
-4. Confirm published
+1. Publish
+2. First-comment immediately
+3. Add URLs
+4. Confirm
 ```
 
-**After UGC detected:**
+### Marketplace-Driven
+
 ```markdown
-## Loop Fuel — Action Required
+## Ready to Publish
 
-**User:** @{handle}
-**Created:** {description}
+**{Title}**
 
-Actions:
-- [ ] Comment on their post
-- [ ] Reshare with commentary
-- [ ] Consider for next content feature
+Files: {list}
+
+Action:
+1. Update listing
+2. Submit for review
+3. Monitor installs
+4. Respond to reviews (24h)
 ```
+
+### Sales-Driven
+
+```markdown
+## Ready to Publish
+
+**{Title}**
+
+Files: {list}
+
+Action:
+1. Upload to portal
+2. Notify sales
+3. Add to sequences
+4. Track usage
+```
+
+---
 
 ## Error Handling
 
-| Condition | Action |
-|-----------|--------|
-| First comment not posted | Alert — critical for LinkedIn algorithm |
-| No loop activations by Day 7 | Flag in 6-learning.md, analyze trigger |
-| UGC detected | Flag immediately for amplification |
-| High engagement, no conversions | Analyze audience quality |
+| Mode | Condition | Action |
+|------|-----------|--------|
+| Loop | First-comment missed | Alert |
+| Loop | No activations Day 7 | Flag |
+| Marketplace | Rating drops | Alert |
+| Marketplace | Negative review | Flag |
+| Sales | Not used 30 days | Flag |
+| All | Wrong mode | Allow override |
 
 ## Boundaries
 
 **DO:**
-- Format content for each channel
-- Include loop triggers in all outputs
-- Track loop activations (shares, DMs, UGC)
-- Flag user-generated content for amplification
-- Report on conversations, not impressions
+- Apply mode-appropriate tracking
+- Format for each channel
+- Report mode-appropriate metrics
 
 **DON'T:**
-- Track vanity metrics (likes, impressions)
-- Skip first-comment on LinkedIn
-- Miss user-generated content
-- Treat distribution and tracking as separate
+- Track loops for sales content
+- Track pipeline for content-led
+- Apply one-size-fits-all

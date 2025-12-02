@@ -1,35 +1,37 @@
 # Positioning - {Product}
 
 Generated: {date}
-Source: strategy/canvas/05-problem.md, 07-uvp.md, 08-advantage.md
+Source: strategy/canvas/05.problem.md, 07.uvp.md, 08.advantage.md
 
-## Core Problem
+## One-Liner
 
-{From problem.md — what pain we address}
+{Who we help} + {what we help them do} + {key differentiator}
 
-## Our Approach
+## Positioning Statement
 
-{From uvp.md — how we solve it differently}
+For {target segment} who {situation/problem}, {product/brand} is the {category} that {key benefit} because {reason to believe}.
 
-## Differentiators
+## Core Beliefs
 
-| Differentiator | Why It Matters | Proof |
-|----------------|----------------|-------|
-| {what} | {benefit} | {evidence} |
+1. **{Belief}** — {Why we hold it}
+2. **{Belief}** — {Why we hold it}
+3. **{Belief}** — {Why we hold it}
 
-## Target Audience
+## What We Stand Against
 
-{From segments.md — who we serve}
+- {Industry norm we reject}
+- {Common practice we oppose}
 
-**Mental model:** {How they think about this problem}
+## Proof Points
 
-## Competitive Context
+| Claim | Evidence |
+|-------|----------|
+| {claim} | {proof} |
+| {claim} | {proof} |
 
-{From advantage.md — why us vs alternatives}
+## Competitive Distinction
 
-## Key Messages
-
-1. {Core message 1}
-2. {Core message 2}
-3. {Core message 3}
-
+| Us | Them |
+|----|------|
+| {our approach} | {typical approach} |
+| {our approach} | {typical approach} |

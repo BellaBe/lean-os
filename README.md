@@ -1,6 +1,6 @@
 # LeanOS: AI-Native Operating System for Startups, Small Teams, and Founders
 
-**Status:** Active Development | **Version:** 1.2 (Skill Restructuring)
+**Status:** Active Development | **Version:** 1.4 (Motion-Aware Marketing) | **Last Updated:** 2025-12-02
 
 AI-native OS that automates 95%+ of business operations for startups, small teams, and founders.
 
@@ -143,13 +143,13 @@ personal-os/
 
 - ✅ **Engineering layer** (8 skills, 27 sub-skills: system architecture → backend → frontend → infrastructure)
 - ✅ **Sales foundation** (ICP, narratives, materials, execution)
-- ✅ **Marketing foundation** (strategy, content workflow, SEO, distribution)
+- ✅ **Marketing foundation** (motion-aware GTM, content workflow, channel optimization)
 - ✅ **Dual-mode support** (Venture/Bootstrap with mode-aware decision making)
 - ✅ **Skill restructuring** (Type-prefixed naming for easy discovery)
 - 📋 Ops dashboard auto-generation
 - 🔮 Full automation (customer success, fundraising)
 
-## Skill Architecture (v1.2)
+## Skill Architecture (v1.4)
 
 **19 skills organized by functional type:**
 
@@ -189,7 +189,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 **LeanOS:** MIT License - see [LICENSE](LICENSE)
 
-**Third-party components:** document-skills (© Anthropic, PBC) - see [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md)
+**Note:** Third-party document-skills removed in v1.2
 
 ## Support
 
@@ -199,4 +199,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 ---
 
-**Last Updated:** 2025-11-25 | **Version:** 1.2 (Skill Restructuring)
+**Last Updated:** 2025-12-02 | **Version:** 1.4 (Motion-Aware Marketing)

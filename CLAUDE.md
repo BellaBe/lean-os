@@ -5,7 +5,7 @@
 ## Quick Start
 
 **Read this first, then consult the comprehensive README:**
-- Complete system overview, context, goals: [README.md](README.md)
+- Complete system overview, context, goals: [README.md](README.md) and linked docs
 
 ---
 
@@ -38,9 +38,7 @@ You execute **autonomous startup operations** with minimal human intervention - 
 - Strategy → `strategy/canvas/` (15 living documents)
 - Decisions → `threads/{type}/{name}/` (6-stage causal flow)
 - Execution logic → `.claude/skills/*/SKILL.md`
-- Customer data → `research/customer/icp/{segment}-icp.yaml`
-- Published materials → `artifacts/{sales|marketing}/`
-- Engineering specs → `artifacts/engineering/` (specifications, maps, code, proofs)
+- Published materials, specifications, maps, code, proofs  → `artifacts/{sales|marketing|engineering }/`
 
 **Never duplicate. Always reference.**
 
@@ -52,11 +50,6 @@ You execute **autonomous startup operations** with minimal human intervention - 
 - ICP generated per **segment** (not per product): `research/customer/icp/{segment}-icp.md`
 - Sales narratives per **segment**: `artifacts/sales/{segment}/narratives/`
 - Marketing narratives: `artifacts/marketing/narrative/`
-
-**Why segments, not products?**
-- One product can target multiple customer segments
-- Each segment has different observables, pain points, buyers
-- Sales materials adapt to segment, not product
 
 ### 3. 6-Stage Causal Flow (Universal)
 
@@ -145,8 +138,8 @@ Full production flow: Requirements → Architecture → Maps → Code → Deploy
 **Execution Skills (2 skills):**
 - `sales-execution` - Orchestrate materials generation, prospecting, outreach, qualification
   - Sub-skills: materials-generation, prospect-research, contact-finding, outreach-sequencing, qualification-support
-- `marketing-execution` - Orchestrate campaign execution (Stage 5 only)
-  - Sub-skills: content-generation, seo-optimization, content-distribution, performance-tracking
+- `marketing-execution` - Orchestrate campaign execution (Stage 5 only, motion-aware)
+  - Sub-skills: content-generation, content-delivery, channel-optimization
 
 **When to invoke skills:**
 - **Engineering:** Building technical systems → `system-architecture`
@@ -173,39 +166,7 @@ Full production flow: Requirements → Architecture → Maps → Code → Deploy
 
 ### Morning Routine (Automated)
 
-**Every day, you auto-generate `ops/today.md`:**
-```markdown
-# Today's Review - {date}
-
-## High-Priority Items (Human Approval Required)
-
-1. [Impact: 0.85] {Decision requiring approval}
-   - Thread: threads/{type}/{name}/
-   - Context: {brief summary}
-   - Action: Approve/Reject/Defer
-
-## Decisions Made Autonomously (Last 24h)
-
-✓ {Decision 1} (Impact: 0.6)
-✓ {Decision 2} (Impact: 0.4)
-✓ {Decision 3} (Impact: 0.7)
-
-## Active Operations Summary
-
-**Sales Pipeline:** {count by stage}
-**Sales Campaigns:** {count, response rates}
-**Marketing Content:** {published, drafts, scheduled}
-
-## Performance Alerts
-
-🎉 Top Performer: {content/deal with exceptional metrics}
-⚠️ Underperformer: {content/deal needing attention}
-📈 Milestone: {achievement worth noting}
-
-## Anomalies Detected
-
-⚠️ {Pattern deviation requiring investigation}
-```
+**Every day, you auto-generate `ops/today.md` by running ops-dashboard skill**
 
 **Human reads this in 5 minutes, approves flagged items, done.**
 
@@ -378,12 +339,6 @@ Deployment authorized (certificate valid)
 7. Stage 6: Learning (human writes with performance-tracking data)
 8. After campaign completes: New campaign opportunities may trigger
 ```
-
-**Campaign types:**
-- **Awareness:** Segment ready → Educational content → Inbound demos
-- **Education:** Thought leadership → Deep technical → Authority
-- **Launch:** New feature → Announcement + guides → Adoption
-- **Validation:** Deal patterns → Case studies → Proof
 
 **Campaign structure:**
 - Thread: `threads/marketing/campaigns/{segment}-{purpose}-{month-year}/`
@@ -572,40 +527,7 @@ NEW content created OR existing content updated
 - Marketing supports sales with relevant content
 - Both improve based on measured results
 
----
-
-### Current Status: Marketing Activation Required
-
-**✅ Skills Ready:**
-- marketing-narrative (generate foundation)
-- content-strategy (campaign opportunity detection, standalone)
-- marketing-execution (4 sub-skills operational)
-
-**⏭️ Week 2 Actions (PRIORITY #1):**
-
-**Monday-Tuesday:**
-1. Generate marketing narratives (30-45 min) - **BLOCKING**
-2. Identify 2-3 initial topics (from Canvas + research)
-3. Create marketing threads for initial content
-
-**Wednesday-Friday:**
-4. Generate initial content drafts (Canvas + research sources)
-5. Review and approve drafts (30 min each)
-6. Publish initial content (SEO + distribution)
-7. Enable daily scan (auto-activates when narratives exist)
-
-**Expected Output (End of Week 2):**
-- ✅ Marketing narratives complete (artifacts/marketing/narrative/)
-- ✅ First campaign launched (threads/marketing/campaigns/dtc-awareness-nov-2024/)
-- ✅ 2-3 foundational articles published (artifacts/marketing/campaigns/dtc-awareness-nov-2024/)
-- ✅ Daily scan active (monitoring for campaign opportunities)
-- ✅ Marketing supporting sales (not waiting for it)
-
-**Success Criteria:**
-- Campaign live BEFORE or DURING DTC outreach (not after)
-- Sales learning triggers new campaigns (validates, refines content strategy)
-- Closed loop: Campaign → Demos → Sales → Learning → New campaigns
-
+-
 ---
 
 ## Skills Reference (Quick)
@@ -642,11 +564,10 @@ NEW content created OR existing content updated
   - `contact-finding` - Find decision-makers (web_search)
   - `outreach-sequencing` - Generate email/phone cadences
   - `qualification-support` - Discovery call prep
-- `marketing-execution` - Orchestrate campaign execution (Stage 5 only)
-  - `content-generation` - Create educational drafts
-  - `seo-optimization` - Apply keywords naturally
-  - `content-distribution` - Publish multi-channel
-  - `performance-tracking` - Measure impact, feed insights
+- `marketing-execution` - Orchestrate campaign execution (Stage 5 only, motion-aware)
+  - `content-generation` - Create content (receives mode from orchestrator)
+  - `content-delivery` - Publish + track (receives mode from orchestrator)
+  - `channel-optimization` - Optimize channel performance
 
 ---
 
@@ -757,7 +678,7 @@ Human approves, creates campaign thread (Stages 1-4)
     ↓
 marketing-execution orchestrates Stage 5
     ↓
-Draft → Human review → SEO → Human approve → Publish → Track
+Draft → Human review → Approve → Publish → Track
     ↓
 Performance: 650 sessions, 8 demos, 1.23% conversion
     ↓
@@ -1060,6 +981,6 @@ Execute decisions. Generate materials. Track metrics. Update Canvas. Flag except
 
 ---
 
-**Version:** 1.3
-**Last updated:** 2025-11-25
+**Version:** 1.4
+**Last updated:** 2025-12-02
 **System status:** Engineering layer (8 skills, 27 sub-skills) + Business operations (19 total skills, 60+ sub-skills) complete

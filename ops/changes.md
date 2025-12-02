@@ -4,6 +4,248 @@ Record of significant system optimizations, refactorings, and architectural impr
 
 ---
 
+## 2025-12-02: Motion-Aware Marketing Architecture
+
+### Summary
+Restructured marketing layer to be motion-aware (PLG, Content-Led, Partner-Led, SLG) rather than loop-centric only. GTM strategy now lives in Canvas as single source of truth. Skills detect or receive motion type and adapt behavior accordingly. Removed SEO as standalone subskill, added channel-optimization. Simplified all skills with clearer separation of concerns.
+
+### Philosophy Shift
+
+**From:** Loop-first (content-led assumption baked into all skills)
+**To:** Motion-aware (execution adapts to GTM strategy)
+
+**Core principles:**
+- GTM motion determines execution mode (loop-driven, marketplace-driven, sales-driven)
+- Single source of truth: `strategy/canvas/15.go-to-market.md`
+- Orchestrator detects mode once, passes to subskills (composition pattern)
+- Identity (narrative) is channel-agnostic; distribution is motion-specific
+
+### Changes Made
+
+#### 1. Go-to-Market Generator (Simplified)
+
+**Previous state:**
+- 752-line SKILL.md with verbose channel strategy, launch planning, growth engineering, sales enablement, partnership strategy
+- Multi-section output templates
+
+**New state:**
+- 185-line SKILL.md focused on motion determination
+- Outputs single file: `strategy/canvas/15.go-to-market.md`
+
+**Key changes:**
+- Reduced from 5 major sections to focused GTM motion framework
+- Motion decision tree (PLG/Content-Led/Partner-Led/SLG)
+- Stage-appropriate goals (Pre-launch, Launch, Growth, Scale)
+- All downstream skills read this file
+
+#### 2. Marketing Narrative (Channel-Agnostic)
+
+**Previous state:**
+- 134 lines with loop-centric distribution model output
+- 6 template files including distribution-model-template.md, loop-content-pattern.md
+
+**New state:**
+- ~100 lines focused on identity only
+- 4 outputs: brand-voice.md, positioning.md, content-pillars.md, patterns/
+
+**Key changes:**
+- Removed distribution-model.md output (now in GTM)
+- Removed loop-content-pattern.md (loops are mode-specific, not universal)
+- Removed channel-guidelines-template.md (channels determined by GTM)
+- Added patterns/ directory for content structure templates
+- Skill is now explicitly channel-agnostic
+
+#### 3. Content Strategy (Motion-Aware Scoring)
+
+**Previous state:**
+- 142 lines with loop-focused opportunity detection
+- Single scoring formula: (Loop Potential × Velocity Story × Audience Alignment) / 3
+
+**New state:**
+- 273 lines with motion-specific scoring
+- Three scoring modes based on GTM
+
+**Key changes:**
+- Added motion detection from `15.go-to-market.md`
+- Loop-Driven scoring: Loop Potential × Velocity Story × Audience Alignment
+- Marketplace-Driven scoring: Review Potential × Install Impact × Retention Value
+- Sales-Driven scoring: Deal Enablement × Objection Coverage × Stage Fit
+- Hybrid mode handling
+
+#### 4. Marketing Execution Orchestrator (Motion-Aware)
+
+**Previous state:**
+- Loop-centric workflows only
+- 3 subskills: content-generation, content-delivery, seo-optimization (optional)
+
+**New state:**
+- Motion-aware with three workflow types
+- 3 subskills: content-generation, content-delivery, channel-optimization
+
+**Key changes:**
+- Removed seo-optimization as subskill (SEO is a channel, not a step)
+- Added channel-optimization subskill
+- Orchestrator detects mode from GTM, passes to subskills
+- Three workflow types:
+  - Loop-Driven (PLG, Content-Led): Loop triggers, velocity proof, first-comment
+  - Marketplace-Driven (Partner-Led): Reviews, ratings, store presence
+  - Sales-Driven (SLG): Pipeline attribution, enablement, objection handling
+- Subskills receive mode, don't detect it (composition pattern)
+
+#### 5. Content Generation (Mode-Aware)
+
+**Previous state:**
+- Loop-first generation with loop trigger requirements
+- Pattern references to deleted files
+
+**New state:**
+- Mode-aware generation
+- Reads patterns from marketing-narrative
+
+**Key changes:**
+- Removed loop-only assumptions
+- Mode-specific generation:
+  - loop-driven: Loop triggers, velocity framing
+  - marketplace-driven: Review language, store optimization
+  - sales-driven: Enablement format, objection handling
+- Receives mode from orchestrator, doesn't detect it
+- References patterns from `artifacts/marketing/narrative/patterns/`
+
+#### 6. Content Delivery (Mode-Aware)
+
+**Previous state:**
+- Loop activation tracking only
+- First-comment and UGC detection
+
+**New state:**
+- Mode-aware distribution and tracking
+
+**Key changes:**
+- Three distribution/tracking modes:
+  - loop-driven: Channel formatting, first-comment, loop activation tracking
+  - marketplace-driven: Store submission, review request, rating tracking
+  - sales-driven: Portal publishing, utilization tracking, pipeline attribution
+- Receives mode from orchestrator, doesn't detect it
+- Updated metrics by mode
+
+#### 7. Documentation Updated
+
+**docs/operations/marketing-workflow.md:**
+- Complete rewrite to motion-aware architecture
+- Skills suite overview with GTM reading diagram
+- Phase-by-phase workflow (GTM → Narrative → Discovery → Execution)
+- Composition pattern explained
+- Motion-specific workflows documented
+
+### Files Deleted
+
+**Skill directories/files removed:**
+- `.claude/skills/marketing-execution/seo-optimization/` (SEO is a channel, not a step)
+- `.claude/skills/marketing-execution/content-generation/scripts/validate_draft.py`
+
+**Reference files removed:**
+- `.claude/skills/foundations-marketing-narrative/references/distribution-model-template.md`
+- `.claude/skills/foundations-marketing-narrative/references/loop-content-pattern.md`
+- `.claude/skills/foundations-marketing-narrative/references/channel-guidelines-template.md`
+- `.claude/skills/marketing-execution/references/execution-log-template.md`
+- `.claude/skills/marketing-execution/references/human-touchpoints.md`
+- `.claude/skills/marketing-execution/references/subskill-contracts.md`
+
+### Files Added
+
+**New skill directory:**
+- `.claude/skills/marketing-execution/channel-optimization/SKILL.md`
+
+**New reference files:**
+- `.claude/skills/foundations-builder/go-to-market/references/` (GTM templates)
+- `.claude/skills/foundations-marketing-narrative/references/content-patterns.md`
+- `.claude/skills/marketing-execution/content-generation/references/` (generation guides)
+
+### Updated Skill Inventory
+
+**Marketing Layer (restructured):**
+```
+foundations-builder/go-to-market/   # Produces strategy/canvas/15.go-to-market.md
+foundations-marketing-narrative/    # Brand identity (channel-agnostic)
+ops-content-strategy/               # Opportunity detection (motion-aware)
+marketing-execution/                # Orchestrator (motion-aware)
+├── content-generation/             # Create content (receives mode)
+├── content-delivery/               # Publish + track (receives mode)
+└── channel-optimization/           # Optimize channels (NEW)
+```
+
+**Note:** Removed seo-optimization as standalone subskill, added channel-optimization
+
+### Motion-Aware Scoring
+
+**Loop-Driven (PLG, Content-Led):**
+| Metric | Definition |
+|--------|------------|
+| Loop Potential | Will this generate user response/implementation? |
+| Velocity Story | Does it show before → after with time? |
+| Audience Alignment | Does it match target segment problem? |
+
+**Marketplace-Driven (Partner-Led):**
+| Metric | Definition |
+|--------|------------|
+| Review Potential | Will this generate ratings/reviews? |
+| Install Impact | Does it drive store installs? |
+| Retention Value | Does it improve activation/retention? |
+
+**Sales-Driven (SLG):**
+| Metric | Definition |
+|--------|------------|
+| Deal Enablement | Does this help close deals? |
+| Objection Coverage | Does it address known objections? |
+| Stage Fit | Right for current pipeline stage? |
+
+### Migration Notes
+
+**For existing campaigns:**
+- Check if `strategy/canvas/15.go-to-market.md` exists
+- If not, run go-to-market skill to generate it
+- Existing loop-driven campaigns continue to work
+- Add motion type to 4-decision.md if missing
+
+**For new campaigns:**
+1. Run `go-to-market` first to set motion
+2. Run `marketing-narrative` for identity (if not done)
+3. Use `content-strategy` for opportunity detection (motion-aware scoring)
+4. `marketing-execution` reads GTM, detects mode, orchestrates subskills
+
+**Composition pattern:**
+- Orchestrator reads GTM and detects mode ONCE
+- Subskills receive mode as parameter
+- Subskills do NOT read GTM or detect mode
+
+### Success Metrics
+
+**Architecture clarity:**
+- ✅ GTM motion as single source of truth
+- ✅ Clear separation: identity (narrative) vs strategy (GTM) vs execution
+- ✅ Composition pattern: detect once, pass down
+- ✅ Mode-aware scoring for opportunity detection
+
+**Flexibility:**
+- ✅ Supports PLG, Content-Led, Partner-Led, SLG motions
+- ✅ Hybrid mode for mixed strategies
+- ✅ Same skills, different behavior based on motion
+
+**Simplification:**
+- ✅ Go-to-market reduced from 752 to 185 lines (75% reduction)
+- ✅ Marketing-narrative focused on identity only
+- ✅ Removed redundant reference files
+
+---
+
+**Change type:** Major architecture refactoring
+**Impact:** High (all marketing workflows affected)
+**Breaking changes:** Yes (new GTM file required, mode parameter required for subskills)
+**Version:** 1.4
+**Status:** Complete
+
+---
+
 ## 2025-12-01: Marketing Layer Loop-Centric Optimization
 
 ### Summary

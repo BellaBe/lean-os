@@ -2,7 +2,7 @@
 
 Complete reference of AI skills for business operations. **19 skills with 60+ sub-skills** organized by functional type.
 
-## Skill Organization (v1.2)
+## Skill Organization (v1.4)
 
 All skills use type-based naming for easy discovery:
 
@@ -111,13 +111,16 @@ Business setup and strategy definition.
 - `value-proposition` → Canvas 07-08
 - `business-model` → Canvas 11-13
 - `validation` → Canvas 10 (status)
-- `go-to-market` → Canvas 14-15
+- `go-to-market` → Canvas 14-15 (produces `strategy/canvas/15.go-to-market.md`)
 - `execution` → Task orchestration
 
 **Specialist Agents (3, on-demand):**
 - `funding` - Fundraising strategy
 - `regulatory` - Compliance navigation
 - `retention-optimizer` - Post-launch retention
+
+**Key subskill: go-to-market**
+Generates GTM strategy that all downstream marketing skills read. Determines motion type (PLG, Content-Led, Partner-Led, SLG) and channel priorities. Single source of truth for acquisition strategy.
 
 **Docs:** See [Canvas Setup](../foundation/canvas-setup.md)
 
@@ -136,15 +139,17 @@ Generates observable characteristics, qualification questions, and prospecting t
 Creates persona-specific problem-solution-specifics narratives for buyers.
 
 ### marketing-narrative
-**Purpose:** Generate content strategy per product
-**Input:** Canvas + sales narratives
+**Purpose:** Generate brand identity and content patterns (channel-agnostic)
+**Input:** Canvas (segments, problem, UVP, advantage, solution)
 **Output:** `artifacts/marketing/narrative/`
 
 **Generates:**
-- `content-pillars.md` - 3-5 strategic themes
-- `seo-strategy.md` - Keyword priorities
 - `brand-voice.md` - Tone and style
-- `channel-guidelines.md` - Format specs per channel
+- `positioning.md` - What we stand for
+- `content-pillars.md` - 3-5 strategic themes
+- `patterns/` - Content structure templates (insight, tutorial, case-study, story)
+
+**Note:** Channel-agnostic. Does not determine channels (→ GTM) or loop mechanics (→ content-generation).
 
 ---
 
@@ -170,11 +175,17 @@ Operational workflows and dashboards.
 **Docs:** See [Causal Flow](../operations/causal-flow.md)
 
 ### content-strategy
-**Purpose:** Scan threads for marketing campaign opportunities
+**Purpose:** Motion-aware content discovery and opportunity detection
 **Schedule:** Daily automated scan
+**Reads:** `strategy/canvas/15.go-to-market.md` (for motion type)
 **Output:** Prioritized opportunities in `ops/today.md`
 
-Detects campaign opportunities from completed business/sales threads.
+**Motion-aware scoring:**
+- **Loop-Driven (PLG, Content-Led):** Loop Potential × Velocity Story × Audience Alignment
+- **Marketplace-Driven (Partner-Led):** Review Potential × Install Impact × Retention Value
+- **Sales-Driven (SLG):** Deal Enablement × Objection Coverage × Stage Fit
+
+**Thresholds:** ≥0.7 flag immediately, 0.5-0.7 backlog, <0.5 skip
 
 ### ops-dashboard
 **Purpose:** Auto-generate daily operations interface
@@ -237,17 +248,24 @@ Mode-aware market research.
 
 ---
 
-## Marketing Skills (1 skill, 4 sub-skills)
+## Marketing Skills (1 skill, 3 sub-skills)
 
-### marketing-execution (orchestrator)
+### marketing-execution (orchestrator, motion-aware)
 **Purpose:** Orchestrate campaign execution (Stage 5 only)
+**Reads:** `strategy/canvas/15.go-to-market.md` (detects mode once, passes to subskills)
 **Output:** `artifacts/marketing/campaigns/{campaign-slug}/`
 
+**Modes:**
+- **Loop-Driven (PLG, Content-Led):** Loop triggers, velocity proof, first-comment
+- **Marketplace-Driven (Partner-Led):** Reviews, ratings, store presence
+- **Sales-Driven (SLG):** Pipeline attribution, enablement, objection handling
+
 **Sub-skills:**
-1. `content-generation` - Create educational drafts
-2. `seo-optimization` - Apply keywords naturally
-3. `content-distribution` - Publish multi-channel
-4. `performance-tracking` - Measure impact (Day 7, 30, 90)
+1. `content-generation` - Create content (receives mode from orchestrator)
+2. `content-delivery` - Publish + track (receives mode from orchestrator)
+3. `channel-optimization` - Optimize channel performance
+
+**Composition pattern:** Orchestrator detects mode ONCE, subskills receive mode as parameter (do NOT read GTM).
 
 ---
 

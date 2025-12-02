@@ -1,413 +1,415 @@
 ---
 name: marketing-execution
-description: Execute marketing campaigns with loop mechanics. Use when: campaign has approved 4-decision.md, content needs generating/publishing, or tracking loop activations. Coordinates content-generation, content-delivery, and optional seo-optimization. Tracks loop activations, not vanity metrics.
+description: Motion-aware marketing campaign orchestrator. Use when: campaign has approved 4-decision.md, content needs generating/publishing, or tracking performance. Reads GTM motion from 15.go-to-market.md and coordinates subskills accordingly. Handles loop-driven, marketplace-driven, and sales-driven workflows.
 allowed-tools: "Read,Write,Bash"
 ---
+
 # Marketing Execution Orchestrator
 
-Execute campaigns designed for loops. Track what matters — loop activations, not impressions.
+Execute campaigns that serve your GTM motion.
 
 ## Core Principle
 
-> "Loops > Funnels. Publish → Activate Loop → Amplify → Repeat"
-
-Success = content that generates its own next input.
+Execution adapts to motion. Loop tracking for content-led, review generation for partner-led, pipeline attribution for sales-led.
 
 ## Subskills
 
-| Subskill | Purpose | Priority |
-|----------|---------|----------|
-| `content-generation` | Generate loop-triggering drafts | Required |
-| `content-delivery` | Publish + track loop activations | Required |
-| `seo-optimization` | Basic SEO for evergreen content | Optional |
+| Subskill | Purpose | When Used |
+|----------|---------|-----------|
+| `content-generation` | Generate drafts | All modes |
+| `content-delivery` | Publish + track | All modes |
+| `channel-optimization` | Optimize channels | When channel needs improvement |
 
 ## Prerequisites
 
-**Required context:**
-- `artifacts/marketing/narrative/distribution-model.md` — Loop mechanics, channel priorities
+**Required:**
+- `strategy/canvas/15.go-to-market.md` — Motion, channels, stage
 - `artifacts/marketing/narrative/brand-voice.md` — Voice guidelines
+- `artifacts/marketing/narrative/positioning.md` — Positioning
 - `threads/marketing/campaigns/{slug}/4-decision.md` — Approved content plan
 
-If missing → Flag "Run marketing-narrative first" or "Complete Stage 4 decision"
+If missing → Flag which file needed
+
+## Motion Detection
+
+Before invoking subskills:
+
+```python
+gtm = read("strategy/canvas/15.go-to-market.md")
+
+if gtm.motion in ["PLG", "Content-Led"]:
+    mode = "loop-driven"
+elif gtm.motion == "Partner-Led":
+    mode = "marketplace-driven"
+elif gtm.motion == "SLG":
+    mode = "sales-driven"
+else:
+    mode = "hybrid"
+```
+
+Pass `mode` to all subskill invocations.
 
 ## Campaign Structure
+
 ```
 threads/marketing/campaigns/{slug}/
-├── 4-decision.md         # Content plan with loop design
+├── 4-decision.md         # Content plan
 ├── 5-actions/
-│   ├── execution-log.md  # Progress + loop tracking
-│   └── drafts/           # Temporary (delete after publish confirmed)
-└── 6-learning.md         # Loop performance learnings
+│   ├── execution-log.md  # Progress tracking
+│   └── drafts/           # Temporary
+└── 6-learning.md         # Performance learnings
 
 artifacts/marketing/campaigns/{slug}/
-├── {piece}.md            # Final article
-└── distribution/
-    ├── {piece}-linkedin.md
-    ├── {piece}-twitter.md
-    ├── {piece}-email.md
-    └── distribution-metadata.yaml
+├── {piece}.md            # Final content
+└── distribution/         # Channel-formatted versions
 ```
 
-## Workflow
+---
 
-### 1. Read Stage 4 Decision
-```
-Read: threads/marketing/campaigns/{slug}/4-decision.md
+## Workflow: Loop-Driven (PLG, Content-Led)
 
-Extract:
+### Steps
+
+| Step | Action | Subskill | Human |
+|------|--------|----------|-------|
+| 1 | Read 4-decision.md | — | — |
+| 2 | Generate drafts with loop triggers | content-generation | — |
+| 3 | Validate loop trigger + velocity | — | — |
+| 4 | Flag for review | — | Review |
+| 5 | Format for channels | content-delivery | — |
+| 6 | Flag "Ready to publish" | — | Publish |
+| 7 | Post first-comment (LinkedIn) | — | Post |
+| 8 | Confirm published, add URLs | — | Confirm |
+| 9 | Delete drafts | — | — |
+| 10 | Start loop tracking | content-delivery | — |
+
+### 4-decision.md Must Include
+
 - Content pieces to create
-- Loop trigger type for each (implementation / question / challenge / offer)
+- Loop trigger type (implementation/question/challenge/offer)
 - Velocity proof (before → after)
-- Target channels (from distribution-model.md priorities)
-- First-comment text (for LinkedIn)
-```
+- First-comment text (LinkedIn)
+- Target channels
 
-### 2. For Each Content Piece
+### Validation
 
-| Step | Action | Subskill | Wait For |
-|------|--------|----------|----------|
-| a | Generate drafts with loop triggers | `content-generation` | Files in drafts/ |
-| b | Validate loop trigger + velocity proof | — | — |
-| c | Flag for human review | — | Human approval |
-| d | Apply SEO (Only if: blog + evergreen + requested) | `seo-optimization` | Drafts updated |
-| e | Format for channels | `content-delivery` | Files in artifacts/ |
-| f | Flag "Ready to publish" | — | Human publishes |
-| g | Human posts first-comment (LinkedIn) | — | Human confirms |
-| h | Delete drafts/ | — | — |
-| i | Start loop tracking | `content-delivery` | — |
+Before proceeding past Step 3:
+- [ ] Loop trigger present at end of each draft
+- [ ] Velocity proof in content
+- [ ] Brand voice applied
 
-### 3. Post-Publish: Loop Monitoring
+If loop trigger missing → Reject, re-invoke content-generation
 
-Once human confirms published:
+### Tracking Schedule
 
-1. Update execution-log.md with publish time + URLs
-2. Start loop tracking schedule (Day 1, 3, 7, 14, 30)
-3. Monitor for loop activations
-4. Flag user-generated content immediately for amplification
-5. Update 6-learning.md with loop performance
+| Day | Action |
+|-----|--------|
+| 1 | First-comment engagement, early shares |
+| 3 | Initial loop activations |
+| 7 | Loop performance report |
+| 14 | UGC detection |
+| 30 | Final assessment |
+
+### Metrics
+
+| Track | Ignore |
+|-------|--------|
+| Shares | Impressions |
+| Implementations | Likes |
+| Inbound DMs | Followers |
+| User-generated content | Page views alone |
+
+---
+
+## Workflow: Marketplace-Driven (Partner-Led)
+
+### Steps
+
+| Step | Action | Subskill | Human |
+|------|--------|----------|-------|
+| 1 | Read 4-decision.md | — | — |
+| 2 | Generate marketplace content | content-generation | — |
+| 3 | Validate platform guidelines | — | — |
+| 4 | Flag for review | — | Review |
+| 5 | Optimize listing (if applicable) | channel-optimization | — |
+| 6 | Flag "Ready to publish" | — | Publish |
+| 7 | Update listing/publish support content | — | Update |
+| 8 | Start marketplace tracking | content-delivery | — |
+
+### 4-decision.md Must Include
+
+- Content type (listing/changelog/support/review-prompt)
+- Platform (Shopify/Chrome/etc)
+- Keywords (if listing)
+- Success metrics
+
+### Validation
+
+Before proceeding past Step 3:
+- [ ] Character limits met
+- [ ] Keywords included naturally
+- [ ] Platform guidelines followed
+
+### Tracking Schedule
+
+| Timeframe | Action |
+|-----------|--------|
+| Daily | Install velocity, rating changes |
+| Weekly | Review responses, keyword rankings |
+| Monthly | Trend analysis |
+
+### Metrics
+
+| Track | Ignore |
+|-------|--------|
+| Install velocity | Page views |
+| Rating average | Social shares |
+| Review count | Likes |
+| Keyword rankings | |
+| Uninstall rate | |
+
+---
+
+## Workflow: Sales-Driven (SLG)
+
+### Steps
+
+| Step | Action | Subskill | Human |
+|------|--------|----------|-------|
+| 1 | Read 4-decision.md | — | — |
+| 2 | Generate sales content | content-generation | — |
+| 3 | Validate ROI/objections | — | — |
+| 4 | Flag for review | — | Review |
+| 5 | Format for sales portal | content-delivery | — |
+| 6 | Flag "Ready to publish" | — | Publish |
+| 7 | Upload to portal, notify sales | — | Upload |
+| 8 | Start usage tracking | content-delivery | — |
+
+### 4-decision.md Must Include
+
+- Content type (case-study/one-pager/battle-card/sequence)
+- Target persona (user/champion/decision-maker/finance)
+- Sales stage (awareness/consideration/decision)
+- Key objections addressed
+
+### Validation
+
+Before proceeding past Step 3:
+- [ ] ROI/metrics included
+- [ ] Objections addressed
+- [ ] Single clear CTA
+- [ ] Persona-appropriate language
+
+### Tracking Schedule
+
+| Timeframe | Action |
+|-----------|--------|
+| Weekly | Content usage in deals |
+| Monthly | Pipeline attribution |
+| Quarterly | Win/loss analysis |
+
+### Metrics
+
+| Track | Ignore |
+|-------|--------|
+| Content used in deals | Downloads |
+| Pipeline influenced | Page views |
+| Deals closed with content | Social shares |
+| Sales feedback | |
+
+---
 
 ## Subskill Invocation
 
 ### content-generation
 
-**When:** Step 2a — after reading 4-decision.md
-
-**Invoke:**
 ```
 Parameters:
   campaign_slug: "{slug}"
   decision_path: "threads/marketing/campaigns/{slug}/4-decision.md"
+  mode: "{loop-driven|marketplace-driven|sales-driven}"
   piece_name: "{piece}"
-  loop_trigger_type: "{type from decision}"
-  velocity_proof: "{before → after from decision}"
 ```
-
-**Output:**
-```
-threads/marketing/campaigns/{slug}/5-actions/drafts/
-├── {piece}-article.md
-├── {piece}-linkedin.md
-├── {piece}-twitter.md
-└── {piece}-email.md
-```
-
-**Validation before proceeding:**
-- [ ] Loop trigger present at end of each draft
-- [ ] Velocity proof in content
-- [ ] Brand voice applied
-
-If loop trigger missing → Reject, re-invoke with explicit requirement
-
----
-
-### seo-optimization (Optional)
-
-**When:** Step 2d — only if:
-- Content type is blog/article
-- Explicitly requested, OR
-- High-value evergreen content
-
-**Skip if:**
-- Social-first content (LinkedIn, Twitter)
-- Time-sensitive content
-- Loop mechanics more important than SEO
-
-**Invoke:**
-```
-Parameters:
-  draft_path: "threads/.../drafts/{piece}-article.md"
-  target_keyword: "{keyword from decision}"
-  secondary_keywords: ["{list from decision}"]
-```
-
-**Output:** Overwrites draft with SEO metadata + optimizations
-
-**Note:** Low priority per distribution-model.md. SEO is declining channel.
-
----
 
 ### content-delivery
 
-**When:** Step 2e — after human approves drafts
-
-**Invoke:**
 ```
 Parameters:
   drafts_path: "threads/.../drafts/"
   campaign_slug: "{slug}"
+  mode: "{loop-driven|marketplace-driven|sales-driven}"
   channels: ["{from decision}"]
-  piece_name: "{piece}"
-  loop_trigger: "{trigger text}"
-  first_comment: "{question/challenge for LinkedIn}"
 ```
 
-**Output:**
+### channel-optimization
+
 ```
-artifacts/marketing/campaigns/{slug}/
-├── {piece}.md
-└── distribution/
-    ├── {piece}-linkedin.md
-    ├── {piece}-twitter.md
-    ├── {piece}-email.md
-    └── distribution-metadata.yaml
+Parameters:
+  channel: "{channel to optimize}"
+  # Only invoke when channel needs optimization, not per-campaign
 ```
 
-**Post-publish tracking:**
-- Day 1: Early engagement, first-comment performance
-- Day 3: Initial loop activations
-- Day 7: Loop performance report
-- Day 14: UGC detection
-- Day 30: Final loop assessment
+---
 
 ## Human Touchpoints
 
-### After content-generation (Step 2c)
+### After Drafts Ready (All Modes)
+
 ```markdown
 ## Drafts Ready for Review
 
-**Campaign:** {campaign name}
+**Campaign:** {name}
+**Mode:** {loop-driven|marketplace-driven|sales-driven}
 **Piece:** {title}
 
 **Location:** `threads/marketing/campaigns/{slug}/5-actions/drafts/`
 
 **Validation:**
-- Loop trigger: {✓ present / ✗ missing}
-- Velocity proof: {✓ present / ✗ missing}
-- Brand voice: {✓ applied / ⚠️ review needed}
+{Mode-appropriate checklist}
 
-**Files:**
-- {piece}-article.md
-- {piece}-linkedin.md
-- {piece}-twitter.md
-- {piece}-email.md
-
-**Action:** Review all drafts, approve or request revision
+**Action:** Review, approve or request revision
 ```
 
----
+### Ready to Publish (Loop-Driven)
 
-### After content-delivery (Step 2f)
 ```markdown
 ## Ready to Publish
 
-**Campaign:** {campaign name}
-**Piece:** {title}
+**{Title}**
 
-**Files ready:**
-| Channel | File | Loop Trigger |
-|---------|------|--------------|
-| Blog | artifacts/{slug}/{piece}.md | "{trigger}" |
-| LinkedIn | artifacts/{slug}/distribution/{piece}-linkedin.md | "{trigger}" |
-| Twitter | artifacts/{slug}/distribution/{piece}-twitter.md | "{trigger}" |
-| Email | artifacts/{slug}/distribution/{piece}-email.md | "{trigger}" |
+Files:
+- Blog: artifacts/{slug}/{piece}.md
+- LinkedIn: artifacts/{slug}/distribution/{piece}-linkedin.md
 
-**LinkedIn first-comment (POST WITHIN 5 MINUTES):**
+**First-comment (POST WITHIN 5 MINUTES):**
 > {first_comment text}
 
 **Action:**
 1. Publish to each channel
 2. Post first-comment on LinkedIn immediately
-3. Add URLs to execution-log.md
-4. Reply "published" to confirm
+3. Add URLs to execution-log
+4. Confirm published
+```
+
+### Ready to Publish (Marketplace-Driven)
+
+```markdown
+## Ready to Publish
+
+**{Title}**
+
+Files: {list}
+
+**Action:**
+1. Update app store listing
+2. Submit for review if required
+3. Monitor install velocity
+4. Respond to reviews within 24h
+```
+
+### Ready to Publish (Sales-Driven)
+
+```markdown
+## Ready to Publish
+
+**{Title}**
+
+Files: {list}
+
+**Action:**
+1. Upload to sales portal
+2. Notify sales team
+3. Add to relevant sequences
+4. Track usage in deals
 ```
 
 ---
 
-### After loop activation detected
-```markdown
-## Loop Fuel Available — Action Required
-
-**Detected:** {date}
-**User:** {name/handle}
-**Platform:** {LinkedIn/Twitter/etc}
-**Content:** {what they created}
-  - {description of their implementation/share/commentary}
-
-**Amplification actions:**
-- [ ] Comment on their post (authentic engagement)
-- [ ] Reshare with your commentary
-- [ ] DM to thank them
-- [ ] Consider featuring in next content
-
-**Priority:** {HIGH if influential / MEDIUM otherwise}
-
-This is the loop completing. Don't miss it.
-```
-
 ## Execution Log Format
+
 ```markdown
 # Execution Log - {Campaign Name}
 
 **Campaign:** {slug}
+**Mode:** {loop-driven|marketplace-driven|sales-driven}
 **Created:** {date}
-**Status:** {drafting | review | ready | published | tracking | complete}
+**Status:** {drafting|review|ready|published|tracking|complete}
 
 ---
 
-## Content Piece 1: "{Title}"
+## Content Piece: "{Title}"
 
-### Loop Design
-- **Trigger type:** {implementation | question | challenge | offer}
-- **Trigger text:** "{exact trigger}"
-- **First-comment:** "{LinkedIn comment}"
-- **Expected activations:** {what we expect}
+### Design
+{Mode-appropriate design details}
 
-### Velocity Proof
-- **Before:** {time + old state}
-- **After:** {time + new state}
-- **Multiplier:** {Nx}
-
-### Execution Timeline
+### Timeline
 - [ ] Drafts created: {date}
-- [ ] Loop trigger validated: ✓
-- [ ] Velocity proof validated: ✓
+- [ ] Validated: {date}
 - [ ] Human reviewed: {date}
-- [ ] SEO applied: {date | skipped}
-- [ ] Channel files created: {date}
-- [ ] Human published: {date}
-- [ ] First-comment posted: {date}
-- [ ] Drafts deleted: {date}
+- [ ] Published: {date}
 - [ ] Tracking started: {date}
 
-### Published URLs
-| Channel | URL | First-Comment |
-|---------|-----|---------------|
-| Blog | {url} | N/A |
-| LinkedIn | {url} | ✓ Posted |
-| Twitter | {url} | N/A |
-| Email | {sent to segment} | N/A |
+### Published
+{URLs or locations}
 
-### Loop Performance
-| Metric | Day 1 | Day 7 | Day 30 |
-|--------|-------|-------|--------|
-| Shares | | | |
-| Implementations shared | | | |
-| Inbound DMs | | | |
-| User-generated content | | | |
-| Conversations started | | | |
+### Performance
+{Mode-appropriate metrics table}
 
-### Loop Fuel Generated
-| Date | User | What They Created | Amplified | Result |
-|------|------|-------------------|-----------|--------|
-| | | | | |
-
-### Loop Assessment
-- **Loop activated:** {yes | no | partial}
-- **Loop velocity:** {time to first UGC}
-- **Loop strength:** {weak | medium | strong}
-- **Learning:** {what worked/didn't}
+### Assessment
+{Mode-appropriate assessment}
+```
 
 ---
 
-## Content Piece 2: "{Title}"
+## 6-learning.md Update
 
-(Repeat structure)
+After campaign complete:
+
+```markdown
+# Learning - {Campaign Name}
+
+**Mode:** {mode}
+**Period:** {start} to {end}
+
+## Performance Summary
+{Mode-appropriate metrics}
+
+## What Worked
+- {observation}
+
+## What Didn't Work
+- {observation}
+
+## Recommendations
+1. {recommendation}
+
+## Updates Needed
+{Any updates to GTM, narrative, or other artifacts}
 ```
 
-## Metrics That Matter
-
-| Track (Loop Metrics) | Ignore (Vanity Metrics) |
-|---------------------|------------------------|
-| Shares / reposts | Impressions |
-| Implementations shared | Likes |
-| Inbound DMs | Follower count |
-| User-generated content | Page views alone |
-| Conversations started | Comments (without substance) |
-| Referrals / mentions | Reach |
-
-**Success = Loops activated, not content published.**
+---
 
 ## Error Handling
 
 | Condition | Action |
 |-----------|--------|
+| GTM file missing | Stop, flag "Run go-to-market first" |
 | 4-decision.md missing | Stop, flag "Complete Stage 4 first" |
-| distribution-model.md missing | Stop, flag "Run marketing-narrative first" |
-| Draft missing loop trigger | Reject draft, re-invoke content-generation |
-| Draft missing velocity proof | Flag warning, proceed only if human approves |
-| First-comment not posted | Alert — critical for LinkedIn algorithm |
-| No loop activations by Day 7 | Flag in 6-learning.md, analyze trigger effectiveness |
-| UGC detected | Flag immediately for amplification |
-| Human delays publish >48hrs | Reminder in ops/today.md |
-
-## 6-learning.md Update
-
-After Day 30 (or campaign complete):
-```markdown
-# Learning - {Campaign Name}
-
-**Campaign:** {slug}
-**Period:** {start} to {end}
-
-## Loop Performance Summary
-
-| Piece | Loop Triggered | Activations | UGC Generated |
-|-------|---------------|-------------|---------------|
-| {piece 1} | {yes/no} | {count} | {count} |
-| {piece 2} | {yes/no} | {count} | {count} |
-
-## What Worked
-
-- {Observation about successful loop trigger}
-- {Observation about velocity proof effectiveness}
-- {Observation about channel performance}
-
-## What Didn't Work
-
-- {Observation about weak loop trigger}
-- {Observation about missed opportunities}
-
-## Hypotheses Validated/Invalidated
-
-| Hypothesis | Status | Evidence |
-|------------|--------|----------|
-| {H1} | {validated/invalidated} | {data} |
-
-## Recommendations for Next Campaign
-
-1. {Specific recommendation}
-2. {Specific recommendation}
-3. {Specific recommendation}
-
-## Update to distribution-model.md
-
-{If learnings warrant updating channel priorities or loop mechanics}
-```
+| Mode mismatch (content doesn't fit motion) | Flag, discuss with human |
+| Draft fails validation | Reject, re-invoke content-generation |
+| Human delays >48hrs | Reminder in ops/today.md |
 
 ## Boundaries
 
 **DO:**
-- Validate loop triggers in every draft before proceeding
-- Ensure first-comment is posted on LinkedIn
-- Track loop activations (shares, implementations, DMs, UGC)
-- Flag user-generated content immediately for amplification
-- Update 6-learning.md with loop performance data
-- Feed learnings back to distribution-model.md
+- Read GTM motion first
+- Pass mode to all subskills
+- Apply mode-appropriate validation
+- Track mode-appropriate metrics
+- Update 6-learning.md with learnings
 
 **DON'T:**
-- Approve drafts without loop triggers
-- Skip first-comment on LinkedIn
-- Report vanity metrics (impressions, likes, follower count)
-- Miss user-generated loop fuel
-- Treat SEO as required (it's optional, low priority)
-- Delete drafts before human confirms published
+- Apply loop mechanics to sales content
+- Track vanity metrics
+- Skip mode detection
+- Proceed without motion context

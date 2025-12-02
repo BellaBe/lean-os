@@ -1,33 +1,49 @@
 # Brand Voice - {Product}
 
 Generated: {date}
-Source: strategy/canvas/07-uvp.md, 08-advantage.md
+Source: strategy/canvas/07.uvp.md, 08.advantage.md
 
 ## Voice Attributes
 
 | Attribute | Description | Example |
 |-----------|-------------|---------|
-| {trait} | {how it manifests} | {concrete example} |
+| {attribute} | {what it means} | {sample phrase} |
 
-## Philosophy
+## Tone Spectrum
 
-**Purpose:** {Why we create content}
-**Approach:** {How we approach topics}
+| Context | Tone | Example |
+|---------|------|---------|
+| Teaching | {tone} | {example} |
+| Celebrating wins | {tone} | {example} |
+| Addressing problems | {tone} | {example} |
+| Disagreeing | {tone} | {example} |
 
-## Writing Guidelines
+## Language Rules
 
-**Structure:**
-- {guideline}
+**Do:**
+- {rule}
+- {rule}
+- {rule}
 
-**Style:**
-- {guideline}
+**Don't:**
+- {anti-pattern}
+- {anti-pattern}
+- {anti-pattern}
 
 ## Vocabulary
 
-**Use:** {terms from Canvas solution.md}
-**Avoid:** {buzzwords, vague claims}
+| Use | Avoid |
+|-----|-------|
+| {preferred term} | {term to avoid} |
+| {preferred term} | {term to avoid} |
 
-## Quality Bar
+## Sample Paragraphs
 
-**Publish when:** {criteria}
-**Don't publish:** {anti-criteria}
+### When explaining a concept:
+> {example paragraph}
+
+### When sharing a win:
+> {example paragraph}
+
+### When addressing a mistake:
+> {example paragraph}

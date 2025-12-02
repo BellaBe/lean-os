@@ -1,135 +1,171 @@
 # Marketing Workflow
 
-Marketing is **learning-driven, not calendar-driven**. Content is created when business generates insights worth sharing. Distribution is **loop-driven, not funnel-driven**.
+Marketing is **motion-aware, not calendar-driven**. Content adapts to your GTM strategy. Execution adapts to motion.
 
 ## Core Principles
 
 > "Great product is not enough. Distribution wins."
-> "Loops are so much better than funnels."
+> "Execution adapts to motion."
 
-- Every piece of content must generate its own next input
-- Velocity framing (before → after) in all content
-- Track loop activations, not vanity metrics
-- SEO is optional, loops are required
+- GTM motion determines content mode (loop/marketplace/sales)
+- Single source of truth: `strategy/canvas/15.go-to-market.md`
+- Orchestrator detects mode, subskills receive it
+- Identity (narrative) is channel-agnostic; distribution is motion-specific
 
 ---
 
-## Phase 1: Strategy (Once Per Product)
+## Skills Suite Overview
 
-### Generate Marketing Narrative
+```
+skills/
+├── foundations-builder/go-to-market/  # Produces GTM strategy
+├── foundations-marketing-narrative/    # Brand identity (channel-agnostic)
+├── ops-content-strategy/               # Opportunity detection (motion-aware)
+└── marketing-execution/                # Orchestrator (motion-aware)
+    ├── content-generation/             # Create content (receives mode)
+    ├── content-delivery/               # Publish + track (receives mode)
+    └── channel-optimization/           # Optimize channels
+```
+
+| Skill | Purpose | Reads GTM? | Detects Mode? |
+|-------|---------|------------|---------------|
+| **go-to-market** | Generate GTM strategy | Produces it | N/A |
+| **marketing-narrative** | Brand identity, voice, patterns | No | No |
+| **content-strategy** | Find opportunities | Yes | Yes (for scoring) |
+| **marketing-execution** | Orchestrate campaigns | Yes | **Yes (single source)** |
+| **content-generation** | Create content | No | No (receives mode) |
+| **content-delivery** | Publish + track | No | No (receives mode) |
+| **channel-optimization** | Optimize channels | Yes (channels only) | No |
+
+---
+
+## Phase 1: GTM Strategy (Once Per Product)
+
+### Generate GTM Strategy
+```
+Skill: go-to-market
+Input: Canvas (segments, problem, UVP, solution, pricing)
+Output: strategy/canvas/15.go-to-market.md
+```
+
+**GTM file declares:**
+- Motion type (PLG, Content-Led, Partner-Led, SLG, Hybrid)
+- Stage (Pre-launch, Launch, Growth, Scale)
+- Channels with investment levels
+- Growth loops
+
+**All downstream skills read this file.**
+
+---
+
+## Phase 2: Marketing Narrative (Once Per Product)
+
+### Generate Brand Identity
 ```
 Skill: marketing-narrative
-Input: Canvas + Sales narratives (optional)
+Input: Canvas (segments, problem, UVP, advantage, solution)
 Output: artifacts/marketing/narrative/
-  ├── distribution-model.md (loops, channels, velocity)
-  ├── brand-voice.md (how we sound)
-  ├── positioning.md (what we stand for)
-  ├── content-pillars.md (3-5 strategic themes)
-  ├── channel-guidelines.md (format specs)
+  ├── brand-voice.md
+  ├── positioning.md
+  ├── content-pillars.md
   └── patterns/
-      ├── loop-content.md (required for all content)
-      ├── blog.md
+      ├── insight.md
+      ├── tutorial.md
       ├── case-study.md
-      └── linkedin.md
+      └── story.md
 ```
 
-**Distribution model defines:**
-- What's dying (SEO, social + links)
-- What's working (founder socials, loops, velocity)
-- Loop mechanics for each content type
-- Channel investment priorities
-- Content triggers (learning-driven, not calendar)
+**Narrative defines identity only:**
+- How we sound (brand voice)
+- What we stand for (positioning)
+- What we talk about (pillars)
+- How content is structured (patterns)
 
-**Brand voice:**
-- Educational, not promotional
-- Technical depth included
-- Data-driven (specific metrics)
-- No engagement bait
-
-**Channel priorities (from distribution physics):**
-
-| Channel | Investment | Loop Potential |
-|---------|------------|----------------|
-| Founder LinkedIn | HIGH | High — DMs, reshares |
-| Email | MEDIUM | Medium — replies |
-| Blog/SEO | LOW | Low — passive |
-| Twitter/X | MEDIUM | High — quote tweets |
+**Narrative does NOT define:**
+- Which channels to use (→ GTM)
+- How to optimize channels (→ channel-optimization)
+- Loop mechanics (→ content-generation)
 
 ---
 
-## Phase 2: Content Discovery (Continuous)
+## Phase 3: Content Discovery (Continuous)
 
-### Trigger: Loop Opportunity Detected
+### Opportunity Detection
 ```
 Skill: content-strategy
+Reads: 15.go-to-market.md + narrative/content-pillars.md
+```
 
-Scans for:
-- User implements our method → Feature their before/after
-- Community question answered → Expand to article
-- Client success documented → Case study
-- Strategic insight validated → Thought leadership
-- Someone shares our content → Engage, amplify
+**Motion determines scoring:**
 
-Scoring:
-Impact = (Loop Potential × Velocity Story × Audience Alignment) / 3
+| Motion | Scoring Formula |
+|--------|-----------------|
+| Loop-Driven (PLG, Content-Led) | (Loop Potential × Velocity Story × Audience Alignment) / 3 |
+| Marketplace-Driven (Partner-Led) | (Review Potential × Install Impact × Retention Value) / 3 |
+| Sales-Driven (SLG) | (Deal Enablement × Objection Coverage × Stage Fit) / 3 |
 
-Thresholds:
-- ≥0.7: Flag immediately
-- 0.5-0.7: Backlog
+**Thresholds:**
+- ≥0.7: Flag immediately in ops/today.md
+- 0.5-0.7: Add to backlog
 - <0.5: Skip
-```
-
-**Output to ops/today.md:**
-```markdown
-### Loop Opportunity [Priority: 0.85]
-Topic: {topic}
-Source: {thread}
-Loop mechanic: {how it loops}
-Velocity proof: {before → after available}
-Action: Approve to create campaign thread?
-```
 
 ---
 
-## Phase 3: Content Execution (Thread-Driven)
+## Phase 4: Content Execution (Thread-Driven)
 
 ### Marketing Campaign Thread
 ```
-threads/marketing/campaigns/{campaign-slug}/
-├── metadata.yaml
-├── 1-input.md (trigger — what learning occurred)
-├── 2-hypothesis.md (content performance hypothesis)
-├── 3-implication.md (expected loop activations)
-├── 4-decision.md (content plan with loop design)
+threads/marketing/campaigns/{slug}/
+├── 1-input.md (trigger)
+├── 2-hypothesis.md (expected outcome)
+├── 3-implication.md (success definition)
+├── 4-decision.md (content plan with motion-appropriate design)
 ├── 5-actions/
-│   ├── execution-log.md (progress + loop tracking)
-│   └── drafts/ (temp, deleted after publish confirmed)
-└── 6-learning.md (loop performance learnings)
+│   ├── execution-log.md
+│   └── drafts/
+└── 6-learning.md
 ```
 
-### Stage 4: DECISION (Content Plan)
-
-**Must include:**
-- Content pieces to create
-- Loop trigger type for each (implementation / question / challenge / offer)
-- Velocity proof (before → after with time)
-- First-comment text (for LinkedIn)
-- Target channels (from distribution-model.md)
-
-### Stage 5: ACTIONS (Execution)
+### Stage 5: Execution
 ```
-Skill: marketing-execution
-Subskills: content-generation, content-delivery, seo-optimization (optional)
+Skill: marketing-execution (orchestrator)
+Reads: strategy/canvas/15.go-to-market.md
+Determines: mode (loop-driven | marketplace-driven | sales-driven)
+Invokes: subskills with mode parameter
 ```
 
-**Workflow:**
+**Composition pattern:**
+```
+marketing-execution (orchestrator)
+├── Reads: 15.go-to-market.md
+├── Detects: motion → mode (ONLY HERE)
+├── Passes: mode to all subskills
+│
+├── content-generation
+│   └── Input: mode (required)
+│   └── Does NOT read GTM
+│
+├── content-delivery
+│   └── Input: mode (required)
+│   └── Does NOT read GTM
+│
+└── channel-optimization
+    └── Reads: channels from GTM
+    └── Activates: relevant modules
+```
+
+---
+
+## Workflows by Mode
+
+### Loop-Driven (PLG, Content-Led)
 
 | Step | Action | Subskill | Human |
 |------|--------|----------|-------|
-| 1 | Generate drafts with loop triggers | content-generation | — |
-| 2 | Validate loop trigger + velocity | — | — |
-| 3 | Flag for review | — | Review |
-| 4 | Apply SEO (if blog, if requested) | seo-optimization | — |
+| 1 | Read 4-decision.md | — | — |
+| 2 | Generate drafts with loop triggers | content-generation | — |
+| 3 | Validate loop trigger + velocity | — | — |
+| 4 | Flag for review | — | Review |
 | 5 | Format for channels | content-delivery | — |
 | 6 | Flag "Ready to publish" | — | Publish |
 | 7 | Post first-comment (LinkedIn) | — | Post |
@@ -137,138 +173,127 @@ Subskills: content-generation, content-delivery, seo-optimization (optional)
 | 9 | Delete drafts | — | — |
 | 10 | Start loop tracking | content-delivery | — |
 
-**Loop tracking schedule:**
-- Day 1: First-comment engagement, early shares
+**4-decision.md must include:**
+- Loop trigger type (implementation/question/challenge/offer)
+- Velocity proof (before → after)
+- First-comment text
+
+**Tracking schedule:**
+- Day 1: First-comment engagement
 - Day 3: Initial loop activations
 - Day 7: Loop performance report
 - Day 14: UGC detection
-- Day 30: Final loop assessment
+- Day 30: Final assessment
 
-**Human touchpoints:**
-
-1. **Draft review** — Validate loop trigger present, velocity proof, brand voice
-2. **Pre-publish** — Review files, prepare first-comment
-3. **Publish + first-comment** — Post within 5 minutes
-4. **Loop fuel** — Amplify user-generated content when detected
-
-### Stage 6: LEARNING (Loop Performance)
-```markdown
-# Learning - {Campaign Name}
-
-## Loop Performance Summary
-
-| Piece | Loop Activated | Activations | UGC Generated |
-|-------|---------------|-------------|---------------|
-| {piece} | yes/no | {count} | {count} |
-
-## Metrics That Matter
-
+**Metrics:**
 | Track | Ignore |
 |-------|--------|
 | Shares | Impressions |
 | Implementations | Likes |
 | Inbound DMs | Followers |
-| User-generated content | Page views alone |
+| User-generated content | Page views |
 
-## What Worked
-- {Loop trigger observation}
-- {Velocity proof effectiveness}
+### Marketplace-Driven (Partner-Led)
 
-## What Didn't Work
-- {Weak trigger analysis}
+| Step | Action | Subskill | Human |
+|------|--------|----------|-------|
+| 1 | Read 4-decision.md | — | — |
+| 2 | Generate marketplace content | content-generation | — |
+| 3 | Validate platform guidelines | — | — |
+| 4 | Flag for review | — | Review |
+| 5 | Optimize listing | channel-optimization | — |
+| 6 | Flag "Ready to publish" | — | Publish |
+| 7 | Update listing/publish support | — | Update |
+| 8 | Start marketplace tracking | content-delivery | — |
 
-## Recommendations
-1. {For next campaign}
+**4-decision.md must include:**
+- Content type (listing/changelog/support/review-prompt)
+- Platform (Shopify/Chrome/etc)
+- Keywords
 
-## Update to distribution-model.md
-{If learnings warrant}
-```
+**Metrics:**
+| Track | Ignore |
+|-------|--------|
+| Install velocity | Page views |
+| Rating average | Social shares |
+| Review count | Likes |
+| Keyword rankings | |
+| Uninstall rate | |
+
+### Sales-Driven (SLG)
+
+| Step | Action | Subskill | Human |
+|------|--------|----------|-------|
+| 1 | Read 4-decision.md | — | — |
+| 2 | Generate sales content | content-generation | — |
+| 3 | Validate ROI/objections | — | — |
+| 4 | Flag for review | — | Review |
+| 5 | Format for sales portal | content-delivery | — |
+| 6 | Flag "Ready to publish" | — | Publish |
+| 7 | Upload, notify sales | — | Upload |
+| 8 | Start usage tracking | content-delivery | — |
+
+**4-decision.md must include:**
+- Content type (case-study/one-pager/battle-card/sequence)
+- Target persona (user/champion/decision-maker/finance)
+- Sales stage (awareness/consideration/decision)
+- Key objections addressed
+
+**Metrics:**
+| Track | Ignore |
+|-------|--------|
+| Content used in deals | Downloads |
+| Pipeline influenced | Page views |
+| Deals closed with content | Social shares |
+| Sales feedback | |
 
 ---
 
-## Marketing Execution Subskills
+## Motion → Mode Mapping
+
+| GTM Motion | Content Mode | Rationale |
+|------------|--------------|-----------|
+| PLG | loop-driven | Product virality needs content loops |
+| Content-Led | loop-driven | Authority building needs content loops |
+| Partner-Led | marketplace-driven | Platform mechanics dominate |
+| SLG | sales-driven | Sales enablement dominates |
+| Hybrid | hybrid | Per-segment mode selection |
+
+---
+
+## Subskills
 
 ### content-generation
-- **Requires:** distribution-model.md, brand-voice.md, positioning.md, patterns/
-- **Input:** Content opportunity + source material
-- **Output:** Drafts with loop triggers + velocity framing
-- **Validation:** Loop trigger present, velocity proof included
-- **Human review:** Technical accuracy, brand voice
+- **Input:** mode, campaign_slug, decision_path, piece_name
+- **Reads:** brand-voice.md, positioning.md, patterns/
+- **Output:** Drafts with mode-appropriate structure
+- **Modes:**
+  - loop-driven: Loop triggers, velocity framing
+  - marketplace-driven: Platform-optimized copy
+  - sales-driven: ROI focus, objection handling
 
 ### content-delivery
-- **Input:** Approved drafts + loop trigger + first-comment
-- **Output:** Channel-formatted files in artifacts/
-- **Post-publish:** Loop tracking initiated
-- **Tracking:** Shares, implementations, DMs, UGC
-- **Amplification:** Flag user-generated content for action
+- **Input:** mode, drafts_path, campaign_slug, channels
+- **Reads:** Nothing (receives mode)
+- **Output:** Channel-formatted files, tracking initiated
+- **Modes:**
+  - loop-driven: Shares, DMs, UGC tracking
+  - marketplace-driven: Installs, reviews, rankings
+  - sales-driven: Usage in deals, pipeline attribution
 
-### seo-optimization (Optional)
-- **When:** Blog content, evergreen, explicitly requested
-- **Skip:** Social-first, time-sensitive, loop mechanics priority
-- **Note:** SEO is dying channel — loops matter more
-
----
-
-## Loop Mechanics
-
-### Content Loop
-```
-Create content about solving problem
-         ↓
-Reader with same problem resonates
-         ↓
-Engages (comment, DM, share)
-         ↓
-Tries solution / hires / buys
-         ↓
-Gets result
-         ↓
-Shares their result (user-generated)
-         ↓
-We amplify their story
-         ↓
-New readers discover...
-```
-
-### Loop Trigger Types
-
-| Type | Best For | Example |
-|------|----------|---------|
-| Implementation | Tutorials, frameworks | "Try this and share your result" |
-| Question | Insights, observations | "What's your version of this?" |
-| Challenge | Methods, templates | "Rewrite yours. Tag me." |
-| Offer | Problem posts | "Facing this? DM me" |
-
-### Velocity Framing
-
-Required in every piece:
-```
-{Time period} to {old way}.
-{Shorter time} to {new way}.
-```
-
-Examples:
-- "Three weeks to build. Twenty minutes to realize it was wrong."
-- "Days of writing. Minutes of review."
-
-### First-Comment (LinkedIn Critical)
-
-Post within 5 minutes of publishing. Algorithm rewards early engagement.
-
-**Examples:**
-- "What's your version of this problem?"
-- "Try this framework and share your rewrite below"
-- "Facing this? What have you tried?"
+### channel-optimization
+- **Reads:** channels from 15.go-to-market.md
+- **Activates:** Relevant modules (app-store, seo, linkedin, sales)
+- **Used:** When channel needs improvement (not per-campaign)
 
 ---
 
 ## Closed-Loop Attribution
 
-### Learning → Content → Learning
 ```
 Sales/Business thread completes Stage 6
     ↓
-content-strategy detects opportunity
+content-strategy detects opportunity (motion-aware scoring)
     ↓
 Human approves
     ↓
@@ -276,42 +301,33 @@ Marketing thread created (1-input through 4-decision)
     ↓
 marketing-execution invoked
     ↓
-Content published with loop triggers
+Orchestrator detects mode from 15.go-to-market.md
     ↓
-Loop activations tracked
+Subskills invoked with mode parameter
     ↓
-UGC amplified (loop fuel)
+Content published, mode-appropriate tracking
     ↓
-New leads/conversations generated
+Performance fed back to 6-learning.md
     ↓
-New threads created
+New opportunities detected
     ↓
 Loop continues
 ```
 
 ---
 
-## Performance Metrics
+## Success Definition
 
-### What to Track (Loop Metrics)
+**Success = motion-appropriate metrics, not content published.**
 
-| Metric | Definition |
-|--------|------------|
-| Shares | Reposts, quote tweets |
-| Implementations | Users trying the method |
-| Inbound DMs | Conversations started |
-| User-generated content | Others creating based on ours |
-| Loop velocity | Time from publish to first UGC |
+- Loop-driven: Loops activated (shares, implementations, UGC)
+- Marketplace-driven: Store performance (installs, ratings, rankings)
+- Sales-driven: Pipeline impact (content in deals, revenue influenced)
 
-### What to Ignore (Vanity Metrics)
+---
 
-| Metric | Why Ignore |
-|--------|------------|
-| Impressions | Doesn't indicate value |
-| Likes | Low-effort, no loop |
-| Follower count | Lagging indicator |
-| Page views alone | Without conversion meaningless |
+## Next Steps
 
-### Success Definition
-
-**Success = Loops activated, not content published.**
+- Learn sales workflow: [Sales Workflow](sales-workflow.md)
+- Understand 6-stage flow: [Causal Flow](causal-flow.md)
+- See daily routine: [Daily Routine](daily-routine.md)
