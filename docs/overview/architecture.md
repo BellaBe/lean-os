@@ -171,6 +171,7 @@ Task arrives → Gateway selects mode → Mode executes → (chains to causal if
 | `research-*` | Mode-aware market research |
 | `sales-execution` | Pipeline management |
 | `marketing-execution` | Campaign execution |
+| `reasoning-gateway` | Meta-reasoning routing |
 
 ### Key Skills
 
@@ -179,6 +180,7 @@ Task arrives → Gateway selects mode → Mode executes → (chains to causal if
 - **Operations:** Content strategy, ops dashboard, metrics tracker
 - **Research:** Venture (TAM, growth) / Bootstrap (spend mapping)
 - **Execution:** Sales materials/outreach, marketing content/distribution
+- **Reasoning Gateway:** Mode selection and routing
 
 ## Layer 4: Threads (Decision Storage)
 

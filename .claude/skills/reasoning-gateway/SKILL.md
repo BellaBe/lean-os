@@ -23,12 +23,12 @@ Meta-reasoning layer that classifies context and routes to specialized reasoning
 │  Can chain modes within single flow             │
 └─────────────────────┬───────────────────────────┘
                       │ dispatches to
-    ┌─────────┬───────┴───────┬─────────┬─────────┐
-    ▼         ▼               ▼         ▼         ▼
-┌────────┐┌────────┐    ┌──────────┐┌────────┐┌────────┐
-│ Causal ││Abductive│    │Analogical││Dialect-││Counter-│
-│        ││         │    │          ││ical    ││factual │
-└────────┘└────────┘    └──────────┘└────────┘└────────┘
+    ┌────────┬────────┼────────┬────────┬────────┐
+    ▼        ▼        ▼        ▼        ▼        ▼
+┌────────┐┌────────┐┌────────┐┌────────┐┌────────┐┌────────┐
+│ Causal ││Abduct- ││Induct- ││Analog- ││Dialec- ││Counter-│
+│        ││ive     ││ive     ││ical    ││tical   ││factual │
+└────────┘└────────┘└────────┘└────────┘└────────┘└────────┘
 ```
 
 ## Reasoning Modes
@@ -90,23 +90,27 @@ Some flows MUST use specific reasoning modes. Gateway cannot override.
 ```yaml
 enforced_flows:
   # Causal-only (process execution)
-  sales_pipeline:
+  business:
+    mode: causal
+    reason: "Business decisions follow 6-stage causal flow"
+
+  sales:
     mode: causal
     reason: "Deal progression is inherently causal"
-    
-  marketing_campaign:
+
+  marketing:
     mode: causal
     reason: "Campaign execution follows causal flow"
-    
-  engineering_build:
+
+  engineering:
     mode: causal
     reason: "Specification → Implementation is causal"
-    
+
   # Compliance (no reasoning, direct execution)
   legal_review:
     mode: direct
     reason: "Human review required, no AI reasoning"
-    
+
   financial_audit:
     mode: direct
     reason: "Compliance requires human verification"
@@ -283,12 +287,12 @@ User request arrives
     ↓
 reasoning-gateway classifies
     ↓
-IF operational thread (sales/marketing/business/engineering):
-    route to causal-flow (enforced)
+IF operational thread (business/sales/marketing/engineering):
+    route to reasoning-causal (enforced)
 ELSE IF strategic/analytical:
     select appropriate reasoning mode
     ↓
-    may invoke causal-flow as secondary mode
+    may chain to reasoning-causal as secondary mode
 ```
 
 ## Execution Pattern

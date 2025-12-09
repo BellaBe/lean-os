@@ -8,11 +8,11 @@ Flows that MUST use specific reasoning modes. Gateway cannot override.
 
 | Flow Type | Mode | Rationale |
 |-----------|------|-----------|
-| `sales_pipeline` | causal | Deal progression is inherently causal: lead → qualify → demo → pilot → close |
+| `business` | causal | Business decisions follow 6-stage causal flow |
+| `sales` | causal | Deal progression is inherently causal: lead → qualify → demo → pilot → close |
 | `sales_campaign` | causal | Outreach sequences follow causal chains |
-| `marketing_campaign` | causal | Campaign execution: create → publish → promote → measure |
-| `engineering_build` | causal | Specification → Design → Implementation → Verification |
-| `business_thread` | causal | Business decisions follow 6-stage causal flow |
+| `marketing` | causal | Campaign execution: create → publish → promote → measure |
+| `engineering` | causal | Specification → Design → Implementation → Verification |
 | `ops_routine` | causal | Operational routines are deterministic sequences |
 
 ### Direct-Enforced (Human Required)
