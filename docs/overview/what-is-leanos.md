@@ -23,7 +23,7 @@ LeanOS is an **AI-native operating system** for startups, small teams, and found
 - **Human touchpoint:** ops/today.md - Single daily entry point (auto-generated)
 - **Mode-aware operations:** Adapts to VENTURE (scale) or BOOTSTRAP (profit) business models
 
-**Result:** 2-person team operates with 10-person velocity. Founder spends <30 min/day on operations.
+**Result:** 1-person team operates with 5-person velocity. Founder spends <30 min/day on operations.
 
 ---
 
@@ -166,7 +166,7 @@ LeanOS adapts to your business model:
 ## What You Need
 
 **Technical:**
-- Claude AI access (Sonnet 4.5 recommended)
+- Claude AI access
 - Git for version control
 - Terminal/command line comfort
 - Markdown editing capability

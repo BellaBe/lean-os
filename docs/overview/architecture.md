@@ -1,6 +1,6 @@
 # System Architecture
 
-LeanOS operates in 5 layers: Strategy → Reasoning → Skills → Threads → Operations Dashboard.
+LeanOS operates in 6 layers: Strategy → Reasoning → Skills → Threads → Artifacts → Operations Dashboard.
 
 ## Architecture Diagram
 
@@ -75,6 +75,21 @@ LeanOS operates in 5 layers: Strategy → Reasoning → Skills → Threads → O
 │ │   └─ narrative/{product}/: Content strategy                                                │
 │ └─ engineering/: Technical requirements                                                      │
 │     └─ {requirement}/: Engineering decision threads                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────┘
+                                          ↓
+┌──────────────────────────────────────────────────────────────────────────────────────────────┐
+│ ARTIFACTS LAYER (Deliverables)                                                               │
+│ Published outputs from thread execution                                                      │
+│ Location: artifacts/                                                                         │
+│                                                                                              │
+│ ├─ sales/: Pitch decks, scripts, templates per segment                                       │
+│ ├─ marketing/: Published content (campaigns, blog, social)                                   │
+│ └─ engineering/: Specifications, code, configs, proofs                                       │
+│     ├─ specifications/: Mathematical specs (versioned)                                       │
+│     ├─ maps/: Code structure maps                                                            │
+│     ├─ code/: Generated backend/frontend code                                                │
+│     ├─ configs/: Docker, K8s, CI/CD                                                          │
+│     └─ proofs/: Verification certificates                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -204,7 +219,30 @@ threads/{type}/{name}/
 └── 6-learning.md
 ```
 
-## Layer 5: Operations Dashboard
+## Layer 5: Artifacts (Deliverables)
+
+**Location:** `artifacts/`
+
+**Purpose:** Published outputs from thread execution
+
+### Sales Artifacts
+- Pitch decks, one-pagers per segment
+- Call scripts, email templates
+- Pilot agreements, contracts
+
+### Marketing Artifacts
+- Published blog posts, case studies
+- Social media content
+- Campaign performance records
+
+### Engineering Artifacts
+- `specifications/`: Mathematical specs (versioned, immutable)
+- `maps/`: Code structure maps (backend, shared)
+- `code/`: Generated code (backend, frontend)
+- `configs/`: Deployment (Docker, K8s, CI/CD)
+- `proofs/`: Verification certificates
+
+## Layer 6: Operations Dashboard
 
 **Location:** `ops/`
 
@@ -239,18 +277,6 @@ threads/{type}/{name}/
 ### research/customer/
 - **icp/:** ICP definitions per segment
 - **prospects/:** Prospect and contact lists
-
-### artifacts/
-- **sales/:** Sales materials per segment (pitch decks, scripts, templates)
-- **marketing/:** Published content (campaigns, blog, LinkedIn)
-- **engineering/:** Generated code, configs, proofs
-
-### engineering/ (Thread-driven)
-- **specifications/:** Mathematical specs (versioned)
-- **maps/:** Code maps (backend, shared contracts)
-- **code/:** Generated code (backend, frontend)
-- **configs/:** Deployment configs (Docker, K8s, CI/CD)
-- **proofs/:** All verification proofs
 
 ## Data Flow
 
