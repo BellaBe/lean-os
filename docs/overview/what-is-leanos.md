@@ -18,7 +18,7 @@ LeanOS is an **AI-native operating system** for startups, small teams, and found
 
 - **AI-first execution:** Claude agents process business, sales, marketing, and engineering decisions autonomously
 - **Single source of truth:** Lean Canvas (15 living documents) drives all operations
-- **6-stage causal flow:** Every decision follows INPUT → HYPOTHESIS → IMPLICATION → DECISION → ACTIONS → LEARNING
+- **Reasoning gateway:** Routes to appropriate mode (causal, abductive, inductive, analogical, dialectical, counterfactual)
 - **Impact-based autonomy:** Auto-execute low-impact (<0.8), flag high-impact (≥0.8) for approval
 - **Human touchpoint:** ops/today.md - Single daily entry point (auto-generated)
 - **Mode-aware operations:** Adapts to VENTURE (scale) or BOOTSTRAP (profit) business models
@@ -58,18 +58,22 @@ Information exists in ONE location only:
 
 No duplication. Always reference.
 
-### 3. 6-Stage Causal Flow (Universal)
-Every decision flows through:
-```
-Stage 1: INPUT       - Factual observation (not opinion)
-Stage 2: HYPOTHESIS  - Canvas assumption being tested
-Stage 3: IMPLICATION - Business impact with numbers
-Stage 4: DECISION    - Official commitment + alternatives
-Stage 5: ACTIONS     - Executable tasks (typed by function)
-Stage 6: LEARNING    - Measured outcomes → Canvas updates
-```
+### 3. Reasoning Gateway
+Non-trivial tasks route through reasoning-gateway which selects appropriate mode:
 
-No shortcuts. All 6 stages required.
+| Context | Mode | Use When |
+|---------|------|----------|
+| Operational execution | **Causal** | Known process, clear cause-effect (enforced for threads) |
+| Anomaly/diagnosis | **Abductive** | "Why did X happen?" |
+| Pattern detection | **Inductive** | "This keeps happening" |
+| Novel situation | **Analogical** | "This is like..." |
+| Stakeholder conflict | **Dialectical** | Trade-off resolution |
+| Decision evaluation | **Counterfactual** | "What if we had..." |
+
+**Causal flow (enforced for operational threads):**
+```
+INPUT → HYPOTHESIS → IMPLICATION → DECISION → ACTIONS → LEARNING
+```
 
 ### 4. Impact-Based Autonomy
 - **<0.8:** Auto-execute, log in thread, proceed autonomously
@@ -121,8 +125,11 @@ LeanOS adapts to your business model:
 - **Sales narrative:** Generate messaging per customer segment
 - **Marketing narrative:** Generate content strategy
 
-### Operations Layer (4 skills)
-- **Causal flow:** 6-stage decision orchestrator
+### Reasoning Layer (1 gateway, 6 modes)
+- **Reasoning gateway:** Routes to appropriate reasoning mode
+- **Modes:** Causal (operational), abductive, inductive, analogical, dialectical, counterfactual
+
+### Operations Layer (3 skills)
 - **Content strategy:** Detect campaign opportunities from business learning
 - **Ops dashboard:** Auto-generate daily operational dashboards
 - **Metrics tracker:** Mode-aware business metrics
@@ -200,5 +207,5 @@ LeanOS adapts to your business model:
 
 ---
 
-**Version:** 2.0
-**Last updated:** 2025-11-25
+**Version:** 2.1
+**Last updated:** 2025-12-09

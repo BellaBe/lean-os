@@ -2,6 +2,13 @@
 
 Marketing is **motion-aware, not calendar-driven**. Content adapts to your GTM strategy. Execution adapts to motion.
 
+**Reasoning mode:** Causal (enforced) - all marketing threads use 6-stage causal flow.
+**When to use other modes:**
+- Abductive: "Why did this campaign underperform?" → diagnose root cause
+- Inductive: "Case studies always outperform guides" → detect pattern, update strategy
+- Analogical: "This launch is like our marketplace launch" → adapt playbook
+- Counterfactual: "Should we have launched on LinkedIn instead?" → inform future decisions
+
 ## Core Principles
 
 > "Great product is not enough. Distribution wins."

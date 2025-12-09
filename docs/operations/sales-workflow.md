@@ -2,6 +2,12 @@
 
 Sales in LeanOS operates in two phases: Strategy (once per segment) and Execution (per deal).
 
+**Reasoning mode:** Causal (enforced) - all sales threads use 6-stage causal flow.
+**When to use other modes:**
+- Abductive: "Why did we lose this deal?" → diagnose, then chain to causal for fix
+- Inductive: "Legal delays keep happening" → detect pattern, then chain to process change
+- Counterfactual: "Should we have priced lower?" → evaluate, inform future decisions
+
 ## Phase 1: Strategy (Once Per Segment)
 
 ### Step 1: Generate ICP

@@ -1,6 +1,6 @@
 # System Architecture
 
-LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dashboard.
+LeanOS operates in 5 layers: Strategy → Reasoning → Skills → Threads → Operations Dashboard.
 
 ## Architecture Diagram
 
@@ -12,95 +12,52 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ SKILLS LAYER (AI Execution) - 19 skills, 60+ sub-skills                                      │
+│ REASONING LAYER (Meta-Reasoning Gateway)                                                     │
+│ Location: .claude/skills/reasoning-gateway/                                                  │
+│                                                                                              │
+│ Routes non-trivial tasks to appropriate reasoning mode:                                      │
 │                                                                                              │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ ENGINEERING SKILLS (engineering-*) - 7 skills, 27 sub-skills                            │  │
-│ │                                                                                         │  │
-│ │ Full production flow: Requirements → Architecture → Maps → Code → Deployment            │  │
-│ │                                                                                         │  │
-│ │ system-architecture (9 sub-skills)                                          │  │
-│ │ └─ NL requirements → mathematical specs (ADT, Curry-Howard proofs, categorical arch)    │  │
-│ │                                                                                         │  │
-│ │ standardization-definer                                                     │  │
-│ │ └─ Extract cross-cutting concerns → contract maps (WHAT standards exist)                │  │
-│ │                                                                                         │  │
-│ │ backend-prover (4 sub-skills)                                               │  │
-│ │ └─ Phase 1: Generate maps, verify composition                                           │  │
-│ │ └─ Phase 2: Generate code from verified maps                                            │  │
-│ │                                                                                         │  │
-│ │ standardization-applier                                                     │  │
-│ │ └─ Apply standards to code, verify naturality (HOW to inject)                           │  │
-│ │                                                                                         │  │
-│ │ frontend-prover (4 sub-skills)                                              │  │
-│ │ └─ OpenAPI → TypeScript, framework adapters, type correspondence proofs                 │  │
-│ │                                                                                         │  │
-│ │   infrastructure-prover (5 sub-skills)                                        │  │
-│ │ └─ Service specs → Docker, K8s, CI/CD, topology proofs                                  │  │
-│ │                                                                                         │  │
-│ │ proof-composer                                                              │  │
-│ │ └─ Validate entire proof chain → deployment authorization                               │  │
+│ │ CAUSAL (enforced)     │ Operational execution, known processes → 6-stage thread flow   │  │
+│ │ ABDUCTIVE             │ Anomaly diagnosis → "Why did X happen?"                        │  │
+│ │ INDUCTIVE             │ Pattern detection → "This keeps happening"                     │  │
+│ │ ANALOGICAL            │ Novel situations → "This is like..."                           │  │
+│ │ DIALECTICAL           │ Stakeholder conflicts → Trade-off resolution                   │  │
+│ │ COUNTERFACTUAL        │ Decision evaluation → "What if we had..."                      │  │
+│ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                              │
+│ Causal mode is ENFORCED for operational threads (business, sales, marketing, engineering)   │
+│ Other modes used for analysis/diagnosis, then chain to causal for action                    │
+└──────────────────────────────────────────────────────────────────────────────────────────────┘
+                                          ↓
+┌──────────────────────────────────────────────────────────────────────────────────────────────┐
+│ SKILLS LAYER (Domain Execution)                                                              │
+│                                                                                              │
+│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
+│ │ ENGINEERING (engineering/) - Categorical verification                                   │  │
+│ │ └─ Requirements → Specs → Maps → Code → Deployment (with mathematical proofs)          │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ FOUNDATIONS SKILLS (foundations-*) - 4 skills                                           │  │
-│ │                                                                                         │  │
-│ │ foundations-builder (10 agents)                                                         │  │
-│ │ └─ Canvas population: Discovery → Definition → Validation → Execution → Launch          │  │
-│ │    Core Agents (7): market-intelligence, problem-solution-fit, value-proposition,       │  │
-│ │                     business-model, validation, go-to-market, execution                 │  │
-│ │    Specialist (3): funding, regulatory, retention-optimizer                             │  │
-│ │                                                                                         │  │
-│ │ icp-generator                                                               │  │
-│ │ └─ Define ICP per segment → research/customer/icp/{segment}-icp.yaml                    │  │
-│ │                                                                                         │  │
-│ │ sales-narrative                                                             │  │
-│ │ └─ Generate sales messaging per segment → artifacts/sales/{segment}/narratives/         │  │
-│ │                                                                                         │  │
-│ │ marketing-narrative                                                         │  │
-│ │ └─ Generate content strategy → artifacts/marketing/narrative/                           │  │
+│ │ FOUNDATIONS (foundations-*) - 4 skills                                                  │  │
+│ │ └─ Canvas population, ICP generation, sales/marketing narratives                       │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ OPERATIONS SKILLS (ops-*) - 4 skills                                                    │  │
-│ │                                                                                         │  │
-│ │ causal-flow (6 stage skills)                                                        │  │
-│ │ └─ 6-stage decision flow: Input → Hypothesis → Implication → Decision → Actions →      │  │
-│ │    Learning                                                                             │  │
-│ │ └─ Thread types: business, sales, marketing, engineering                                │  │
-│ │ └─ Stage 6 auto-updates Canvas from validated learning                                  │  │
-│ │                                                                                         │  │
-│ │ content-strategy                                                                    │  │
-│ │ └─ Daily scan: threads → campaign opportunities → ops/today.md                          │  │
-│ │                                                                                         │  │
-│ │ ops-dashboard                                                                           │  │
-│ │ └─ Auto-generate: today.md, velocity.md, patterns.md, changes.md                        │  │
-│ │                                                                                         │  │
-│ │ business-metrics-tracker                                                            │  │
-│ │ └─ Mode-aware metrics (VENTURE: ARR, MAU | BOOTSTRAP: MRR, profit)                      │  │
+│ │ OPERATIONS (ops-*) - 3 skills                                                           │  │
+│ │ └─ Content strategy, ops dashboard, business metrics                                    │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ RESEARCH SKILLS (research-*) - 2 skills                                                 │  │
-│ │                                                                                         │  │
-│ │ research-market-venture                                                                 │  │
-│ │ └─ TAM sizing, growth rates, competitive landscape, defensibility (VENTURE mode)        │  │
-│ │                                                                                         │  │
-│ │ research-market-bootstrap                                                               │  │
-│ │ └─ Spend mapping, arbitrage, immediate revenue (BOOTSTRAP mode)                         │  │
+│ │ RESEARCH (research-*) - 2 skills                                                        │  │
+│ │ └─ Venture (TAM, growth) / Bootstrap (spend mapping, arbitrage)                         │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ EXECUTION SKILLS - 2 skills                                                             │  │
-│ │                                                                                         │  │
-│ │ sales-execution (5 sub-skills)                                                          │  │
-│ │ └─ materials-generation, prospect-research, contact-finding,                            │  │
-│ │    outreach-sequencing, qualification-support                                           │  │
-│ │                                                                                         │  │
-│ │ marketing-execution (4 sub-skills)                                                      │  │
-│ │ └─ content-generation, seo-optimization, content-distribution, performance-tracking     │  │
+│ │ EXECUTION - 2 skills                                                                    │  │
+│ │ └─ sales-execution (materials, prospects, outreach)                                     │  │
+│ │ └─ marketing-execution (content, distribution, tracking)                                │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
-│                                                                                              │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -160,66 +117,55 @@ LeanOS operates in 4 layers: Strategy → Skills → Threads → Operations Dash
 
 **Updates:** Automatically updated by Stage 6 (Learning) in threads
 
-## Layer 2: Skills (AI Execution)
+## Layer 2: Reasoning (Meta-Reasoning Gateway)
+
+**Location:** `.claude/skills/reasoning-gateway/`
+
+**Purpose:** Route non-trivial tasks to appropriate reasoning mode
+
+### Reasoning Modes
+
+| Mode | Use When | Output |
+|------|----------|--------|
+| **Causal** | Operational execution (enforced for threads) | 6-stage thread |
+| **Abductive** | Anomaly diagnosis | Root cause hypothesis |
+| **Inductive** | Pattern detection | Validated pattern/rule |
+| **Analogical** | Novel situation | Adapted playbook |
+| **Dialectical** | Stakeholder conflict | Synthesis decision |
+| **Counterfactual** | Decision evaluation | Learning + recommendation |
+
+### Flow
+
+```
+Task arrives → Gateway selects mode → Mode executes → (chains to causal if action needed)
+```
+
+**Enforced flows:** Operational threads (business, sales, marketing, engineering) always use causal mode.
+
+## Layer 3: Skills (Domain Execution)
 
 **Location:** `.claude/skills/`
 
-**Purpose:** AI agents that execute operations autonomously
-
-**Total:** 19 skills with 60+ sub-skills organized by type prefix
-
 ### Skill Categories
 
-| Prefix | Count | Purpose |
-|--------|-------|---------|
-| `engineering-*` | 7 | System building & mathematical verification |
-| `foundations-*` | 4 | Business setup, ICP, narratives |
-| `ops-*` | 4 | Causal flow, dashboards, metrics |
-| `research-*` | 2 | Mode-aware market research |
-| `sales-*` | 1 | Sales pipeline execution |
-| `marketing-*` | 1 | Campaign execution |
+| Category | Purpose |
+|----------|---------|
+| `engineering/` | Categorical verification (specs → code → deployment) |
+| `foundations-*` | Canvas, ICP, narratives |
+| `ops-*` | Dashboards, metrics, content strategy |
+| `research-*` | Mode-aware market research |
+| `sales-execution` | Pipeline management |
+| `marketing-execution` | Campaign execution |
 
-### Engineering Skills (7)
+### Key Skills
 
-Full production flow with mathematical verification:
+- **Engineering:** 12-level categorical architecture (requirements → verified deployment)
+- **Foundations:** Canvas builder (10 agents), ICP generator, sales/marketing narratives
+- **Operations:** Content strategy, ops dashboard, metrics tracker
+- **Research:** Venture (TAM, growth) / Bootstrap (spend mapping)
+- **Execution:** Sales materials/outreach, marketing content/distribution
 
-```
-Requirements → Architecture → Maps → Code → Deployment
-     ↓              ↓           ↓       ↓         ↓
-  system-      backend-    standard-  frontend-  infrastructure-
-  architecture  prover      applier    prover      prover
-```
-
-**Key innovations:**
-- **Two-phase verification:** Generate maps first, verify composition, then generate code
-- **Split standardization:** Define WHAT standards exist (definer), then HOW to apply (applier)
-- **Proof composition:** All proofs must compose for deployment authorization
-
-### Foundations Skills (4)
-
-- **foundations-builder:** Orchestrate 10 agents for Canvas population
-- **icp-generator:** Define ICP per segment
-- **sales-narrative:** Generate sales messaging
-- **marketing-narrative:** Generate content strategy
-
-### Operations Skills (4)
-
-- **causal-flow:** 6-stage decision framework (Input → Learning)
-- **content-strategy:** Scan threads for campaign opportunities
-- **ops-dashboard:** Auto-generate daily operations interface
-- **business-metrics-tracker:** Mode-aware metrics dashboards
-
-### Research Skills (2)
-
-- **research-market-venture:** TAM, growth, defensibility (VENTURE mode)
-- **research-market-bootstrap:** Spend mapping, arbitrage (BOOTSTRAP mode)
-
-### Execution Skills (2)
-
-- **sales-execution:** Materials, prospects, outreach, qualification
-- **marketing-execution:** Content, SEO, distribution, tracking
-
-## Layer 3: Threads (Decision Storage)
+## Layer 4: Threads (Decision Storage)
 
 **Location:** `threads/{type}/{name}/`
 
@@ -258,7 +204,7 @@ threads/{type}/{name}/
 └── 6-learning.md
 ```
 
-## Layer 4: Operations Dashboard
+## Layer 5: Operations Dashboard
 
 **Location:** `ops/`
 
@@ -308,24 +254,40 @@ threads/{type}/{name}/
 
 ## Data Flow
 
-**Typical decision flow:**
+**Reasoning-first flow:**
 
-1. **Input captured** (Stage 1) → Thread created
-2. **Hypothesis formed** (Stage 2) → Links to Canvas assumptions
-3. **Implications analyzed** (Stage 3) → Business impact quantified
-4. **Decision made** (Stage 4) → Official commitment recorded
-5. **Actions executed** (Stage 5) → AI handles autonomously
-6. **Learning captured** (Stage 6) → Canvas auto-updated
-7. **Dashboard reflects** → ops/today.md shows result
-8. **Next decision triggered** → Pattern detected, new thread started
+```
+Task arrives
+    ↓
+Reasoning Gateway (mode selection)
+    ↓
+┌─────────────────────────────────────────────────────┐
+│ Abductive/Inductive/Analogical/Dialectical/         │
+│ Counterfactual (analytical modes)                   │
+│     ↓                                               │
+│ Output: hypothesis, pattern, playbook, synthesis    │
+│     ↓                                               │
+│ Chain to Causal if action needed                    │
+└─────────────────────────────────────────────────────┘
+    ↓
+Causal Mode (6-stage execution)
+    ↓
+Thread created → Actions executed → Learning captured → Canvas updated
+    ↓
+ops/today.md reflects result
+```
+
+**Enforced operational flow:**
+
+Operational threads (business, sales, marketing, engineering) skip gateway selection and use causal mode directly:
+
+```
+Operational trigger → Causal mode → 6-stage thread → Learning → Canvas update
+```
 
 **Closed-loop example:**
 
-Sales thread → Learning (Stage 6) → Canvas updated → Marketing scans threads → Content opportunity detected → Marketing thread created → Content published → SEO drives traffic → Demos requested → Sales threads created → Learning captured → Loop continues
-
-**Engineering flow example:**
-
-Business decision (build feature) → Engineering thread → system-architecture generates specs → backend-prover generates maps → maps verified → code generated → standardization applied → frontend-prover generates client → infrastructure-prover generates configs → proof-composer validates chain → deployment authorized
+Sales thread → Learning (Stage 6) → Canvas updated → Marketing scans → Content opportunity → Marketing thread → Published → Traffic → Demos → Sales threads → Loop continues
 
 ## Next Steps
 

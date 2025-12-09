@@ -2,6 +2,13 @@
 
 Engineering in LeanOS operates in two phases: Specification (architecture design) and Build Pipeline (code generation with mathematical verification).
 
+**Reasoning mode:** Causal (enforced) - all engineering threads use 6-stage causal flow.
+**When to use other modes:**
+- Abductive: "Why did production fail?" → diagnose root cause
+- Inductive: "This pattern keeps causing bugs" → detect pattern, update architecture
+- Analogical: "This service is like our billing service" → adapt existing patterns
+- Dialectical: "Engineering wants stability, Sales wants features" → find synthesis
+
 ## Phase 1: Specification (System Architecture)
 
 ### Starting Point: Business Thread
