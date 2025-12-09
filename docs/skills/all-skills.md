@@ -1,23 +1,44 @@
 # LeanOS Skills Reference
 
-Complete reference of AI skills for business operations. **19 skills with 60+ sub-skills** organized by functional type.
+Complete reference of AI skills for business operations.
 
-## Skill Organization (v1.4)
+## Skill Organization (v2.0)
 
-All skills use type-based naming for easy discovery:
-
-| Prefix | Count | Purpose |
-|--------|-------|---------|
-| `engineering-*` | 7 | System building & mathematical verification |
-| `foundations-*` | 4 | Business setup, ICP, narratives |
-| `ops-*` | 4 | Causal flow, dashboards, metrics |
-| `research-*` | 2 | Mode-aware market research |
-| `sales-*` | 1 | Sales pipeline execution |
-| `marketing-*` | 1 | Campaign execution |
+| Category | Purpose |
+|----------|---------|
+| `reasoning-gateway/` | Meta-reasoning with 6 modes (routes all non-trivial tasks) |
+| `engineering/` | System building with categorical verification |
+| `foundations-*` | Business setup, ICP, narratives |
+| `ops-*` | Dashboards, metrics, content strategy |
+| `research-*` | Mode-aware market research |
+| `sales-execution` | Sales pipeline management |
+| `marketing-execution` | Campaign execution |
 
 ---
 
-## Engineering Skills (7 skills, 27 sub-skills)
+## Reasoning Gateway (6 modes)
+
+**Purpose:** Route non-trivial tasks to appropriate reasoning mode
+
+**Skill:** `.claude/skills/reasoning-gateway/SKILL.md`
+
+| Mode | Use When | Skill |
+|------|----------|-------|
+| **Causal** | Operational execution, known processes | `stages/reasoning-causal/` |
+| **Abductive** | Anomaly diagnosis, "why did X happen?" | `stages/reasoning-abductive/` |
+| **Inductive** | Pattern detection, "this keeps happening" | `stages/reasoning-inductive/` |
+| **Analogical** | Novel situations, "this is like..." | `stages/reasoning-analogical/` |
+| **Dialectical** | Stakeholder conflicts, trade-offs | `stages/reasoning-dialectical/` |
+| **Counterfactual** | Decision evaluation, "what if..." | `stages/reasoning-counterfactual/` |
+
+**Causal mode** (enforced for threads) includes:
+- 6 stage sub-skills (input, hypothesis, implication, decision, actions, learning)
+- Thread references (business, sales, marketing, engineering)
+- Action templates (sales, marketing)
+
+---
+
+## Engineering Skills
 
 Full production flow: Requirements → Architecture → Maps → Code → Deployment
 
@@ -153,26 +174,9 @@ Creates persona-specific problem-solution-specifics narratives for buyers.
 
 ---
 
-## Operations Skills (4 skills)
+## Operations Skills (3 skills)
 
-Operational workflows and dashboards.
-
-### causal-flow (6 stage skills)
-**Purpose:** 6-stage decision framework
-**Stages:** Input → Hypothesis → Implication → Decision → Actions → Learning
-**Thread types:** Business, sales, marketing, engineering
-
-**Stage skills:**
-1. `causal-flow-input` - Capture factual observations
-2. `causal-flow-hypothesis` - Link to Canvas assumptions
-3. `causal-flow-implication` - Analyze business impact
-4. `causal-flow-decision` - Official commitment
-5. `causal-flow-actions` - Execute typed tasks
-6. `causal-flow-learning` - Validate and update Canvas
-
-**Key feature:** Stage 6 auto-updates Canvas from learning
-
-**Docs:** See [Causal Flow](../operations/causal-flow.md)
+Operational dashboards and monitoring.
 
 ### content-strategy
 **Purpose:** Motion-aware content discovery and opportunity detection
@@ -271,16 +275,9 @@ Mode-aware market research.
 
 ## Skill Discovery
 
-**By prefix (autocomplete):**
-```bash
-ls .claude/skills/engineering-*   # 7 results
-ls .claude/skills/foundations-*   # 4 results
-ls .claude/skills/ops-*           # 4 results
-ls .claude/skills/research-*      # 2 results
-```
-
 **By function:**
-- Building systems? → `engineering-*`
+- Need to reason through a problem? → `reasoning-gateway/`
+- Building systems? → `engineering/`
 - Setting up business? → `foundations-*`
 - Daily operations? → `ops-*`
 - Market research? → `research-*`

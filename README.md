@@ -1,6 +1,6 @@
 # LeanOS: AI-Native Operating System for Startups, Small Teams, and Founders
 
-**Status:** Active Development | **Version:** 1.4 (Motion-Aware Marketing) | **Last Updated:** 2025-12-02
+**Status:** Active Development | **Version:** 2.0 (Reasoning Gateway) | **Last Updated:** 2025-12-09
 
 AI-native OS that automates 95%+ of business operations for startups, small teams, and founders.
 
@@ -99,10 +99,12 @@ personal-os/
 ├── research/customer/        # ICP definitions, prospect lists
 ├── artifacts/                # Deliverables (sales materials, published content, engineering)
 ├── ops/                      # Daily interface (auto-generated)
-└── .claude/skills/           # AI execution layer (19 skills, 60+ sub-skills)
-    ├── engineering-*         # 7 skills: System building & verification
+└── .claude/skills/           # AI execution layer
+    ├── reasoning-gateway/    # Meta-reasoning: routes to appropriate mode
+    │   └── stages/           # 6 reasoning modes (causal, abductive, inductive, etc.)
+    ├── engineering/          # System building with categorical verification
     ├── foundations-*         # 4 skills: Business setup & strategy
-    ├── ops-*                 # 4 skills: Operational workflows
+    ├── ops-*                 # 3 skills: Dashboards, metrics, content strategy
     ├── research-*            # 2 skills: Market research
     ├── sales-execution/      # Sales pipeline management
     └── marketing-execution/  # Campaign execution
@@ -149,31 +151,32 @@ personal-os/
 - 📋 Ops dashboard auto-generation
 - 🔮 Full automation (customer success, fundraising)
 
-## Skill Architecture (v1.4)
+## Skill Architecture (v2.0)
 
-**19 skills organized by functional type:**
+### Reasoning Gateway (New)
 
-| Prefix | Count | Purpose |
-|--------|-------|---------|
-| `engineering-*` | 7 | System building & mathematical verification |
-| `foundations-*` | 4 | Business setup, ICP, narratives |
-| `ops-*` | 4 | Causal flow, dashboards, metrics |
-| `research-*` | 2 | Mode-aware market research |
-| `sales-*` | 1 | Sales pipeline execution |
-| `marketing-*` | 1 | Campaign execution |
+Routes to appropriate reasoning mode based on context:
 
-**Engineering layer flow:**
-```
-Requirements → Architecture → Maps → Code → Deployment
-     ↓              ↓           ↓       ↓         ↓
-  system-      backend-    standard-  frontend-  infrastructure-
-  architecture  prover      applier    prover      prover
-```
+| Mode | Use When |
+|------|----------|
+| **Causal** | Operational execution, known processes (enforced for threads) |
+| **Abductive** | Anomaly diagnosis, "why did X happen?" |
+| **Inductive** | Pattern detection, "this keeps happening" |
+| **Analogical** | Novel situations, "this is like..." |
+| **Dialectical** | Stakeholder conflicts, trade-off resolution |
+| **Counterfactual** | Decision evaluation, "what if we had..." |
 
-**Key innovations:**
-- **Two-phase verification:** Generate maps first, verify composition, then generate code
-- **Split standardization:** Define WHAT standards exist, then HOW to apply them
-- **Mathematical proofs:** Category theory guarantees correctness at each stage
+### Skill Categories
+
+| Category | Purpose |
+|----------|---------|
+| `reasoning-gateway/` | Meta-reasoning with 6 modes |
+| `engineering/` | Categorical verification (12 levels) |
+| `foundations-*` | Business setup, ICP, narratives |
+| `ops-*` | Dashboards, metrics, content strategy |
+| `research-*` | Mode-aware market research |
+| `sales-execution` | Pipeline management |
+| `marketing-execution` | Campaign execution |
 
 See [All Skills](docs/skills/all-skills.md) for complete reference.
 
@@ -199,4 +202,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 ---
 
-**Last Updated:** 2025-12-02 | **Version:** 1.4 (Motion-Aware Marketing)
+**Last Updated:** 2025-12-09 | **Version:** 2.0 (Reasoning Gateway)

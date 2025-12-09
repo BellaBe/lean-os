@@ -2,6 +2,8 @@
 
 Universal decision framework for business, sales, marketing, and engineering threads.
 
+**Skill:** `.claude/skills/reasoning-gateway/stages/reasoning-causal/SKILL.md`
+
 ## Overview
 
 Every decision flows through 6 stages:
@@ -23,7 +25,7 @@ Source: Signed contract + pilot results
 Date: {date}
 ```
 
-**Skill:** `causal-flow/stages/causal-flow-input/`
+**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-input/`
 
 ---
 
@@ -43,7 +45,7 @@ Result: Validated (5/5 chose {option})
 Confidence: 60% → 95%
 ```
 
-**Skill:** `causal-flow/stages/causal-flow-hypothesis/`
+**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-hypothesis/`
 
 ---
 
@@ -64,7 +66,7 @@ Investment: 40 hours
 Priority: 0.85
 ```
 
-**Skill:** `causal-flow/stages/causal-flow-implication/`
+**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-implication/`
 
 ---
 
@@ -112,7 +114,7 @@ Alternatives:
 Rationale: High confidence, immediate revenue, excellent margins
 ```
 
-**Skill:** `causal-flow/stages/causal-flow-decision/`
+**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-decision/`
 
 **See also:** [Success Metrics](../integration/success-metrics.md) for mode-specific criteria
 
@@ -127,9 +129,9 @@ Rationale: High confidence, immediate revenue, excellent margins
 - Marketing: create, publish, promote, measure
 - Engineering: architecture, backend, frontend, infrastructure, validate
 
-**Templates:** `causal-flow/actions/templates/`
+**Templates:** `reasoning-gateway/stages/reasoning-causal/actions/templates/`
 
-**Skill:** `causal-flow/stages/causal-flow-actions/`
+**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-actions/`
 
 ---
 
@@ -145,7 +147,7 @@ Rationale: High confidence, immediate revenue, excellent margins
 
 **Key feature:** Automatically updates Canvas assumptions
 
-**Skill:** `causal-flow/stages/causal-flow-learning/`
+**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-learning/`
 
 ---
 

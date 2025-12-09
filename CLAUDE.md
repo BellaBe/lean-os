@@ -46,17 +46,21 @@ Information exists in ONE place only:
 - Customer segments: `strategy/canvas/04-segments.md`
 - ICPs per **segment**: `research/customer/icp/{segment}-icp.md`
 
-### 3. 6-Stage Causal Flow
-**INPUT → HYPOTHESIS → IMPLICATION → DECISION → ACTIONS → LEARNING**
+### 3. Reasoning Gateway
+Non-trivial tasks route through reasoning-gateway which selects appropriate mode:
 
-| Stage | Must Include |
-|-------|--------------|
-| 1. Input | Factual observation with source |
-| 2. Hypothesis | Link to Canvas assumption being tested |
-| 3. Implication | Quantified business impact |
-| 4. Decision | Impact score + reasoning + alternatives |
-| 5. Actions | Typed execution (engineering/sales/marketing/ops) |
-| 6. Learning | Outcome → Update Canvas if validated |
+| Context | Mode | Use When |
+|---------|------|----------|
+| Operational execution | **Causal** | Known process, clear cause-effect (enforced for threads) |
+| Anomaly/diagnosis | **Abductive** | "Why did X happen?" |
+| Pattern detection | **Inductive** | "This keeps happening" |
+| Novel situation | **Analogical** | "This is like..." |
+| Stakeholder conflict | **Dialectical** | "On one hand... on the other" |
+| Decision evaluation | **Counterfactual** | "What if we had..." |
+
+**Causal flow (6-stage):** INPUT → HYPOTHESIS → IMPLICATION → DECISION → ACTIONS → LEARNING
+
+Skill: `.claude/skills/reasoning-gateway/SKILL.md`
 
 ### 4. Impact-Based Autonomy
 | Impact | Action |
@@ -160,4 +164,4 @@ Check mode in `strategy/canvas/00-business-model-mode.md` for impact formula.
 
 ---
 
-**Version:** 2.0 | **Updated:** 2025-12-09
+**Version:** 2.1 | **Updated:** 2025-12-09
