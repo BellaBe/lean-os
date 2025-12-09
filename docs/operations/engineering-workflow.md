@@ -108,25 +108,19 @@ Output: artifacts/engineering/specifications/v1/
 
 **Output structure:**
 ```
-artifacts/engineering/specifications/v1/
-├── requirements.adt
-├── types.curry-howard
-├── architecture.categorical
-├── api.openapi.json
-├── services.spec.yaml
-├── state-machines.yaml
-└── versions.yaml
-
-artifacts/engineering/specifications/manifest.json
-
-artifacts/engineering/proofs/architecture/
-├── adt-validation/
-├── type-proofs/
-├── composition-proofs/
-├── functor-laws/
-├── natural-transformations/
-├── state-machine-proofs/
-└── version-compatibility/
+artifacts/engineering/
+├── specifications/
+│   ├── manifest.json                      # Content hashes (immutable)
+│   └── v{X}/                              # Versioned snapshot
+│       ├── requirements.adt               # From adt-analyzer
+│       ├── types.curry-howard             # From curry-howard-prover
+│       ├── architecture.categorical       # From functor-generator + system-optimizer
+│       ├── api.openapi.json              # OpenAPI 3.1 spec
+│       ├── services.spec.yaml            # Service boundaries
+│       ├── state-machines.yaml           # From state-machine-validator
+│       └── versions.yaml                 # From version-compatibility-prover
+└── proofs/architecture/v{X}/
+    └── architecture.proof.yaml            # Unified proof certificate (all sub-skill proofs)
 ```
 
 ---
