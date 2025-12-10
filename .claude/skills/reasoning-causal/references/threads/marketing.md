@@ -32,7 +32,7 @@ threads/marketing/{campaign-name}/
 | `marketing:create` | Content creation (copy, design, video) | Yes (approval) | 5-7 days | `content-generation` |
 | `marketing:publish` | Publish to channels (LinkedIn, website, email) | No | 1 day | Human workflow |
 | `marketing:promote` | Paid promotion, outreach, distribution | Yes (budget) | 14-30 days | Human workflow |
-| `marketing:measure` | Track metrics, analyze performance | No | 7 days | `ops-dashboard` |
+| `marketing:measure` | Track metrics, analyze performance | No | 7 days | `goal-tracker` |
 
 ### Action Metadata Format
 

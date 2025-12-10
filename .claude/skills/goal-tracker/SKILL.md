@@ -307,10 +307,6 @@ Trigger: All success criteria met
 - Goal completion may validate Canvas assumptions
 - Recommend Canvas updates based on learnings
 
-### With ops-dashboard
-- Provides goal section data
-- Flags off-track goals for attention
-
 ## Autonomy Behavior
 
 ### Auto Mode

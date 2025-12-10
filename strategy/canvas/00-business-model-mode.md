@@ -317,7 +317,7 @@ Market Gap → Monetization → Prove PMF → Raise → Scale → Exit
 - Thread impact scoring (causal-flow)
 - Research priorities (market research skills)
 - Product decisions (foundation-builder)
-- Metrics tracking (ops-dashboard)
+- Goal tracking (goal-setter, goal-tracker)
 - GTM strategy (sales-execution, marketing-execution)
 
 ---
