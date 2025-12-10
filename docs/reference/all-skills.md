@@ -27,7 +27,7 @@ Complete reference of AI skills and agents for business operations.
 | `foundations-*` | 9 | Business setup, Canvas sections |
 | `sales-*` | 5 | Sales pipeline activities |
 | `marketing-*` | 3 | Campaign execution |
-| `ops-*` | 3 | Dashboards, metrics, content strategy |
+| `ops-*` | 2 | Dashboard, content strategy |
 | `research-*` | 1 | Mode-aware market research |
 | `engineering/` | 1 | Categorical verification (nested, internal) |
 
@@ -224,13 +224,12 @@ Goals are the **primary operating mode** for LeanOS. All work should be goal-dri
 
 ---
 
-## Operations Skills (3)
+## Operations Skills (2)
 
 | Skill | Purpose | Output |
 |-------|---------|--------|
 | `ops-content-strategy` | Motion-aware opportunity detection | `ops/today.md` opportunities |
 | `ops-dashboard` | Auto-generate daily interface | `ops/today.md`, `ops/velocity.md` |
-| `ops-business-metrics-tracker` | Mode-aware metrics dashboards | `artifacts/business/metrics.md` |
 
 **Mode-aware scoring (content-strategy):**
 - **Loop-Driven:** Loop Potential × Velocity Story × Audience Alignment
