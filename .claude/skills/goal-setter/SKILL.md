@@ -17,13 +17,81 @@ REACTIVE (fallback):  Signal → Thread → Link to Goal (or create new goal)
 ```
 
 **Goal-setter reads:**
-- Canvas (strategic context, assumptions, constraints)
-- Mode (`strategy/canvas/00-business-model-mode.md`)
-- Existing goals (avoid conflicts, find linkages)
+- Canvas (`strategy/canvas/*`) - strategic context, assumptions, constraints
+- Existing goals (`strategy/goals/active/*`) - avoid conflicts, find linkages
 
 **Goal-setter does NOT read:**
 - Threads (execution output, not input)
 - Artifacts (deliverables, not context)
+
+## Canvas Reference
+
+Goal-setter uses Canvas sections for context, constraints, and success criteria alignment.
+
+### Canvas Sections (15 files)
+
+| Section | Purpose | Goal-setter Use |
+|---------|---------|-----------------|
+| `00-business-model-mode.md` | VENTURE/BOOTSTRAP mode | **Required** - determines metrics, decomposition |
+| `01-context.md` | Product, market context (KBOS) | Goal alignment check |
+| `02-constraints.md` | Budget, time, resources | Goal constraints |
+| `03-opportunity.md` | TAM/SAM/SOM, timing | Business goal sizing |
+| `04-segments.md` | Customer segments | Target audience for goals |
+| `05-problem.md` | Top 3 problems | Problem-focused goals |
+| `06-competitive.md` | Competitors, positioning | Competitive goals |
+| `07-uvp.md` | Unique Value Proposition | Messaging alignment |
+| `08-advantage.md` | Unfair advantages, moats | Strategic goals |
+| `09-solution.md` | MVP features | Product goals |
+| `10-assumptions.md` | Hypotheses, validation status | **Key** - link goals to assumptions |
+| `11-pricing.md` | Revenue model, tiers | Revenue goal targets |
+| `12-costs.md` | Cost structure, burn | Profitability constraints |
+| `13-metrics.md` | Key metrics, targets | Success criteria source |
+| `14-growth.md` | Channels, tactics | Growth goal strategies |
+| `15-go-to-market.md` | GTM strategy | Marketing/sales goals |
+
+### Canvas Reading by Goal Type
+
+```
+business goals:
+  Required: 00-mode, 11-pricing, 12-costs, 13-metrics
+  Context:  01-context, 03-opportunity, 04-segments
+  Link to:  10-assumptions (revenue/growth hypotheses)
+
+brand goals:
+  Required: 01-context, 07-uvp
+  Context:  04-segments, 14-growth
+  Link to:  10-assumptions (audience/positioning hypotheses)
+
+product goals:
+  Required: 09-solution, 05-problem
+  Context:  01-context, 02-constraints
+  Link to:  10-assumptions (product/market fit hypotheses)
+
+learning goals:
+  Context:  01-context (what skills needed)
+  Link to:  10-assumptions (capability hypotheses)
+```
+
+### Linking Goals to Canvas Assumptions
+
+Every goal should link to Canvas assumptions (`10-assumptions.md`):
+
+```markdown
+## Canvas Links
+
+**Validates assumptions:**
+- A3: "Enterprise customers will pay $500/month" (10-assumptions.md)
+- A7: "Content marketing drives qualified leads" (10-assumptions.md)
+
+**Informs sections:**
+- 13-metrics.md (success updates metrics)
+- 11-pricing.md (if pricing assumption validated)
+```
+
+When goal completes:
+1. Update linked assumption status in `10-assumptions.md`
+2. Update relevant Canvas section if assumption validated/invalidated
+3. Log learning in goal file
 
 ## Type Signature
 
@@ -257,6 +325,14 @@ canvas_refs: ["{section}.md", ...]  # Optional Canvas links
 - **Projected completion:** TBD
 - **Risk level:** Low
 
+## Canvas Links
+
+**Validates assumptions:**
+- {assumption-id}: "{assumption text}" (10-assumptions.md)
+
+**Informs sections:**
+- {section}.md (what updates on success)
+
 ## Log
 - {created date}: Goal created
 ```
@@ -264,9 +340,10 @@ canvas_refs: ["{section}.md", ...]  # Optional Canvas links
 ## Integration
 
 ### With Canvas
-- Reference relevant Canvas sections in `canvas_refs`
-- Subgoals may validate Canvas assumptions
-- Goal completion can trigger Canvas updates
+- Read relevant sections before creating goal (see Canvas Reference)
+- Reference sections in `canvas_refs` frontmatter
+- Link to assumptions in Canvas Links section
+- Goal completion triggers Canvas updates (assumptions, metrics)
 
 ### With Threads
 - Subgoals spawn threads when activated
@@ -284,36 +361,55 @@ canvas_refs: ["{section}.md", ...]  # Optional Canvas links
 ### Business Goal (BOOTSTRAP)
 ```
 User: "I want to hit $50K MRR by end of Q2"
-Mode: BOOTSTRAP (read from Canvas)
+
+Canvas read:
+- 00-mode: BOOTSTRAP
+- 11-pricing: $500/mo average, 3 tiers
+- 12-costs: $5K/mo burn, need profitability
+- 13-metrics: Current MRR $8K, 16 customers
+- 04-segments: SMB primary, Enterprise secondary
 
 Goal created:
 - id: g-mrr-50k
 - type: business
 - mode: BOOTSTRAP
 - deadline: 2025-06-30
+- canvas_refs: [00-mode, 11-pricing, 12-costs, 13-metrics]
 - Success criteria: MRR >= $50K, Profit margin >= 30%, CAC payback < 6 months
 - Subgoals (revenue-first order):
   - SG1: Close first 3 paying customers
   - SG2: Validate unit economics (LTV:CAC > 5:1)
   - SG3: Scale acquisition (pipeline of 20 leads)
+- Canvas Links:
+  - A2: "SMB customers convert at 5%" (validates)
+  - A5: "$500/mo price point acceptable" (validates)
 - Autonomy: ask (cash preservation)
 ```
 
 ### Business Goal (VENTURE)
 ```
 User: "I want to hit $500K ARR by end of year"
-Mode: VENTURE (read from Canvas)
+
+Canvas read:
+- 00-mode: VENTURE
+- 03-opportunity: TAM $2B, growing 40% YoY
+- 13-metrics: Current ARR $50K, 500 MAU
+- 14-growth: PLG primary, content secondary
 
 Goal created:
 - id: g-arr-500k
 - type: business
 - mode: VENTURE
 - deadline: 2025-12-31
+- canvas_refs: [00-mode, 03-opportunity, 13-metrics, 14-growth]
 - Success criteria: ARR >= $500K, MAU >= 10K, Growth >= 100% YoY
 - Subgoals (growth-first order):
   - SG1: Acquire 5K users (product-led)
   - SG2: Activate 50% to active usage
   - SG3: Convert 5% to paid
+- Canvas Links:
+  - A1: "PLG drives user acquisition" (validates)
+  - A4: "5% free-to-paid conversion achievable" (validates)
 - Autonomy: hybrid (speed matters)
 ```
 
@@ -321,30 +417,48 @@ Goal created:
 ```
 User: "Build my LinkedIn presence for thought leadership"
 
+Canvas read:
+- 01-context: B2B SaaS, technical audience
+- 07-uvp: "AI-native operations for startups"
+- 04-segments: Technical founders, solo operators
+- 14-growth: Content marketing as key channel
+
 Goal created:
 - id: g-linkedin-authority
 - type: brand
 - deadline: 2025-06-30 (asked user)
+- canvas_refs: [01-context, 07-uvp, 04-segments, 14-growth]
 - Success criteria: 10K followers, 5K avg impressions, 2 leads/month
 - Subgoals:
-  - SG1: Define content pillars
+  - SG1: Define content pillars (aligned with 07-uvp)
   - SG2: Establish posting cadence (3x/week)
-  - SG3: Build engagement network
+  - SG3: Build engagement network (04-segments audience)
+- Canvas Links:
+  - A8: "Content drives inbound leads" (validates)
 ```
 
 ### Product Goal
 ```
 User: "Ship the mobile app"
 
+Canvas read:
+- 09-solution: MVP = core workflow + notifications
+- 05-problem: "Users need mobile access to approve decisions"
+- 01-context: Web app exists, mobile requested by 60% of users
+- 02-constraints: 2 developers, Q1 deadline
+
 Goal created:
 - id: g-mobile-app-launch
 - type: product
 - deadline: 2025-03-31 (asked user)
+- canvas_refs: [09-solution, 05-problem, 01-context, 02-constraints]
 - Success criteria: App in stores, 100 beta users, <1% crash rate
 - Subgoals:
-  - SG1: Core features complete
-  - SG2: Beta testing
+  - SG1: Core features complete (09-solution scope)
+  - SG2: Beta testing (recruit from existing users)
   - SG3: Store submission
+- Canvas Links:
+  - A6: "Mobile increases engagement 2x" (validates)
 ```
 
 ## Constraints

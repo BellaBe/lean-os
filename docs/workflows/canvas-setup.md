@@ -395,7 +395,7 @@ Use these agents for specific scenarios outside core operations:
 - Acquisition tactics per channel
 - Expected performance
 
-### 15-gtm.md
+### 15-go-to-market.md
 - Go-to-market strategy
 - Launch plan
 - Early customer acquisition approach
