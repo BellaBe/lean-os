@@ -228,7 +228,7 @@ Goals are the **primary operating mode** for LeanOS. All work should be goal-dri
 
 | Skill | Purpose | Output |
 |-------|---------|--------|
-| `ops-content-strategy` | Motion-aware opportunity detection | Content opportunities |
+| `marketing-content-strategy` | Motion-aware opportunity detection | Content opportunities |
 
 **Mode-aware scoring (content-strategy):**
 - **Loop-Driven:** Loop Potential × Velocity Story × Audience Alignment

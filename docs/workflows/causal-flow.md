@@ -2,16 +2,35 @@
 
 Universal decision framework for business, sales, marketing, and engineering threads.
 
-**Skill:** `.claude/skills/reasoning-gateway/stages/reasoning-causal/SKILL.md`
+**Skill:** `.claude/skills/reasoning-causal/SKILL.md`
+
+## Relationship to Goals
+
+Threads are the **execution layer** for goals:
+
+```
+Goal (goal-setter)
+  └── Subgoal
+        └── Thread (reasoning-causal) ← 6-stage execution
+              └── Learning → updates Goal state + Canvas
+```
+
+**Thread types:**
+- **Goal-linked:** Created from subgoals, has `goal_id` in metadata
+- **Reactive:** Created from signals (no goal), may link to goal later
 
 ## Overview
 
 Every decision flows through 6 stages:
 **Input → Hypothesis → Implication → Decision → Actions → Learning**
 
+---
+
 ## Stage 1: INPUT
 
 **Purpose:** Capture factual observation (not opinion)
+
+**File:** `1-input.md`
 
 **Process:**
 - Record what happened
@@ -25,13 +44,13 @@ Source: Signed contract + pilot results
 Date: {date}
 ```
 
-**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-input/`
-
 ---
 
 ## Stage 2: HYPOTHESIS
 
 **Purpose:** Challenge/validate Canvas assumptions
+
+**File:** `2-hypothesis.md`
 
 **Process:**
 - Identify which assumption this tests
@@ -45,13 +64,13 @@ Result: Validated (5/5 chose {option})
 Confidence: 60% → 95%
 ```
 
-**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-hypothesis/`
-
 ---
 
 ## Stage 3: IMPLICATION
 
 **Purpose:** Analyze business impact with numbers
+
+**File:** `3-implication.md`
 
 **Process:**
 - Quantify impact (revenue, cost, time)
@@ -66,18 +85,18 @@ Investment: 40 hours
 Priority: 0.85
 ```
 
-**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-implication/`
-
 ---
 
 ## Stage 4: DECISION
 
 **Purpose:** Official commitment with mode-aware impact scoring
 
+**File:** `4-decision.md`
+
 **Process:**
 1. Check business model mode (`strategy/canvas/00-business-model-mode.md`)
 2. Calculate impact score using mode-specific formula
-3. State decision (CREATE, DEFER, REJECT)
+3. State decision (PROCEED, DEFER, DECLINE)
 4. Document alternatives
 5. Explain reasoning
 
@@ -97,57 +116,44 @@ Impact = (Revenue Impact × Time to Cash × Margin) / 3
 - <0.8: AI proceeds autonomously
 - ≥0.8: Human approval required
 
-**Example (Bootstrap Mode):**
-```
-Decision: CREATE - White-label service for agencies
-
-Impact Calculation:
-- Revenue Impact: 0.7 ($25k MRR potential)
-- Time to Cash: 0.8 (6 weeks to first payment)
-- Margin: 0.9 (80% gross margin)
-→ Impact: 0.80 (requires human approval)
-
-Alternatives:
-- Wait for more customers (rejected - opportunity cost too high)
-- Partner with provider (rejected - poor margins)
-
-Rationale: High confidence, immediate revenue, excellent margins
-```
-
-**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-decision/`
-
-**See also:** [Success Metrics](../reference/architecture.md) for mode-specific criteria
-
 ---
 
 ## Stage 5: ACTIONS
 
 **Purpose:** Execute tasks
 
+**File:** `5-actions.md` or `5-actions/` directory
+
 **Typed actions:**
 - Sales: lead-intake, qualify, demo, pilot, close
 - Marketing: create, publish, promote, measure
 - Engineering: architecture, backend, frontend, infrastructure, validate
 
-**Templates:** `reasoning-gateway/stages/reasoning-causal/actions/templates/`
-
-**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-actions/`
+**Skills:** `sales-*`, `marketing-*`, `engineering-*`
 
 ---
 
 ## Stage 6: LEARNING
 
-**Purpose:** Validate hypothesis, update Canvas
+**Purpose:** Validate hypothesis, update Canvas AND Goal
+
+**File:** `6-learning.md`
 
 **Process:**
 - Compile metrics
 - Validate/invalidate hypothesis
-- Auto-update Canvas
+- Update Canvas assumptions
+- If goal-linked: Update goal state
 - Detect new opportunities
 
-**Key feature:** Automatically updates Canvas assumptions
-
-**Skill:** `reasoning-gateway/stages/reasoning-causal/stages/causal-flow-learning/`
+**Goal Integration:**
+```
+If thread.goal_id exists:
+  1. Read goal from strategy/goals/active/{goal_id}.md
+  2. Update subgoal status (pending → completed)
+  3. Extract metrics for goal state
+  4. Check if goal success criteria met
+```
 
 ---
 
@@ -173,36 +179,82 @@ Rationale: High confidence, immediate revenue, excellent margins
 - System architecture decisions
 - Feature implementation
 
-**Engineering action types:**
-- `engineering:architecture` - Generate mathematical specs (system-architecture skill)
-- `engineering:backend` - Generate verified backend code (backend-prover skill)
-- `engineering:frontend` - Generate type-safe frontend (frontend-prover skill)
-- `engineering:infrastructure` - Generate deployment configs (infrastructure-prover skill)
-- `engineering:validate` - Validate proof chain (proof-composer skill)
+---
 
-**Engineering artifacts:**
-```
-artifacts/engineering/
-├── specifications/v{X}/    # Mathematical specs (ADT, proofs, API)
-├── maps/                   # Structural specs before code
-│   ├── backend/           # Service maps
-│   └── shared/            # Standards contracts
-├── code/                   # Generated code
-│   ├── backend/           # Python/FastAPI
-│   └── frontend/          # TypeScript/Remix
-├── configs/               # Deployment
-│   ├── docker/
-│   ├── kubernetes/
-│   └── ci-cd/
-└── proofs/                # Verification proofs
-    └── composed/          # system-proof.certificate
+## Thread Metadata
+
+**File:** `meta.json`
+
+```json
+{
+  "id": "thread-{type}-{name}",
+  "type": "business | sales | marketing | engineering",
+  "status": "active | completed | blocked",
+  "created": "YYYY-MM-DD",
+  "updated": "YYYY-MM-DD",
+  "goal_id": "g-{goal-id}",
+  "subgoal": "SG1",
+  "stage": 1-6,
+  "impact_score": 0.0-1.0
+}
 ```
 
 ---
 
-For complete examples, see:
-- [Sales Workflow](sales-workflow.md)
-- [Marketing Workflow](marketing-workflow.md)
-- [Engineering Workflow](engineering-workflow.md)
-- [How It Works](../reference/architecture.md)
-- [All Skills](../reference/all-skills.md)
+## Workflow
+
+### Goal-Linked Thread (Primary)
+
+```
+1. Receive subgoal from goal-setter
+2. Create thread: threads/{type}/{name}/
+3. Set meta.json with goal_id and subgoal
+4. Execute stages 1-6 sequentially
+5. At Stage 4: Calculate impact, flag if ≥0.8
+6. At Stage 6: Update Canvas AND goal state
+7. Notify goal-tracker of completion
+```
+
+### Reactive Thread (Fallback)
+
+```
+1. Receive signal (feedback, anomaly, opportunity)
+2. Create thread: threads/{type}/{name}/
+3. Set meta.json without goal_id
+4. Execute stages 1-6 sequentially
+5. At Stage 4: Calculate impact, flag if ≥0.8
+6. At Stage 6: Update Canvas
+7. Optionally: Link to existing goal or spawn new goal
+```
+
+---
+
+## References
+
+**Skill location:** `.claude/skills/reasoning-causal/`
+
+```
+reasoning-causal/
+├── SKILL.md              # Main skill file
+└── references/
+    ├── stages/           # Stage execution details
+    │   ├── input.md
+    │   ├── hypothesis.md
+    │   ├── implication.md
+    │   ├── decision.md
+    │   ├── actions.md
+    │   └── learning.md
+    └── threads/          # Thread type specifics
+        ├── business.md
+        ├── sales.md
+        ├── marketing.md
+        └── engineering.md
+```
+
+---
+
+## Next Steps
+
+- Learn sales workflow: [Sales Workflow](sales-workflow.md)
+- Learn marketing workflow: [Marketing Workflow](marketing-workflow.md)
+- See all skills: [All Skills](../reference/all-skills.md)

@@ -2,6 +2,19 @@
 
 Sales in LeanOS operates in two phases: Strategy (once per segment) and Execution (per deal).
 
+## Goal Integration
+
+Sales activities execute business goals. A revenue goal spawns sales threads:
+
+```
+Goal: "Reach $50K MRR by Q2"
+  └── Subgoal: "Close first 3 customers"
+        └── Thread: threads/sales/acme-corp/ (goal-linked)
+```
+
+**Agent:** `sales-execution` orchestrates sales skills
+**Skills:** `sales-materials-generation`, `sales-prospect-research`, `sales-contact-finding`, `sales-outreach-sequencing`, `sales-qualification-support`
+
 **Reasoning mode:** Causal (enforced) - all sales threads use 6-stage causal flow.
 **When to use other modes:**
 - Abductive: "Why did we lose this deal?" → diagnose, then chain to causal for fix
@@ -42,9 +55,9 @@ qualification_score: 0.85
 ### Step 2: Create Sales Narrative
 
 ```
-Skill: sales-narrative
+Skill: foundations-sales-narrative
 Input: Canvas + ICP
-Output: threads/sales/narrative/{segment}/
+Output: artifacts/sales/{segment}/narrative/
   ├── problem-narrative.md
   ├── solution-narrative.md
   └── specifics-narrative.md
@@ -60,7 +73,7 @@ Output: threads/sales/narrative/{segment}/
 ### Step 3: Generate Sales Materials
 
 ```
-Skill: sales-execution/materials-generation
+Skill: sales-materials-generation
 Input: Canvas + Narrative + ICP
 Output: artifacts/sales/{segment}/materials/
   ├── pitch-deck.md
@@ -83,13 +96,13 @@ Every deal flows through a 6-stage thread:
 
 ```
 threads/sales/{company-name}/
-├── metadata.yaml
+├── meta.json            # Includes goal_id if goal-linked
 ├── 1-input.md
 ├── 2-hypothesis.md
 ├── 3-implication.md
 ├── 4-decision.md
 ├── 5-actions.md
-└── 6-learning.md
+└── 6-learning.md        # Updates goal state if goal-linked
 ```
 
 ---
@@ -190,6 +203,11 @@ Capture outcomes and update Canvas:
 - `10-assumptions.md` → Confidence scores
 - `13-metrics.md` → ARR, cycle time, margins
 
+**Goal updates (if goal-linked):**
+- Update subgoal status
+- Update goal metrics (MRR, customer count)
+- Check if goal success criteria met
+
 **Content opportunities:**
 - If deal validates hypothesis → Flag for marketing thread
 
@@ -208,6 +226,10 @@ Canvas updates:
 - 10-assumptions.md: A4 confidence 95%
 - 13-metrics.md: Average deal size $1.05M
 
+Goal updates (g-mrr-50k):
+- SG1 "Close first 3 customers": 2/3 → 3/3 ✓
+- MRR: $42K → $50K (target met!)
+
 Content opportunity:
 Topic: {Customer} success case study
 Priority: 0.85 (high)
@@ -215,29 +237,29 @@ Priority: 0.85 (high)
 
 ---
 
-## Sales Execution Subskills
+## Sales Skills
 
-### materials-generation
+### sales-materials-generation
 - Generates segment-specific sales materials
 - Input: Canvas + Narrative + ICP
 - Output: 6 material types per segment
 
-### prospect-research
+### sales-prospect-research
 - Finds companies matching ICP filters
 - Uses web_search for list building
 - Output: CSV with company name, website, LinkedIn
 
-### contact-finding
+### sales-contact-finding
 - Identifies decision-makers at target companies
 - Uses LinkedIn, company websites, email patterns
 - Output: CSV with contact name, title, email
 
-### outreach-sequencing
+### sales-outreach-sequencing
 - Creates email/phone cadences
 - Tailored to segment and campaign
 - Output: Sequence templates with timing
 
-### qualification-support
+### sales-qualification-support
 - Prepares for discovery calls
 - Company research, question lists, objection handling
 - Output: Call prep doc per prospect
@@ -296,9 +318,9 @@ threads/sales/campaigns/YYYY-MM-DD-{name}/
 
 When deals close (Stage 6):
 - Canvas assumptions updated with confidence scores
-- marketing-execution/content-strategy scans threads
+- marketing-content-strategy scans threads for opportunities
 - Content opportunities detected if pattern emerges
-- High-priority opportunities flagged in ops/today.md
+- Marketing threads created (goal-linked if brand goal exists)
 
 **Example:**
 ```

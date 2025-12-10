@@ -353,7 +353,7 @@ Restructured marketing layer to be motion-aware (PLG, Content-Led, Partner-Led, 
 ```
 foundations-builder/go-to-market/   # Produces strategy/canvas/15.go-to-market.md
 foundations-marketing-narrative/    # Brand identity (channel-agnostic)
-ops-content-strategy/               # Opportunity detection (motion-aware)
+marketing-content-strategy/               # Opportunity detection (motion-aware)
 marketing-execution/                # Orchestrator (motion-aware)
 ├── content-generation/             # Create content (receives mode)
 ├── content-delivery/               # Publish + track (receives mode)
@@ -559,7 +559,7 @@ Complete optimization of marketing execution layer adopting loop-centric distrib
 - `content-generation/references/announcement-linkedin-pattern.md` (397 lines)
 - `content-generation/references/email-patterns.md` (496 lines)
 - `content-generation/references/pattern-principles.md` (241 lines)
-- `ops-content-strategy/references/campaign-framework.md` (301 lines)
+- `marketing-content-strategy/references/campaign-framework.md` (301 lines)
 
 **Added (lightweight templates):**
 - `foundations-marketing-narrative/references/distribution-model-template.md`
@@ -584,7 +584,7 @@ Complete optimization of marketing execution layer adopting loop-centric distrib
 - `.claude/skills/marketing-execution/content-generation/references/announcement-linkedin-pattern.md`
 - `.claude/skills/marketing-execution/content-generation/references/email-patterns.md`
 - `.claude/skills/marketing-execution/content-generation/references/pattern-principles.md`
-- `.claude/skills/ops-content-strategy/references/campaign-framework.md`
+- `.claude/skills/marketing-content-strategy/references/campaign-framework.md`
 
 ### Files Added
 
@@ -717,7 +717,7 @@ Complete restructure of LeanOS as a generic, industry-agnostic framework. Remove
 | `marketing-narrative` | `foundations-marketing-narrative` |
 | `causal-flow` | `ops-causal-flow` |
 | `ops-dashboard` | `ops-dashboard` (unchanged) |
-| `content-strategy` | `ops-content-strategy` |
+| `content-strategy` | `marketing-content-strategy` |
 | `business-metrics-tracker` | `ops-business-metrics-tracker` |
 | `market-research-venture` | `research-market-venture` |
 | `market-research-bootstrap` | `research-market-bootstrap` |
@@ -775,7 +775,7 @@ foundations-marketing-narrative/     # Generate content strategy
 ```
 ops-causal-flow/                     # 6-stage decision orchestrator
 ops-dashboard/                       # Generate daily dashboards
-ops-content-strategy/                # Detect campaign opportunities
+marketing-content-strategy/                # Detect campaign opportunities
 ops-business-metrics-tracker/        # Mode-aware metrics dashboards
 ```
 
@@ -837,7 +837,7 @@ marketing-execution/                 # Marketing orchestrator
 - `.claude/skills/foundations-sales-narrative/`
 - `.claude/skills/ops-business-metrics-tracker/`
 - `.claude/skills/ops-causal-flow/`
-- `.claude/skills/ops-content-strategy/`
+- `.claude/skills/marketing-content-strategy/`
 - `.claude/skills/research-market-bootstrap/`
 - `.claude/skills/research-market-venture/`
 

@@ -2,6 +2,19 @@
 
 Marketing is **motion-aware, not calendar-driven**. Content adapts to your GTM strategy. Execution adapts to motion.
 
+## Goal Integration
+
+Marketing activities execute brand goals. A brand goal spawns marketing threads:
+
+```
+Goal: "Build LinkedIn Presence"
+  └── Subgoal: "Establish posting cadence"
+        └── Thread: threads/marketing/campaigns/q4-content/ (goal-linked)
+```
+
+**Agent:** `marketing-execution` orchestrates marketing skills
+**Skills:** `marketing-content-generation`, `marketing-content-delivery`, `marketing-channel-optimization`
+
 **Reasoning mode:** Causal (enforced) - all marketing threads use 6-stage causal flow.
 **When to use other modes:**
 - Abductive: "Why did this campaign underperform?" → diagnose root cause
@@ -21,28 +34,30 @@ Marketing is **motion-aware, not calendar-driven**. Content adapts to your GTM s
 
 ---
 
-## Skills Suite Overview
+## Skills Overview
 
 ```
-skills/
-├── foundations-builder/go-to-market/  # Produces GTM strategy
+.claude/skills/
+├── foundations-go-to-market/           # Produces GTM strategy
 ├── foundations-marketing-narrative/    # Brand identity (channel-agnostic)
-├── ops-content-strategy/               # Opportunity detection (motion-aware)
-└── marketing-execution/                # Orchestrator (motion-aware)
-    ├── content-generation/             # Create content (receives mode)
-    ├── content-delivery/               # Publish + track (receives mode)
-    └── channel-optimization/           # Optimize channels
+├── marketing-content-strategy/               # Opportunity detection (motion-aware)
+├── marketing-content-generation/       # Create content (receives mode)
+├── marketing-content-delivery/         # Publish + track (receives mode)
+└── marketing-channel-optimization/     # Optimize channels
+
+.claude/agents/
+└── marketing-execution.md              # Orchestrator (routes to skills)
 ```
 
 | Skill | Purpose | Reads GTM? | Detects Mode? |
 |-------|---------|------------|---------------|
-| **go-to-market** | Generate GTM strategy | Produces it | N/A |
-| **marketing-narrative** | Brand identity, voice, patterns | No | No |
-| **content-strategy** | Find opportunities | Yes | Yes (for scoring) |
-| **marketing-execution** | Orchestrate campaigns | Yes | **Yes (single source)** |
-| **content-generation** | Create content | No | No (receives mode) |
-| **content-delivery** | Publish + track | No | No (receives mode) |
-| **channel-optimization** | Optimize channels | Yes (channels only) | No |
+| **foundations-go-to-market** | Generate GTM strategy | Produces it | N/A |
+| **foundations-marketing-narrative** | Brand identity, voice, patterns | No | No |
+| **marketing-content-strategy** | Find opportunities | Yes | Yes (for scoring) |
+| **marketing-execution (agent)** | Orchestrate campaigns | Yes | **Yes (single source)** |
+| **marketing-content-generation** | Create content | No | No (receives mode) |
+| **marketing-content-delivery** | Publish + track | No | No (receives mode) |
+| **marketing-channel-optimization** | Optimize channels | Yes (channels only) | No |
 
 ---
 
@@ -50,9 +65,9 @@ skills/
 
 ### Generate GTM Strategy
 ```
-Skill: go-to-market
+Skill: foundations-go-to-market
 Input: Canvas (segments, problem, UVP, solution, pricing)
-Output: strategy/canvas/15.go-to-market.md
+Output: strategy/canvas/15-go-to-market.md
 ```
 
 **GTM file declares:**
@@ -69,7 +84,7 @@ Output: strategy/canvas/15.go-to-market.md
 
 ### Generate Brand Identity
 ```
-Skill: marketing-narrative
+Skill: foundations-marketing-narrative
 Input: Canvas (segments, problem, UVP, advantage, solution)
 Output: artifacts/marketing/narrative/
   ├── brand-voice.md
@@ -99,8 +114,8 @@ Output: artifacts/marketing/narrative/
 
 ### Opportunity Detection
 ```
-Skill: content-strategy
-Reads: 15.go-to-market.md + narrative/content-pillars.md
+Skill: marketing-content-strategy
+Reads: 15-go-to-market.md + narrative/content-pillars.md
 ```
 
 **Motion determines scoring:**
@@ -112,7 +127,7 @@ Reads: 15.go-to-market.md + narrative/content-pillars.md
 | Sales-Driven (SLG) | (Deal Enablement × Objection Coverage × Stage Fit) / 3 |
 
 **Thresholds:**
-- ≥0.7: Flag immediately in ops/today.md
+- ≥0.7: Recommend thread creation (goal-linked if brand goal exists)
 - 0.5-0.7: Add to backlog
 - <0.5: Skip
 
@@ -135,28 +150,28 @@ threads/marketing/campaigns/{slug}/
 
 ### Stage 5: Execution
 ```
-Skill: marketing-execution (orchestrator)
-Reads: strategy/canvas/15.go-to-market.md
+Agent: marketing-execution
+Reads: strategy/canvas/15-go-to-market.md
 Determines: mode (loop-driven | marketplace-driven | sales-driven)
-Invokes: subskills with mode parameter
+Invokes: skills with mode parameter
 ```
 
 **Composition pattern:**
 ```
-marketing-execution (orchestrator)
-├── Reads: 15.go-to-market.md
+marketing-execution (agent)
+├── Reads: 15-go-to-market.md
 ├── Detects: motion → mode (ONLY HERE)
-├── Passes: mode to all subskills
+├── Passes: mode to all skills
 │
-├── content-generation
+├── marketing-content-generation
 │   └── Input: mode (required)
 │   └── Does NOT read GTM
 │
-├── content-delivery
+├── marketing-content-delivery
 │   └── Input: mode (required)
 │   └── Does NOT read GTM
 │
-└── channel-optimization
+└── marketing-channel-optimization
     └── Reads: channels from GTM
     └── Activates: relevant modules
 ```
@@ -268,9 +283,9 @@ marketing-execution (orchestrator)
 
 ---
 
-## Subskills
+## Skills
 
-### content-generation
+### marketing-content-generation
 - **Input:** mode, campaign_slug, decision_path, piece_name
 - **Reads:** brand-voice.md, positioning.md, patterns/
 - **Output:** Drafts with mode-appropriate structure
@@ -279,7 +294,7 @@ marketing-execution (orchestrator)
   - marketplace-driven: Platform-optimized copy
   - sales-driven: ROI focus, objection handling
 
-### content-delivery
+### marketing-content-delivery
 - **Input:** mode, drafts_path, campaign_slug, channels
 - **Reads:** Nothing (receives mode)
 - **Output:** Channel-formatted files, tracking initiated
@@ -288,8 +303,8 @@ marketing-execution (orchestrator)
   - marketplace-driven: Installs, reviews, rankings
   - sales-driven: Usage in deals, pipeline attribution
 
-### channel-optimization
-- **Reads:** channels from 15.go-to-market.md
+### marketing-channel-optimization
+- **Reads:** channels from 15-go-to-market.md
 - **Activates:** Relevant modules (app-store, seo, linkedin, sales)
 - **Used:** When channel needs improvement (not per-campaign)
 
@@ -300,23 +315,23 @@ marketing-execution (orchestrator)
 ```
 Sales/Business thread completes Stage 6
     ↓
-content-strategy detects opportunity (motion-aware scoring)
+marketing-content-strategy detects opportunity (motion-aware scoring)
     ↓
-Human approves
+Human approves (or auto if goal autonomy allows)
     ↓
-Marketing thread created (1-input through 4-decision)
+Marketing thread created (goal-linked if brand goal exists)
     ↓
-marketing-execution invoked
+marketing-execution agent invoked
     ↓
-Orchestrator detects mode from 15.go-to-market.md
+Agent detects mode from 15-go-to-market.md
     ↓
-Subskills invoked with mode parameter
+Skills invoked with mode parameter
     ↓
 Content published, mode-appropriate tracking
     ↓
 Performance fed back to 6-learning.md
     ↓
-New opportunities detected
+Goal state updated (if goal-linked)
     ↓
 Loop continues
 ```

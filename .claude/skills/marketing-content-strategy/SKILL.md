@@ -1,5 +1,5 @@
 ---
-name: content-strategy
+name: marketing-content-strategy
 description: Motion-aware content discovery and opportunity detection. Use when: searching for content opportunities, detecting campaign triggers, finding engagement opportunities, evaluating content potential. Reads GTM motion from 15.go-to-market.md and adapts scoring accordingly.
 allowed-tools: "Read,Write,WebSearch,WebFetch,AskUserQuestion"
 ---

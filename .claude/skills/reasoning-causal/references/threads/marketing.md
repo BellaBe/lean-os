@@ -28,7 +28,7 @@ threads/marketing/{campaign-name}/
 
 | Type | Purpose | Human Required | Duration | Skill |
 |------|---------|----------------|----------|-------|
-| `marketing:research` | Audience research, competitive analysis | No | 2-3 days | `ops-content-strategy` |
+| `marketing:research` | Audience research, competitive analysis | No | 2-3 days | `marketing-content-strategy` |
 | `marketing:create` | Content creation (copy, design, video) | Yes (approval) | 5-7 days | `content-generation` |
 | `marketing:publish` | Publish to channels (LinkedIn, website, email) | No | 1 day | Human workflow |
 | `marketing:promote` | Paid promotion, outreach, distribution | Yes (budget) | 14-30 days | Human workflow |
