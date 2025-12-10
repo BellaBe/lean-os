@@ -18,6 +18,7 @@ REACTIVE (fallback):  Signal → Thread → Link to Goal (or create new goal)
 
 **Goal-setter reads:**
 - Canvas (strategic context, assumptions, constraints)
+- Mode (`strategy/canvas/00-business-model-mode.md`)
 - Existing goals (avoid conflicts, find linkages)
 
 **Goal-setter does NOT read:**
@@ -27,11 +28,12 @@ REACTIVE (fallback):  Signal → Thread → Link to Goal (or create new goal)
 ## Type Signature
 
 ```
-GoalSetter : Objective × CanvasContext × ExistingGoals → Goal
+GoalSetter : Objective × CanvasContext × Mode × ExistingGoals → Goal
 
 Where:
   Objective     : string (user's stated intent)
   CanvasContext : strategy/canvas/* (beliefs, constraints, segments)
+  Mode          : VENTURE | BOOTSTRAP (from strategy/canvas/00-business-model-mode.md)
   ExistingGoals : strategy/goals/active/* (avoid conflicts)
   Goal          : Objective × SuccessCriteria × Plan × Autonomy × State
   Plan          : [Subgoal] × [Milestone] × [Dependency]
@@ -74,7 +76,47 @@ Infer from context or ask:
 | `learning` | Skills, certifications, knowledge | "Learn Rust" |
 | `custom` | Anything else | User-defined |
 
-### 3. Define Success Criteria
+### 3. Apply Mode (Business Goals)
+
+For `business` type goals, read mode from `strategy/canvas/00-business-model-mode.md`:
+
+| Aspect | VENTURE | BOOTSTRAP |
+|--------|---------|-----------|
+| **Primary metrics** | ARR, MAU, market share, runway | MRR, profit, cash flow, payback |
+| **Success focus** | Growth rate, scale | Profitability, sustainability |
+| **Decomposition** | Users → Activation → Monetization | Revenue → Margin → Reinvest |
+| **Timeline** | 7-10 year exit horizon | Profitable in 3 months |
+| **Risk tolerance** | Higher (burn for growth) | Lower (preserve cash) |
+
+**Mode-specific defaults:**
+
+```
+VENTURE mode:
+  Success criteria emphasize:
+  - ARR growth rate (>100% YoY)
+  - User/customer acquisition
+  - Market share expansion
+  - Acceptable burn for growth
+
+  Subgoal order: Acquire → Activate → Retain → Monetize
+
+  Autonomy default: hybrid (speed matters, but stakes high)
+
+BOOTSTRAP mode:
+  Success criteria emphasize:
+  - MRR and monthly profit
+  - Positive cash flow
+  - LTV:CAC > 5:1
+  - CAC payback < 6 months
+
+  Subgoal order: First revenue → Unit economics → Scale
+
+  Autonomy default: ask (cash preservation critical)
+```
+
+**Non-business goals:** Mode has minimal impact on brand, product, learning goals.
+
+### 4. Define Success Criteria
 
 Transform objective into measurable criteria:
 
@@ -98,7 +140,7 @@ Criteria:
 - [ ] 2+ inbound leads/month from content
 ```
 
-### 4. Decompose into Plan
+### 5. Decompose into Plan
 
 **Subgoals** - intermediate objectives that lead to main goal:
 - Each subgoal has its own success criterion
@@ -124,7 +166,7 @@ Order by dependencies
 Set milestones at 25%, 50%, 75%, 100% progress points
 ```
 
-### 5. Set Autonomy Level
+### 6. Set Autonomy Level
 
 | Mode | When to Use | Behavior |
 |------|-------------|----------|
@@ -134,7 +176,7 @@ Set milestones at 25%, 50%, 75%, 100% progress points
 
 **Default: `hybrid`** unless user specifies otherwise.
 
-### 6. Initialize State
+### 7. Initialize State
 
 Create initial state section:
 - All metrics start at current values (0 or baseline)
@@ -152,6 +194,7 @@ Create file: `strategy/goals/active/{goal-id}.md`
 ---
 id: g-{kebab-case-short-name}
 type: business | brand | product | learning | custom
+mode: VENTURE | BOOTSTRAP  # For business goals only
 status: active
 autonomy: auto | ask | hybrid
 created: {YYYY-MM-DD}
@@ -238,19 +281,40 @@ canvas_refs: ["{section}.md", ...]  # Optional Canvas links
 
 ## Examples
 
-### Business Goal
+### Business Goal (BOOTSTRAP)
 ```
 User: "I want to hit $50K MRR by end of Q2"
+Mode: BOOTSTRAP (read from Canvas)
 
 Goal created:
 - id: g-mrr-50k
 - type: business
+- mode: BOOTSTRAP
 - deadline: 2025-06-30
-- Success criteria: MRR >= $50K, Customers >= 10, Churn < 5%
-- Subgoals:
-  - SG1: Build pipeline (20 qualified leads)
-  - SG2: Improve close rate (≥30%)
-  - SG3: Reduce churn (<5%)
+- Success criteria: MRR >= $50K, Profit margin >= 30%, CAC payback < 6 months
+- Subgoals (revenue-first order):
+  - SG1: Close first 3 paying customers
+  - SG2: Validate unit economics (LTV:CAC > 5:1)
+  - SG3: Scale acquisition (pipeline of 20 leads)
+- Autonomy: ask (cash preservation)
+```
+
+### Business Goal (VENTURE)
+```
+User: "I want to hit $500K ARR by end of year"
+Mode: VENTURE (read from Canvas)
+
+Goal created:
+- id: g-arr-500k
+- type: business
+- mode: VENTURE
+- deadline: 2025-12-31
+- Success criteria: ARR >= $500K, MAU >= 10K, Growth >= 100% YoY
+- Subgoals (growth-first order):
+  - SG1: Acquire 5K users (product-led)
+  - SG2: Activate 50% to active usage
+  - SG3: Convert 5% to paid
+- Autonomy: hybrid (speed matters)
 ```
 
 ### Brand Goal
