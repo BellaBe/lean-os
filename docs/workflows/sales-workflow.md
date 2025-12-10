@@ -55,7 +55,7 @@ qualification_score: 0.85
 ### Step 2: Create Sales Narrative
 
 ```
-Skill: foundations-sales-narrative
+Skill: sales-narrative
 Input: Canvas + ICP
 Output: artifacts/sales/{segment}/narrative/
   ├── problem-narrative.md

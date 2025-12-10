@@ -195,8 +195,8 @@ Goals are the **primary operating mode** for LeanOS. All work should be goal-dri
 | Skill | Purpose |
 |-------|---------|
 | `foundations-icp-generator` | ICP per segment from Canvas 04 |
-| `foundations-sales-narrative` | Sales messaging per segment |
-| `foundations-marketing-narrative` | Brand identity and content patterns |
+| `sales-narrative` | Sales messaging per segment |
+| `marketing-narrative` | Brand identity and content patterns |
 
 ---
 

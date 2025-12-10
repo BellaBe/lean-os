@@ -24,7 +24,7 @@ Skills are the execution layer of LeanOS. To contribute a new skill:
   - Input/output specifications
   - Step-by-step execution instructions
   - Examples
-- Follow the pattern of existing skills (see `foundations-icp-generator`, `foundations-sales-narrative`, `marketing-execution`)
+- Follow the pattern of existing skills (see `foundations-icp-generator`, `sales-narrative`, `marketing-execution`)
 - If the skill includes Python code, add scripts to `scripts/` subdirectory
 - Update README.md to document the new skill
 

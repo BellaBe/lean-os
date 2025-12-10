@@ -4,6 +4,198 @@ Record of significant system optimizations, refactorings, and architectural impr
 
 ---
 
+## 2025-12-10: Goal-Oriented Operations (v2.2)
+
+### Summary
+Implemented goal-oriented operations as the primary operating mode for LeanOS. Goals drive all work, threads execute goals, state is derived from execution. Removed redundant ops-* skills, integrated goals with causal-flow threads, updated all workflow documentation.
+
+### Philosophy Shift
+
+**From:** Thread-driven operations with separate metrics tracking
+**To:** Goal-driven operations with derived state
+
+**Core principles:**
+- Goals are the primary interface (not dashboards, not daily files)
+- State is derived from thread execution (not stored separately)
+- Threads are the execution layer for goals
+- Canvas assumptions link to goals for validation
+- Autonomy is configurable per goal (auto/ask/hybrid)
+
+### Changes Made
+
+#### 1. Created Goal Skills (2 new skills)
+
+**goal-setter** (`.claude/skills/goal-setter/SKILL.md`)
+- Transforms objectives into structured goals
+- Type-agnostic: business, brand, product, learning
+- Mode-aware: VENTURE vs BOOTSTRAP affects decomposition
+- Canvas-aware: References all 15 Canvas sections
+- Autonomy modes: auto, ask, hybrid
+- Output: `strategy/goals/active/{id}.md`
+
+**goal-tracker** (`.claude/skills/goal-tracker/SKILL.md`)
+- Derives state from thread execution (no manual tracking)
+- Computes metrics from linked threads
+- Generates recommendations or auto-creates threads
+- On-demand snapshots (not persistent daily files)
+- Triggers: Status check, thread completion, periodic review
+
+#### 2. Integrated Goals with Causal-Flow
+
+**Updated reasoning-causal** (`.claude/skills/reasoning-causal/SKILL.md`)
+- Added goal integration section
+- Thread types: Goal-linked (has goal_id) vs Reactive (no goal)
+- Thread metadata schema: `{ goal_id, subgoal }` in meta.json
+- Stage 6 Learning updates both Canvas AND goal state
+- Reactive threads can spawn or link to goals
+
+**Thread-Goal relationship:**
+```
+Goal (strategy/goals/active/)
+  └── Subgoal (SG1, SG2, ...)
+        └── Thread (threads/{type}/{name}/)
+              └── meta.json: { goal_id, subgoal }
+```
+
+#### 3. Removed Redundant Skills
+
+**ops-business-metrics-tracker** (DELETED)
+- Redundant with goal-tracker
+- Business health now derived from goal progress
+- Metrics computed from thread outcomes
+
+**ops-dashboard** (DELETED)
+- Merged into goal-tracker
+- Daily view now on-demand via goal status
+- Velocity computed from thread throughput
+
+#### 4. Updated Architecture
+
+**7-layer architecture (v2.2):**
+```
+Layer 7: Goals (primary interface)
+Layer 6: Strategy (Canvas)
+Layer 5: Reasoning (gateway + 6 modes)
+Layer 4: Skills (flat)
+Layer 3: Threads (execution)
+Layer 2: Artifacts (outputs)
+Layer 1: State (derived)
+```
+
+**Goal flow:**
+```
+Goal → Plan (subgoals) → Threads → Artifacts → Learning → Canvas
+```
+
+#### 5. Updated Workflow Documentation
+
+**daily-routine.md** (REWRITTEN)
+- Goal-based workflow (not ops/today.md-based)
+- Morning: Check goal status
+- Work: Execute subgoal threads
+- End: Goal-tracker derives state
+
+**causal-flow.md** (UPDATED)
+- Added goal integration section
+- Thread metadata schema
+- Goal-linked vs Reactive thread workflows
+- Fixed skill paths to flat structure
+
+**sales-workflow.md** (UPDATED)
+- Added Goal Integration section
+- Fixed skill names: `sales-materials-generation`, etc.
+- Goal updates in Stage 6 Learning
+
+**marketing-workflow.md** (UPDATED)
+- Added Goal Integration section
+- Fixed paths: `marketing-execution` agent
+- Updated composition pattern
+
+### Current Structure
+
+```
+.claude/skills/
+├── goal-setter/           # NEW - Transform objectives to goals
+├── goal-tracker/          # NEW - Derive state from execution
+├── reasoning-*/           # 6 modes (causal updated for goals)
+├── foundations-*/         # 9 business setup
+├── sales-*/               # 5 sales pipeline
+├── marketing-*/           # 3 campaign execution
+├── ops-content-strategy/  # 1 operations (was 3, now 1)
+├── research-*/            # 1 market research
+└── ...                    # Other skills unchanged
+```
+
+### Goal File Structure
+
+```yaml
+# strategy/goals/active/{id}.md
+id: g-{type}-{slug}
+type: business | brand | product | learning
+objective: What we want to achieve
+success_criteria:
+  - Measurable outcome 1
+  - Measurable outcome 2
+plan:
+  subgoals:
+    - id: SG1
+      description: First step
+      threads: []  # Populated as threads created
+autonomy: auto | ask | hybrid
+linked_assumptions: [A1, A4]  # From 10-assumptions.md
+state:
+  status: active | achieved | blocked | abandoned
+  progress: 0.0  # Derived from subgoal completion
+  metrics: {}    # Derived from thread outcomes
+```
+
+### Migration Notes
+
+**For existing operations:**
+- Create goals for active initiatives
+- Link existing threads to goals via meta.json
+- Goal-tracker will derive state from thread history
+
+**For new operations:**
+- Start with goal-setter (not thread creation)
+- Let goal decompose into subgoals
+- Create threads linked to subgoals
+
+**Key behavior changes:**
+- No more ops/today.md as primary interface
+- No more manual metrics tracking
+- Goals drive all work
+- State is always derived
+
+### Success Metrics
+
+**Architecture clarity:**
+- ✅ Goals as primary operating mode
+- ✅ State derived from execution (no duplication)
+- ✅ Thread-goal linkage via meta.json
+- ✅ Canvas assumptions linked to goals
+
+**Skill reduction:**
+- ✅ ops-business-metrics-tracker removed (redundant)
+- ✅ ops-dashboard removed (merged into goal-tracker)
+- ✅ ops-* reduced from 3 to 1 skill
+
+**Documentation alignment:**
+- ✅ daily-routine.md rewritten for goals
+- ✅ causal-flow.md updated with goal integration
+- ✅ sales-workflow.md fixed paths and added goals
+- ✅ marketing-workflow.md fixed paths and added goals
+
+---
+
+**Change type:** Major feature (new operating mode)
+**Impact:** High (changes primary workflow)
+**Breaking changes:** Yes (ops-* skills removed, goal-first workflow)
+**Version:** 2.2
+**Status:** Complete
+
+---
+
 ## 2025-12-10: Skills Restructuring + Documentation Cleanup
 
 ### Summary
@@ -330,9 +522,9 @@ Restructured marketing layer to be motion-aware (PLG, Content-Led, Partner-Led, 
 - `.claude/skills/marketing-execution/content-generation/scripts/validate_draft.py`
 
 **Reference files removed:**
-- `.claude/skills/foundations-marketing-narrative/references/distribution-model-template.md`
-- `.claude/skills/foundations-marketing-narrative/references/loop-content-pattern.md`
-- `.claude/skills/foundations-marketing-narrative/references/channel-guidelines-template.md`
+- `.claude/skills/marketing-narrative/references/distribution-model-template.md`
+- `.claude/skills/marketing-narrative/references/loop-content-pattern.md`
+- `.claude/skills/marketing-narrative/references/channel-guidelines-template.md`
 - `.claude/skills/marketing-execution/references/execution-log-template.md`
 - `.claude/skills/marketing-execution/references/human-touchpoints.md`
 - `.claude/skills/marketing-execution/references/subskill-contracts.md`
@@ -344,7 +536,7 @@ Restructured marketing layer to be motion-aware (PLG, Content-Led, Partner-Led, 
 
 **New reference files:**
 - `.claude/skills/foundations-builder/go-to-market/references/` (GTM templates)
-- `.claude/skills/foundations-marketing-narrative/references/content-patterns.md`
+- `.claude/skills/marketing-narrative/references/content-patterns.md`
 - `.claude/skills/marketing-execution/content-generation/references/` (generation guides)
 
 ### Updated Skill Inventory
@@ -352,7 +544,7 @@ Restructured marketing layer to be motion-aware (PLG, Content-Led, Partner-Led, 
 **Marketing Layer (restructured):**
 ```
 foundations-builder/go-to-market/   # Produces strategy/canvas/15.go-to-market.md
-foundations-marketing-narrative/    # Brand identity (channel-agnostic)
+marketing-narrative/    # Brand identity (channel-agnostic)
 marketing-content-strategy/               # Opportunity detection (motion-aware)
 marketing-execution/                # Orchestrator (motion-aware)
 ├── content-generation/             # Create content (receives mode)
@@ -562,12 +754,12 @@ Complete optimization of marketing execution layer adopting loop-centric distrib
 - `marketing-content-strategy/references/campaign-framework.md` (301 lines)
 
 **Added (lightweight templates):**
-- `foundations-marketing-narrative/references/distribution-model-template.md`
-- `foundations-marketing-narrative/references/loop-content-pattern.md`
-- `foundations-marketing-narrative/references/brand-voice-template.md`
-- `foundations-marketing-narrative/references/positioning-template.md`
-- `foundations-marketing-narrative/references/content-pillars-template.md`
-- `foundations-marketing-narrative/references/channel-guidelines-template.md`
+- `marketing-narrative/references/distribution-model-template.md`
+- `marketing-narrative/references/loop-content-pattern.md`
+- `marketing-narrative/references/brand-voice-template.md`
+- `marketing-narrative/references/positioning-template.md`
+- `marketing-narrative/references/content-pillars-template.md`
+- `marketing-narrative/references/channel-guidelines-template.md`
 - `marketing-execution/references/subskill-contracts.md`
 - `marketing-execution/references/human-touchpoints.md`
 - `marketing-execution/references/execution-log-template.md`
@@ -592,7 +784,7 @@ Complete optimization of marketing execution layer adopting loop-centric distrib
 - `.claude/skills/marketing-execution/content-delivery/SKILL.md`
 
 **New reference directories:**
-- `.claude/skills/foundations-marketing-narrative/references/` (6 template files)
+- `.claude/skills/marketing-narrative/references/` (6 template files)
 - `.claude/skills/marketing-execution/references/` (3 contract/template files)
 
 ### Updated Skill Inventory
@@ -713,8 +905,8 @@ Complete restructure of LeanOS as a generic, industry-agnostic framework. Remove
 | `standardization-layer` | `engineering-standardization-definer` + `engineering-standardization-applier` |
 | `foundation-builder` | `foundations-builder` |
 | `icp-generator` | `foundations-icp-generator` |
-| `sales-narrative` | `foundations-sales-narrative` |
-| `marketing-narrative` | `foundations-marketing-narrative` |
+| `sales-narrative` | `sales-narrative` |
+| `marketing-narrative` | `marketing-narrative` |
 | `causal-flow` | `ops-causal-flow` |
 | `ops-dashboard` | `ops-dashboard` (unchanged) |
 | `content-strategy` | `marketing-content-strategy` |
@@ -767,8 +959,8 @@ engineering-standardization-applier/ # Apply standards to services
 ```
 foundations-builder/                 # Orchestrate Canvas population
 foundations-icp-generator/           # Generate ICPs per segment
-foundations-sales-narrative/         # Generate sales messaging
-foundations-marketing-narrative/     # Generate content strategy
+sales-narrative/         # Generate sales messaging
+marketing-narrative/     # Generate content strategy
 ```
 
 **Operations Layer (4 skills):**
@@ -833,8 +1025,8 @@ marketing-execution/                 # Marketing orchestrator
 - `.claude/skills/engineering-system-architecture/`
 - `.claude/skills/foundations-builder/`
 - `.claude/skills/foundations-icp-generator/`
-- `.claude/skills/foundations-marketing-narrative/`
-- `.claude/skills/foundations-sales-narrative/`
+- `.claude/skills/marketing-narrative/`
+- `.claude/skills/sales-narrative/`
 - `.claude/skills/ops-business-metrics-tracker/`
 - `.claude/skills/ops-causal-flow/`
 - `.claude/skills/marketing-content-strategy/`

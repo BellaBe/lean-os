@@ -39,7 +39,7 @@ Goal: "Build LinkedIn Presence"
 ```
 .claude/skills/
 ├── foundations-go-to-market/           # Produces GTM strategy
-├── foundations-marketing-narrative/    # Brand identity (channel-agnostic)
+├── marketing-narrative/    # Brand identity (channel-agnostic)
 ├── marketing-content-strategy/               # Opportunity detection (motion-aware)
 ├── marketing-content-generation/       # Create content (receives mode)
 ├── marketing-content-delivery/         # Publish + track (receives mode)
@@ -52,7 +52,7 @@ Goal: "Build LinkedIn Presence"
 | Skill | Purpose | Reads GTM? | Detects Mode? |
 |-------|---------|------------|---------------|
 | **foundations-go-to-market** | Generate GTM strategy | Produces it | N/A |
-| **foundations-marketing-narrative** | Brand identity, voice, patterns | No | No |
+| **marketing-narrative** | Brand identity, voice, patterns | No | No |
 | **marketing-content-strategy** | Find opportunities | Yes | Yes (for scoring) |
 | **marketing-execution (agent)** | Orchestrate campaigns | Yes | **Yes (single source)** |
 | **marketing-content-generation** | Create content | No | No (receives mode) |
@@ -84,7 +84,7 @@ Output: strategy/canvas/15-go-to-market.md
 
 ### Generate Brand Identity
 ```
-Skill: foundations-marketing-narrative
+Skill: marketing-narrative
 Input: Canvas (segments, problem, UVP, advantage, solution)
 Output: artifacts/marketing/narrative/
   ├── brand-voice.md
