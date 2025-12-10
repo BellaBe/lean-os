@@ -1,16 +1,16 @@
 # LeanOS: AI-Native Operating System for Startups, Small Teams, and Founders
 
-**Status:** Active Development | **Version:** 2.0 (Reasoning Gateway) | **Last Updated:** 2025-12-09
+**Status:** Active Development | **Version:** 2.2 (Goal-Oriented) | **Last Updated:** 2025-12-10
 
 AI-native OS that automates 95%+ of business operations for startups, small teams, and founders.
 
 ## What It Does
 
-- **Builds + Runs:** Mathematically verified system design, product development, sales, marketing, and business operations
+- **Goal-driven execution:** Declare objectives, AI decomposes into plans and executes
 - **Automates decisions:** Claude AI processes engineering, sales, marketing, and business decisions autonomously
-- **Single source of truth:** Lean Canvas (15 living documents) drives all operations
-- **Human oversight:** <30 min/day for strategic decisions only
-- **Agents + Skills:** Flat architecture with agents as orchestrators
+- **Single source of truth:** Lean Canvas (15 living documents) provides strategic context
+- **State derived from execution:** No manual tracking, metrics computed from threads
+- **Configurable autonomy:** Auto, ask, or hybrid modes per goal
 
 ## Quick Navigation
 
@@ -98,26 +98,28 @@ See [Business Model Mode documentation](strategy/canvas/00-business-model-mode.m
 ## Directory Structure
 
 ```text
-personal-os/
-├── strategy/canvas/          # Lean Canvas (15 files) - SOURCE OF TRUTH
-├── threads/                  # Decision storage (business, sales, marketing, engineering)
+lean-os/
+├── strategy/
+│   ├── goals/                # Declared objectives (PRIMARY OPERATING MODE)
+│   │   ├── active/           # Current goals with plans + state
+│   │   ├── completed/        # Achieved goals (archive)
+│   │   └── abandoned/        # Dropped goals (archive)
+│   └── canvas/               # Lean Canvas (15 files) - STRATEGIC CONTEXT
+├── threads/                  # Decision execution (6-stage causal flow)
 ├── research/customer/        # ICP definitions, prospect lists
-├── artifacts/                # Deliverables (sales materials, published content, engineering)
-├── ops/                      # Daily interface (auto-generated)
+├── artifacts/                # Deliverables (sales, marketing, engineering)
+├── ops/                      # Supporting files (changes.md, patterns.md)
 ├── .claude/
 │   ├── agents/               # Orchestrators (4 agents)
-│   │   ├── reasoning-gateway.md
-│   │   ├── foundations-builder.md
-│   │   ├── sales-execution.md
-│   │   └── marketing-execution.md
 │   └── skills/               # Flat skills
+│       ├── goal-*            # Goal setting and tracking
 │       ├── reasoning-*       # Reasoning modes
 │       ├── foundations-*     # Business setup
 │       ├── sales-*           # Sales pipeline
 │       ├── marketing-*       # Campaign execution
 │       ├── ops-*             # Operations
 │       ├── research-*        # Market research
-│       └── engineering-*     # Engineering (nested) 
+│       └── engineering/      # Engineering (nested)
 ```
 
 ## Technology Stack
@@ -149,39 +151,41 @@ personal-os/
 
 4. **Activate operations** after validation (see [Timeline Guide](docs/foundation/timeline.md))
 
-## Skill Architecture
+## Operating Model
 
-### Reasoning Gateway
+### Goal-Driven (Primary)
 
-Routes to appropriate reasoning mode based on context:
+```
+User objective → goal-setter → Goal with plan → Threads → Artifacts → Learning → Canvas
+                                    ↑                                        ↓
+                                    └────────── gap-closing actions ─────────┘
+```
 
-| Mode | Use When |
+**Autonomy modes:**
+| Mode | Behavior |
 |------|----------|
-| **Causal** | Operational execution, known processes (enforced for threads) |
-| **Abductive** | Anomaly diagnosis, "why did X happen?" |
-| **Inductive** | Pattern detection, "this keeps happening" |
-| **Analogical** | Novel situations, "this is like..." |
-| **Dialectical** | Stakeholder conflicts, trade-off resolution |
-| **Counterfactual** | Decision evaluation, "what if we had..." |
+| `auto` | AI creates threads and executes without asking |
+| `ask` | AI recommends, waits for approval |
+| `hybrid` | Auto for low-impact, ask for high-impact |
 
-### Agents + Skills
+### Reactive (Fallback)
 
-| Component | Location | Purpose |
-|-----------|----------|---------|
-| **Agents** | `.claude/agents/` | Orchestrators that route to skills |
-| **Skills** | `.claude/skills/` | Flat, single-capability instructions |
+For unexpected signals: `Signal → Thread → Link to goal or create new goal`
+
+## Skill Architecture
 
 | Category | Purpose |
 |----------|---------|
+| `goal-*` | Goal setting and tracking (primary) |
 | `reasoning-*` | Reasoning modes (causal, abductive, etc.) |
 | `foundations-*` | Business setup, Canvas sections |
 | `sales-*` | Sales pipeline activities |
 | `marketing-*` | Campaign execution |
-| `ops-*` | Dashboards, metrics, content strategy |
+| `ops-*` | Operations, content strategy |
 | `research-*` | Mode-aware market research |
-| `engineering-*` | Categorical verification (nested) |
+| `engineering/` | Categorical verification (nested) |
 
-See [All Skills](docs/skills/all-skills.md) for complete reference.
+See [All Skills](docs/reference/all-skills.md) for complete reference.
 
 ## Contributing
 
@@ -205,4 +209,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 ---
 
-**Last Updated:** 2025-12-09 | **Version:** 2.0 (Reasoning Gateway)
+**Last Updated:** 2025-12-10 | **Version:** 2.2 (Goal-Oriented)

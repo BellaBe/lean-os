@@ -1,14 +1,43 @@
 # System Architecture
 
-LeanOS operates in 6 layers: Strategy → Reasoning → Skills → Threads → Artifacts → Operations Dashboard.
+LeanOS operates in 7 layers: Goals → Strategy → Reasoning → Skills → Threads → Artifacts → State.
+
+## Operating Model
+
+**Goal-driven (primary):** All work flows from declared objectives
+```
+Goal → Plan → Threads → Artifacts → Learning → Canvas
+```
+
+**Reactive (fallback):** Handles unexpected signals, links back to goals
+```
+Signal → Thread → Link to Goal (or create new goal)
+```
 
 ## Architecture Diagram
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
+│ GOALS LAYER (Primary Operating Mode)                                                         │
+│ Declared objectives that drive all work                                                      │
+│ Location: strategy/goals/                                                                    │
+│                                                                                              │
+│ ├─ active/: Current objectives with plans                                                    │
+│ ├─ completed/: Achieved goals (archive)                                                      │
+│ └─ abandoned/: Dropped goals (archive)                                                       │
+│                                                                                              │
+│ Goal Structure: Objective → Success Criteria → Plan (Subgoals + Milestones) → State          │
+│ Skills: goal-setter (creates goals), goal-tracker (derives state)                            │
+│ Autonomy: auto | ask | hybrid (configurable per goal)                                        │
+└──────────────────────────────────────────────────────────────────────────────────────────────┘
+                                          ↓
+┌──────────────────────────────────────────────────────────────────────────────────────────────┐
 │ STRATEGY LAYER                                                                               │
 │ Source of Truth: Lean Canvas (15 living documents)                                           │
 │ Location: strategy/canvas/                                                                   │
+│                                                                                              │
+│ Goals READ Canvas for context (assumptions, constraints, segments)                           │
+│ Learning WRITES to Canvas (feedback loop from completed threads)                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -45,6 +74,7 @@ LeanOS operates in 6 layers: Strategy → Reasoning → Skills → Threads → A
 │                                                                                              │
 │ SKILLS (Flat, single-capability):                                                            │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
+│ │ goal-*          │ Goal setting and tracking                                            │  │
 │ │ reasoning-*     │ Reasoning modes (causal, abductive, inductive, etc)                  │  │
 │ │ foundations-*   │ Canvas/business setup                                                │  │
 │ │ sales-*         │ Sales pipeline                                                       │  │
@@ -95,24 +125,82 @@ LeanOS operates in 6 layers: Strategy → Reasoning → Skills → Threads → A
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ OPS DASHBOARD (Daily Interface)                                                              │
-│ Auto-generated from thread data                                                              │
-│ Location: ops/                                                                               │
+│ STATE LAYER (Derived, On-Demand)                                                             │
+│ State is computed from goals + threads, not stored separately                                │
 │                                                                                              │
-│ ├─ today.md: Founder's 5-min daily review                                                    │
-│ ├─ velocity.md: Throughput analysis                                                          │
-│ ├─ patterns.md: Detected anomalies                                                           │
-│ └─ changes.md: Strategic flags for review                                                    │
+│ Goal state: Derived by goal-tracker from linked threads                                      │
+│ Snapshot: Computed on-demand (no daily file needed)                                          │
+│ Metrics: Aggregated from thread Stage 6 (Learning)                                           │
+│                                                                                              │
+│ ops/ directory (supporting files):                                                           │
+│ ├─ changes.md: Strategic changelog                                                           │
+│ └─ patterns.md: Cross-goal pattern detection                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Layer 1: Strategy (Source of Truth)
+## Layer 1: Goals (Primary Operating Mode)
+
+**Location:** `strategy/goals/`
+
+**Purpose:** Declared objectives that drive all work
+
+**Structure:**
+```
+strategy/goals/
+├── active/           # Current objectives
+│   └── g-{name}.md   # Goal file with plan + state
+├── completed/        # Achieved goals (archive)
+└── abandoned/        # Dropped goals (archive)
+```
+
+**Goal file schema:**
+```markdown
+---
+id: g-{kebab-case-name}
+type: business | brand | product | learning | custom
+status: active
+autonomy: auto | ask | hybrid
+deadline: YYYY-MM-DD
+---
+
+# {Goal Title}
+
+## Objective
+{What you want to achieve}
+
+## Success Criteria
+- [ ] {Measurable criterion}
+
+## Plan
+### Subgoals
+- SG1: {subgoal} → threads: {linked threads}
+### Milestones
+- M1: {checkpoint} (by {date})
+
+## State (derived by goal-tracker)
+| Metric | Current | Target | Gap | Trend |
+```
+
+**Skills:**
+- `goal-setter`: Creates goals from objectives, reads Canvas for context
+- `goal-tracker`: Derives state from threads, computes gaps/trajectory
+
+**Autonomy modes:**
+| Mode | Behavior |
+|------|----------|
+| `auto` | AI creates threads and executes without asking |
+| `ask` | AI recommends, waits for approval |
+| `hybrid` | Auto for impact <0.5, ask for ≥0.5 |
+
+---
+
+## Layer 2: Strategy (Source of Truth)
 
 **Location:** `strategy/canvas/`
 
 **Contents:** 15 living Lean Canvas documents
 
-**Purpose:** Single source of truth for all business decisions
+**Purpose:** Strategic context for goals, updated by learning
 
 **Key files:**
 - 00-business-model-mode.md - VENTURE/BOOTSTRAP/HYBRID mode declaration
@@ -134,7 +222,13 @@ LeanOS operates in 6 layers: Strategy → Reasoning → Skills → Threads → A
 
 **Updates:** Automatically updated by Stage 6 (Learning) in threads
 
-## Layer 2: Reasoning (Meta-Reasoning Gateway)
+**Relationship to Goals:**
+- Goals READ Canvas for strategic context
+- Learning WRITES to Canvas (validates/invalidates assumptions)
+
+---
+
+## Layer 3: Reasoning (Meta-Reasoning Gateway)
 
 **Agent:** `.claude/agents/reasoning-gateway.md`
 **Skills:** `.claude/skills/reasoning-*/`
@@ -160,7 +254,9 @@ Task arrives → Gateway selects mode → Mode executes → (chains to causal if
 
 **Enforced flows:** Operational threads (business, sales, marketing, engineering) always use causal mode.
 
-## Layer 3: Agents + Skills (Domain Execution)
+---
+
+## Layer 4: Agents + Skills (Domain Execution)
 
 **Agents:** `.claude/agents/`
 **Skills:** `.claude/skills/`
@@ -178,6 +274,7 @@ Task arrives → Gateway selects mode → Mode executes → (chains to causal if
 
 | Category | Purpose |
 |----------|---------|
+| `goal-*` | Goal setting and tracking |
 | `reasoning-*` | Reasoning modes (causal, abductive, etc.) |
 | `foundations-*` | Canvas/business setup |
 | `sales-*` | Sales pipeline |
@@ -194,7 +291,9 @@ Task arrives → Gateway selects mode → Mode executes → (chains to causal if
 | `marketing-narrative` | Brand identity, content patterns |
 | `content-generation` | Create content (any context) |
 
-## Layer 4: Threads (Decision Storage)
+---
+
+## Layer 5: Threads (Decision Storage)
 
 **Location:** `threads/{type}/{name}/`
 
@@ -233,7 +332,14 @@ threads/{type}/{name}/
 └── 6-learning.md
 ```
 
-## Layer 5: Artifacts (Deliverables)
+**Relationship to Goals:**
+- Threads are linked to goals via subgoals
+- Thread completion updates goal state
+- Thread Stage 6 (Learning) feeds back to Canvas
+
+---
+
+## Layer 6: Artifacts (Deliverables)
 
 **Location:** `artifacts/`
 
@@ -256,35 +362,35 @@ threads/{type}/{name}/
 - `configs/`: Deployment (Docker, K8s, CI/CD)
 - `proofs/`: Verification certificates
 
-## Layer 6: Operations Dashboard
+---
 
-**Location:** `ops/`
+## Layer 7: State (Derived, On-Demand)
 
-**Purpose:** Human touchpoint - single daily review interface
+**Purpose:** State is computed, not stored. Goals track their own state.
 
-**Auto-generated files:**
+**Key principle:** No daily file needed. Snapshot computed on-demand by `goal-tracker`.
 
-### today.md
-- High-priority items requiring human approval
-- Decisions made by AI (last 24h)
-- Active operations summary
-- Performance alerts
-- Anomalies detected
+**State derivation:**
+```
+goal-tracker reads:
+  - Goal files (objectives, success criteria)
+  - Linked threads (execution state)
+  - Thread Stage 6 (Learning outcomes)
+  ↓
+Computes:
+  - Current metrics vs targets
+  - Gap analysis
+  - Trajectory projection
+  - Risk level
+  ↓
+Updates:
+  - Goal state section
+  - Recommendations for action
+```
 
-### velocity.md
-- Throughput metrics per stage
-- Cycle time analysis
-- Bottleneck identification
-
-### patterns.md
-- Cross-thread pattern detection
-- Anomaly flagging
-- Meta-learning insights
-
-### changes.md
-- Strategic flags requiring review
-- Canvas section updates
-- Assumption validation status changes
+**Supporting files in `ops/`:**
+- `changes.md`: Strategic changelog
+- `patterns.md`: Cross-goal pattern detection
 
 ## Supporting Directories
 
@@ -294,76 +400,81 @@ threads/{type}/{name}/
 
 ## Data Flow
 
-**Reasoning-first flow:**
+**Goal-driven flow (primary):**
 
 ```
-Task arrives
+User declares objective
     ↓
-Reasoning Gateway (mode selection)
+goal-setter (reads Canvas for context)
     ↓
-┌─────────────────────────────────────────────────────┐
-│ Abductive/Inductive/Analogical/Dialectical/         │
-│ Counterfactual (analytical modes)                   │
-│     ↓                                               │
-│ Output: hypothesis, pattern, playbook, synthesis    │
-│     ↓                                               │
-│ Chain to Causal if action needed                    │
-└─────────────────────────────────────────────────────┘
+Goal created with plan (subgoals, milestones)
     ↓
-Causal Mode (6-stage execution)
+Subgoals spawn threads (based on autonomy mode)
     ↓
-Thread created → Actions executed → Learning captured → Canvas updated
+Threads execute (6-stage causal flow)
     ↓
-ops/today.md reflects result
+Learning → Canvas updated
+    ↓
+goal-tracker derives state from threads
+    ↓
+Gap detected → New threads or recommendations
+    ↓
+Goal completed → Move to completed/
 ```
 
-**Enforced operational flow:**
-
-Operational threads (business, sales, marketing, engineering) skip gateway selection and use causal mode directly:
+**Reactive flow (fallback):**
 
 ```
-Operational trigger → Causal mode → 6-stage thread → Learning → Canvas update
+Signal arrives (feedback, anomaly, external trigger)
+    ↓
+Reasoning Gateway selects mode
+    ↓
+Thread created → Prompt: "Link to goal or create new goal?"
+    ↓
+6-stage execution → Learning → Canvas update
 ```
 
-**Closed-loop example:**
+**Closed-loop:**
 
-Sales thread → Learning (Stage 6) → Canvas updated → Marketing scans → Content opportunity → Marketing thread → Published → Traffic → Demos → Sales threads → Loop continues
+```
+Goal → Subgoals → Threads → Artifacts → Learning → Canvas
+                     ↑                              ↓
+                     └────── gap-closing actions ───┘
+```
 
 ## Operational Flows
 
-### Enforced Flows (Always Causal)
+### Goal-Driven Execution
 
-Operational threads use causal mode with 6-stage flow:
+All work should be linked to a goal:
 
-| Thread Type | Trigger | Output |
-|-------------|---------|--------|
-| Business | Strategic decision, feedback | Canvas update |
-| Sales | Lead, referral | Pipeline tracking |
-| Marketing | Opportunity detected | Campaign execution |
-| Engineering | Build decision | Specifications |
+| Trigger | Flow |
+|---------|------|
+| User objective | goal-setter → Goal → Subgoals → Threads |
+| Subgoal activation | Thread created, linked to goal |
+| Thread completion | goal-tracker updates goal state |
+| Gap detected | New thread or recommendation (based on autonomy) |
 
-### Impact-Based Autonomy
+### Autonomy Modes
 
-| Impact Score | Action |
-|--------------|--------|
-| < 0.8 | Auto-execute, log in thread |
-| ≥ 0.8 | Flag in `ops/today.md`, wait for approval |
-| Customer calls | Always human |
-| Canvas-altering | Always require approval |
+| Mode | Thread Impact < 0.5 | Thread Impact ≥ 0.5 |
+|------|---------------------|---------------------|
+| `auto` | Auto-execute | Auto-execute |
+| `ask` | Ask user | Ask user |
+| `hybrid` | Auto-execute | Ask user |
 
-### Closed-Loop System
+### Reactive (Fallback)
+
+For signals not covered by existing goals:
 
 ```
-Sales thread completes (Stage 6)
-    ↓
-Learning captured → Canvas updated
-    ↓
-Content strategy scans → opportunity detected
-    ↓
-Marketing thread created → Content published
-    ↓
-Traffic → Demos → Sales threads → Loop continues
+Signal → Thread → "Link to goal or create new goal?"
 ```
+
+Options:
+1. Link to existing goal's subgoals
+2. Create new goal (invokes goal-setter)
+3. Execute as standalone thread (discouraged)
 
 ---
 

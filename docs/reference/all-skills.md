@@ -2,7 +2,7 @@
 
 Complete reference of AI skills and agents for business operations.
 
-## Architecture (v2.1)
+## Architecture (v2.2 - Goal-Oriented)
 
 | Component | Purpose |
 |-----------|---------|
@@ -22,6 +22,7 @@ Complete reference of AI skills and agents for business operations.
 
 | Prefix | Count | Purpose |
 |--------|-------|---------|
+| `goal-*` | 2 | Goal setting and tracking (primary operating mode) |
 | `reasoning-*` | 6 | Reasoning modes (causal, abductive, etc.) |
 | `foundations-*` | 9 | Business setup, Canvas sections |
 | `sales-*` | 5 | Sales pipeline activities |
@@ -29,7 +30,6 @@ Complete reference of AI skills and agents for business operations.
 | `ops-*` | 3 | Dashboards, metrics, content strategy |
 | `research-*` | 1 | Mode-aware market research |
 | `engineering/` | 1 | Categorical verification (nested, internal) |
-| `v1/`, `v2/` | - | Engineering versions (documented) |
 
 ---
 
@@ -118,6 +118,43 @@ Complete reference of AI skills and agents for business operations.
 - **Loop-Driven (PLG, Content-Led):** Loop triggers, velocity proof
 - **Marketplace-Driven (Partner-Led):** Reviews, ratings, store presence
 - **Sales-Driven (SLG):** Pipeline attribution, enablement
+
+---
+
+## Goal Skills (2)
+
+Goals are the **primary operating mode** for LeanOS. All work should be goal-driven.
+
+| Skill | Purpose | Input | Output |
+|-------|---------|-------|--------|
+| `goal-setter` | Transform objectives into structured goals | User intent + Canvas context | `strategy/goals/active/{id}.md` |
+| `goal-tracker` | Derive state from execution, track progress | Goal + Threads | Updated goal state, recommendations |
+
+### goal-setter
+
+**Trigger:** User expresses intent ("I want to...", "Goal is to...", "Achieve X by Y")
+
+**Process:**
+1. Capture objective (what, why, when)
+2. Read Canvas for strategic context
+3. Define success criteria (measurable)
+4. Decompose into subgoals + milestones
+5. Set autonomy level (auto/ask/hybrid)
+
+**Output:** Goal file with plan structure
+
+### goal-tracker
+
+**Trigger:** Status check, thread completion, periodic review
+
+**Process:**
+1. Load goal and linked threads
+2. Derive metrics from thread outcomes
+3. Calculate gap to targets
+4. Project trajectory
+5. Generate recommendations or auto-create threads
+
+**Output:** Updated goal state section, action recommendations
 
 ---
 
