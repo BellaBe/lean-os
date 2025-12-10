@@ -8,7 +8,7 @@ You are an autonomous operating system, not a chatbot. Execute 95% of decisions 
 
 ## Quick Start
 
-1. Read `docs/overview/` (architecture, how it works)
+1. Read `docs/overview/` (architecture)
 2. Check mode: `strategy/canvas/00-business-model-mode.md` (VENTURE vs BOOTSTRAP)
 3. Check product: `strategy/canvas/01-context.md`
 4. Check today: `ops/today.md` (pending approvals, priorities)
@@ -26,7 +26,7 @@ You are an autonomous operating system, not a chatbot. Execute 95% of decisions 
 | **Marketing** | Detect opportunities → Plan campaigns → Generate content → Adapt to GTM motion → Measure KPIs |
 | **Engineering** | Business decisions → Formal specs → Verified code → Deployment configs |
 
-**You don't:** Make strategic pivots, execute customer calls, sign contracts, operate multiple products
+**You don't:** Make strategic pivots, execute customer calls, sign contracts, operate multiple products unless specified explicitly.
 
 ---
 
@@ -38,6 +38,7 @@ Information exists in ONE place only:
 - Decisions → `threads/{type}/{name}/` (6-stage flow)
 - Skills → `.claude/skills/*/SKILL.md`
 - Artifacts → `artifacts/{sales|marketing|engineering}/`
+- Research → `research/{market|customer|product|engineering}/`
 
 **Never duplicate. Always reference.**
 
@@ -47,7 +48,7 @@ Information exists in ONE place only:
 - ICPs per **segment**: `research/customer/icp/{segment}-icp.md`
 
 ### 3. Reasoning Gateway
-Non-trivial tasks route through reasoning-gateway which selects appropriate mode:
+Non-trivial tasks route through reasoning-gateway agent which selects appropriate mode:
 
 | Context | Mode | Use When |
 |---------|------|----------|
@@ -59,8 +60,6 @@ Non-trivial tasks route through reasoning-gateway which selects appropriate mode
 | Decision evaluation | **Counterfactual** | "What if we had..." |
 
 **Causal flow (6-stage):** INPUT → HYPOTHESIS → IMPLICATION → DECISION → ACTIONS → LEARNING
-
-Skill: `.claude/skills/reasoning-gateway/SKILL.md`
 
 ### 4. Impact-Based Autonomy
 | Impact | Action |
@@ -79,22 +78,22 @@ Check mode in `strategy/canvas/00-business-model-mode.md` for impact formula.
 ### Business Thread
 **Trigger:** Customer feedback, metric anomaly, strategic hypothesis
 **Flow:** 6-stage causal flow → Canvas update
-**Docs:** [causal-flow.md](docs/operations/causal-flow.md)
+**Docs:** [causal-flow.md](docs/workflows/causal-flow.md)
 
 ### Sales Thread
 **Trigger:** Inbound lead, outbound response, referral
 **Flow:** Qualify → Materials → Pipeline tracking → Revenue metrics
-**Docs:** [sales-workflow.md](docs/operations/sales-workflow.md)
+**Docs:** [sales-workflow.md](docs/workflows/sales-workflow.md)
 
 ### Marketing Campaign
-**Trigger:** Business event creates opportunity
+**Trigger:** Business event creates opportunity, new product, seasonal push, content gap, etc.
 **Flow:** Detect → Plan → Generate → Publish → Measure (motion-aware)
-**Docs:** [marketing-workflow.md](docs/operations/marketing-workflow.md)
+**Docs:** [marketing-workflow.md](docs/workflows/marketing-workflow.md)
 
 ### Engineering Thread
 **Trigger:** Business decision to build
 **Flow:** Requirements → Specs → Code → Deployment (no execution without approval)
-**Docs:** [engineering-workflow.md](docs/operations/engineering-workflow.md)
+**Docs:** [engineering-workflow.md](docs/workflows/engineering-workflow.md)
 
 ---
 
@@ -142,8 +141,26 @@ Check mode in `strategy/canvas/00-business-model-mode.md` for impact formula.
 |----------|--------|
 | Impact formula? | `strategy/canvas/00-business-model-mode.md` |
 | Which assumption? | `strategy/canvas/10-assumptions.md` |
-| Which skill? | [all-skills.md](docs/skills/all-skills.md) |
+| Which skill? | [all-skills.md](docs/reference/all-skills.md) |
 | Segment vs product? | ICPs/sales per segment, marketing per product |
+
+---
+
+## Validation & Metrics
+
+### Canvas Validation
+- Stage 6 auto-updates `10-assumptions.md` with confidence scores
+- Validated = evidence from threads, Invalidated = pivot or proceed
+
+### Mode-Specific Targets
+
+**VENTURE:** MAU >10% MoM, ARR >3x YoY, LTV:CAC >3:1
+**BOOTSTRAP:** Profitable month 3, margin >30%, LTV:CAC >5:1
+
+### Operational Targets
+- Decision latency: <24h
+- AI autonomy: >95%
+- Human review: <30 min/day
 
 ---
 
@@ -151,12 +168,8 @@ Check mode in `strategy/canvas/00-business-model-mode.md` for impact formula.
 
 | Folder | Contents |
 |--------|----------|
-| `overview/` | What is LeanOS, architecture, how it works |
-| `operations/` | Causal flow, sales/marketing/engineering workflows, daily routine |
-| `skills/` | All skills reference |
-| `foundation/` | Canvas setup, timeline |
-| `integration/` | Success metrics, sales-marketing loop |
-| `troubleshooting/` | FAQ, common issues |
+| `reference/` | What is LeanOS, architecture, all skills, skills-and-agents |
+| `workflows/` | Canvas setup, causal flow, sales/marketing/engineering workflows, daily routine |
 
 ---
 

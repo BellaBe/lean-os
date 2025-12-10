@@ -4,6 +4,192 @@ Record of significant system optimizations, refactorings, and architectural impr
 
 ---
 
+## 2025-12-10: Skills Restructuring + Documentation Cleanup
+
+### Summary
+Major restructuring of `.claude/skills/` to flat architecture with agents as orchestrators. Consolidated docs from 16 files to 10 files in 2 folders. Removed counts/timelines that become obsolete.
+
+### Philosophy Shift
+
+**From:** Nested orchestrator skills with sub-skills
+**To:** Flat skills + agents as orchestrators
+
+**Core principles:**
+- Skills are flat, single-capability instructions
+- Agents are orchestrators that route to skills
+- Only top-level skills are discoverable by Claude
+- Standalone skills can exist without agents
+
+### Changes Made
+
+#### 1. Created Agents Directory
+
+**Location:** `.claude/agents/`
+
+**New agents:**
+| Agent | Purpose | Skills Loaded |
+|-------|---------|---------------|
+| `reasoning-gateway.md` | Route to reasoning modes | reasoning-* |
+| `foundations-builder.md` | Canvas population | foundations-*, icp-generator |
+| `sales-execution.md` | Sales pipeline | sales-* |
+| `marketing-execution.md` | Campaign execution | marketing-* |
+
+#### 2. Flattened Nested Skills
+
+**Sales (from sales-execution/):**
+- `sales-materials-generation/`
+- `sales-prospect-research/`
+- `sales-contact-finding/`
+- `sales-outreach-sequencing/`
+- `sales-qualification-support/`
+
+**Marketing (from marketing-execution/):**
+- `marketing-content-generation/`
+- `marketing-content-delivery/`
+- `marketing-channel-optimization/`
+
+**Foundations (from foundations-builder/):**
+- `foundations-market-intelligence/`
+- `foundations-problem-solution-fit/`
+- `foundations-value-proposition/`
+- `foundations-business-model/`
+- `foundations-validation/`
+- `foundations-go-to-market/`
+- `foundations-funding/`
+- `foundations-regulatory/`
+- `foundations-retention-optimizer/`
+
+**Reasoning (from reasoning-gateway/stages/):**
+- `reasoning-causal/` (with references/ for 6-stage flow)
+- `reasoning-abductive/`
+- `reasoning-inductive/`
+- `reasoning-analogical/`
+- `reasoning-dialectical/`
+- `reasoning-counterfactual/`
+
+#### 3. Created Standalone Skills
+
+Skills not tied to any agent:
+- `sales-narrative/` - Sales messaging per segment
+- `marketing-narrative/` - Brand identity, content patterns
+- `content-generation/` - Create content (any context)
+
+#### 4. Engineering Versioning
+
+- `v1/README.md` - Documents legacy engineering (deprecated)
+- `v2/README.md` - Documents active 12-level pipeline
+- `engineering/` kept nested (internal pipeline)
+
+#### 5. Documentation Cleanup
+
+**Removed (6 files):**
+- `docs/foundation/timeline.md` - AI-driven execution doesn't need timelines
+- `docs/foundation/validation.md` - Validation is skill behavior
+- `docs/overview/how-it-works.md` - Merged into architecture.md
+- `docs/integration/success-metrics.md` - Moving to goal-oriented approach
+- `docs/troubleshooting/common-issues.md` - Too operational
+- `docs/troubleshooting/faq.md` - Repetitive of what-is-leanos
+
+**Restructured (from 5 folders to 2):**
+```
+docs/
+├── reference/           # Static knowledge
+│   ├── what-is-leanos.md
+│   ├── architecture.md
+│   ├── all-skills.md
+│   └── skills-and-agents.md
+└── workflows/           # How to do things
+    ├── canvas-setup.md
+    ├── causal-flow.md
+    ├── sales-workflow.md
+    ├── marketing-workflow.md
+    ├── engineering-workflow.md
+    └── daily-routine.md
+```
+
+**Slimmed:**
+- `daily-routine.md` - 269 → 95 lines
+- Removed skill counts (become obsolete)
+- Removed timelines (AI-driven)
+
+#### 6. Updated References
+
+**CLAUDE.md:**
+- Updated docs table
+- Fixed reasoning-gateway path (skill → agent)
+- Added Validation & Metrics section
+
+**README.md:**
+- Updated Quick Navigation links
+- Removed Status & Roadmap section
+- Removed skill counts
+
+**architecture.md:**
+- Updated diagram with agents + standalone skills
+- Fixed all path references
+- Added Standalone Skills section
+
+### Current Structure
+
+```
+.claude/
+├── agents/                    # Orchestrators (4)
+│   ├── reasoning-gateway.md
+│   ├── foundations-builder.md
+│   ├── sales-execution.md
+│   └── marketing-execution.md
+└── skills/                    # Flat skills
+    ├── reasoning-*            # 6 reasoning modes
+    ├── foundations-*          # 9 business setup
+    ├── sales-*                # 5 sales pipeline
+    ├── marketing-*            # 3 campaign execution
+    ├── ops-*                  # 3 operations
+    ├── research-*             # 1 market research
+    ├── sales-narrative/       # Standalone
+    ├── marketing-narrative/   # Standalone
+    ├── content-generation/    # Standalone
+    ├── icp-generator/         # Tied to foundations-builder
+    ├── engineering/           # Internal (nested)
+    └── v1/, v2/               # Engineering versions
+```
+
+### Migration Notes
+
+**For skill references:**
+- Old: `.claude/skills/sales-execution/materials-generation/`
+- New: `.claude/skills/sales-materials-generation/`
+
+**For agent invocation:**
+- Agents in `.claude/agents/` are spawned via Task tool
+- Skills in `.claude/skills/` are auto-loaded by description
+
+**For docs:**
+- Old: `docs/overview/architecture.md`
+- New: `docs/reference/architecture.md`
+
+### Success Metrics
+
+**Architecture clarity:**
+- ✅ Flat skills discoverable by Claude
+- ✅ Agents as explicit orchestrators
+- ✅ Standalone skills for cross-cutting concerns
+- ✅ Engineering versions documented
+
+**Documentation reduction:**
+- ✅ 16 → 10 files (37% reduction)
+- ✅ 5 → 2 folders
+- ✅ Removed obsolete counts/timelines
+
+---
+
+**Change type:** Major restructuring
+**Impact:** High (all skill paths changed)
+**Breaking changes:** Yes (skill paths, docs paths)
+**Version:** 2.1
+**Status:** Complete
+
+---
+
 ## 2025-12-02: Motion-Aware Marketing Architecture
 
 ### Summary

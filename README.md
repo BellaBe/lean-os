@@ -10,31 +10,22 @@ AI-native OS that automates 95%+ of business operations for startups, small team
 - **Automates decisions:** Claude AI processes engineering, sales, marketing, and business decisions autonomously
 - **Single source of truth:** Lean Canvas (15 living documents) drives all operations
 - **Human oversight:** <30 min/day for strategic decisions only
-- **Learning-driven:** Marketing content created from validated sales learning
-- **19 skills, 60+ sub-skills:** Organized by functional type for easy discovery
+- **Agents + Skills:** Flat architecture with agents as orchestrators
 
 ## Quick Navigation
 
-### Getting Started
-- [What is LeanOS?](docs/overview/what-is-leanos.md) - Problem, solution, core principles
-- [Architecture Overview](docs/overview/architecture.md) - System layers and data flow
-- [Canvas Setup](docs/foundation/canvas-setup.md) - Foundation-building process
-- [Timeline Guide](docs/foundation/timeline.md) - Pre-launch to operations
-
-### Operations
-- [Sales Workflow](docs/operations/sales-workflow.md) - Strategy → execution → learning
-- [Marketing Workflow](docs/operations/marketing-workflow.md) - Learning-driven content
-- [Engineering Workflow](docs/operations/engineering-workflow.md) - Verified system generation
-- [Daily Routine](docs/operations/daily-routine.md) - Your 5-min review
-- [6-Stage Causal Flow](docs/operations/causal-flow.md) - Decision framework
-
-### Skills Reference
-- [All Skills](docs/skills/all-skills.md) - Complete skills reference
-
 ### Reference
-- [Success Metrics](docs/integration/success-metrics.md) - KPIs and targets
-- [Troubleshooting](docs/troubleshooting/common-issues.md) - By category
-- [FAQ](docs/troubleshooting/faq.md) - Common questions
+- [What is LeanOS?](docs/reference/what-is-leanos.md) - Problem, solution, core principles
+- [Architecture](docs/reference/architecture.md) - System layers and data flow
+- [All Skills](docs/reference/all-skills.md) - Complete skills reference
+
+### Workflows
+- [Canvas Setup](docs/workflows/canvas-setup.md) - Foundation-building process
+- [Sales Workflow](docs/workflows/sales-workflow.md) - Strategy → execution → learning
+- [Marketing Workflow](docs/workflows/marketing-workflow.md) - Learning-driven content
+- [Engineering Workflow](docs/workflows/engineering-workflow.md) - Verified system generation
+- [Daily Routine](docs/workflows/daily-routine.md) - Your 5-min review
+- [Causal Flow](docs/workflows/causal-flow.md) - 6-stage decision framework
 
 ## Core Principles
 
@@ -44,6 +35,20 @@ AI-native OS that automates 95%+ of business operations for startups, small team
 4. **Evidence-based decisions:** All choices trace to Canvas assumptions
 5. **Learning-driven content:** Marketing creates when business generates insights
 6. **Mode-aware operations:** Adapts to VENTURE or BOOTSTRAP business models
+7. **Human-in-the-loop:** AI executes, humans oversee strategy
+8. **Flat architecture:** Easy skill discovery and maintenance
+9. **Mathematical verification:** System designs are provably correct
+10. **Direct and production-ready:** No fluff, just actionable outputs
+11. **Continuous improvement:** Regular updates based on performance data
+12. **Transparent processes:** Clear documentation of AI decision-making
+13. **Scalable systems:** Designed for growth from day one
+14. **Ethical AI use:** Prioritizes user privacy and data security
+15. **Open collaboration:** Encourages human contributions and feedback
+16. **Modular design:** Skills and agents can be updated independently
+17. **Robust error handling:** Skills include fallback mechanisms
+18. **Comprehensive documentation:** All aspects of the OS are well-documented
+19. **Version control:** Changes tracked for accountability
+20. **User-centric design:** Focused on the needs of startups and small teams
 
 ## Dual-Mode Support: Venture vs Bootstrap
 
@@ -99,61 +104,54 @@ personal-os/
 ├── research/customer/        # ICP definitions, prospect lists
 ├── artifacts/                # Deliverables (sales materials, published content, engineering)
 ├── ops/                      # Daily interface (auto-generated)
-└── .claude/skills/           # AI execution layer
-    ├── reasoning-gateway/    # Meta-reasoning: routes to appropriate mode
-    │   └── stages/           # 6 reasoning modes (causal, abductive, inductive, etc.)
-    ├── engineering/          # System building with categorical verification
-    ├── foundations-*         # 4 skills: Business setup & strategy
-    ├── ops-*                 # 3 skills: Dashboards, metrics, content strategy
-    ├── research-*            # 2 skills: Market research
-    ├── sales-execution/      # Sales pipeline management
-    └── marketing-execution/  # Campaign execution
+├── .claude/
+│   ├── agents/               # Orchestrators (4 agents)
+│   │   ├── reasoning-gateway.md
+│   │   ├── foundations-builder.md
+│   │   ├── sales-execution.md
+│   │   └── marketing-execution.md
+│   └── skills/               # Flat skills
+│       ├── reasoning-*       # Reasoning modes
+│       ├── foundations-*     # Business setup
+│       ├── sales-*           # Sales pipeline
+│       ├── marketing-*       # Campaign execution
+│       ├── ops-*             # Operations
+│       ├── research-*        # Market research
+│       └── engineering-*     # Engineering (nested) 
 ```
 
 ## Technology Stack
 
-- **AI:** Claude Sonnet 4.5 via Claude Skills
-- **Languages:** Python (FastAPI), Bash, Markdown
+- **AI:** Claude Skills via Claude Code and any supported model
+- **Languages:** Python, JS/TS, Bash, Markdown
 - **Infrastructure:** Local file system, Git version control
 
 ## Getting Started
 
 ### Prerequisites
-- Claude AI access (Sonnet 4.5)
+- Claude AI access
 - Git for version control
 - Understanding of Lean Canvas methodology
 
 ### Initial Setup (45-60 minutes)
 
-1. **Install foundation-builder skill**
+1. **Install foundation-builder agent and related skills**
    ```bash
-   # Copy to .claude/skills/foundation-builder/
+   # Copy to .claude/skills/
    ```
 
 2. **Run Phase 0a: Discovery**
    ```text
-   skill: foundation-builder
-   phase: discovery
-   focus: "[your business idea]"
+   use foundation-builder agent, phase: discovery, focus: "[your business idea]"
    ```
 
 3. **Continue through phases** (see [Canvas Setup Guide](docs/foundation/canvas-setup.md))
 
 4. **Activate operations** after validation (see [Timeline Guide](docs/foundation/timeline.md))
 
-## Status & Roadmap
+## Skill Architecture
 
-- ✅ **Engineering layer** (8 skills, 27 sub-skills: system architecture → backend → frontend → infrastructure)
-- ✅ **Sales foundation** (ICP, narratives, materials, execution)
-- ✅ **Marketing foundation** (motion-aware GTM, content workflow, channel optimization)
-- ✅ **Dual-mode support** (Venture/Bootstrap with mode-aware decision making)
-- ✅ **Skill restructuring** (Type-prefixed naming for easy discovery)
-- 📋 Ops dashboard auto-generation
-- 🔮 Full automation (customer success, fundraising)
-
-## Skill Architecture (v2.0)
-
-### Reasoning Gateway (New)
+### Reasoning Gateway
 
 Routes to appropriate reasoning mode based on context:
 
@@ -166,17 +164,22 @@ Routes to appropriate reasoning mode based on context:
 | **Dialectical** | Stakeholder conflicts, trade-off resolution |
 | **Counterfactual** | Decision evaluation, "what if we had..." |
 
-### Skill Categories
+### Agents + Skills
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| **Agents** | `.claude/agents/` | Orchestrators that route to skills |
+| **Skills** | `.claude/skills/` | Flat, single-capability instructions |
 
 | Category | Purpose |
 |----------|---------|
-| `reasoning-gateway/` | Meta-reasoning with 6 modes |
-| `engineering/` | Categorical verification (12 levels) |
-| `foundations-*` | Business setup, ICP, narratives |
+| `reasoning-*` | Reasoning modes (causal, abductive, etc.) |
+| `foundations-*` | Business setup, Canvas sections |
+| `sales-*` | Sales pipeline activities |
+| `marketing-*` | Campaign execution |
 | `ops-*` | Dashboards, metrics, content strategy |
 | `research-*` | Mode-aware market research |
-| `sales-execution` | Pipeline management |
-| `marketing-execution` | Campaign execution |
+| `engineering-*` | Categorical verification (nested) |
 
 See [All Skills](docs/skills/all-skills.md) for complete reference.
 
