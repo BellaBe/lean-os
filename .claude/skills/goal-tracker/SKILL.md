@@ -298,10 +298,12 @@ Trigger: All success criteria met
 - Tracker operates on goals created by setter
 - Tracker may recommend goal refinement → triggers setter
 
-### With Threads
-- Reads thread state for metrics
-- Creates threads for gap-closing actions
-- Updates on thread completion
+### With Threads (reasoning-causal)
+- Threads execute goal subgoals via 6-stage causal flow
+- Thread `meta.json` contains `goal_id` and `subgoal` reference
+- Thread Stage 6 (Learning) notifies goal-tracker of completion
+- Goal-tracker updates subgoal status and goal metrics
+- Gap-closing actions create new goal-linked threads
 
 ### With Canvas
 - Goal completion may validate Canvas assumptions

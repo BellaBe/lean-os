@@ -7,6 +7,21 @@ description: Execute evidence-based decision-making through 6-stage causal flow.
 
 Execute systematic cause-effect reasoning. The logic of process and action.
 
+## Relationship to Goals
+
+Threads are the **execution layer** for goals. Goals define *what* to achieve; threads define *how*.
+
+```
+Goal (goal-setter)
+  └── Subgoal
+        └── Thread (reasoning-causal) ← executes via 6-stage flow
+              └── Learning → updates Goal state (goal-tracker)
+```
+
+**Thread types:**
+- **Goal-linked:** Created from subgoals, has `goal_id` in metadata
+- **Reactive:** Created from signals (no goal), may spawn or link to goal
+
 ## Type Signature
 
 ```
@@ -18,7 +33,7 @@ Where:
   Implication : TestableHypothesis → (Impact × Probability × Timeline)
   Decision    : Implication × Alternatives → Commitment
   Action      : Commitment → [ExecutableTask]
-  Learning    : [ExecutedTask] × Outcomes → CanvasUpdate
+  Learning    : [ExecutedTask] × Outcomes → CanvasUpdate × GoalUpdate
 ```
 
 ## When to Use
@@ -28,6 +43,7 @@ Where:
 - Operational workflows (sales, marketing, engineering)
 - Canvas hypothesis testing
 - Action planning and execution
+- **Executing subgoals** (goal-linked threads)
 
 ## Thread Types
 
@@ -164,19 +180,30 @@ Check `strategy/canvas/00-business-model-mode.md` for mode.
 ### Stage 6: Learning
 
 **File:** `6-learning.md`
-**Purpose:** Document outcomes and update Canvas.
+**Purpose:** Document outcomes and update Canvas + Goal.
 
 **Content:**
 - Actual vs expected outcome
 - Hypothesis validated/invalidated?
 - Canvas sections to update
+- Goal metrics to update (if goal-linked)
 - New threads generated
-- Metrics captured
 
 **Rules:**
 - Update `strategy/canvas/10-assumptions.md`
 - Link learning to original hypothesis
+- If goal-linked: Update goal state via goal-tracker
 - Generate follow-up threads if needed
+
+**Goal Integration:**
+```
+If thread.goal_id exists:
+  1. Read goal from strategy/goals/active/{goal_id}.md
+  2. Update subgoal status (pending → completed)
+  3. Extract metrics from learning for goal state
+  4. Check if goal success criteria met
+  5. If all subgoals complete → mark goal completed
+```
 
 **Detail:** `references/stages/learning.md`
 
@@ -184,27 +211,67 @@ Check `strategy/canvas/00-business-model-mode.md` for mode.
 
 ## Workflow
 
+### Goal-Linked Thread (Primary)
+
 ```
-1. Determine thread type (business/sales/marketing/engineering)
-2. Create thread directory: threads/{type}/{name}/
-3. Execute stages 1-6 sequentially
-4. At Stage 4: Calculate impact, flag if ≥0.8
-5. At Stage 6: Update Canvas assumptions
-6. Update ops/today.md with results
+1. Receive subgoal from goal-setter
+2. Create thread: threads/{type}/{name}/
+3. Set meta.json with goal_id and subgoal
+4. Execute stages 1-6 sequentially
+5. At Stage 4: Calculate impact, flag if ≥0.8
+6. At Stage 6: Update Canvas AND goal state
+7. Notify goal-tracker of completion
+```
+
+### Reactive Thread (Fallback)
+
+```
+1. Receive signal (feedback, anomaly, opportunity)
+2. Create thread: threads/{type}/{name}/
+3. Set meta.json without goal_id
+4. Execute stages 1-6 sequentially
+5. At Stage 4: Calculate impact, flag if ≥0.8
+6. At Stage 6: Update Canvas
+7. Optionally: Link to existing goal or spawn new goal
 ```
 
 ## Thread Structure
 
 ```
 threads/{type}/{name}/
-├── meta.json           # Thread metadata
+├── meta.json           # Thread metadata (includes goal linkage)
 ├── 1-input.md          # Factual observation
 ├── 2-hypothesis.md     # Canvas assumption link
 ├── 3-implication.md    # Impact analysis
 ├── 4-decision.md       # Commitment + impact score
 ├── 5-actions.md        # Executable tasks
-└── 6-learning.md       # Outcomes + Canvas update
+└── 6-learning.md       # Outcomes + Canvas/Goal update
 ```
+
+### Thread Metadata (meta.json)
+
+```json
+{
+  "id": "thread-{type}-{name}",
+  "type": "business | sales | marketing | engineering",
+  "status": "active | completed | blocked",
+  "created": "YYYY-MM-DD",
+  "updated": "YYYY-MM-DD",
+  "goal_id": "g-{goal-id}",        // Optional: linked goal
+  "subgoal": "SG1",                 // Optional: which subgoal
+  "stage": 1-6,
+  "impact_score": 0.0-1.0
+}
+```
+
+**Goal-linked threads:**
+- `goal_id` references `strategy/goals/active/{goal-id}.md`
+- `subgoal` indicates which subgoal this thread executes
+- Stage 6 learning updates both Canvas AND goal state
+
+**Reactive threads (no goal):**
+- `goal_id` is null or absent
+- At completion, may link to existing goal or spawn new goal
 
 ## Decision Authority
 
@@ -241,20 +308,24 @@ references/
 
 ## Success Criteria
 
+- **Goal-aligned:** Thread serves a goal subgoal (when goal-linked)
 - **Evidence-based:** Starts with factual observation
 - **Hypothesis-driven:** Links to Canvas assumptions
 - **Impact-analyzed:** Quantified cost/benefit
 - **Traceable:** Complete 6-stage audit trail
-- **Self-correcting:** Canvas updates from learning
+- **Self-correcting:** Canvas AND goal updates from learning
 - **Autonomous:** AI executes >95% (impact <0.8)
 
 ## Remember
 
 Every decision flows through **6 stages**. No shortcuts.
 
+**Goals are primary.** Threads execute goals. Reactive threads are fallback.
+
 This skill:
 - Executes the 6-stage causal flow
+- Links threads to goals (when goal-linked)
 - Reads reference docs for detail
 - Calculates impact scores
-- Updates Canvas from learning
+- Updates Canvas AND goal state from learning
 - Flags high-impact items for human review
