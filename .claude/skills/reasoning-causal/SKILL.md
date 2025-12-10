@@ -1,7 +1,6 @@
 ---
 name: reasoning-causal
 description: Execute evidence-based decision-making through 6-stage causal flow. Use for known processes, operational execution, and decisions with clear cause-effect chains.
-version: 2.0.0
 ---
 
 # Causal Reasoning
@@ -32,148 +31,182 @@ Where:
 
 ## Thread Types
 
-Load thread-specific architecture as needed:
+| Type | Location | Use For |
+|------|----------|---------|
+| Business | `threads/business/{name}/` | Strategic decisions, product changes |
+| Sales | `threads/sales/{name}/` | Deal pipelines, prospects |
+| Marketing | `threads/marketing/{name}/` | Campaigns, content launches |
+| Engineering | `threads/engineering/{name}/` | Requirements → specifications |
 
-### Business Threads
-**Reference:** `reference/business-threads.md`
-**Use for:** Strategic decisions, product changes, market positioning
-**Action types:** Engineering, legal, marketing, sales, operations
+**Thread-specific details:** See `references/threads/{type}.md`
 
-### Sales Threads
-**Reference:** `reference/sales-threads.md`
-**Use for:** Deal pipelines, individual prospects, enterprise opportunities
-**Action types:** lead-intake, qualification, demo, pilot, close
+---
 
-### Marketing Threads
-**Reference:** `reference/marketing-threads.md`
-**Use for:** Campaign execution, content launches, market research
-**Action types:** research, create, publish, promote, measure
+## 6-Stage Flow
 
-### Engineering Threads
-**Reference:** `reference/engineering-threads.md`
-**Use for:** Translating business requirements into engineering specifications
-**Stages:** 1-5 only (no Stage 6 - closes after specifications defined)
-**Output:** Requirements list for specialized engineering skills to build
-
-## Orchestration Workflow
-
-### Step 1: Determine Thread Type
-
-Ask user if unclear:
-- Business decision? → `threads/business/{name}/`
-- Sales opportunity? → `threads/sales/{name}/`
-- Marketing campaign? → `threads/marketing/{name}/`
-- Engineering requirement? → `threads/engineering/{name}/`
-
-### Step 2: Load Thread-Specific Architecture
-
-```
-Read reference/{type}-threads.md
-```
-
-This provides:
-- Thread structure conventions
-- Action type catalogs
-- Metadata schemas
-- Workflow patterns
-
-### Step 3: Execute 6-Stage Flow
-
-Invoke stage skills **sequentially**:
-
-1. **Stage 1: Input** → `stages/causal-flow-input/SKILL.md`
-2. **Stage 2: Hypothesis** → `stages/causal-flow-hypothesis/SKILL.md`
-3. **Stage 3: Implication** → `stages/causal-flow-implication/SKILL.md`
-4. **Stage 4: Decision** → `stages/causal-flow-decision/SKILL.md`
-5. **Stage 5: Actions** → `stages/causal-flow-actions/SKILL.md`
-6. **Stage 6: Learning** → `stages/causal-flow-learning/SKILL.md`
-
-**CRITICAL:** Do NOT execute stage logic in this orchestrator. Delegate to stage skills.
-
-### Step 4: Track Progress
-
-Monitor thread state:
-- `draft` → `active` → `in_review` → `completed` → `archived`
-
-Update `ops/today.md` with high-impact items (≥0.8).
-
-## Six Stages
+Execute stages **sequentially**. Each stage produces a markdown file in the thread directory.
 
 ### Stage 1: Input
-Capture factual observation that triggers the flow.
-- What happened? (not opinion, fact)
+
+**File:** `1-input.md`
+**Purpose:** Capture factual observation that triggers the flow.
+
+**Content:**
+- What happened? (fact, not opinion)
 - When? Where? Who observed?
-- What's the context?
+- Raw data/evidence links
+- Context (what we believed before)
+
+**Rules:**
+- Facts only, no interpretation
+- No solutions or recommendations
+- Link to evidence
+
+**Detail:** `references/stages/input.md`
+
+---
 
 ### Stage 2: Hypothesis
-Link to Canvas assumption being tested.
-- Which assumption does this challenge or validate?
+
+**File:** `2-hypothesis.md`
+**Purpose:** Link observation to Canvas assumption being tested.
+
+**Content:**
+- Which assumption does this challenge/validate?
 - What do we believe will happen?
 - What would prove us wrong?
+- Testable prediction
+
+**Rules:**
+- Must reference `strategy/canvas/10-assumptions.md`
+- State falsifiable hypothesis
+- Define success/failure criteria
+
+**Detail:** `references/stages/hypothesis.md`
+
+---
 
 ### Stage 3: Implication
-Analyze business impact with numbers.
-- Revenue impact (high/medium/low)?
-- Timeline (short/medium/long)?
-- Resource requirements?
-- Risk level?
+
+**File:** `3-implication.md`
+**Purpose:** Analyze business impact with numbers.
+
+**Content:**
+- Revenue impact (quantified)
+- Timeline (short/medium/long)
+- Resource requirements
+- Risk assessment
+- Opportunity cost
+
+**Rules:**
+- Include specific numbers
+- Compare scenarios
+- Identify dependencies
+
+**Detail:** `references/stages/implication.md`
+
+---
 
 ### Stage 4: Decision
-Make official commitment with alternatives.
-- What are we committing to?
-- What alternatives were considered?
-- Impact score (for routing)?
-- Who needs to approve?
+
+**File:** `4-decision.md`
+**Purpose:** Make official commitment with impact score.
+
+**Content:**
+- Decision statement (PROCEED/DEFER/DECLINE)
+- Alternatives considered
+- Impact score calculation
+- Approval status
+
+**Impact Scoring:**
+
+| Score | Action |
+|-------|--------|
+| < 0.8 | Auto-execute |
+| ≥ 0.8 | Flag for human approval |
+
+**Mode-Aware Formulas:**
+
+**VENTURE:** `Impact = (Strategic Value × Market Size × Defensibility) / 3`
+**BOOTSTRAP:** `Impact = (Revenue Impact × Time to Cash × Margin) / 3`
+
+Check `strategy/canvas/00-business-model-mode.md` for mode.
+
+**Detail:** `references/stages/decision.md`
+
+---
 
 ### Stage 5: Actions
-Generate executable tasks.
+
+**File:** `5-actions.md` or `5-actions/` directory
+**Purpose:** Generate executable tasks.
+
+**Content:**
 - Typed actions (sales:*, marketing:*, engineering:*)
 - Assigned owners
 - Deadlines
 - Success criteria
+- Dependencies
+
+**Action Types by Thread:**
+
+| Thread | Action Types |
+|--------|--------------|
+| Sales | lead-intake, qualify, demo, pilot, close |
+| Marketing | research, create, publish, promote, measure |
+| Engineering | requirements, specification, implementation |
+| Business | varies by decision |
+
+**Templates:** `references/templates/{type}-{action}.md`
+
+**Detail:** `references/stages/actions.md`
+
+---
 
 ### Stage 6: Learning
-Document outcomes and update Canvas.
-- What happened vs expected?
+
+**File:** `6-learning.md`
+**Purpose:** Document outcomes and update Canvas.
+
+**Content:**
+- Actual vs expected outcome
 - Hypothesis validated/invalidated?
-- Canvas sections to update?
-- New threads generated?
+- Canvas sections to update
+- New threads generated
+- Metrics captured
 
-## Impact Scoring
+**Rules:**
+- Update `strategy/canvas/10-assumptions.md`
+- Link learning to original hypothesis
+- Generate follow-up threads if needed
 
-Calculate in Stage 4 to determine routing:
+**Detail:** `references/stages/learning.md`
 
-**Score < 0.8:** Auto-execute autonomously
-**Score ≥ 0.8:** Flag for human approval
+---
 
-### Mode-Aware Formulas
+## Workflow
 
-**VENTURE Mode:**
 ```
-Impact = (Strategic Value × Market Size × Defensibility) / 3
+1. Determine thread type (business/sales/marketing/engineering)
+2. Create thread directory: threads/{type}/{name}/
+3. Execute stages 1-6 sequentially
+4. At Stage 4: Calculate impact, flag if ≥0.8
+5. At Stage 6: Update Canvas assumptions
+6. Update ops/today.md with results
 ```
 
-**BOOTSTRAP Mode:**
+## Thread Structure
+
 ```
-Impact = (Revenue Impact × Time to Cash × Margin) / 3
+threads/{type}/{name}/
+├── meta.json           # Thread metadata
+├── 1-input.md          # Factual observation
+├── 2-hypothesis.md     # Canvas assumption link
+├── 3-implication.md    # Impact analysis
+├── 4-decision.md       # Commitment + impact score
+├── 5-actions.md        # Executable tasks
+└── 6-learning.md       # Outcomes + Canvas update
 ```
-
-Check `strategy/canvas/00-business-model-mode.md` for current mode.
-
-## Canvas Integration
-
-**Location:** `strategy/canvas/` (15 markdown files)
-**Primary for causal flow:** `strategy/canvas/10-assumptions.md`
-
-Stage skills handle Canvas reading/updating automatically:
-- Stage 2 reads assumptions
-- Stage 6 updates assumptions
-
-## Output Storage
-
-**Strategy:** `strategy/canvas/`, `strategy/financials/`
-**Artifacts:** `artifacts/sales/`, `artifacts/marketing/`, `artifacts/engineering/`
-**Threads:** `threads/{type}/{name}/` (working documents)
 
 ## Decision Authority
 
@@ -186,50 +219,45 @@ Stage skills handle Canvas reading/updating automatically:
 - Strategic pivot
 - ROI <2x, high risk
 - Cost ≥$100K, timeline ≥3 months
+- Canvas-altering decisions
 
-Stage 4 skill calculates impact and flags appropriately.
+## References
 
-## Available Resources
-
-### Stage Skills
-- `stages/causal-flow-input/SKILL.md`
-- `stages/causal-flow-hypothesis/SKILL.md`
-- `stages/causal-flow-implication/SKILL.md`
-- `stages/causal-flow-decision/SKILL.md`
-- `stages/causal-flow-actions/SKILL.md`
-- `stages/causal-flow-learning/SKILL.md`
-
-### Reference Documentation
-- `reference/business-threads.md`
-- `reference/sales-threads.md`
-- `reference/marketing-threads.md`
-- `reference/engineering-threads.md`
-
-### Action Templates
-- `actions/templates/sales-*.md`
-- `actions/templates/marketing-*.md`
+```
+references/
+├── stages/           # Stage execution details
+│   ├── input.md
+│   ├── hypothesis.md
+│   ├── implication.md
+│   ├── decision.md
+│   ├── actions.md
+│   └── learning.md
+├── threads/          # Thread type specifics
+│   ├── business.md
+│   ├── sales.md
+│   ├── marketing.md
+│   └── engineering.md
+└── templates/        # Action templates
+    ├── sales-*.md
+    └── marketing-*.md
+```
 
 ## Success Criteria
 
-- **Evidence-based:** Starts with factual observation (Stage 1)
-- **Hypothesis-driven:** Challenges assumptions (Stage 2)
-- **Impact-analyzed:** Full cost/benefit (Stage 3)
-- **Traceable:** Complete audit trail (Stages 1-6)
-- **Self-correcting:** Canvas updates (Stage 6)
-- **Autonomous:** AI executes >95%
-- **Strategic:** Human review only when flagged
+- **Evidence-based:** Starts with factual observation
+- **Hypothesis-driven:** Links to Canvas assumptions
+- **Impact-analyzed:** Quantified cost/benefit
+- **Traceable:** Complete 6-stage audit trail
+- **Self-correcting:** Canvas updates from learning
+- **Autonomous:** AI executes >95% (impact <0.8)
 
 ## Remember
 
-Every decision—business, sales, or marketing—flows through **6 stages**. No shortcuts.
+Every decision flows through **6 stages**. No shortcuts.
 
 This skill:
-- Routes to appropriate thread type
-- Loads thread-specific architecture
-- Invokes stage skills sequentially
-- Monitors progress
-
-This skill does NOT:
-- Execute stage logic (delegate to stage skills)
-- Know stage execution details (stage skills handle)
-- Contain reference material (load on-demand)
+- Executes the 6-stage causal flow
+- Reads reference docs for detail
+- Calculates impact scores
+- Updates Canvas from learning
+- Flags high-impact items for human review

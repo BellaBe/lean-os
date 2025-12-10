@@ -1,8 +1,3 @@
----
-name: causal-flow-hypothesis
-description: Stage 2 - Challenge or validate Canvas assumptions based on input observations. Identify which business beliefs are supported or contradicted by evidence and update confidence levels.
-allowed-tools: Read,Write
----
 
 # Stage 2: Hypothesis (Challenge Beliefs)
 

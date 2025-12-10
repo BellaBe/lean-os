@@ -1,8 +1,3 @@
----
-name: causal-flow-input
-description: Stage 1 - Capture factual observations that trigger decision-making. Document market signals, metric changes, feedback, or external events without interpretation or solutions.
-allowed-tools: Read,Write
----
 
 # Stage 1: Input (Observation)
 

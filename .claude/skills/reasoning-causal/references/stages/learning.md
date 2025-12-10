@@ -1,8 +1,3 @@
----
-name: causal-flow-learning
-description: Stage 7 - Validate hypotheses based on results and automatically update Canvas based on evidence. Close the feedback loop by generating new threads from surprises and opportunities.
-allowed-tools: Read,Write
----
 
 # Stage 7: Learning (Validation)
 

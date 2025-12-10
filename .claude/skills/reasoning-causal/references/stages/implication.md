@@ -1,8 +1,3 @@
----
-name: causal-flow-implication
-description: Stage 3 - Analyze full business impact of hypothesis changes. Quantify revenue opportunity, costs, risks, timeline, and ROI before making commitment decisions.
-allowed-tools: Read,Write
----
 
 # Stage 3: Implication (Analyze Impact)
 

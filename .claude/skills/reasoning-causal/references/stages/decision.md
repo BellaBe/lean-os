@@ -1,8 +1,3 @@
----
-name: causal-flow-decision
-description: Stage 4 - Official commitment to action based on implication analysis. Document decision, alternatives considered, success metrics, and approval authority (AI autonomous or human flagged).
-allowed-tools: Read,Write
----
 
 # Stage 4: Decision (Commitment)
 

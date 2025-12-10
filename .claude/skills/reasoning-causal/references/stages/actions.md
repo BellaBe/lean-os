@@ -1,8 +1,3 @@
----
-name: causal-flow-actions
-description: Stage 5 - Break decisions into executable tasks with clear owners, deliverables, timelines, and progress tracking. Coordinate execution across engineering, legal, sales, and operations.
-allowed-tools: Read,Write
----
 
 # Stage 5: Actions (Execution)
 
