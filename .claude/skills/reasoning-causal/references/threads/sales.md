@@ -70,13 +70,13 @@ All sales actions reference materials by segment:
 
 ### Action Type Catalog
 
-| Type | Purpose | Human Required | Duration | Template |
-|------|---------|----------------|----------|----------|
-| `sales:lead-intake` | Capture lead data, initial scoring | No | 1 day | `actions/templates/sales-lead-intake.md` |
-| `sales:qualification` | Discovery call, ICP validation | Yes | 3-5 days | `actions/templates/sales-qualification.md` |
-| `sales:demo` | Product demonstration | Yes | 5-7 days | `actions/templates/sales-demo.md` |
-| `sales:pilot` | Pilot program execution | Yes | 14-30 days | `actions/templates/sales-pilot.md` |
-| `sales:close` | Contract negotiation, signing | Yes | 7-14 days | `actions/templates/sales-close.md` |
+| Type | Purpose | Human Required | Duration | Skill |
+|------|---------|----------------|----------|-------|
+| `sales:lead-intake` | Capture lead data, initial scoring | No | 1 day | `sales-prospect-research` |
+| `sales:qualification` | Discovery call, ICP validation | Yes | 3-5 days | `sales-qualification-support` |
+| `sales:demo` | Product demonstration | Yes | 5-7 days | `sales-materials-generation` |
+| `sales:pilot` | Pilot program execution | Yes | 14-30 days | Human workflow |
+| `sales:close` | Contract negotiation, signing | Yes | 7-14 days | Human workflow |
 
 ### Action Metadata Format
 
@@ -85,7 +85,7 @@ All sales actions reference materials by segment:
   "action_id": "qualify-{Customer}",
   "type": "sales:qualification",
   "status": "completed",
-  "template": "actions/templates/sales-qualification.md",
+  "skill": "sales-qualification-support",
   "human_required": true,
   "assigned_to": "human",
   "created": "2025-11-15",
@@ -378,7 +378,7 @@ Proceed to actions (Stage 5)
 **Type:** sales:qualification
 **Status:** completed
 **Owner:** Human (Founder)
-**Template:** actions/templates/sales-qualification.md
+**Skill:** sales-qualification-support
 **Duration:** 3 days (2025-11-16 - 2025-11-18)
 
 ### Pre-Call
@@ -407,7 +407,7 @@ Proceed to actions (Stage 5)
 **Type:** sales:demo
 **Status:** completed
 **Owner:** Human (Founder)
-**Template:** actions/templates/sales-demo.md
+**Skill:** sales-materials-generation
 **Duration:** 5 days (2025-11-20 - 2025-11-24)
 
 ### Preparation
@@ -438,7 +438,6 @@ Proceed to actions (Stage 5)
 **Type:** sales:pilot
 **Status:** completed
 **Owner:** Human (Founder)
-**Template:** actions/templates/sales-pilot.md
 **Duration:** 30 days (2025-11-25 - 2025-12-24)
 
 ### Pilot Terms
@@ -466,7 +465,6 @@ Proceed to actions (Stage 5)
 **Type:** sales:close
 **Status:** completed
 **Owner:** Human (Founder)
-**Template:** actions/templates/sales-close.md
 **Duration:** 7 days (2025-12-26 - 2026-01-01)
 
 ### Negotiation

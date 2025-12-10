@@ -150,14 +150,12 @@ Check `strategy/canvas/00-business-model-mode.md` for mode.
 
 **Action Types by Thread:**
 
-| Thread | Action Types |
-|--------|--------------|
-| Sales | lead-intake, qualify, demo, pilot, close |
-| Marketing | research, create, publish, promote, measure |
-| Engineering | requirements, specification, implementation |
-| Business | varies by decision |
-
-**Templates:** `references/templates/{type}-{action}.md`
+| Thread | Action Types | Skills |
+|--------|--------------|--------|
+| Sales | lead-intake, qualify, demo, pilot, close | `sales-*` |
+| Marketing | research, create, publish, promote, measure | `marketing-*` |
+| Engineering | requirements, specification, implementation | `engineering-*` |
+| Business | varies by decision | - |
 
 **Detail:** `references/stages/actions.md`
 
@@ -232,15 +230,14 @@ references/
 │   ├── decision.md
 │   ├── actions.md
 │   └── learning.md
-├── threads/          # Thread type specifics
-│   ├── business.md
-│   ├── sales.md
-│   ├── marketing.md
-│   └── engineering.md
-└── templates/        # Action templates
-    ├── sales-*.md
-    └── marketing-*.md
+└── threads/          # Thread type specifics
+    ├── business.md
+    ├── sales.md
+    ├── marketing.md
+    └── engineering.md
 ```
+
+**Note:** Action execution uses flat skills (`sales-*`, `marketing-*`, `engineering-*`) not templates.
 
 ## Success Criteria
 

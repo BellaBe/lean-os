@@ -26,13 +26,13 @@ threads/marketing/{campaign-name}/
 
 ### Action Type Catalog
 
-| Type | Purpose | Human Required | Duration | Template |
-|------|---------|----------------|----------|----------|
-| `marketing:research` | Audience research, competitive analysis | No | 2-3 days | `actions/templates/marketing-research.md` |
-| `marketing:create` | Content creation (copy, design, video) | Yes (approval) | 5-7 days | `actions/templates/marketing-create.md` |
-| `marketing:publish` | Publish to channels (LinkedIn, website, email) | No | 1 day | `actions/templates/marketing-publish.md` |
-| `marketing:promote` | Paid promotion, outreach, distribution | Yes (budget) | 14-30 days | `actions/templates/marketing-promote.md` |
-| `marketing:measure` | Track metrics, analyze performance | No | 7 days | `actions/templates/marketing-measure.md` |
+| Type | Purpose | Human Required | Duration | Skill |
+|------|---------|----------------|----------|-------|
+| `marketing:research` | Audience research, competitive analysis | No | 2-3 days | `ops-content-strategy` |
+| `marketing:create` | Content creation (copy, design, video) | Yes (approval) | 5-7 days | `content-generation` |
+| `marketing:publish` | Publish to channels (LinkedIn, website, email) | No | 1 day | Human workflow |
+| `marketing:promote` | Paid promotion, outreach, distribution | Yes (budget) | 14-30 days | Human workflow |
+| `marketing:measure` | Track metrics, analyze performance | No | 7 days | `ops-dashboard` |
 
 ### Action Metadata Format
 
@@ -41,7 +41,7 @@ threads/marketing/{campaign-name}/
   "action_id": "create-{premium tier}-announcement",
   "type": "marketing:create",
   "status": "completed",
-  "template": "actions/templates/marketing-create.md",
+  "skill": "content-generation",
   "human_required": true,
   "assigned_to": "human",
   "created": "2025-12-01",
