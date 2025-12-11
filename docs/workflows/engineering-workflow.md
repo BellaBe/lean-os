@@ -16,7 +16,7 @@ Engineering in LeanOS operates in two phases: Specification (architecture design
 Engineering begins when a business thread spawns an engineering requirement:
 
 ```
-threads/business/{feature}/
+threads/operations/{feature}/
 ├── 1-input.md              # Business requirement
 ├── 2-hypothesis.md         # Business hypothesis
 ├── 3-implication.md        # What this means
@@ -66,7 +66,7 @@ threads/engineering/{requirement}/
 # Input: Multi-Currency Backend
 
 ## Business Requirement
-From: threads/business/international-expansion/
+From: threads/operations/international-expansion/
 
 Support multi-currency transactions for international customers.
 

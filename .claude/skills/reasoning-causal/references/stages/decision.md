@@ -25,7 +25,7 @@ Create binding commitment to action by:
 
 ## Decision Document Structure
 
-Create: `threads/business/{thread-name}/4-decision.md`
+Create: `threads/operations/{thread-name}/4-decision.md`
 
 ### Template
 
@@ -480,17 +480,17 @@ AI agent proceeds autonomously. Human review at quarterly Canvas validation or i
 
 ## Linked Evidence
 
-**Input:** threads/business/enterprise-{premium-tier}/1-input.md
+**Input:** threads/operations/enterprise-{premium-tier}/1-input.md
 - 3 enterprise brands requested {premium tier}
 - $400K-600K/year budgets
 - All {premium segment}
 
-**Hypothesis:** threads/business/enterprise-{premium-tier}/2-hypothesis.md
+**Hypothesis:** threads/operations/enterprise-{premium-tier}/2-hypothesis.md
 - Challenged: A4 (brand preferences) - 70% → 30% confidence
 - Validated: A2 (pricing $300K+) - 60% → 85% confidence
 - New: H12 ({premium segment} values brand control over social proof)
 
-**Implication:** threads/business/enterprise-{premium-tier}/3-implication.md
+**Implication:** threads/operations/enterprise-{premium-tier}/3-implication.md
 - Revenue: $1.8M over 12 months
 - Cost: $90K total
 - ROI: 1900%

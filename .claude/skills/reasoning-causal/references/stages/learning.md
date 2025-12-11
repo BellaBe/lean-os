@@ -26,7 +26,7 @@ Complete the causal flow by:
 
 ## Learning Document Structure
 
-Create: `threads/business/{thread-name}/6-learning.md`
+Create: `threads/operations/{thread-name}/6-learning.md`
 
 ### Template
 
@@ -527,26 +527,26 @@ for premium enterprise.
 **Update A4:** "Solution approach preference correlates with segment"
 - Status: CHALLENGED → ✅ VALIDATED
 - Confidence: 30% → 95%
-- Evidence: threads/business/enterprise-solution-tier/6-learning.md
+- Evidence: threads/operations/enterprise-solution-tier/6-learning.md
 - Date: 2025-12-15
 
 **Update A2:** "Enterprise willingness to pay $300K+ per year"
 - Status: VALIDATED → ✅ VALIDATED (strengthened)
 - Confidence: 85% → 95%
-- Evidence: threads/business/enterprise-solution-tier/6-learning.md
+- Evidence: threads/operations/enterprise-solution-tier/6-learning.md
 - Date: 2025-12-15
 
 **Update A9:** "Enterprise sales cycle 30-60 days"
 - Status: VALIDATED → ⚠️ PARTIALLY VALIDATED
 - Confidence: 70% → 80%
 - Adjustment: 45-60 days (account for legal review)
-- Evidence: threads/business/enterprise-solution-tier/6-learning.md
+- Evidence: threads/operations/enterprise-solution-tier/6-learning.md
 - Date: 2025-12-15
 
 **Update H12:** "{Premium Segment} values {priority} > social proof"
 - Status: NEW → ✅ VALIDATED
 - Confidence: 65% → 90%
-- Evidence: threads/business/enterprise-solution-tier/6-learning.md
+- Evidence: threads/operations/enterprise-solution-tier/6-learning.md
 - Date: 2025-12-15
 
 **Add H15:** "Enterprise premium tier clients will pay for analytics upsell"
@@ -667,11 +667,11 @@ for premium enterprise.
 ## Related Threads
 
 **Upstream:**
-- Input: threads/business/enterprise-solution-tier/1-input.md (3 premium segment customers requested solution)
-- Hypothesis: threads/business/enterprise-solution-tier/2-hypothesis.md (challenged A4, validated A2)
-- Implication: threads/business/enterprise-solution-tier/3-implication.md ($1.71M ROI)
-- Decision: threads/business/enterprise-solution-tier/4-decision.md (build premium tier)
-- Actions: threads/business/enterprise-solution-tier/5-actions/*.md (all completed)
+- Input: threads/operations/enterprise-solution-tier/1-input.md (3 premium segment customers requested solution)
+- Hypothesis: threads/operations/enterprise-solution-tier/2-hypothesis.md (challenged A4, validated A2)
+- Implication: threads/operations/enterprise-solution-tier/3-implication.md ($1.71M ROI)
+- Decision: threads/operations/enterprise-solution-tier/4-decision.md (build premium tier)
+- Actions: threads/operations/enterprise-solution-tier/5-actions/*.md (all completed)
 
 **Downstream:**
 - business/analytics-upsell (new opportunity from {Customer})

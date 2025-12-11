@@ -49,7 +49,7 @@ Where:
 
 | Type | Location | Use For |
 |------|----------|---------|
-| Business | `threads/business/{name}/` | Strategic decisions, product changes |
+| Business | `threads/operations/{name}/` | Strategic decisions, product changes |
 | Sales | `threads/sales/{name}/` | Deal pipelines, prospects |
 | Marketing | `threads/marketing/{name}/` | Campaigns, content launches |
 | Engineering | `threads/engineering/{name}/` | Requirements → specifications |

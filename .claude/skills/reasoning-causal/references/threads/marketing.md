@@ -155,7 +155,7 @@ Goal: 15 demo requests in 30 days
 **Date:** 2025-12-01
 
 ## Observation
-{premium tier} enterprise tier launched successfully (see threads/business/enterprise-{premium tier}/)
+{premium tier} enterprise tier launched successfully (see threads/operations/enterprise-{premium tier}/)
 
 ## Campaign Trigger
 - **Event:** Product launch ({new feature/tier})

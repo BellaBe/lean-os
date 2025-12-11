@@ -88,7 +88,7 @@ source:
     - "Strong app store presence"
     - "Self-serve onboarding"
     - "Integration-first positioning"
-  documented_in: "threads/business/shopify-dtc-launch/"
+  documented_in: "threads/operations/shopify-dtc-launch/"
 ```
 
 ### Stage 2: Structural Mapping

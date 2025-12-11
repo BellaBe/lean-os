@@ -7,7 +7,7 @@ Business threads manage strategic decisions about product, market positioning, p
 ## Thread Structure
 
 ```
-threads/business/{decision-name}/
+threads/operations/{decision-name}/
 ├── meta.json
 ├── 1-input.md              # Market signal or observation
 ├── 2-hypothesis.md         # Canvas assumptions tested
@@ -811,7 +811,7 @@ Proceed to learning (Stage 7)
 - **Preference:** {premium tier} SDK (100% preference)
 - **Willingness to pay:** $400K-$600K base + $600K analytics
 - **Close rate:** 70% (qualified deals)
-- **Evidence:** threads/business/enterprise-{premium tier}/7-learning.md (N=5)
+- **Evidence:** threads/operations/enterprise-{premium tier}/7-learning.md (N=5)
 - **Last validated:** 2026-01-19
 
 ### Fast {industry} Brands (Hypothesis)
@@ -841,7 +841,7 @@ Proceed to learning (Stage 7)
 - Support overhead: 8% (vs <10% target) ✅
 - Tech debt: Minimal (modular design) ✅
 
-**Evidence:** threads/business/enterprise-{premium tier}/7-learning.md
+**Evidence:** threads/operations/enterprise-{premium tier}/7-learning.md
 **Confidence:** 95%
 ```
 
@@ -858,7 +858,7 @@ Proceed to learning (Stage 7)
 **Confidence:** 95%
 **Evidence:**
 - 5/5 {premium segment} brands chose {premium tier}
-- Thread: threads/business/enterprise-{premium tier}/7-learning.md
+- Thread: threads/operations/enterprise-{premium tier}/7-learning.md
 - Thread: threads/sales/{Customer}-{premium tier}/7-learning.md
 **Last validated:** 2026-01-19
 
@@ -870,7 +870,7 @@ Proceed to learning (Stage 7)
 - Engineering overhead: 3% (target <10%)
 - Support overhead: 8% (target <10%)
 - Revenue: $1.1M first deal (ROI 31x)
-- Thread: threads/business/enterprise-{premium tier}/7-learning.md
+- Thread: threads/operations/enterprise-{premium tier}/7-learning.md
 **Last validated:** 2026-01-19
 
 ### A2: Enterprise Willingness to Pay
@@ -886,7 +886,7 @@ Proceed to learning (Stage 7)
 **Original:** 30 days
 **Actual:** 45 days (with pilot), 20 days (without pilot)
 **Confidence:** 90%
-**Evidence:** threads/business/enterprise-{premium tier}/7-learning.md
+**Evidence:** threads/operations/enterprise-{premium tier}/7-learning.md
 **Last updated:** 2026-01-19
 
 ### H12: Analytics Upsell Rate (New)
@@ -924,7 +924,7 @@ Proceed to learning (Stage 7)
 - **Margin:** 97% (low ongoing cost)
 
 **Evidence:**
-- threads/business/enterprise-{premium tier}/7-learning.md
+- threads/operations/enterprise-{premium tier}/7-learning.md
 - threads/sales/{Customer}-{premium tier}/7-learning.md
 **Confidence:** 95%
 **Last validated:** 2026-01-19
@@ -959,7 +959,7 @@ Proceed to learning (Stage 7)
 - Retention: >90% (target), TBD (insufficient data)
 - Expansion: >40% (target), 100% (analytics upsell, N=1)
 
-**Evidence:** threads/business/enterprise-{premium tier}/7-learning.md
+**Evidence:** threads/operations/enterprise-{premium tier}/7-learning.md
 **Last validated:** 2026-01-19
 ```
 

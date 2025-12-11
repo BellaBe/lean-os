@@ -24,7 +24,7 @@ Engineering threads **translate business requirements into engineering work spec
 Triggered by parent thread decision (business/sales/marketing):
 
 ```markdown
-# Parent thread: threads/business/some-feature/4-decision.md
+# Parent thread: threads/operations/some-feature/4-decision.md
 
 Verdict: BUILD
 

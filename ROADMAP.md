@@ -200,8 +200,8 @@ Result: 57% code reduction
 - Scenario parameters: Growth rate assumptions, pricing changes, cost changes
 
 **Output:**
-- `artifacts/business/financial-models/{scenario}-{date}.md` - Full projection
-- `artifacts/business/financial-models/scenarios-comparison-{date}.md` - Side-by-side scenarios
+- `artifacts/operations/financial-models/{scenario}-{date}.md` - Full projection
+- `artifacts/operations/financial-models/scenarios-comparison-{date}.md` - Side-by-side scenarios
 - Updates Canvas `13-metrics.md` with actuals vs projections
 
 **Core capabilities:**

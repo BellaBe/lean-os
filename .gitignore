@@ -34,7 +34,7 @@ research/customer/contacts-actual-*.csv
 
 # Private deal threads (real company names)
 threads/sales/[A-Z]*/
-threads/business/*-confidential/
+threads/operations/*-confidential/
 
 # Temporary draft files
 artifacts/**/drafts/current/

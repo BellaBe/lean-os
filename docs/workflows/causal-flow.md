@@ -159,7 +159,7 @@ If thread.goal_id exists:
 
 ## Thread Types
 
-**Business threads:** `threads/business/{name}/`
+**Business threads:** `threads/operations/{name}/`
 - Strategic decisions
 - Canvas updates
 - Process improvements

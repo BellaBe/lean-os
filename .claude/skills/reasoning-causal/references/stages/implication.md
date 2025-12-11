@@ -25,7 +25,7 @@ Transform hypothesis changes into actionable business intelligence by:
 
 ## Implication Document Structure
 
-Create: `threads/business/{thread-name}/3-implication.md`
+Create: `threads/operations/{thread-name}/3-implication.md`
 
 ### Template
 

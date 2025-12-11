@@ -25,7 +25,7 @@ Create the factual foundation for evidence-based decisions by capturing observat
 
 ## Input Document Structure
 
-Create: `threads/business/{thread-name}/1-input.md`
+Create: `threads/operations/{thread-name}/1-input.md`
 
 ### Template
 
@@ -201,7 +201,7 @@ The hypothesis stage will:
 ```markdown
 ## Input Created: {thread-name}
 
-**Thread:** threads/business/{thread-name}/
+**Thread:** threads/operations/{thread-name}/
 **Stage:** 1-input
 **Source:** {source-type}
 **Date:** {date}

@@ -26,7 +26,7 @@ Execute decisions by:
 
 ## Actions Directory Structure
 
-Create: `threads/business/{thread-name}/5-actions/`
+Create: `threads/operations/{thread-name}/5-actions/`
 
 ```
 5-actions/
@@ -277,7 +277,7 @@ None. Unblocked legal dependency by using placeholder brand assets.
 ---
 
 ## Linked Documents
-- Decision: threads/business/enterprise-{premium tier}/4-decision.md
+- Decision: threads/operations/enterprise-{premium tier}/4-decision.md
 - Related actions:
   - legal-contract-review.md (parallel)
   - sales-collateral-enterprise.md (depends on this)

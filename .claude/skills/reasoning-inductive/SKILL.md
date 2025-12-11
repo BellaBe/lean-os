@@ -361,7 +361,7 @@ automated_scan:
   sources:
     - "threads/sales/*/6-learning.md"
     - "threads/marketing/*/6-learning.md"
-    - "threads/business/*/6-learning.md"
+    - "threads/operations/*/6-learning.md"
     
   thresholds:
     min_instances: 5

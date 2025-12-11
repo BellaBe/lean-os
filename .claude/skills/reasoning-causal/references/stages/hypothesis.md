@@ -25,7 +25,7 @@ Transform observations into hypothesis tests by:
 
 ## Hypothesis Document Structure
 
-Create: `threads/business/{thread-name}/2-hypothesis.md`
+Create: `threads/operations/{thread-name}/2-hypothesis.md`
 
 ### Template
 
