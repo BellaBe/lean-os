@@ -1,6 +1,6 @@
 # LeanOS: AI-Native Operating System for Startups, Small Teams, and Founders
 
-**Status:** Active Development | **Version:** 2.2 (Goal-Oriented) | **Last Updated:** 2025-12-10
+**Status:** Active Development | **Version:** 3.0 (Goal-Oriented) | **Last Updated:** 2025-12-14
 
 AI-native OS that automates 95%+ of business operations for startups, small teams, and founders.
 
@@ -110,16 +110,22 @@ lean-os/
 ├── artifacts/                # Deliverables (sales, marketing, engineering)
 ├── ops/                      # Supporting files (changes.md, patterns.md)
 ├── .claude/
-│   ├── agents/               # Orchestrators (4 agents)
-│   └── skills/               # Flat skills
-│       ├── goal-*            # Goal setting and tracking
-│       ├── reasoning-*       # Reasoning modes
+│   ├── agents/               # Orchestrators (10 agents)
+│   │   ├── lean-os*          # Engineering pipeline (5 agents)
+│   │   ├── problem-solving-gateway
+│   │   ├── reasoning-gateway
+│   │   ├── foundations-builder
+│   │   ├── sales-execution
+│   │   └── marketing-execution
+│   └── skills/               # Flat skills (62 total)
+│       ├── action-*          # Action skills (deliverable contracts)
+│       ├── engineering-*     # Categorical verification pipeline
 │       ├── foundations-*     # Business setup
-│       ├── sales-*           # Sales pipeline
+│       ├── goal-*            # Goal setting and tracking
 │       ├── marketing-*       # Campaign execution
-│       ├── ops-*             # Operations
+│       ├── reasoning-*       # Reasoning modes
 │       ├── research-*        # Market research
-│       └── engineering/      # Engineering (nested)
+│       └── sales-*           # Sales pipeline
 ```
 
 ## Technology Stack
@@ -174,16 +180,18 @@ For unexpected signals: `Signal → Thread → Link to goal or create new goal`
 
 ## Skill Architecture
 
-| Category | Purpose |
-|----------|---------|
-| `goal-*` | Goal setting and tracking (primary) |
-| `reasoning-*` | Reasoning modes (causal, abductive, etc.) |
-| `foundations-*` | Business setup, Canvas sections |
-| `sales-*` | Sales pipeline activities |
-| `marketing-*` | Campaign execution |
-| `ops-*` | Operations, content strategy |
-| `research-*` | Mode-aware market research |
-| `engineering/` | Categorical verification (nested) |
+| Category | Count | Purpose |
+|----------|-------|---------|
+| `action-*` | 11 | Action skills (deliverable contracts) |
+| `engineering-*` | 20 | Categorical verification pipeline (SPEC→BUILD→VERIFY→GEN) |
+| `foundations-*` | 10 | Business setup, Canvas sections |
+| `goal-*` | 2 | Goal setting and tracking (primary) |
+| `marketing-*` | 5 | Campaign execution |
+| `reasoning-*` | 6 | Reasoning modes (causal, abductive, etc.) |
+| `research-*` | 2 | Mode-aware market research |
+| `sales-*` | 6 | Sales pipeline activities |
+
+**Total:** 62 skills, 10 agents
 
 See [All Skills](docs/reference/all-skills.md) for complete reference.
 
@@ -209,4 +217,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 ---
 
-**Last Updated:** 2025-12-10 | **Version:** 2.2 (Goal-Oriented)
+**Last Updated:** 2025-12-14 | **Version:** 3.0 (Goal-Oriented)

@@ -38,7 +38,7 @@ Content serves strategy. Different modes need different content. Mode is determi
 | `output_path` | Yes | Where to save |
 | `mode` | Yes | From orchestrator: `loop-driven`, `marketplace-driven`, or `sales-driven` |
 
-**Mode is required.** This skill does not detect motion — it receives mode from `marketing-execution` orchestrator.
+**Mode is required.** This skill does not detect motion  -  it receives mode from `marketing-execution` orchestrator.
 
 **Mode-specific parameters:**
 
@@ -261,9 +261,9 @@ secondary_purpose: "{mode}"
 
 ## References
 
-- `references/loop-mechanics.md` — Loop triggers, velocity, examples
-- `references/marketplace-copy.md` — Platform guidelines
-- `references/sales-content.md` — Sales enablement patterns
+- `references/loop-mechanics.md`  -  Loop triggers, velocity, examples
+- `references/marketplace-copy.md`  -  Platform guidelines
+- `references/sales-content.md`  -  Sales enablement patterns
 
 ## Boundaries
 

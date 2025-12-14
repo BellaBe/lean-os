@@ -298,7 +298,7 @@ references/
 │   ├── actions.md
 │   └── learning.md
 └── threads/          # Thread type specifics
-    ├── business.md
+    ├── operations.md
     ├── sales.md
     ├── marketing.md
     └── engineering.md

@@ -11,10 +11,10 @@ Execute campaigns that serve your GTM motion.
 ## Prerequisites
 
 **Required:**
-- `strategy/canvas/15.go-to-market.md` — Motion, channels, stage
-- `artifacts/marketing/narrative/brand-voice.md` — Voice guidelines
-- `artifacts/marketing/narrative/positioning.md` — Positioning
-- `threads/marketing/campaigns/{slug}/4-decision.md` — Approved content plan
+- `strategy/canvas/15.go-to-market.md`  -  Motion, channels, stage
+- `artifacts/marketing/narrative/brand-voice.md`  -  Voice guidelines
+- `artifacts/marketing/narrative/positioning.md`  -  Positioning
+- `threads/marketing/campaigns/{slug}/4-decision.md`  -  Approved content plan
 
 ## Motion Detection
 

@@ -11,17 +11,17 @@ Business foundation orchestration that coordinates 9 specialized skills to build
 ## Skill Organization
 
 **Core Skills (Always Active - 6 skills)**
-1. `foundations-market-intelligence` — Market analysis, competitive landscape, customer segmentation
-2. `foundations-problem-solution-fit` — Problem validation, solution design, MVP definition
-3. `foundations-value-proposition` — Unique value articulation, positioning, messaging
-4. `foundations-business-model` — Revenue design, cost structure, unit economics
-5. `foundations-validation` — Assumption testing, experiment design, hypothesis validation
-6. `foundations-go-to-market` — Channel strategy, launch planning, growth tactics
+1. `foundations-market-intelligence`  -  Market analysis, competitive landscape, customer segmentation
+2. `foundations-problem-solution-fit`  -  Problem validation, solution design, MVP definition
+3. `foundations-value-proposition`  -  Unique value articulation, positioning, messaging
+4. `foundations-business-model`  -  Revenue design, cost structure, unit economics
+5. `foundations-validation`  -  Assumption testing, experiment design, hypothesis validation
+6. `foundations-go-to-market`  -  Channel strategy, launch planning, growth tactics
 
 **Specialist Skills (On-Demand - 3 skills)**
-7. `foundations-funding` — Fundraising strategy, pitch development, investor targeting
-8. `foundations-regulatory` — Compliance requirements, licensing, regulated market entry
-9. `foundations-retention-optimizer` — Cohort analysis, churn prediction, optimization experiments
+7. `foundations-funding`  -  Fundraising strategy, pitch development, investor targeting
+8. `foundations-regulatory`  -  Compliance requirements, licensing, regulated market entry
+9. `foundations-retention-optimizer`  -  Cohort analysis, churn prediction, optimization experiments
 
 ## Canvas Population
 
@@ -42,7 +42,7 @@ Business foundation orchestration that coordinates 9 specialized skills to build
 | Discovery (0a) | Market research, TAM, competitive analysis | market-intelligence, problem-solution-fit |
 | Definition (0b) | Product strategy, value prop, pricing | value-proposition, business-model |
 | Validation (1a) | Testing assumptions, MVP validation | validation |
-| Execution (1b) | Feature development, sprint planning | — |
+| Execution (1b) | Feature development, sprint planning |  -  |
 | Launch (1c) | Launch planning, channel strategy | go-to-market |
 
 ## Routing Strategy

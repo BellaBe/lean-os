@@ -167,19 +167,48 @@ Return skill output to caller.
 
 ---
 
-## Current Structure (Completed)
+## Current Structure (v3.0)
 
 ```
 .claude/
-├── skills/                        # FLAT - one capability per skill
-│   ├── sales-materials-generation/
-│   ├── sales-prospect-research/
-│   ├── sales-contact-finding/
-│   ├── sales-outreach-sequencing/
-│   ├── sales-qualification-support/
-│   ├── marketing-content-generation/
-│   ├── marketing-content-delivery/
-│   ├── marketing-channel-optimization/
+├── skills/                        # FLAT - one capability per skill (62 total)
+│   │
+│   │  # Action Skills (11)
+│   ├── action-alignment/
+│   ├── action-constrain/
+│   ├── action-decision/
+│   ├── action-descriptive/
+│   ├── action-diagnostic/
+│   ├── action-evaluative/
+│   ├── action-planning/
+│   ├── action-prescriptive/
+│   ├── action-procedural/
+│   ├── action-risk/
+│   ├── action-validation/
+│   │
+│   │  # Engineering Skills (20)
+│   ├── engineering-spec-objects/
+│   ├── engineering-spec-morphisms/
+│   ├── engineering-spec-effects/
+│   ├── engineering-spec-constraints/
+│   ├── engineering-build-category/
+│   ├── engineering-build-effects/
+│   ├── engineering-build-functors/
+│   ├── engineering-build-transformations/
+│   ├── engineering-verify-laws/
+│   ├── engineering-verify-constraints/
+│   ├── engineering-verify-coverage/
+│   ├── engineering-verify-maps/
+│   ├── engineering-gen-types/
+│   ├── engineering-gen-morphisms/
+│   ├── engineering-gen-maps/
+│   ├── engineering-gen-code/
+│   ├── engineering-gen-wiring/
+│   ├── engineering-apply-standards/
+│   ├── engineering-foundation-schema/
+│   ├── engineering-foundation-targets/
+│   │
+│   │  # Foundations Skills (10)
 │   ├── foundations-market-intelligence/
 │   ├── foundations-problem-solution-fit/
 │   ├── foundations-value-proposition/
@@ -189,21 +218,50 @@ Return skill output to caller.
 │   ├── foundations-funding/
 │   ├── foundations-regulatory/
 │   ├── foundations-retention-optimizer/
+│   ├── foundations-icp-generator/
+│   │
+│   │  # Goal Skills (2)
+│   ├── goal-setter/
+│   ├── goal-tracker/
+│   │
+│   │  # Marketing Skills (5)
+│   ├── marketing-content-generation/
+│   ├── marketing-content-delivery/
+│   ├── marketing-channel-optimization/
+│   ├── marketing-content-strategy/
+│   ├── marketing-narrative/
+│   │
+│   │  # Reasoning Skills (6)
 │   ├── reasoning-causal/
 │   ├── reasoning-abductive/
 │   ├── reasoning-inductive/
 │   ├── reasoning-analogical/
 │   ├── reasoning-dialectical/
 │   ├── reasoning-counterfactual/
-│   ├── engineering/               # Internal pipeline (kept nested)
-│   ├── v1/                        # Legacy (documented)
-│   └── v2/                        # Active (documented)
+│   │
+│   │  # Research Skills (2)
+│   ├── research-market-venture/
+│   ├── research-market-bootstrap/
+│   │
+│   │  # Sales Skills (6)
+│   ├── sales-materials-generation/
+│   ├── sales-prospect-research/
+│   ├── sales-contact-finding/
+│   ├── sales-outreach-sequencing/
+│   ├── sales-qualification-support/
+│   └── sales-narrative/
 │
-└── agents/                        # ORCHESTRATORS
-    ├── sales-execution.md
-    ├── marketing-execution.md
-    ├── foundations-builder.md
-    └── reasoning-gateway.md
+└── agents/                        # ORCHESTRATORS (10)
+    ├── lean-os.md                 # Main engineering orchestrator
+    ├── lean-os-spec.md            # SPEC phase
+    ├── lean-os-build.md           # BUILD phase
+    ├── lean-os-verify.md          # VERIFY phase
+    ├── lean-os-gen.md             # GEN phase
+    ├── problem-solving-gateway.md # Action skill routing
+    ├── reasoning-gateway.md       # Reasoning mode routing
+    ├── foundations-builder.md     # Canvas population
+    ├── sales-execution.md         # Sales orchestration
+    └── marketing-execution.md     # Marketing orchestration
 ```
 
 ---

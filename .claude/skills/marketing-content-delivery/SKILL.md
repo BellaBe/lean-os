@@ -52,7 +52,7 @@ Distribution and tracking serve strategy. Different modes need different metrics
 ```markdown
 Output: artifacts/{slug}/distribution/{piece}-linkedin.md
 
-{Hook — first 2 lines visible}
+{Hook  -  first 2 lines visible}
 
 {Body}
 
@@ -85,7 +85,7 @@ Preview: {preview}
 
 {Body}
 
-{Loop trigger — reply invitation}
+{Loop trigger  -  reply invitation}
 ```
 
 **Twitter/X:**
@@ -169,7 +169,7 @@ Keywords: {keywords}
 ```markdown
 Output: artifacts/{slug}/marketplace/changelog-{version}.md
 
-## {Version} — {Date}
+## {Version}  -  {Date}
 
 ### New
 - {feature}

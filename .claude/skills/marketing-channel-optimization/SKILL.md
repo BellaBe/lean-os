@@ -72,7 +72,7 @@ Only active modules load.
 
 | # | Purpose |
 |---|---------|
-| 1 | Hero — value prop |
+| 1 | Hero  -  value prop |
 | 2 | Before/after |
 | 3 | Key feature |
 | 4 | Results |
@@ -354,12 +354,12 @@ artifacts/marketing/channels/email/
 
 ## Execution Flow
 
-1. **Read GTM** — Get channels, priorities
-2. **Activate modules** — Only declared channels
-3. **Assess** — Current state vs best practice
-4. **Prioritize** — By investment level
-5. **Execute** — Module-specific optimization
-6. **Track** — Channel-appropriate metrics
+1. **Read GTM**  -  Get channels, priorities
+2. **Activate modules**  -  Only declared channels
+3. **Assess**  -  Current state vs best practice
+4. **Prioritize**  -  By investment level
+5. **Execute**  -  Module-specific optimization
+6. **Track**  -  Channel-appropriate metrics
 
 ## Output
 

@@ -6,7 +6,7 @@ allowed-tools: "Read,Write,WebSearch,WebFetch,AskUserQuestion"
 
 # Content Strategy: Discovery & Opportunity Detection
 
-Find opportunities that serve your GTM motion — loops for content-led, reviews for partner-led, enablement for sales-led.
+Find opportunities that serve your GTM motion  -  loops for content-led, reviews for partner-led, enablement for sales-led.
 
 ## Core Principle
 
@@ -15,11 +15,11 @@ Opportunities are scored based on GTM motion. What matters for PLG differs from 
 ## Context Loading
 
 **Required:**
-- `strategy/canvas/04.segments.md` — Target audience
-- `strategy/canvas/05.problem.md` — Problems we solve
-- `strategy/canvas/07.uvp.md` — Value proposition
-- `strategy/canvas/15.go-to-market.md` — Motion, channels, stage
-- `artifacts/marketing/narrative/content-pillars.md` — What we talk about
+- `strategy/canvas/04.segments.md`  -  Target audience
+- `strategy/canvas/05.problem.md`  -  Problems we solve
+- `strategy/canvas/07.uvp.md`  -  Value proposition
+- `strategy/canvas/15.go-to-market.md`  -  Motion, channels, stage
+- `artifacts/marketing/narrative/content-pillars.md`  -  What we talk about
 
 If GTM file missing → Flag "Run go-to-market skill first"
 

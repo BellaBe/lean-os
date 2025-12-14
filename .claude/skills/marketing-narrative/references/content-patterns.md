@@ -17,13 +17,13 @@ All patterns follow this structure.
 ## Structure
 
 ### Opening
-{How to start — hook, problem, or insight}
+{How to start  -  hook, problem, or insight}
 
 ### Body
-{Core structure — sections, flow, key elements}
+{Core structure  -  sections, flow, key elements}
 
 ### Closing
-{How to end — takeaway, next step}
+{How to end  -  takeaway, next step}
 
 ## Length
 {Target length or range}

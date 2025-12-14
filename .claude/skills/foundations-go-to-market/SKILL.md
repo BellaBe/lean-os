@@ -181,5 +181,5 @@ These skills read `15.go-to-market.md` and adapt:
 
 ## References
 
-- `references/go-to-market-template.md` — Full artifact template
-- `references/motion-decision-tree.md` — How to choose motion
+- `references/go-to-market-template.md`  -  Full artifact template
+- `references/motion-decision-tree.md`  -  How to choose motion

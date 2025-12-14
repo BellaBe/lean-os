@@ -1,6 +1,6 @@
 ---
 name: marketing-narrative
-description: Generate brand identity and content patterns. Use when: setting up marketing for a product/personal brand, creating content patterns, or updating brand voice. Outputs brand-voice.md, positioning.md, content-pillars.md, and patterns/. Channel-agnostic — works regardless of GTM motion. Requires Canvas files.
+description: Generate brand identity and content patterns. Use when: setting up marketing for a product/personal brand, creating content patterns, or updating brand voice. Outputs brand-voice.md, positioning.md, content-pillars.md, and patterns/. Channel-agnostic  -  works regardless of GTM motion. Requires Canvas files.
 allowed-tools: "Read,Write,WebSearch,WebFetch,AskUserQuestion"
 ---
 

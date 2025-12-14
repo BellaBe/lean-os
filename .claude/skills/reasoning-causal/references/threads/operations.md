@@ -1,8 +1,8 @@
-# Business Thread Architecture
+# Operations Thread Architecture
 
 ## Overview
 
-Business threads manage strategic decisions about product, market positioning, pricing, and operations using the 6-stage causal flow. Unlike sales threads (deal-specific) or marketing threads (campaign-specific), business threads shape company direction.
+Operations threads manage strategic decisions about product, market positioning, pricing, and operations using the 6-stage causal flow. Unlike sales threads (deal-specific) or marketing threads (campaign-specific), business threads shape company direction.
 
 ## Thread Structure
 

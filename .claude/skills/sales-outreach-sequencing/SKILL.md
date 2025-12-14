@@ -559,9 +559,9 @@ Best,
 
 Hi Lara,
 
-I love St. Agni's approach to "considered design and precise tailoring"—it's exactly the kind of brand that benefits from body shape intelligence. I noticed customer reviews mention sizing can be tricky ("runs narrow", "size up"), which is classic for contemporary fashion where fit is crucial.
+I love St. Agni's approach to "considered design and precise tailoring" - it's exactly the kind of brand that benefits from body shape intelligence. I noticed customer reviews mention sizing can be tricky ("runs narrow", "size up"), which is classic for contemporary fashion where fit is crucial.
 
-We help brands like St. Agni reduce return rates by 40% through body shape + seasonal color analysis from a single selfie—giving your customers personalized guidance ("This silhouette flatters your body shape") and giving you production intelligence ("35% of your customers are hourglass, prioritize fitted styles"). For St. Agni at $5M revenue, that's $27K in annual savings plus customer data to inform your next collection.
+We help brands like St. Agni reduce return rates by 40% through body shape + seasonal color analysis from a single selfie - giving your customers personalized guidance ("This silhouette flatters your body shape") and giving you production intelligence ("35% of your customers are hourglass, prioritize fitted styles"). For St. Agni at $5M revenue, that's $27K in annual savings plus customer data to inform your next collection.
 
 Would 15 minutes make sense to show you how we align with St. Agni's considered design ethos?
 

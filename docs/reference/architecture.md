@@ -64,31 +64,30 @@ Signal → Thread → Link to Goal (or create new goal)
 │ AGENTS + SKILLS LAYER (Domain Execution)                                                     │
 │ Agents: .claude/agents/    Skills: .claude/skills/                                           │
 │                                                                                              │
-│ AGENTS (Orchestrators):                                                                      │
+│ AGENTS (Orchestrators - 10 total):                                                           │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ reasoning-gateway      │ Routes to reasoning-* skills                                   │  │
-│ │ foundations-builder    │ Routes to foundations-*, icp-generator                         │  │
-│ │ sales-execution        │ Routes to sales-* skills                                       │  │
-│ │ marketing-execution    │ Routes to marketing-* skills                                   │  │
+│ │ lean-os                │ Main engineering orchestrator (SPEC→BUILD→VERIFY→GEN)         │  │
+│ │ lean-os-spec           │ SPEC phase: engineering-spec-* skills                         │  │
+│ │ lean-os-build          │ BUILD phase: engineering-build-* skills                       │  │
+│ │ lean-os-verify         │ VERIFY phase: engineering-verify-* skills                     │  │
+│ │ lean-os-gen            │ GEN phase: engineering-gen-*, apply-standards                 │  │
+│ │ problem-solving-gateway│ Routes to action-* skills (deliverable contracts)             │  │
+│ │ reasoning-gateway      │ Routes to reasoning-* skills                                  │  │
+│ │ foundations-builder    │ Routes to foundations-* skills                                │  │
+│ │ sales-execution        │ Routes to sales-* skills                                      │  │
+│ │ marketing-execution    │ Routes to marketing-* skills                                  │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
-│ SKILLS (Flat, single-capability):                                                            │
+│ SKILLS (Flat, single-capability - 62 total):                                                 │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ goal-*          │ Goal setting and tracking                                            │  │
-│ │ reasoning-*     │ Reasoning modes (causal, abductive, inductive, etc)                  │  │
-│ │ foundations-*   │ Canvas/business setup                                                │  │
-│ │ sales-*         │ Sales pipeline                                                       │  │
-│ │ marketing-*     │ Campaign execution                                                   │  │
-│ │ ops-*           │ Operations (dashboard, metrics)                                       │  │
-│ │ research-*      │ Market research                                                       │  │
-│ │ engineering/    │ Internal pipeline (nested)                                            │  │
-│ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
-│                                                                                              │
-│ STANDALONE SKILLS (No Agent):                                                                │
-│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ sales-narrative        │ Sales messaging per segment                                    │  │
-│ │ marketing-narrative    │ Brand identity, content patterns                               │  │
-│ │ content-generation     │ Create content (any context)                                   │  │
+│ │ action-*        │ Action skills - deliverable contracts (11)                           │  │
+│ │ engineering-*   │ Categorical verification pipeline (20)                               │  │
+│ │ foundations-*   │ Canvas/business setup (10)                                           │  │
+│ │ goal-*          │ Goal setting and tracking (2)                                        │  │
+│ │ marketing-*     │ Campaign execution (5)                                               │  │
+│ │ reasoning-*     │ Reasoning modes (6)                                                  │  │
+│ │ research-*      │ Market research (2)                                                  │  │
+│ │ sales-*         │ Sales pipeline (6)                                                   │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
@@ -261,35 +260,33 @@ Task arrives → Gateway selects mode → Mode executes → (chains to causal if
 **Agents:** `.claude/agents/`
 **Skills:** `.claude/skills/`
 
-### Agents (Orchestrators)
+### Agents (Orchestrators - 10)
 
 | Agent | Purpose | Skills Loaded |
 |-------|---------|---------------|
-| `reasoning-gateway` | Route to reasoning modes | reasoning-* |
-| `foundations-builder` | Canvas population | foundations-*, icp-generator |
+| `lean-os` | Main engineering orchestrator | Routes to phase agents |
+| `lean-os-spec` | SPEC phase | engineering-spec-* |
+| `lean-os-build` | BUILD phase | engineering-build-* |
+| `lean-os-verify` | VERIFY phase | engineering-verify-* |
+| `lean-os-gen` | GEN phase | engineering-gen-*, apply-standards |
+| `problem-solving-gateway` | Action skill routing | action-* |
+| `reasoning-gateway` | Reasoning mode routing | reasoning-* |
+| `foundations-builder` | Canvas population | foundations-* |
 | `sales-execution` | Sales pipeline | sales-* |
 | `marketing-execution` | Campaign execution | marketing-* |
 
-### Skills (Flat, single-capability)
+### Skills (Flat, single-capability - 62)
 
-| Category | Purpose |
-|----------|---------|
-| `goal-*` | Goal setting and tracking |
-| `reasoning-*` | Reasoning modes (causal, abductive, etc.) |
-| `foundations-*` | Canvas/business setup |
-| `sales-*` | Sales pipeline |
-| `marketing-*` | Campaign execution |
-| `ops-*` | Operations (dashboard, metrics) |
-| `research-*` | Market research |
-| `engineering/` | Internal pipeline (nested) |
-
-### Standalone Skills (No Agent)
-
-| Skill | Purpose |
-|-------|---------|
-| `sales-narrative` | Sales messaging per segment |
-| `marketing-narrative` | Brand identity, content patterns |
-| `content-generation` | Create content (any context) |
+| Category | Count | Purpose |
+|----------|-------|---------|
+| `action-*` | 11 | Action skills (deliverable contracts) |
+| `engineering-*` | 20 | Categorical verification pipeline |
+| `foundations-*` | 10 | Canvas/business setup |
+| `goal-*` | 2 | Goal setting and tracking |
+| `marketing-*` | 5 | Campaign execution |
+| `reasoning-*` | 6 | Reasoning modes |
+| `research-*` | 2 | Market research |
+| `sales-*` | 6 | Sales pipeline |
 
 ---
 

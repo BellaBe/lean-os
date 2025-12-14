@@ -75,7 +75,7 @@ anomaly:
 - Generate ≥5 hypotheses (more is better initially)
 - Include obvious AND non-obvious causes
 - Consider internal AND external factors
-- Don't filter yet—cast wide net
+- Don't filter yet - cast wide net
 
 **Hypothesis Categories:**
 

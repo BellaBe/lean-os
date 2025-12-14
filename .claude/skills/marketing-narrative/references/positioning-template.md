@@ -13,9 +13,9 @@ For {target segment} who {situation/problem}, {product/brand} is the {category} 
 
 ## Core Beliefs
 
-1. **{Belief}** — {Why we hold it}
-2. **{Belief}** — {Why we hold it}
-3. **{Belief}** — {Why we hold it}
+1. **{Belief}**  -  {Why we hold it}
+2. **{Belief}**  -  {Why we hold it}
+3. **{Belief}**  -  {Why we hold it}
 
 ## What We Stand Against
 
