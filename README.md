@@ -1,4 +1,4 @@
-# LeanOS: AI-Native Operating System for Startups
+# LeanOS: AI-Native Operating System for Business Automation
 
 **Version:** 3.0 | **Status:** Active Development
 
