@@ -1,220 +1,87 @@
-# LeanOS: AI-Native Operating System for Startups, Small Teams, and Founders
+# LeanOS: AI-Native Operating System for Startups
 
-**Status:** Active Development | **Version:** 3.0 (Goal-Oriented) | **Last Updated:** 2025-12-14
+**Version:** 3.0 | **Status:** Active Development
 
 AI-native OS that automates 95%+ of business operations for startups, small teams, and founders.
 
 ## What It Does
 
-- **Goal-driven execution:** Declare objectives, AI decomposes into plans and executes
-- **Automates decisions:** Claude AI processes engineering, sales, marketing, and business decisions autonomously
-- **Single source of truth:** Lean Canvas (15 living documents) provides strategic context
-- **State derived from execution:** No manual tracking, metrics computed from threads
+- **Goal-driven execution:** Declare objectives, AI decomposes and executes
+- **Automates decisions:** Claude handles engineering, sales, marketing autonomously
+- **Single source of truth:** 15-section Lean Canvas provides strategic context
+- **State derived from execution:** Metrics computed from threads, no manual tracking
 - **Configurable autonomy:** Auto, ask, or hybrid modes per goal
 
-## Quick Navigation
+## Quick Start
 
-### Reference
-- [What is LeanOS?](docs/reference/what-is-leanos.md) - Problem, solution, core principles
-- [Architecture](docs/reference/architecture.md) - System layers and data flow
-- [All Skills](docs/reference/all-skills.md) - Complete skills reference
+**New users:** Read [What is LeanOS?](docs/reference/what-is-leanos.md)
+**Existing projects:** Check `strategy/goals/active/` for current objectives
+
+## Documentation
+
+### Core Concepts
+| Topic | Description |
+|-------|-------------|
+| [What is LeanOS?](docs/reference/what-is-leanos.md) | Core principles, problem/solution |
+| [Architecture](docs/reference/architecture.md) | System layers, operating model, data flow |
+| [All Skills](docs/reference/all-skills.md) | Complete skills and agents reference |
 
 ### Workflows
-- [Canvas Setup](docs/workflows/canvas-setup.md) - Foundation-building process
-- [Sales Workflow](docs/workflows/sales-workflow.md) - Strategy → execution → learning
-- [Marketing Workflow](docs/workflows/marketing-workflow.md) - Learning-driven content
-- [Engineering Workflow](docs/workflows/engineering-workflow.md) - Verified system generation
-- [Daily Routine](docs/workflows/daily-routine.md) - Your 5-min review
-- [Causal Flow](docs/workflows/causal-flow.md) - 6-stage decision framework
-
-## Core Principles
-
-1. **AI-first execution:** Claude skills handle operations, not just documentation
-2. **Context-shaping over generalization:** Each skill targets specific decision types
-3. **Zero redundancy:** Information exists in ONE location only
-4. **Evidence-based decisions:** All choices trace to Canvas assumptions
-5. **Learning-driven content:** Marketing creates when business generates insights
-6. **Mode-aware operations:** Adapts to VENTURE or BOOTSTRAP business models
-7. **Human-in-the-loop:** AI executes, humans oversee strategy
-8. **Flat architecture:** Easy skill discovery and maintenance
-9. **Mathematical verification:** System designs are provably correct
-10. **Direct and production-ready:** No fluff, just actionable outputs
-11. **Continuous improvement:** Regular updates based on performance data
-12. **Transparent processes:** Clear documentation of AI decision-making
-13. **Scalable systems:** Designed for growth from day one
-14. **Ethical AI use:** Prioritizes user privacy and data security
-15. **Open collaboration:** Encourages human contributions and feedback
-16. **Modular design:** Skills and agents can be updated independently
-17. **Robust error handling:** Skills include fallback mechanisms
-18. **Comprehensive documentation:** All aspects of the OS are well-documented
-19. **Version control:** Changes tracked for accountability
-20. **User-centric design:** Focused on the needs of startups and small teams
-
-## Dual-Mode Support: Venture vs Bootstrap
-
-LeanOS supports two fundamentally different business models with mode-specific execution:
-
-### VENTURE Mode
-**For funded startups pursuing scale:**
-- **Decision Criteria:** Strategic value, market size, defensibility
-- **Metrics Focus:** MAU, ARR growth, market share, runway
-- **Research:** TAM sizing, competitive landscape, 10x opportunities
-- **Impact Formula:** `(Strategic Value × Market Size × Defensibility) / 3`
-- **Timeline:** 7-10 year exit horizon
-
-**Best for:** VC-backed companies, billion-dollar markets, winner-take-all dynamics
-
-### BOOTSTRAP Mode
-**For profitable businesses pursuing cash flow:**
-- **Decision Criteria:** Revenue impact, time to cash, profit margin
-- **Metrics Focus:** MRR, monthly profit, cash flow, LTV:CAC
-- **Research:** Current spend mapping, arbitrage opportunities, immediate revenue
-- **Impact Formula:** `(Revenue Impact × Time to Cash × Margin) / 3`
-- **Timeline:** Profitable within 3 months
-
-**Best for:** Self-funded founders, niche markets, lifestyle businesses
-
-### Mode Configuration
-
-Set your mode in `strategy/canvas/00-business-model-mode.md`:
-
-```markdown
-**Active Mode:** BOOTSTRAP
-
-**Rationale:**
-- Self-funded, need profitability within 3 months
-- Revenue-first approach to validate market
-- Exit optional, cash flow primary goal
-```
-
-**Mode impacts:**
-- Market research approach (TAM vs current spend)
-- Impact scoring in decision-making
-- Metrics tracking and dashboards
-- Success criteria for initiatives
-
-See [Business Model Mode documentation](strategy/canvas/00-business-model-mode.md) for complete details.
+| Workflow | Description |
+|----------|-------------|
+| [Canvas Setup](docs/workflows/canvas-setup.md) | Foundation-building process (45-60 min) |
+| [Causal Flow](docs/workflows/causal-flow.md) | 6-stage decision framework |
+| [Sales](docs/workflows/sales-workflow.md) | Strategy to execution to learning |
+| [Marketing](docs/workflows/marketing-workflow.md) | Learning-driven content |
+| [Engineering](docs/workflows/engineering-workflow.md) | SPEC → BUILD → VERIFY → GEN |
+| [Daily Routine](docs/workflows/daily-routine.md) | 5-minute review process |
 
 ## Directory Structure
 
-```text
+```
 lean-os/
 ├── strategy/
-│   ├── goals/                # Declared objectives (PRIMARY OPERATING MODE)
-│   │   ├── active/           # Current goals with plans + state
-│   │   ├── completed/        # Achieved goals (archive)
-│   │   └── abandoned/        # Dropped goals (archive)
-│   └── canvas/               # Lean Canvas (15 files) - STRATEGIC CONTEXT
-├── threads/                  # Decision execution (6-stage causal flow)
-├── research/customer/        # ICP definitions, prospect lists
-├── artifacts/                # Deliverables (sales, marketing, engineering)
-├── ops/                      # Supporting files (changes.md, patterns.md)
+│   ├── goals/active/         # Current objectives (PRIMARY)
+│   └── canvas/               # 15-section Lean Canvas
+├── threads/{type}/{name}/    # 6-stage decision threads
+├── artifacts/                # Deliverables
+├── research/customer/        # ICP definitions, prospects
 ├── .claude/
-│   ├── agents/               # Orchestrators (10 agents)
-│   │   ├── lean-os*          # Engineering pipeline (5 agents)
-│   │   ├── problem-solving-gateway
-│   │   ├── reasoning-gateway
-│   │   ├── foundations-builder
-│   │   ├── sales-execution
-│   │   └── marketing-execution
-│   └── skills/               # Flat skills (62 total)
-│       ├── action-*          # Action skills (deliverable contracts)
-│       ├── engineering-*     # Categorical verification pipeline
-│       ├── foundations-*     # Business setup
-│       ├── goal-*            # Goal setting and tracking
-│       ├── marketing-*       # Campaign execution
-│       ├── reasoning-*       # Reasoning modes
-│       ├── research-*        # Market research
-│       └── sales-*           # Sales pipeline
+│   ├── agents/               # 10 orchestrators
+│   └── skills/               # 62 skills
+└── docs/                     # Full documentation
 ```
+
+**Details:** [Architecture](docs/reference/architecture.md)
+
+## Business Model Modes
+
+LeanOS adapts to your business model:
+
+| Mode | Focus | Metrics |
+|------|-------|---------|
+| **VENTURE** | Scale, defensibility | MAU, ARR, market share |
+| **BOOTSTRAP** | Cash flow, profitability | MRR, profit, LTV:CAC |
+
+**Configuration:** `strategy/canvas/00-business-model-mode.md`
 
 ## Technology Stack
 
-- **AI:** Claude Skills via Claude Code and any supported model
+- **AI:** Claude Skills via Claude Code
 - **Languages:** Python, JS/TS, Bash, Markdown
-- **Infrastructure:** Local file system, Git version control
+- **Infrastructure:** Local file system, Git
 
 ## Getting Started
 
-### Prerequisites
-- Claude AI access
-- Git for version control
-- Understanding of Lean Canvas methodology
-
-### Initial Setup (45-60 minutes)
-
-1. **Install foundation-builder agent and related skills**
-   ```bash
-   # Copy to .claude/skills/
-   ```
-
-2. **Run Phase 0a: Discovery**
-   ```text
-   use foundation-builder agent, phase: discovery, focus: "[your business idea]"
-   ```
-
-3. **Continue through phases** (see [Canvas Setup Guide](docs/foundation/canvas-setup.md))
-
-4. **Activate operations** after validation (see [Timeline Guide](docs/foundation/timeline.md))
-
-## Operating Model
-
-### Goal-Driven (Primary)
-
-```
-User objective → goal-setter → Goal with plan → Threads → Artifacts → Learning → Canvas
-                                    ↑                                        ↓
-                                    └────────── gap-closing actions ─────────┘
-```
-
-**Autonomy modes:**
-| Mode | Behavior |
-|------|----------|
-| `auto` | AI creates threads and executes without asking |
-| `ask` | AI recommends, waits for approval |
-| `hybrid` | Auto for low-impact, ask for high-impact |
-
-### Reactive (Fallback)
-
-For unexpected signals: `Signal → Thread → Link to goal or create new goal`
-
-## Skill Architecture
-
-| Category | Count | Purpose |
-|----------|-------|---------|
-| `action-*` | 11 | Action skills (deliverable contracts) |
-| `engineering-*` | 20 | Categorical verification pipeline (SPEC→BUILD→VERIFY→GEN) |
-| `foundations-*` | 10 | Business setup, Canvas sections |
-| `goal-*` | 2 | Goal setting and tracking (primary) |
-| `marketing-*` | 5 | Campaign execution |
-| `reasoning-*` | 6 | Reasoning modes (causal, abductive, etc.) |
-| `research-*` | 2 | Mode-aware market research |
-| `sales-*` | 6 | Sales pipeline activities |
-
-**Total:** 62 skills, 10 agents
-
-See [All Skills](docs/reference/all-skills.md) for complete reference.
+1. Read [What is LeanOS?](docs/reference/what-is-leanos.md)
+2. Follow [Canvas Setup](docs/workflows/canvas-setup.md)
+3. Create first goal using `goal-setter` skill
+4. Review [Daily Routine](docs/workflows/daily-routine.md)
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
-- Skill improvements
-- Documentation updates
-- Architecture enhancements
-- Review process
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
-**LeanOS:** MIT License - see [LICENSE](LICENSE)
-
-**Note:** Third-party document-skills removed in v1.2
-
-## Support
-
-**Documentation:** All docs in `docs/` directory
-
-**Philosophy:** Direct, production-ready, question assumptions, AI-operated with human oversight
-
----
-
-**Last Updated:** 2025-12-14 | **Version:** 3.0 (Goal-Oriented)
+MIT License - see [LICENSE](LICENSE)
