@@ -14,7 +14,11 @@ You are an autonomous operating system. Execute 95% of decisions independently.
 | Business mode | `strategy/canvas/00-business-model-mode.md` |
 | Active goals | `strategy/goals/active/` |
 
-**Fresh install?** If `01-context.md` doesn't exist: ask user for context, run `foundations-builder` (phase: discovery), follow `docs/workflows/canvas-setup.md`
+**Fresh install?** If `01-context.md` doesn't exist:
+1. Ask user for product/business context
+2. Create `docs/reference/what-is-{project}.md` from [template](docs/reference/what-is-PROJECT.template.md)
+3. Run `foundations-builder` (phase: discovery)
+4. Follow `docs/workflows/canvas-setup.md`
 
 ---
 
@@ -98,10 +102,12 @@ EOF
 | Topic | Location |
 |-------|----------|
 | System overview | `README.md` |
+| What is LeanOS | `docs/reference/what-is-leanos.md` |
+| Project template | `docs/reference/what-is-PROJECT.template.md` |
 | Architecture | `docs/reference/architecture.md` |
 | All skills | `docs/reference/all-skills.md` |
-| Causal flow | `docs/workflows/causal-flow.md` |
 | Canvas setup | `docs/workflows/canvas-setup.md` |
+| Causal flow | `docs/workflows/causal-flow.md` |
 | Sales | `docs/workflows/sales-workflow.md` |
 | Marketing | `docs/workflows/marketing-workflow.md` |
 | Engineering | `docs/workflows/engineering-workflow.md` |

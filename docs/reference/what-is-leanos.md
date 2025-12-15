@@ -1,146 +1,88 @@
 # What is LeanOS?
 
-## The Problem
-
-Running a startup manually doesn't scale:
-
-- **Decision bottleneck:** Founder reviews every decision, creating delays
-- **No systematic approach:** Ad-hoc processes without traceability
-- **Context switching:** Jumping between sales, marketing, engineering, operations
-- **Knowledge silos:** Information scattered across tools, documents, conversations
-- **Scaling wall:** Can't add headcount fast enough, can't afford specialists
-
-## The Solution
-
 LeanOS is an **AI-native operating system** for startups, small teams, and founders. It automates 95%+ of business operations while maintaining human oversight for strategic decisions.
-
-**Core capabilities:**
-
-- **AI-first execution:** Claude agents process business, sales, marketing, and engineering decisions autonomously
-- **Single source of truth:** Lean Canvas (15 living documents) drives all operations
-- **Reasoning gateway:** Routes to appropriate mode (causal, abductive, inductive, analogical, dialectical, counterfactual)
-- **Impact-based autonomy:** Auto-execute low-impact (<0.8), flag high-impact (≥0.8) for approval
-- **Human touchpoint:** ops/today.md - Single daily entry point (auto-generated)
-- **Mode-aware operations:** Adapts to VENTURE (scale) or BOOTSTRAP (profit) business models
 
 **Result:** 1-person team operates with 5-person velocity. Founder spends <30 min/day on operations.
 
 ---
 
-## Who Is LeanOS For?
+## Core Capabilities
 
-**Ideal fit:**
-- Technical or non-technical founders running lean startups
-- Small teams (1-5 people) wearing multiple hats
-- B2B SaaS, services, or product companies
-- Teams that want AI augmentation, not replacement
-- Founders who value evidence-based decisions over gut feel
-
-**Not ideal for:**
-- Large enterprises with established processes
-- Teams preferring manual control over every decision
-- Companies without clear product/service focus
-- Those uncomfortable with AI-assisted operations
+- **Goal-driven execution:** Declare objectives, AI decomposes into plans and executes
+- **Single source of truth:** Lean Canvas (15 living documents) drives all operations
+- **Reasoning gateway:** Routes to appropriate mode (causal, abductive, inductive, analogical, dialectical, counterfactual)
+- **Impact-based autonomy:** Auto-execute low-impact (<0.8), flag high-impact for approval
+- **Mode-aware operations:** Adapts to VENTURE (scale) or BOOTSTRAP (profit) business models
 
 ---
 
 ## Core Principles
 
-### 1. AI-First Execution
-Claude skills handle operations, not just documentation. Skills make decisions, generate materials, track performance, and update strategy autonomously.
+### 1. Goal-Driven Operation
+All work flows from declared objectives:
+```
+Goal → Plan → Threads → Artifacts → Learning → Canvas
+ ↑                                              ↓
+ └─────────── gap-closing actions ──────────────┘
+```
 
 ### 2. Zero Information Duplication
 Information exists in ONE location only:
+- **Goals:** `strategy/goals/` (objectives with plans + state)
 - **Strategy:** `strategy/canvas/` (15 living documents)
 - **Decisions:** `threads/{type}/{name}/` (6-stage causal flow)
-- **Execution logic:** `.claude/skills/*/SKILL.md`
-- **Published materials:** `artifacts/{sales|marketing|engineering}/`
-
-No duplication. Always reference.
+- **Skills:** `.claude/skills/*/SKILL.md`
+- **Artifacts:** `artifacts/{sales|marketing|engineering}/`
 
 ### 3. Reasoning Gateway
-Non-trivial tasks route through reasoning-gateway which selects appropriate mode:
+Non-trivial tasks route through reasoning-gateway:
 
-| Context | Mode | Use When |
-|---------|------|----------|
-| Operational execution | **Causal** | Known process, clear cause-effect (enforced for threads) |
-| Anomaly/diagnosis | **Abductive** | "Why did X happen?" |
-| Pattern detection | **Inductive** | "This keeps happening" |
-| Novel situation | **Analogical** | "This is like..." |
-| Stakeholder conflict | **Dialectical** | Trade-off resolution |
-| Decision evaluation | **Counterfactual** | "What if we had..." |
-
-**Causal flow (enforced for operational threads):**
-```
-INPUT → HYPOTHESIS → IMPLICATION → DECISION → ACTIONS → LEARNING
-```
+| Context | Mode |
+|---------|------|
+| Operational execution | **Causal** (enforced for threads) |
+| Anomaly/diagnosis | **Abductive** |
+| Pattern detection | **Inductive** |
+| Novel situation | **Analogical** |
+| Stakeholder conflict | **Dialectical** |
+| Decision evaluation | **Counterfactual** |
 
 ### 4. Impact-Based Autonomy
-- **<0.8:** Auto-execute, log in thread, proceed autonomously
-- **≥0.8:** Flag in `ops/today.md`, wait for human approval
+- **<0.8:** Auto-execute, log in thread
+- **≥0.8:** Flag for human approval
 - **Canvas-altering:** Always require approval
-- **Customer relationships:** Always human (calls, negotiations)
+- **Customer relationships:** Always human
 
 ### 5. Learning-Driven Operations
 Marketing creates content when business generates insights. Sales validates marketing assumptions. Engineering builds what sales learns customers need. Everything traces back to Canvas.
 
 ### 6. Mode-Aware Operations
-LeanOS adapts to your business model:
 
-**VENTURE Mode** (scale-focused):
-- Impact formula: `(Strategic Value × Market Size × Defensibility) / 3`
-- Tracks: MAU, ARR growth, market share, runway
-
-**BOOTSTRAP Mode** (profit-focused):
-- Impact formula: `(Revenue Impact × Time to Cash × Margin) / 3`
-- Tracks: MRR, monthly profit, cash flow, LTV:CAC
+| Mode | Focus | Impact Formula |
+|------|-------|----------------|
+| **VENTURE** | Scale, defensibility | `(Strategic Value × Market Size × Defensibility) / 3` |
+| **BOOTSTRAP** | Cash flow, profit | `(Revenue Impact × Time to Cash × Margin) / 3` |
 
 ---
 
-## How It's Different
+## System Architecture
 
-| Traditional Operations | LeanOS |
-|------------------------|--------|
-| Manual decision-making (hours per decision) | AI processes 95%+ autonomously |
-| Information scattered everywhere | Single source of truth (Canvas) |
-| Reactive ("something's broken") | Proactive (anomalies detected, flagged) |
-| Context switching all day | Single 5-min daily review |
-| Tribal knowledge in founders' heads | Decisions documented in threads |
-| Scaling requires hiring | 2-person team, 10-person velocity |
+LeanOS operates in layers: Goals → Strategy → Reasoning → Skills → Threads → Artifacts → State.
 
----
+**Layer breakdown:**
 
-## What LeanOS Does
+| Layer | Skills | Purpose |
+|-------|--------|---------|
+| Engineering | 20 | SPEC → BUILD → VERIFY → GEN pipeline |
+| Foundations | 10 | Canvas, ICP, sales/marketing narratives |
+| Reasoning | 6 modes | Causal, abductive, inductive, analogical, dialectical, counterfactual |
+| Goals | 2 | goal-setter, goal-tracker |
+| Sales | 6 | Prospecting, qualification, materials, outreach |
+| Marketing | 5 | Content strategy, generation, delivery |
+| Research | 2 | Venture/bootstrap market research |
+| Actions | 11 | Deliverable contracts for outputs |
 
-### Engineering Layer (7 skills)
-- **System architecture:** Transform requirements into mathematical specifications
-- **Backend generation:** Two-phase verification (maps → code)
-- **Frontend generation:** Type-safe client from OpenAPI
-- **Infrastructure:** Deployment configs with topology proofs
-- **Proof composition:** Validate entire chain before deployment
-
-### Foundations Layer (4 skills)
-- **Canvas builder:** Orchestrate 10 agents for pre-launch population
-- **ICP generator:** Define Ideal Customer Profile per segment
-- **Sales narrative:** Generate messaging per customer segment
-- **Marketing narrative:** Generate content strategy
-
-### Reasoning Layer (1 gateway, 6 modes)
-- **Reasoning gateway:** Routes to appropriate reasoning mode
-- **Modes:** Causal (operational), abductive, inductive, analogical, dialectical, counterfactual
-
-### Operations Layer (3 skills)
-- **Content strategy:** Detect campaign opportunities from business learning
-- **Ops dashboard:** Auto-generate daily operational dashboards
-- **Metrics tracker:** Mode-aware business metrics
-
-### Research Layer (2 skills)
-- **Venture research:** TAM sizing, growth analysis, competitive landscape
-- **Bootstrap research:** Spend mapping, arbitrage opportunities, immediate revenue
-
-### Execution Layer (2 skills)
-- **Sales execution:** Materials, prospecting, outreach, qualification
-- **Marketing execution:** Content generation, SEO, distribution, tracking
+**Full catalog:** [all-skills.md](all-skills.md)
+**Architecture details:** [architecture.md](architecture.md)
 
 ---
 
@@ -148,63 +90,57 @@ LeanOS adapts to your business model:
 
 **Operational efficiency:**
 - Decision latency: <24h (any decision)
-- Auto-execution rate: >95% (human approves only high-impact)
+- Auto-execution rate: >95%
 - Human review time: <30 min/day
 
 **Information quality:**
 - Zero duplication (1 source of truth)
-- 100% decision traceability (every action traces to Canvas)
+- 100% decision traceability
 - >95% Canvas auto-update accuracy
 
 **Business velocity:**
 - 2-person team operates like 10-person team
-- Cost: ~$200/month AI operations vs traditional $200k+/year for specialists
-- Time to first revenue: depends on business, but accelerated
+- Cost: ~$200/month AI vs $200k+/year specialists
 
 ---
 
-## What You Need
+## Technical Requirements
 
-**Technical:**
 - Claude AI access
 - Git for version control
 - Terminal/command line comfort
 - Markdown editing capability
 
-**Business:**
-- Clear product or service focus (one at a time)
-- Willingness to populate Lean Canvas
-- Commitment to evidence-based decisions
-- Trust in AI for execution, human for strategy
-
-**Mindset:**
-- Accept that 95% of operations happen without your direct input
-- Focus on high-leverage activities (strategy, customer relationships)
-- Value systematic processes over ad-hoc heroics
-
 ---
 
 ## Design Philosophy
 
-**Production-ready, not theoretical:** Every skill produces executable outputs. No conceptual frameworks without implementation.
+- **Production-ready:** Every skill produces executable outputs
+- **Evidence over opinion:** All decisions trace to Canvas or measured outcomes
+- **AI-operated, human-supervised:** AI handles execution, humans provide strategy
+- **Context-shaping:** Each skill targets specific decision types
+- **Zero redundancy:** Information exists in one place
 
-**Evidence over opinion:** All decisions trace to Canvas assumptions or measured outcomes. No gut feelings.
+---
 
-**AI-operated, human-supervised:** AI handles execution. Humans provide strategic direction and maintain relationships.
+## Using LeanOS for Your Project
 
-**Context-shaping over generalization:** Each skill targets specific decision types. Specialized beats generalized.
+LeanOS is a **base system** that you copy to create project-specific instances.
 
-**Zero redundancy:** Information exists in one place. References, not copies.
+**To create a new project:**
+1. Copy LeanOS base to `{project-name}/`
+2. Create `docs/reference/what-is-{project}.md` using [the template](what-is-PROJECT.template.md)
+3. Populate Canvas in `strategy/canvas/`
+4. Create first goal using `goal-setter`
 
 ---
 
 ## Next Steps
 
-1. **Understand architecture:** Read [Architecture Overview](architecture.md)
-2. **Start building:** Follow [Canvas Setup](../workflows/canvas-setup.md)
-3. **Learn workflows:** [Sales](../workflows/sales-workflow.md) | [Marketing](../workflows/marketing-workflow.md) | [Engineering](../workflows/engineering-workflow.md)
+1. [Architecture Overview](architecture.md) — system layers and data flow
+2. [Canvas Setup](../workflows/canvas-setup.md) — foundation-building process
+3. [All Skills](all-skills.md) — complete skills reference
 
 ---
 
-**Version:** 2.1
-**Last updated:** 2025-12-09
+**Version:** 3.0
