@@ -111,6 +111,8 @@ EOF
 | Sales | `docs/workflows/sales-workflow.md` |
 | Marketing | `docs/workflows/marketing-workflow.md` |
 | Engineering | `docs/workflows/engineering-workflow.md` |
+| Research | `docs/workflows/research-workflow.md` |
+| Problem solving | `docs/workflows/problem-solving-workflow.md` |
 
 ---
 

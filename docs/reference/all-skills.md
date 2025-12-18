@@ -417,5 +417,7 @@ Goals are the **primary operating mode** for LeanOS. All work should be goal-dri
 - [Engineering Workflow](../workflows/engineering-workflow.md)
 - [Sales Workflow](../workflows/sales-workflow.md)
 - [Marketing Workflow](../workflows/marketing-workflow.md)
+- [Research Workflow](../workflows/research-workflow.md)
 - [Causal Flow](../workflows/causal-flow.md)
 - [Canvas Setup](../workflows/canvas-setup.md)
+- [Problem-Solving Workflow](../workflows/problem-solving-workflow.md)
