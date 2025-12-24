@@ -4,6 +4,104 @@ Record of significant system optimizations, refactorings, and architectural impr
 
 ---
 
+## 2025-12-24: Product, Research & Knowledge Pipeline (v4.0)
+
+### Summary
+Added 3 new orchestrator agents and 8 new skills for product management, knowledge synthesis, and enhanced research capabilities. LeanOS now covers the full Canvas → Product → Engineering pipeline.
+
+### New Agents (3)
+
+| Agent | Purpose | Skills Loaded |
+|-------|---------|---------------|
+| `product-builder` | Bridge Canvas strategy to engineering specs | product-* skills |
+| `market-research` | Mode-aware market analysis orchestration | research-market-*, reasoning-inductive |
+| `knowledge-builder` | Knowledge synthesis from expert sources | research-source-*, research-playbook-*, reasoning-inductive |
+
+### New Skills (8)
+
+#### Product Skills (5)
+| Skill | Purpose | Based On |
+|-------|---------|----------|
+| `product-requirements` | Canvas → user stories, story maps | Marty Cagan, Jeff Patton |
+| `product-design-flows` | Stories → journey maps, flow diagrams | User Story Mapping, Shape Up |
+| `product-design-wireframes` | Flows → visual specs, component inventory | Atomic Design, AI UX Patterns |
+| `product-prioritization` | Features → DHM scores, stack rank, LNO | Gibson Biddle, Shreyas Doshi |
+| `product-specification` | Prioritized features → shaped pitches, eng specs | Shape Up, Design Sprint |
+
+#### Research Skills (3)
+| Skill | Purpose |
+|-------|---------|
+| `research-source-processing` | Process expert content (videos, podcasts, articles) into structured insights |
+| `research-playbook-generation` | Transform insights into actionable operational playbooks |
+| `research-market-bootstrap` | Bootstrap-focused market research (spend flows, budget holders, arbitrage) |
+
+### Updated Counts
+
+| Component | Before | After |
+|-----------|--------|-------|
+| Agents | 10 | 13 |
+| Skills | 62 | 70 |
+
+### New Skill Categories
+
+| Prefix | Count | Purpose |
+|--------|-------|---------|
+| `product-*` | 5 | Product requirements to specifications |
+| `research-*` | 5 | Market research and knowledge synthesis (was 2) |
+
+### Product Pipeline
+
+```
+Canvas → Requirements → Flows → Wireframes → Prioritization → Specification → Engineering
+```
+
+**product-builder agent** orchestrates this full pipeline, filling the gap between strategic Canvas and technical engineering.
+
+### Knowledge Synthesis Pipeline
+
+```
+Sources → Insights → Playbooks → Synthesis
+```
+
+**knowledge-builder agent** processes expert content:
+- **Single source**: Process one video/podcast/article
+- **Research sprint**: 5 sources → complete deliverable
+- **Knowledge base**: 20+ sources → indexed reference
+
+### Documentation Updated
+
+- `README.md` - Updated agent/skill counts
+- `CLAUDE.md` - Added Product, Market Research, Knowledge routing
+- `docs/reference/all-skills.md` - Full documentation of new agents/skills
+- `docs/reference/architecture.md` - Updated diagrams, counts, artifact locations
+
+### New Output Locations
+
+```
+artifacts/product/
+├── requirements/     # User stories, story maps
+├── flows/            # Journey maps, flow diagrams
+├── wireframes/       # Component specs, layouts
+├── prioritization/   # DHM scores, stack ranks
+└── specs/            # Shaped pitches, eng specs
+
+research/
+├── sources/          # Processed expert content
+├── playbooks/        # Actionable playbooks by domain
+├── synthesis/        # Cross-source frameworks
+└── market/           # Market analysis outputs
+```
+
+---
+
+**Change type:** Major feature (new agents and skills)
+**Impact:** High (adds complete product layer)
+**Breaking changes:** None (additive)
+**Version:** 4.0
+**Status:** Complete
+
+---
+
 ## 2025-12-10: Goal-Oriented Operations (v2.2)
 
 ### Summary

@@ -167,7 +167,7 @@ Return skill output to caller.
 
 ---
 
-## Current Structure (v3.0)
+## Current Structure
 
 ```
 .claude/

@@ -2,14 +2,14 @@
 
 Complete reference of AI skills and agents for business operations.
 
-## Architecture (v3.0 - Goal-Oriented)
+## Architecture
 
 | Component | Purpose |
 |-----------|---------|
 | **Agents** (`.claude/agents/`) | Orchestrators that route to skills |
 | **Skills** (`.claude/skills/`) | Flat, single-capability instructions |
 
-### Agents (10)
+### Agents (13)
 
 | Agent | Purpose | Skills Loaded |
 |-------|---------|---------------|
@@ -23,6 +23,9 @@ Complete reference of AI skills and agents for business operations.
 | `foundations-builder` | Canvas population | foundations-* skills |
 | `sales-execution` | Sales pipeline | sales-* skills |
 | `marketing-execution` | Campaign execution | marketing-* skills |
+| `product-builder` | Product design to eng specs | product-* skills |
+| `market-research` | Mode-aware market analysis | research-market-*, reasoning-inductive |
+| `knowledge-builder` | Knowledge synthesis pipeline | research-source-*, research-playbook-*, reasoning-inductive |
 
 ### Skills by Category
 
@@ -33,11 +36,12 @@ Complete reference of AI skills and agents for business operations.
 | `foundations-*` | 10 | Business setup, Canvas sections |
 | `goal-*` | 2 | Goal setting and tracking |
 | `marketing-*` | 5 | Campaign execution |
+| `product-*` | 5 | Product requirements to specifications |
 | `reasoning-*` | 6 | Reasoning modes |
-| `research-*` | 2 | Mode-aware market research |
+| `research-*` | 5 | Market research and knowledge synthesis |
 | `sales-*` | 6 | Sales pipeline activities |
 
-**Total:** 62 skills
+**Total:** 70 skills
 
 ---
 
@@ -210,6 +214,78 @@ Complete reference of AI skills and agents for business operations.
 
 ---
 
+### product-builder
+
+**Location:** `.claude/agents/product-builder.md`
+
+**Purpose:** Bridge Canvas (strategy) and Engineering (code) by translating strategy into buildable specifications
+
+**Pipeline:**
+```
+Canvas → Requirements → Flows → Wireframes → Prioritization → Specification → Engineering
+```
+
+**Skills loaded:** product-requirements, product-design-flows, product-design-wireframes, product-prioritization, product-specification
+
+| Activity Type | Skill |
+|---------------|-------|
+| requirements | `product-requirements` |
+| flows | `product-design-flows` |
+| wireframes | `product-design-wireframes` |
+| prioritization | `product-prioritization` |
+| specification | `product-specification` |
+| full | All skills in sequence |
+
+---
+
+### market-research
+
+**Location:** `.claude/agents/market-research.md`
+
+**Purpose:** Orchestrate market analysis based on business model mode
+
+**Pipeline:**
+```
+Check Mode → Select Research Skill → Execute → Inductive Synthesis → Validated Conclusions
+```
+
+**Skills loaded:** research-market-venture, research-market-bootstrap, reasoning-inductive
+
+**Mode routing:**
+| Mode | Skill | Focus |
+|------|-------|-------|
+| VENTURE | `research-market-venture` | TAM, growth, defensibility, 10x potential |
+| BOOTSTRAP | `research-market-bootstrap` | Spend flows, budget holders, arbitrage, revenue |
+
+**Output:** `research/synthesis/{mode}-analysis-{date}.md`
+
+---
+
+### knowledge-builder
+
+**Location:** `.claude/agents/knowledge-builder.md`
+
+**Purpose:** Orchestrate knowledge synthesis from expert sources to actionable frameworks
+
+**Pipeline:**
+```
+Sources → Insights → Playbooks → Synthesis
+```
+
+**Skills loaded:** research-source-processing, research-playbook-generation, reasoning-inductive
+
+**Task Types:**
+| Task | Description |
+|------|-------------|
+| Single source | Process one video/podcast/article into insights |
+| Multi-source | Process multiple sources, optionally create playbook |
+| Research sprint | 5 sources focused on one domain → complete deliverable |
+| Knowledge base | 20+ sources → indexed, navigable reference |
+
+**Output:** `research/sources/`, `research/playbooks/`, `research/synthesis/`
+
+---
+
 ## Action Skills (11)
 
 Action skills are **output contracts** used by `problem-solving-gateway`.
@@ -316,6 +392,101 @@ Goals are the **primary operating mode** for LeanOS. All work should be goal-dri
 
 ---
 
+## Product Skills (5)
+
+Product skills bridge Canvas strategy and Engineering execution. Orchestrated by `product-builder`.
+
+| Skill | Purpose | Input | Output |
+|-------|---------|-------|--------|
+| `product-requirements` | Transform Canvas strategy into user stories | Canvas (05, 04, 09) | Story map, PRD |
+| `product-design-flows` | Transform requirements into user journeys | User stories | Journey maps, flow diagrams |
+| `product-design-wireframes` | Transform flows into visual specs | Flow diagrams | Component specs, wireframes |
+| `product-prioritization` | Prioritize features using DHM and LNO | Feature list | DHM scores, stack rank |
+| `product-specification` | Create shaped specs for engineering | Prioritized features | Shaped pitches, eng specs |
+
+### product-requirements
+
+**Purpose:** Transform Canvas strategy into actionable product requirements
+
+**Based on:** Marty Cagan's Product Operating Model, Jeff Patton's User Story Mapping
+
+**Output:**
+- `context_summary.md` - Canvas synthesis
+- `story_map.md` - Visual story map
+- `stories/` - Individual user stories with acceptance criteria
+- `release_plan.md` - Stories grouped by release
+
+---
+
+### product-design-flows
+
+**Purpose:** Transform user stories into detailed flow diagrams
+
+**Based on:** User Story Mapping, Shape Up breadboarding
+
+**Output:**
+- `journey_map.md` - Full user journey
+- `flows/` - Individual flow diagrams
+- `states/` - State diagrams
+- `walking_skeleton.md` - Minimum viable flow
+
+---
+
+### product-design-wireframes
+
+**Purpose:** Transform flows into visual specifications using atomic design
+
+**Based on:** Atomic Design (Brad Frost), AI UX Patterns
+
+**Output:**
+- `tokens.md` - Design tokens
+- `components/` - Atoms, molecules, organisms specs
+- `templates/` - Layout structures
+- `wireframes/` - Page wireframes
+- `inventory.md` - Component inventory
+
+---
+
+### product-prioritization
+
+**Purpose:** Prioritize product work at strategic and tactical levels
+
+**Based on:** Gibson Biddle (DHM), Shreyas Doshi (LNO)
+
+**Frameworks:**
+| Framework | Level | Dimensions |
+|-----------|-------|------------|
+| DHM | Strategic | Delight, Hard-to-copy, Margin-enhancing |
+| LNO | Tactical | Leverage, Neutral, Overhead |
+| Glee | Long-term | Get big, Lead, Expand |
+
+**Output:**
+- `dhm_scores.md` - All initiatives scored
+- `stack_rank.md` - Prioritized list
+- `daily_lno.md` - Tactical priorities
+
+---
+
+### product-specification
+
+**Purpose:** Create shaped, time-boxed specifications ready for engineering
+
+**Based on:** Shape Up (Ryan Singer), Design Sprint
+
+**Key concepts:**
+- Fixed time, variable scope
+- Appetite levels (1 week, 2 weeks, 6 weeks)
+- Scope hammering
+- Rabbit hole identification
+- Explicit no-gos
+
+**Output:**
+- `pitches/` - Shaped pitch documents
+- `specs/` - Engineering specifications
+- `sprints/` - Validation sprint results
+
+---
+
 ## Reasoning Skills (6)
 
 | Skill | Purpose | When to Use |
@@ -380,14 +551,58 @@ Goals are the **primary operating mode** for LeanOS. All work should be goal-dri
 
 ---
 
-## Research Skills (2)
+## Research Skills (5)
+
+Research skills support market analysis and knowledge synthesis. Orchestrated by `market-research` and `knowledge-builder` agents.
+
+### Market Research Skills
 
 | Skill | Purpose | Mode |
 |-------|---------|------|
-| `research-market-venture` | TAM, growth, defensibility | VENTURE |
-| `research-market-bootstrap` | Spend flows, arbitrage, immediate revenue | BOOTSTRAP |
+| `research-market-venture` | TAM, growth, defensibility, 10x potential | VENTURE |
+| `research-market-bootstrap` | Spend flows, budget holders, arbitrage, immediate revenue | BOOTSTRAP |
 
 **Selection:** Check `strategy/canvas/00-business-model-mode.md` to determine mode.
+
+### Knowledge Synthesis Skills
+
+| Skill | Purpose | Output |
+|-------|---------|--------|
+| `research-source-processing` | Process expert sources into structured insights | `research/sources/{slug}/insights.md` |
+| `research-playbook-generation` | Generate actionable playbooks from insights | `research/playbooks/{domain}.md` |
+
+### research-source-processing
+
+**Purpose:** Transform raw expert content (videos, podcasts, articles, books) into structured, actionable insights
+
+**Extraction categories:**
+1. **Frameworks** - Mental models, decision structures
+2. **Principles** - Universal truths, rules
+3. **Tactics** - Specific actions, playbooks
+4. **Warnings** - Anti-patterns, mistakes to avoid
+5. **Metrics** - Numbers, benchmarks, thresholds
+6. **Quotes** - Memorable statements
+
+**Output:**
+- `raw.md` - Transcript/content with metadata
+- `insights.md` - Extracted insights with evidence
+
+---
+
+### research-playbook-generation
+
+**Purpose:** Transform extracted insights into actionable, operational playbooks
+
+**Process:**
+1. Aggregate insights from source(s)
+2. Select primary framework for structure
+3. Extract 3-7 core principles
+4. Sequence tactics into ordered steps
+5. Place warnings at decision points
+6. Create actionable checklists
+
+**Output:**
+- `playbook.md` - Complete operational guide with principles, framework, steps, warnings, and checklists
 
 ---
 
@@ -398,7 +613,9 @@ Goals are the **primary operating mode** for LeanOS. All work should be goal-dri
 - Need to reason through something? → `reasoning-gateway` agent
 - Building systems? → `lean-os` agent
 - Setting up business? → `foundations-builder` agent
-- Market research? → `research-*` skills
+- Product requirements to specs? → `product-builder` agent
+- Market research? → `market-research` agent
+- Processing expert content? → `knowledge-builder` agent
 - Sales pipeline? → `sales-execution` agent
 - Marketing campaigns? → `marketing-execution` agent
 - Setting goals? → `goal-setter` skill

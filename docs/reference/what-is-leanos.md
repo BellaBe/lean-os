@@ -141,6 +141,3 @@ LeanOS is a **base system** that you copy to create project-specific instances.
 2. [Canvas Setup](../workflows/canvas-setup.md) — foundation-building process
 3. [All Skills](all-skills.md) — complete skills reference
 
----
-
-**Version:** 3.0

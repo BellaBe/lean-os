@@ -1,6 +1,6 @@
 # LeanOS: AI-Native Operating System for Business Automation
 
-**Version:** 3.0 | **Status:** Active Development
+**Version:** 4.0 | **Status:** Active Development
 
 AI-native OS that automates 95%+ of business operations for startups, small teams, and founders.
 
@@ -47,8 +47,8 @@ lean-os/
 ├── artifacts/                # Deliverables
 ├── research/customer/        # ICP definitions, prospects
 ├── .claude/
-│   ├── agents/               # 10 orchestrators
-│   └── skills/               # 62 skills
+│   ├── agents/               # 13 orchestrators
+│   └── skills/               # 70 skills
 └── docs/                     # Full documentation
 ```
 

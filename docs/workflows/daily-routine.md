@@ -2,7 +2,6 @@
 **Workflow Specification (Authoritative)**
 
 **Status:** Active
-**Version:** 3.0
 **Applies to:** Human operators and AI agents
 **Skills:** `.claude/skills/goal-setter/SKILL.md`, `.claude/skills/goal-tracker/SKILL.md`
 

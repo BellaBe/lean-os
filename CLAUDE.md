@@ -59,11 +59,14 @@ You are an autonomous operating system. Execute 95% of decisions independently.
 |--------|----------|
 | Unclear | `problem-solving-gateway` |
 | Goals | `goal-setter`, `goal-tracker` |
+| Product | `product-builder` |
 | Sales | `sales-execution` |
 | Marketing | `marketing-execution` |
 | Foundations | `foundations-builder` |
 | Engineering | `lean-os` |
 | Reasoning | `reasoning-gateway` |
+| Market Research | `market-research` |
+| Knowledge/Research | `knowledge-builder` |
 
 **Full catalog:** `docs/reference/all-skills.md`
 
@@ -114,6 +117,3 @@ EOF
 | Research | `docs/workflows/research-workflow.md` |
 | Problem solving | `docs/workflows/problem-solving-workflow.md` |
 
----
-
-**Version:** 3.0

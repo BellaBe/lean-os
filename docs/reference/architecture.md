@@ -64,7 +64,7 @@ Signal → Thread → Link to Goal (or create new goal)
 │ AGENTS + SKILLS LAYER (Domain Execution)                                                     │
 │ Agents: .claude/agents/    Skills: .claude/skills/                                           │
 │                                                                                              │
-│ AGENTS (Orchestrators - 10 total):                                                           │
+│ AGENTS (Orchestrators - 13 total):                                                           │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
 │ │ lean-os                │ Main engineering orchestrator (SPEC→BUILD→VERIFY→GEN)         │  │
 │ │ lean-os-spec           │ SPEC phase: engineering-spec-* skills                         │  │
@@ -76,17 +76,21 @@ Signal → Thread → Link to Goal (or create new goal)
 │ │ foundations-builder    │ Routes to foundations-* skills                                │  │
 │ │ sales-execution        │ Routes to sales-* skills                                      │  │
 │ │ marketing-execution    │ Routes to marketing-* skills                                  │  │
+│ │ product-builder        │ Routes to product-* skills (Canvas → eng specs)               │  │
+│ │ market-research        │ Routes to research-market-* skills (mode-aware)               │  │
+│ │ knowledge-builder      │ Routes to research-source/playbook-* skills                   │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
-│ SKILLS (Flat, single-capability - 62 total):                                                 │
+│ SKILLS (Flat, single-capability - 70 total):                                                 │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
 │ │ action-*        │ Action skills - deliverable contracts (11)                           │  │
 │ │ engineering-*   │ Categorical verification pipeline (20)                               │  │
 │ │ foundations-*   │ Canvas/business setup (10)                                           │  │
 │ │ goal-*          │ Goal setting and tracking (2)                                        │  │
 │ │ marketing-*     │ Campaign execution (5)                                               │  │
+│ │ product-*       │ Product requirements to specifications (5)                           │  │
 │ │ reasoning-*     │ Reasoning modes (6)                                                  │  │
-│ │ research-*      │ Market research (2)                                                  │  │
+│ │ research-*      │ Market research and knowledge synthesis (5)                          │  │
 │ │ sales-*         │ Sales pipeline (6)                                                   │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -115,6 +119,7 @@ Signal → Thread → Link to Goal (or create new goal)
 │                                                                                              │
 │ ├─ sales/: Pitch decks, scripts, templates per segment                                       │
 │ ├─ marketing/: Published content (campaigns, blog, social)                                   │
+│ ├─ product/: Requirements, flows, wireframes, specs                                          │
 │ └─ engineering/: Specifications, code, configs, proofs                                       │
 │     ├─ specifications/: Mathematical specs (versioned)                                       │
 │     ├─ maps/: Code structure maps                                                            │
@@ -260,7 +265,7 @@ Task arrives → Gateway selects mode → Mode executes → (chains to causal if
 **Agents:** `.claude/agents/`
 **Skills:** `.claude/skills/`
 
-### Agents (Orchestrators - 10)
+### Agents (Orchestrators - 13)
 
 | Agent | Purpose | Skills Loaded |
 |-------|---------|---------------|
@@ -274,8 +279,11 @@ Task arrives → Gateway selects mode → Mode executes → (chains to causal if
 | `foundations-builder` | Canvas population | foundations-* |
 | `sales-execution` | Sales pipeline | sales-* |
 | `marketing-execution` | Campaign execution | marketing-* |
+| `product-builder` | Product design to eng specs | product-* |
+| `market-research` | Mode-aware market analysis | research-market-*, reasoning-inductive |
+| `knowledge-builder` | Knowledge synthesis | research-source/playbook-*, reasoning-inductive |
 
-### Skills (Flat, single-capability - 62)
+### Skills (Flat, single-capability - 70)
 
 | Category | Count | Purpose |
 |----------|-------|---------|
@@ -284,8 +292,9 @@ Task arrives → Gateway selects mode → Mode executes → (chains to causal if
 | `foundations-*` | 10 | Canvas/business setup |
 | `goal-*` | 2 | Goal setting and tracking |
 | `marketing-*` | 5 | Campaign execution |
+| `product-*` | 5 | Product requirements to specifications |
 | `reasoning-*` | 6 | Reasoning modes |
-| `research-*` | 2 | Market research |
+| `research-*` | 5 | Market research and knowledge synthesis |
 | `sales-*` | 6 | Sales pipeline |
 
 ---
@@ -352,6 +361,13 @@ threads/{type}/{name}/
 - Social media content
 - Campaign performance records
 
+### Product Artifacts
+- `requirements/`: User stories, story maps, PRDs
+- `flows/`: Journey maps, flow diagrams, state diagrams
+- `wireframes/`: Component specs, layouts, inventories
+- `prioritization/`: DHM scores, stack ranks, LNO classifications
+- `specs/`: Shaped pitches, engineering specifications
+
 ### Engineering Artifacts
 - `specifications/`: Mathematical specs (versioned, immutable)
 - `maps/`: Code structure maps (backend, shared)
@@ -391,9 +407,13 @@ Updates:
 
 ## Supporting Directories
 
-### research/customer/
-- **icp/:** ICP definitions per segment
-- **prospects/:** Prospect and contact lists
+### research/
+- **customer/icp/:** ICP definitions per segment
+- **customer/prospects/:** Prospect and contact lists
+- **sources/:** Processed expert content (insights.md per source)
+- **playbooks/:** Actionable playbooks by domain
+- **synthesis/:** Cross-source synthesis frameworks
+- **market/:** Market analysis outputs
 
 ## Data Flow
 

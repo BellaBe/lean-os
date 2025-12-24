@@ -1,10 +1,91 @@
 # Research Workflow
 
-A 5-stage inductive reasoning framework for systematic research and discovery.
+A systematic approach to research with two complementary modes: market analysis and knowledge synthesis.
 
 ---
 
-## Why Inductive Reasoning for Research?
+## Two Research Modes
+
+LeanOS supports two distinct research modes that serve different purposes:
+
+### Market Research (market-research agent)
+
+Analyze external market dynamics to evaluate opportunity viability.
+
+**Agent:** `market-research` orchestrates mode selection and reasoning.
+
+| Skill | Mode | Focus |
+|-------|------|-------|
+| `research-market-venture` | VENTURE | TAM, growth rates, defensibility, 10x potential |
+| `research-market-bootstrap` | BOOTSTRAP | Spend flows, budget holders, arbitrage, immediate revenue |
+
+**Process:** Mode detection → Research → Inductive synthesis
+**Output:** `research/synthesis/*.md` (analysis reports)
+**Use when:** Evaluating markets, competitors, pricing, viability
+
+### Knowledge Synthesis (research-*)
+
+Extract and synthesize knowledge from expert sources into actionable frameworks.
+
+| Skill | Purpose |
+|-------|---------|
+| `research-source-processing` | Process individual sources into structured insights |
+| `research-playbook-generation` | Generate actionable playbooks from insights |
+
+**Synthesis:** Uses `reasoning-inductive` for cross-source pattern extraction
+**Input:** Expert content (URLs, videos, podcasts, articles, books)
+**Output:** `research/sources/*.md`, `research/playbooks/*.md`, `research/synthesis/*.md`
+**Use when:** Building knowledge from expert sources
+
+### knowledge-builder Agent
+
+The `knowledge-builder` agent orchestrates the knowledge synthesis pipeline.
+
+**Task Types:**
+
+| Task | Description | Output |
+|------|-------------|--------|
+| Single Source | Process one source | `research/sources/{slug}/insights.md` |
+| Multi-Source | Process multiple sources | Insights + playbooks per domain |
+| Research Sprint | 5 sources, comprehensive | `research-sprint-{topic}/` with executive summary |
+| Knowledge Base | 20+ sources, multi-domain | `knowledge-base-{topic}/` with playbooks + synthesis |
+
+**Routing:**
+- "Process this source" → Single Source
+- "Process these 5 sources" → Multi-Source
+- "Run a research sprint on X" → Research Sprint
+- "Build a knowledge base on X" → Knowledge Base
+
+### Choosing Between Modes
+
+| Question | Use |
+|----------|-----|
+| "Is this market viable?" | market-research agent |
+| "Who are the competitors?" | market-research agent |
+| "What do experts say about X?" | knowledge-builder agent |
+| "Build a playbook from these sources" | knowledge-builder agent |
+| "Synthesize these talks into a framework" | knowledge-builder agent |
+
+Both modes can be combined: use market research to evaluate opportunity, then knowledge synthesis to learn execution from experts.
+
+### Reasoning Mode
+
+Both agents use `reasoning-inductive` for synthesis:
+
+- `market-research` → Synthesize market data into validated conclusions
+- `knowledge-builder` → Synthesize source insights into unified frameworks
+
+Process: Observations → Patterns → Generalizations → Testing → Synthesis
+
+See [Inductive Reasoning Framework](#inductive-reasoning-framework) below for the 5-stage process.
+
+---
+
+## Inductive Reasoning Framework
+
+The 5-stage inductive framework applies to all synthesis work (knowledge synthesis, market analysis, cross-source patterns).
+
+### Why Inductive Reasoning for Research?
 
 | Causal Reasoning | Inductive Reasoning |
 |------------------|---------------------|
@@ -326,7 +407,3 @@ Are we executing a known process?
 - GO: High confidence (>0.75), clear next action, acceptable risk
 - NO-GO: Low confidence (<0.50), unclear path, unacceptable risk
 - PIVOT: Medium confidence, better direction identified
-
----
-
-*Framework version: 1.0*
