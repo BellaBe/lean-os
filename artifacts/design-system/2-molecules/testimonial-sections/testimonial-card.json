@@ -1,0 +1,100 @@
+{
+    "meta": {
+        "name": "TestimonialCard",
+        "description": "Customer testimonial quote card with avatar and attribution",
+        "category": "molecule",
+        "figmaId": "1376:1163",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Avatar", "Icon"]
+    },
+
+    "variants": {
+        "layout": ["vertical", "horizontal"],
+        "size": ["sm", "md", "lg"],
+        "showImage": [false, true],
+        "theme": ["default", "brand"]
+    },
+
+    "props": {
+        "quote": {
+            "type": "string",
+            "required": true
+        },
+        "author": {
+            "type": "object",
+            "required": true,
+            "properties": {
+                "name": { "type": "string" },
+                "title": { "type": "string" },
+                "company": { "type": "string" },
+                "avatar": { "type": "string" }
+            }
+        },
+        "companyLogo": {
+            "type": "string"
+        },
+        "rating": {
+            "type": "number",
+            "description": "Star rating 1-5"
+        },
+        "image": {
+            "type": "string",
+            "description": "Optional featured image"
+        }
+    },
+
+    "sizing": {
+        "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" },
+        "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" },
+        "avatarSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-lg" },
+        "logoHeight": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-md" },
+        "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-2xl" },
+        "starSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" }
+    },
+
+    "tokens": {
+        "default": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+        },
+        "brand": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-primary" }
+        },
+        "quoteIcon": {
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        },
+        "star": {
+            "filled": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-warning-primary" },
+            "empty": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" }
+        }
+    },
+
+    "textStyles": {
+        "quote": {
+            "sm": { "isAlias": true, "collection": "Typography Styles", "name": "Text lg/Medium" },
+            "md": { "isAlias": true, "collection": "Typography Styles", "name": "Text xl/Medium" },
+            "lg": { "isAlias": true, "collection": "Typography Styles", "name": "Display xs/Medium" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "authorName": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "authorTitle": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "accessibility": {
+        "notes": [
+            "Quote should use blockquote element",
+            "Author attribution should use cite element",
+            "Star rating should have accessible text alternative"
+        ]
+    }
+}

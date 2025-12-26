@@ -1,0 +1,126 @@
+{
+    "meta": {
+        "name": "PageHeader",
+        "description": "Application page header with title, breadcrumbs, actions, and tabs",
+        "category": "organism",
+        "figmaId": "1239:122640",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Badge", "Avatar", "Icon"],
+        "molecules": ["ButtonGroup", "Breadcrumbs", "HorizontalTabs"]
+    },
+
+    "variants": {
+        "type": ["simple", "with-breadcrumbs", "with-actions", "with-tabs", "with-meta", "full"],
+        "breakpoint": ["mobile", "desktop"]
+    },
+
+    "props": {
+        "type": {
+            "type": "enum",
+            "default": "simple",
+            "options": ["simple", "with-breadcrumbs", "with-actions", "with-tabs", "with-meta", "full"]
+        },
+        "breadcrumbs": {
+            "type": "array",
+            "description": "Array of {label, href}"
+        },
+        "title": {
+            "type": "string",
+            "required": true
+        },
+        "description": {
+            "type": "string"
+        },
+        "badge": {
+            "type": "string"
+        },
+        "avatar": {
+            "type": "string",
+            "description": "For profile/entity pages"
+        },
+        "meta": {
+            "type": "array",
+            "description": "Meta items like date, status, etc."
+        },
+        "tabs": {
+            "type": "array",
+            "description": "Tab items"
+        },
+        "primaryAction": {
+            "type": "object",
+            "properties": {
+                "label": { "type": "string" },
+                "icon": { "type": "string" },
+                "onClick": { "type": "function" }
+            }
+        },
+        "secondaryActions": {
+            "type": "array",
+            "description": "Additional action buttons"
+        },
+        "moreActions": {
+            "type": "array",
+            "description": "Overflow menu actions"
+        }
+    },
+
+    "sizing": {
+        "container": {
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" },
+            "paddingXMobile": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" }
+        },
+        "content": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" }
+        },
+        "titleRow": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" }
+        },
+        "avatar": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-xl" },
+        "metaGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" }
+    },
+
+    "tokens": {
+        "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+        "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+    },
+
+    "textStyles": {
+        "title": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Display sm/Semibold" },
+            "typographyMobile": { "isAlias": true, "collection": "Typography Styles", "name": "Text xl/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "description": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        },
+        "meta": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "responsiveBehavior": {
+        "mobile": {
+            "description": "Stacked layout, actions in overflow menu",
+            "breakpoint": "< 768px"
+        },
+        "desktop": {
+            "description": "Horizontal layout with inline actions",
+            "breakpoint": ">= 768px"
+        }
+    },
+
+    "accessibility": {
+        "notes": [
+            "Title should be h1 or appropriate heading level",
+            "Breadcrumbs should use nav with aria-label",
+            "Actions should have clear labels"
+        ]
+    }
+}

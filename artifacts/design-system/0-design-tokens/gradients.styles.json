@@ -1,0 +1,66 @@
+{
+    "name": "Gradient Styles",
+    "modes": [
+        {
+            "name": "Style",
+            "variables": [
+                {
+                    "name": "Gradient/brand-primary",
+                    "type": "gradient",
+                    "isAlias": false,
+                    "value": {
+                        "type": "linear",
+                        "angle": 90,
+                        "stops": [
+                            {
+                                "position": 0,
+                                "color": {
+                                    "isAlias": true,
+                                    "collection": "Color Primitives",
+                                    "name": "Colors/Brand/800"
+                                }
+                            },
+                            {
+                                "position": 100,
+                                "color": {
+                                    "isAlias": true,
+                                    "collection": "Color Primitives",
+                                    "name": "Colors/Brand/600"
+                                }
+                            }
+                        ]
+                    },
+                    "css": "linear-gradient(90deg, #53389E 0%, #7F56D9 100%)"
+                },
+                {
+                    "name": "Gradient/brand-secondary",
+                    "type": "gradient",
+                    "isAlias": false,
+                    "value": {
+                        "type": "linear",
+                        "angle": 45,
+                        "stops": [
+                            {
+                                "position": 0,
+                                "color": {
+                                    "isAlias": true,
+                                    "collection": "Color Primitives",
+                                    "name": "Colors/Brand/700"
+                                }
+                            },
+                            {
+                                "position": 100,
+                                "color": {
+                                    "isAlias": true,
+                                    "collection": "Color Primitives",
+                                    "name": "Colors/Brand/600"
+                                }
+                            }
+                        ]
+                    },
+                    "css": "linear-gradient(45deg, #6941C6 0%, #7F56D9 100%)"
+                }
+            ]
+        }
+    ]
+}

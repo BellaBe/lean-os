@@ -1,0 +1,80 @@
+{
+    "meta": {
+        "name": "Legal Pages",
+        "description": "Terms, privacy, and legal page composition patterns",
+        "category": "page",
+        "figmaId": "1622:261466",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "breakpoints": ["desktop", "mobile"],
+
+    "patterns": {
+        "legal-01": {
+            "name": "Standard Legal Document",
+            "description": "Long-form legal content with TOC",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "LegalHeader", "variant": "with-date", "content": { "title": "Terms of Service", "lastUpdated": "December 2024" } },
+                { "component": "TableOfContents", "variant": "sticky-sidebar" },
+                { "component": "LegalContent", "variant": "numbered-sections" },
+                { "component": "Footer", "variant": "simple" }
+            ]
+        },
+        "legal-02": {
+            "name": "Privacy Policy",
+            "description": "GDPR-compliant privacy policy layout",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "LegalHeader", "variant": "with-summary" },
+                { "component": "PrivacySummary", "variant": "key-points" },
+                { "component": "TableOfContents", "variant": "inline" },
+                { "component": "LegalContent", "variant": "collapsible-sections" },
+                { "component": "DataRequestSection", "variant": "form" },
+                { "component": "Footer", "variant": "simple" }
+            ]
+        },
+        "legal-03": {
+            "name": "Cookie Policy",
+            "description": "Cookie information with preferences",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "LegalHeader", "variant": "simple" },
+                { "component": "CookieTypesSection", "variant": "table" },
+                { "component": "CookiePreferencesSection", "variant": "toggles" },
+                { "component": "LegalContent", "variant": "faq-style" },
+                { "component": "Footer", "variant": "simple" }
+            ]
+        }
+    },
+
+    "layout": {
+        "contentMaxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-3xl" },
+        "sectionSpacing": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" }
+    },
+
+    "pageTypes": [
+        { "type": "terms", "title": "Terms of Service" },
+        { "type": "privacy", "title": "Privacy Policy" },
+        { "type": "cookies", "title": "Cookie Policy" },
+        { "type": "acceptable-use", "title": "Acceptable Use Policy" },
+        { "type": "dpa", "title": "Data Processing Agreement" },
+        { "type": "sla", "title": "Service Level Agreement" },
+        { "type": "security", "title": "Security Policy" }
+    ],
+
+    "textStyles": {
+        "heading1": { "isAlias": true, "collection": "Typography Styles", "name": "Display sm/Semibold" },
+        "heading2": { "isAlias": true, "collection": "Typography Styles", "name": "Text xl/Semibold" },
+        "heading3": { "isAlias": true, "collection": "Typography Styles", "name": "Text lg/Semibold" },
+        "body": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Regular" },
+        "lastUpdated": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" }
+    },
+
+    "usage": {
+        "purpose": "Legal compliance and transparency",
+        "requirements": ["last updated date", "version history", "printable format"],
+        "accessibility": "Ensure readable contrast and proper heading hierarchy"
+    }
+}

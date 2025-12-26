@@ -1,0 +1,62 @@
+{
+    "meta": {
+        "name": "Divider",
+        "description": "Visual separator for content sections",
+        "category": "atom",
+        "figmaId": "1271:138567",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {},
+
+    "variants": {
+        "orientation": ["horizontal", "vertical"],
+        "type": ["solid", "dashed"],
+        "withLabel": [false, true]
+    },
+
+    "props": {
+        "orientation": {
+            "type": "enum",
+            "default": "horizontal",
+            "options": ["horizontal", "vertical"]
+        },
+        "type": {
+            "type": "enum",
+            "default": "solid",
+            "options": ["solid", "dashed"]
+        },
+        "label": {
+            "type": "string"
+        },
+        "labelPosition": {
+            "type": "enum",
+            "default": "center",
+            "options": ["left", "center", "right"]
+        }
+    },
+
+    "sizing": {
+        "thickness": { "isAlias": true, "collection": "Border Styles", "name": "border-width-thin" },
+        "labelPadding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" }
+    },
+
+    "tokens": {
+        "line": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+    },
+
+    "textStyles": {
+        "label": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xs/Medium" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-quaternary (500)" }
+        }
+    },
+
+    "accessibility": {
+        "role": "separator",
+        "ariaAttributes": {
+            "aria-orientation": "horizontal or vertical"
+        }
+    }
+}

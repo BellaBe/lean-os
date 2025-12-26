@@ -1,0 +1,98 @@
+{
+    "meta": {
+        "name": "List Pages",
+        "description": "Data listing and table page composition patterns",
+        "category": "page",
+        "figmaId": "1686:419020",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "breakpoints": ["desktop", "tablet", "mobile"],
+
+    "patterns": {
+        "list-table-01": {
+            "name": "Data Table",
+            "description": "Full-featured data table with filters",
+            "layout": "sidebar-left",
+            "sections": [
+                { "component": "SidebarNavigation", "variant": "standard" },
+                { "component": "AppHeaderNavigation", "variant": "with-search" },
+                { "component": "PageHeader", "variant": "with-actions", "actions": ["create-new", "export", "import"] },
+                { "component": "FilterBar", "variant": "with-saved-views" },
+                { "component": "DataTable", "variant": "sortable-selectable" },
+                { "component": "Pagination", "variant": "with-page-size" },
+                { "component": "BulkActionsBar", "variant": "sticky-bottom" }
+            ]
+        },
+        "list-cards-01": {
+            "name": "Card Grid",
+            "description": "Items displayed as cards in grid",
+            "layout": "sidebar-left",
+            "sections": [
+                { "component": "SidebarNavigation", "variant": "standard" },
+                { "component": "AppHeaderNavigation", "variant": "with-search" },
+                { "component": "PageHeader", "variant": "with-view-toggle" },
+                { "component": "FilterBar", "variant": "horizontal" },
+                { "component": "CardGrid", "variant": "responsive-3col" },
+                { "component": "Pagination", "variant": "load-more" }
+            ]
+        },
+        "list-split-01": {
+            "name": "Split View",
+            "description": "List with detail panel",
+            "layout": "sidebar-left",
+            "sections": [
+                { "component": "SidebarNavigation", "variant": "standard" },
+                { "component": "AppHeaderNavigation", "variant": "minimal" },
+                { "component": "SplitView", "variant": "list-detail", "listWidth": "400px" },
+                { "component": "ListPanel", "variant": "with-search" },
+                { "component": "DetailPanel", "variant": "tabbed" }
+            ]
+        },
+        "list-kanban-01": {
+            "name": "Kanban Board",
+            "description": "Drag-and-drop kanban columns",
+            "layout": "sidebar-left",
+            "sections": [
+                { "component": "SidebarNavigation", "variant": "collapsed" },
+                { "component": "AppHeaderNavigation", "variant": "with-project-nav" },
+                { "component": "PageHeader", "variant": "kanban-header" },
+                { "component": "FilterBar", "variant": "compact" },
+                { "component": "KanbanBoard", "variant": "scrollable-columns" }
+            ]
+        },
+        "list-timeline-01": {
+            "name": "Timeline View",
+            "description": "Chronological activity timeline",
+            "layout": "sidebar-left",
+            "sections": [
+                { "component": "SidebarNavigation", "variant": "standard" },
+                { "component": "AppHeaderNavigation", "variant": "minimal" },
+                { "component": "PageHeader", "variant": "with-date-range" },
+                { "component": "FilterBar", "variant": "activity-filters" },
+                { "component": "Timeline", "variant": "grouped-by-date" },
+                { "component": "Pagination", "variant": "infinite-scroll" }
+            ]
+        }
+    },
+
+    "layout": {
+        "contentPadding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" },
+        "tableGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" }
+    },
+
+    "tableFeatures": {
+        "sorting": ["column-click", "multi-column"],
+        "filtering": ["column-filters", "global-search", "saved-filters"],
+        "selection": ["single", "multi", "select-all"],
+        "actions": ["inline-actions", "bulk-actions", "context-menu"],
+        "pagination": ["numbered", "load-more", "infinite-scroll"]
+    },
+
+    "usage": {
+        "purpose": "Browse, search, and manage data collections",
+        "emptyStates": ["no-data", "no-results", "error"],
+        "loadingStates": ["skeleton", "spinner", "progressive"]
+    }
+}

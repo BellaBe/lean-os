@@ -1,0 +1,149 @@
+{
+    "meta": {
+        "name": "ButtonGroup",
+        "description": "Group of connected buttons for related actions or navigation",
+        "category": "molecule",
+        "figmaId": "1046:9312",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Icon"],
+        "molecules": []
+    },
+
+    "variants": {
+        "size": ["sm", "md", "lg", "xl", "2xl"],
+        "icon": ["none", "leading", "only", "dot"],
+        "state": ["default", "hover", "focused", "disabled"],
+        "current": [false, true]
+    },
+
+    "props": {
+        "items": {
+            "type": "array",
+            "required": true,
+            "description": "Array of button items {label, icon?, onClick, current?}"
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md", "lg", "xl", "2xl"]
+        },
+        "disabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "onChange": {
+            "type": "function",
+            "description": "Callback when selection changes"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/height-sm" },
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" }
+        },
+        "md": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/height-md" },
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" }
+        },
+        "lg": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/height-lg" },
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" }
+        },
+        "xl": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/height-xl" },
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" }
+        },
+        "2xl": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/height-2xl" },
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-2xl" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-lg" }
+        },
+        "container": {
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-md" }
+        }
+    },
+
+    "tokens": {
+        "container": {
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-primary" },
+            "shadow": { "isAlias": true, "collection": "Effect Styles", "name": "Shadows/shadow-xs" }
+        },
+        "item": {
+            "default": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" },
+                "divider": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-primary" }
+            },
+            "hover": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary_hover" },
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+            },
+            "current": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary_hover" },
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+            },
+            "focused": {
+                "ring": { "isAlias": true, "collection": "Effect Styles", "name": "Focus rings/focus-ring" }
+            },
+            "disabled": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-disabled" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-disabled" }
+            }
+        },
+        "dot": {
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-success-primary" }
+        }
+    },
+
+    "textStyles": {
+        "sm": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" }
+        },
+        "md": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" }
+        },
+        "lg": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Semibold" }
+        },
+        "xl": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Semibold" }
+        },
+        "2xl": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text lg/Semibold" }
+        }
+    },
+
+    "accessibility": {
+        "role": "group",
+        "ariaAttributes": {
+            "aria-label": "Button group"
+        },
+        "keyboardInteraction": {
+            "Tab": "move between buttons",
+            "Enter": "activate button",
+            "Space": "activate button",
+            "ArrowLeft": "previous button",
+            "ArrowRight": "next button"
+        },
+        "notes": [
+            "Use role='group' for related buttons",
+            "Current/active button should have aria-current='true'"
+        ]
+    }
+}

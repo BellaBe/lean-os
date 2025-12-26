@@ -1,0 +1,129 @@
+{
+    "meta": {
+        "name": "NotFoundPage",
+        "description": "404 error page layouts for missing content",
+        "category": "layout",
+        "figmaId": "1607:263544",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Link", "Icon"],
+        "organisms": ["HeaderNavigation", "Footer"]
+    },
+
+    "variants": {
+        "type": [
+            "simple-01",
+            "simple-02",
+            "simple-03",
+            "simple-04",
+            "simple-05",
+            "simple-06",
+            "split-image-01",
+            "split-image-02",
+            "split-image-03",
+            "split-image-04",
+            "split-image-05",
+            "screen-mockup",
+            "under-maintenance",
+            "illustration"
+        ],
+        "breakpoint": ["desktop", "mobile"]
+    },
+
+    "props": {
+        "type": {
+            "type": "enum",
+            "default": "simple-01",
+            "options": ["simple-01", "simple-02", "split-image-01", "illustration"]
+        },
+        "title": {
+            "type": "string",
+            "default": "Page not found"
+        },
+        "subtitle": {
+            "type": "string",
+            "default": "Sorry, the page you are looking for doesn't exist or has been moved."
+        },
+        "showHomeButton": {
+            "type": "boolean",
+            "default": true
+        },
+        "showBackButton": {
+            "type": "boolean",
+            "default": true
+        },
+        "showSearch": {
+            "type": "boolean",
+            "default": false
+        },
+        "illustration": {
+            "type": "component",
+            "description": "Custom illustration or image"
+        },
+        "showHeader": {
+            "type": "boolean",
+            "default": true
+        },
+        "showFooter": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+
+    "sizing": {
+        "container": {
+            "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-xl" },
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" },
+            "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-8xl" }
+        },
+        "content": {
+            "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-md" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" }
+        }
+    },
+
+    "tokens": {
+        "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+        "errorCode": {
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        }
+    },
+
+    "textStyles": {
+        "errorCode": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Display xl/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        },
+        "title": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Display md/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "subtitle": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xl/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "actions": {
+        "primary": {
+            "label": "Go back home",
+            "href": "/"
+        },
+        "secondary": {
+            "label": "Go back",
+            "onClick": "history.back()"
+        }
+    },
+
+    "accessibility": {
+        "role": "main",
+        "ariaLabel": "Page not found",
+        "notes": [
+            "Include descriptive title for screen readers",
+            "Provide clear navigation options"
+        ]
+    }
+}

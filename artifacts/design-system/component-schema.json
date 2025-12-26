@@ -1,0 +1,142 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Design System Component Schema",
+    "description": "JSON schema for design system components that reference semantic token styles",
+    "version": "2.0.0",
+
+    "architecture": {
+        "principle": "Components reference Styles only, never Primitives directly",
+        "flow": "Primitives → Styles → Components → CSS",
+        "rationale": [
+            "Abstraction: Components use semantic meaning, not raw values",
+            "Theming: Change primitives without touching components",
+            "Maintainability: Single source of truth at each layer"
+        ]
+    },
+
+    "tokenCollections": {
+        "description": "Available token collections for references",
+        "primitives": {
+            "note": "DO NOT reference from components - used by Styles only",
+            "collections": [
+                "Color Primitives",
+                "Spacing Primitives",
+                "Sizing Primitives",
+                "Typography Primitives",
+                "Breakpoint Primitives"
+            ]
+        },
+        "styles": {
+            "note": "Components should ONLY reference these",
+            "collections": [
+                "Color Styles",
+                "Spacing Styles",
+                "Sizing Styles",
+                "Typography Styles",
+                "Radius Styles",
+                "Width Styles",
+                "Container Styles",
+                "Effect Styles",
+                "Grid Styles",
+                "Gradient Styles"
+            ]
+        }
+    },
+
+    "referenceFormat": {
+        "description": "How to reference tokens in component definitions",
+        "alias": {
+            "isAlias": true,
+            "collection": "<collection-name>",
+            "name": "<token-path>"
+        },
+        "examples": [
+            {
+                "description": "Reference a color",
+                "value": {
+                    "isAlias": true,
+                    "collection": "Color Styles",
+                    "name": "Colors/Background/bg-brand-solid"
+                }
+            },
+            {
+                "description": "Reference typography",
+                "value": {
+                    "isAlias": true,
+                    "collection": "Typography Styles",
+                    "name": "Text sm/Medium"
+                }
+            },
+            {
+                "description": "Reference spacing",
+                "value": {
+                    "isAlias": true,
+                    "collection": "Spacing Styles",
+                    "name": "spacing-md"
+                }
+            },
+            {
+                "description": "Reference effect",
+                "value": {
+                    "isAlias": true,
+                    "collection": "Effect Styles",
+                    "name": "Focus rings/focus-ring"
+                }
+            }
+        ]
+    },
+
+    "componentStructure": {
+        "meta": {
+            "name": "string - Component name",
+            "description": "string - What this component does",
+            "category": "atom | molecule | organism | layout",
+            "figmaId": "string - Figma node ID",
+            "version": "string - Component version"
+        },
+        "variants": {
+            "description": "Available variant options",
+            "format": {
+                "<variantName>": ["option1", "option2"]
+            }
+        },
+        "props": {
+            "description": "Component props/API",
+            "format": {
+                "<propName>": {
+                    "type": "string | boolean | number | enum",
+                    "default": "value",
+                    "required": "boolean"
+                }
+            }
+        },
+        "tokens": {
+            "description": "Token references organized by variant/state",
+            "format": {
+                "<variant>": {
+                    "<state>": {
+                        "<property>": "<token-reference>"
+                    }
+                }
+            }
+        },
+        "sizing": {
+            "description": "Size variant specifications",
+            "format": {
+                "<size>": {
+                    "height": "<token-reference>",
+                    "padding": "<token-reference>",
+                    "gap": "<token-reference>",
+                    "borderRadius": "<token-reference>",
+                    "typography": "<token-reference>"
+                }
+            }
+        },
+        "cssVariables": {
+            "description": "CSS custom properties for runtime theming",
+            "format": {
+                "--component-property": "<token-reference>"
+            }
+        }
+    }
+}

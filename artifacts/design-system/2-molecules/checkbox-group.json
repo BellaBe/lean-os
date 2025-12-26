@@ -1,0 +1,149 @@
+{
+    "meta": {
+        "name": "CheckboxGroup",
+        "description": "Group of selectable items with checkbox, radio, icon, or avatar styles",
+        "category": "molecule",
+        "figmaId": "124:2838",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Checkbox", "Badge", "Avatar", "Icon"],
+        "molecules": []
+    },
+
+    "variants": {
+        "type": ["icon-simple", "icon-card", "avatar", "payment-icon", "radio-button", "checkbox"],
+        "size": ["sm", "md"],
+        "state": ["default", "hover", "focused", "disabled"],
+        "selected": [false, true],
+        "breakpoint": ["mobile", "desktop"]
+    },
+
+    "props": {
+        "items": {
+            "type": "array",
+            "required": true,
+            "description": "Array of items {label, description?, icon?, avatar?, badge?, value, disabled?}"
+        },
+        "type": {
+            "type": "enum",
+            "default": "checkbox",
+            "options": ["icon-simple", "icon-card", "avatar", "payment-icon", "radio-button", "checkbox"]
+        },
+        "size": {
+            "type": "enum",
+            "default": "sm",
+            "options": ["sm", "md"]
+        },
+        "multiple": {
+            "type": "boolean",
+            "default": true,
+            "description": "Allow multiple selections (false for radio behavior)"
+        },
+        "value": {
+            "type": "array",
+            "description": "Currently selected values"
+        },
+        "showBadge": {
+            "type": "boolean",
+            "default": true
+        },
+        "onChange": {
+            "type": "function",
+            "description": "Callback when selection changes"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-lg" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" },
+            "checkboxSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-xs" }
+        },
+        "md": {
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-xl" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-lg" },
+            "checkboxSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" }
+        },
+        "iconCard": {
+            "iconContainerSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-lg" },
+            "iconContainerRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-md" }
+        },
+        "avatar": {
+            "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-md" }
+        },
+        "paymentIcon": {
+            "width": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-6xl" },
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-sm" }
+        }
+    },
+
+    "tokens": {
+        "item": {
+            "default": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+            },
+            "hover": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary_hover" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+            },
+            "selected": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-brand" }
+            },
+            "focused": {
+                "ring": { "isAlias": true, "collection": "Effect Styles", "name": "Focus rings/focus-ring" }
+            },
+            "disabled": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-disabled_subtle" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-disabled_subtle" }
+            }
+        },
+        "iconCard": {
+            "default": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-tertiary" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-secondary (700)" }
+            },
+            "selected": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-primary" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+            }
+        }
+    },
+
+    "textStyles": {
+        "label": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Medium" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        },
+        "description": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "accessibility": {
+        "role": "group",
+        "ariaAttributes": {
+            "aria-label": "Selection group"
+        },
+        "keyboardInteraction": {
+            "Tab": "move between items",
+            "Space": "toggle selection",
+            "ArrowDown": "next item",
+            "ArrowUp": "previous item"
+        },
+        "notes": [
+            "Use role='radiogroup' for single selection mode",
+            "Use role='group' for multiple selection mode",
+            "Each item should have proper aria-checked state"
+        ]
+    }
+}

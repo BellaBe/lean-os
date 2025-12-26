@@ -1,0 +1,45 @@
+{
+    "name": "Breakpoint Primitives",
+    "modes": [
+        {
+            "name": "Value",
+            "variables": [
+                {
+                    "name": "Breakpoint/sm",
+                    "type": "number",
+                    "isAlias": false,
+                    "value": 640,
+                    "unit": "px"
+                },
+                {
+                    "name": "Breakpoint/md",
+                    "type": "number",
+                    "isAlias": false,
+                    "value": 768,
+                    "unit": "px"
+                },
+                {
+                    "name": "Breakpoint/lg",
+                    "type": "number",
+                    "isAlias": false,
+                    "value": 1024,
+                    "unit": "px"
+                },
+                {
+                    "name": "Breakpoint/xl",
+                    "type": "number",
+                    "isAlias": false,
+                    "value": 1280,
+                    "unit": "px"
+                },
+                {
+                    "name": "Breakpoint/2xl",
+                    "type": "number",
+                    "isAlias": false,
+                    "value": 1536,
+                    "unit": "px"
+                }
+            ]
+        }
+    ]
+}

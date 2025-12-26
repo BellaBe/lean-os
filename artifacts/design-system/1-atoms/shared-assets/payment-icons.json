@@ -1,0 +1,62 @@
+{
+    "meta": {
+        "name": "PaymentMethodIcon",
+        "description": "Payment method and credit card brand icons",
+        "category": "shared-asset",
+        "figmaId": "1142:83268",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "variants": {
+        "method": ["visa", "mastercard", "amex", "discover", "paypal", "apple-pay", "google-pay", "stripe", "bank"],
+        "size": ["sm", "md", "lg"],
+        "style": ["color", "monochrome"]
+    },
+
+    "props": {
+        "method": {
+            "type": "enum",
+            "required": true,
+            "options": ["visa", "mastercard", "amex", "discover", "paypal", "apple-pay", "google-pay", "stripe", "bank"]
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md", "lg"]
+        },
+        "style": {
+            "type": "enum",
+            "default": "color",
+            "options": ["color", "monochrome"]
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "width": { "value": 32, "unit": "px" },
+            "height": { "value": 24, "unit": "px" }
+        },
+        "md": {
+            "width": { "value": 40, "unit": "px" },
+            "height": { "value": 28, "unit": "px" }
+        },
+        "lg": {
+            "width": { "value": 48, "unit": "px" },
+            "height": { "value": 32, "unit": "px" }
+        }
+    },
+
+    "tokens": {
+        "container": {
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-sm" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+        }
+    },
+
+    "accessibility": {
+        "role": "img",
+        "ariaLabel": "{payment method name}",
+        "notes": "Include payment method name in alt text for screen readers"
+    }
+}

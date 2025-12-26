@@ -1,0 +1,128 @@
+{
+    "meta": {
+        "name": "SidebarNavigation",
+        "description": "Application sidebar navigation with collapsible sections and user menu",
+        "category": "organism",
+        "figmaId": "1158:90768",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Avatar", "Icon", "Input"],
+        "molecules": ["AppNavItem", "AppNavItemDropdown"]
+    },
+
+    "variants": {
+        "collapsed": [false, true],
+        "theme": ["light", "dark"],
+        "breakpoint": ["mobile", "desktop"]
+    },
+
+    "props": {
+        "logo": {
+            "type": "string",
+            "description": "Logo image source"
+        },
+        "collapsed": {
+            "type": "boolean",
+            "default": false
+        },
+        "sections": {
+            "type": "array",
+            "required": true,
+            "description": "Navigation sections with items"
+        },
+        "user": {
+            "type": "object",
+            "properties": {
+                "name": { "type": "string" },
+                "email": { "type": "string" },
+                "avatar": { "type": "string" }
+            }
+        },
+        "showSearch": {
+            "type": "boolean",
+            "default": false
+        },
+        "footerItems": {
+            "type": "array",
+            "description": "Bottom navigation items (settings, help, etc.)"
+        },
+        "onCollapse": {
+            "type": "function"
+        }
+    },
+
+    "sizing": {
+        "expanded": {
+            "width": { "isAlias": true, "collection": "Width Styles", "name": "width-xxs" }
+        },
+        "collapsed": {
+            "width": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-8xl" }
+        },
+        "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+        "sectionGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" },
+        "itemGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xs" },
+        "logoHeight": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-sm" },
+        "userAvatarSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-md" }
+    },
+
+    "tokens": {
+        "light": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+        },
+        "dark": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary-solid" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-primary" }
+        }
+    },
+
+    "textStyles": {
+        "sectionLabel": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xs/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-quaternary (500)" },
+            "textTransform": "uppercase",
+            "letterSpacing": "0.05em"
+        },
+        "userName": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "userEmail": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "responsiveBehavior": {
+        "mobile": {
+            "description": "Overlay drawer with backdrop",
+            "breakpoint": "< 1024px"
+        },
+        "desktop": {
+            "description": "Fixed sidebar, collapsible",
+            "breakpoint": ">= 1024px"
+        }
+    },
+
+    "accessibility": {
+        "role": "navigation",
+        "ariaAttributes": {
+            "aria-label": "Main navigation"
+        },
+        "keyboardInteraction": {
+            "Tab": "move through items",
+            "ArrowUp": "previous item",
+            "ArrowDown": "next item",
+            "Home": "first item",
+            "End": "last item"
+        },
+        "notes": [
+            "Collapsed state should show tooltips on hover",
+            "Mobile overlay should trap focus",
+            "Skip link should be provided"
+        ]
+    }
+}

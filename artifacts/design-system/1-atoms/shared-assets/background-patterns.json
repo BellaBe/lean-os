@@ -1,0 +1,86 @@
+{
+    "meta": {
+        "name": "BackgroundPattern",
+        "description": "Decorative background patterns and overlays for sections and heroes",
+        "category": "shared-asset",
+        "figmaId": "4932:397713",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "components": {
+        "backgroundPattern": {
+            "figmaId": "4932:397713",
+            "description": "Repeating grid/dot patterns for backgrounds",
+            "variants": {
+                "type": ["grid", "dots", "lines", "squares"],
+                "density": ["sparse", "normal", "dense"],
+                "fade": ["none", "top", "bottom", "radial"]
+            }
+        },
+        "backgroundPatternDecorative": {
+            "figmaId": "4933:393069",
+            "description": "Decorative gradient and shape patterns",
+            "variants": {
+                "style": ["gradient-blur", "circles", "waves", "mesh"]
+            }
+        },
+        "backgroundOverlay": {
+            "figmaId": "4896:411056",
+            "description": "Semi-transparent overlays for image backgrounds",
+            "variants": {
+                "opacity": ["light", "medium", "dark"],
+                "gradient": ["none", "top-bottom", "bottom-top", "radial"]
+            }
+        },
+        "backgroundMask": {
+            "figmaId": "4932:396988",
+            "description": "Gradient masks for fading content edges",
+            "variants": {
+                "direction": ["top", "bottom", "left", "right", "radial"]
+            }
+        },
+        "linePattern": {
+            "figmaId": "1266:32",
+            "description": "Decorative line separators and patterns",
+            "variants": {
+                "style": ["solid", "dashed", "dotted"],
+                "orientation": ["horizontal", "vertical", "diagonal"]
+            }
+        }
+    },
+
+    "tokens": {
+        "pattern": {
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" },
+            "opacity": 0.5
+        },
+        "overlay": {
+            "light": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "opacity": 0.7
+            },
+            "medium": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "opacity": 0.85
+            },
+            "dark": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "opacity": 0.95
+            }
+        },
+        "decorative": {
+            "brand": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-secondary" },
+            "gradient": {
+                "start": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-solid" },
+                "end": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-secondary" }
+            }
+        }
+    },
+
+    "usage": {
+        "heroSections": "Use patterns behind hero content for visual interest",
+        "ctaSections": "Apply overlays on image backgrounds for text readability",
+        "cardBackgrounds": "Subtle patterns add depth to card components"
+    }
+}

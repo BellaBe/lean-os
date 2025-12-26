@@ -1,0 +1,140 @@
+{
+    "meta": {
+        "name": "Avatar",
+        "description": "User profile image with optional status indicator and text initials",
+        "category": "atom",
+        "figmaId": "19:1012",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "variants": {
+        "size": ["xs", "sm", "md", "lg", "xl", "2xl"],
+        "type": ["image", "placeholder", "initials"],
+        "statusIcon": ["none", "online", "offline", "company", "verified"]
+    },
+
+    "props": {
+        "src": {
+            "type": "string",
+            "description": "Image URL"
+        },
+        "alt": {
+            "type": "string",
+            "required": true,
+            "description": "Alt text for image"
+        },
+        "initials": {
+            "type": "string",
+            "description": "Text initials (e.g., 'OR', 'AB')"
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["xs", "sm", "md", "lg", "xl", "2xl"]
+        },
+        "status": {
+            "type": "enum",
+            "default": "none",
+            "options": ["none", "online", "offline"]
+        },
+        "verified": {
+            "type": "boolean",
+            "default": false
+        },
+        "companyLogo": {
+            "type": "string",
+            "description": "Company logo image URL"
+        }
+    },
+
+    "sizing": {
+        "xs": {
+            "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-xs" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" },
+            "contrastBorder": { "value": 0.5, "unit": "px" },
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xs/Semibold" },
+            "indicatorSize": { "value": 6, "unit": "px" },
+            "companySize": { "value": 10, "unit": "px" },
+            "verifiedSize": { "value": 10, "unit": "px" }
+        },
+        "sm": {
+            "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-sm" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" },
+            "contrastBorder": { "value": 0.5, "unit": "px" },
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" },
+            "indicatorSize": { "value": 8, "unit": "px" },
+            "companySize": { "value": 12, "unit": "px" },
+            "verifiedSize": { "value": 12, "unit": "px" }
+        },
+        "md": {
+            "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-md" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" },
+            "contrastBorder": { "value": 0.75, "unit": "px" },
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Semibold" },
+            "indicatorSize": { "value": 10, "unit": "px" },
+            "companySize": { "value": 14, "unit": "px" },
+            "verifiedSize": { "value": 14, "unit": "px" }
+        },
+        "lg": {
+            "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-lg" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" },
+            "contrastBorder": { "value": 0.75, "unit": "px" },
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text lg/Semibold" },
+            "indicatorSize": { "value": 12, "unit": "px" },
+            "companySize": { "value": 16, "unit": "px" },
+            "verifiedSize": { "value": 16, "unit": "px" }
+        },
+        "xl": {
+            "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-xl" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" },
+            "contrastBorder": { "value": 0.75, "unit": "px" },
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xl/Semibold" },
+            "indicatorSize": { "value": 14, "unit": "px" },
+            "companySize": { "value": 18, "unit": "px" },
+            "verifiedSize": { "value": 18, "unit": "px" }
+        },
+        "2xl": {
+            "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-2xl" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" },
+            "contrastBorder": { "value": 1, "unit": "px" },
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Display xs/Semibold" },
+            "indicatorSize": { "value": 16, "unit": "px" },
+            "companySize": { "value": 20, "unit": "px" },
+            "verifiedSize": { "value": 20, "unit": "px" }
+        }
+    },
+
+    "tokens": {
+        "image": {
+            "contrastBorder": { "value": "rgba(0, 0, 0, 0.08)" }
+        },
+        "placeholder": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-tertiary" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" }
+        },
+        "initials": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-tertiary" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        },
+        "online": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-success-primary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" }
+        },
+        "offline": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-disabled" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" }
+        },
+        "verified": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-white" }
+        }
+    },
+
+    "accessibility": {
+        "role": "img",
+        "ariaAttributes": {
+            "aria-label": "user name or alt text"
+        }
+    }
+}

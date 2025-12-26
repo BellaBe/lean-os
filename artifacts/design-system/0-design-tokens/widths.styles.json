@@ -1,0 +1,118 @@
+{
+    "name": "Width Styles",
+    "modes": [
+        {
+            "name": "Mode 1",
+            "variables": [
+                {
+                    "name": "width-xxs",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/80 (320px)"
+                    }
+                },
+                {
+                    "name": "width-xs",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/96 (384px)"
+                    }
+                },
+                {
+                    "name": "width-sm",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/120 (480px)"
+                    }
+                },
+                {
+                    "name": "width-md",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/140 (560px)"
+                    }
+                },
+                {
+                    "name": "width-lg",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/160 (640px)"
+                    }
+                },
+                {
+                    "name": "width-xl",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/192 (768px)"
+                    }
+                },
+                {
+                    "name": "width-2xl",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/256 (1,024px)"
+                    }
+                },
+                {
+                    "name": "width-3xl",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/320 (1,280px)"
+                    }
+                },
+                {
+                    "name": "width-4xl",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/360 (1,440px)"
+                    }
+                },
+                {
+                    "name": "width-5xl",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/400 (1,600px)"
+                    }
+                },
+                {
+                    "name": "width-6xl",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/480 (1,920px)"
+                    }
+                },
+                {
+                    "name": "paragraph-max-width",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/180 (720px)"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "name": "Container Styles",
+    "modes": [
+        {
+            "name": "Value",
+            "variables": [
+                {
+                    "name": "container-padding-mobile",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/4 (16px)"
+                    }
+                },
+                {
+                    "name": "container-padding-desktop",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/8 (32px)"
+                    }
+                },
+                {
+                    "name": "container-max-width-desktop",
+                    "type": "number",
+                    "isAlias": true,
+                    "value": {
+                        "collection": "Spacing Primitives",
+                        "name": "Spacing/320 (1,280px)"
+                    }
+                }
+            ]
+        }
+    ]
+}

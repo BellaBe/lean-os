@@ -1,0 +1,110 @@
+{
+    "meta": {
+        "name": "Banner",
+        "description": "Promotional or informational banner for announcements",
+        "category": "organism",
+        "figmaId": "1287:141234",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Icon"]
+    },
+
+    "variants": {
+        "variant": ["info", "success", "warning", "error", "brand"],
+        "position": ["top", "bottom", "inline"],
+        "dismissible": [false, true]
+    },
+
+    "props": {
+        "variant": {
+            "type": "enum",
+            "default": "info",
+            "options": ["info", "success", "warning", "error", "brand"]
+        },
+        "position": {
+            "type": "enum",
+            "default": "top",
+            "options": ["top", "bottom", "inline"]
+        },
+        "message": {
+            "type": "string",
+            "required": true
+        },
+        "icon": {
+            "type": "string"
+        },
+        "action": {
+            "type": "object",
+            "properties": {
+                "label": { "type": "string" },
+                "href": { "type": "string" },
+                "onClick": { "type": "function" }
+            }
+        },
+        "dismissible": {
+            "type": "boolean",
+            "default": true
+        },
+        "onDismiss": {
+            "type": "function"
+        }
+    },
+
+    "sizing": {
+        "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+        "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+        "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+        "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" }
+    },
+
+    "tokens": {
+        "info": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-secondary" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-brand-secondary (700)" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        },
+        "success": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-success-secondary" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-success-primary (600)" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-success-secondary" }
+        },
+        "warning": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-warning-secondary" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-warning-primary (600)" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-warning-secondary" }
+        },
+        "error": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-error-secondary" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-error-primary (600)" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-error-secondary" }
+        },
+        "brand": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-solid" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-white" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-white" }
+        }
+    },
+
+    "textStyles": {
+        "message": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Medium" }
+        },
+        "link": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" }
+        }
+    },
+
+    "accessibility": {
+        "role": "banner",
+        "ariaAttributes": {
+            "aria-live": "polite"
+        },
+        "notes": [
+            "Dismiss button should have aria-label",
+            "Important banners should use aria-live='assertive'"
+        ]
+    }
+}

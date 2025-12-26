@@ -1,0 +1,81 @@
+{
+    "meta": {
+        "name": "Team Pages",
+        "description": "Team and careers page composition patterns",
+        "category": "page",
+        "figmaId": "1639:514589",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "breakpoints": ["desktop", "mobile"],
+
+    "patterns": {
+        "team-01": {
+            "name": "Full Team Grid",
+            "description": "All team members in card grid",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "PageHeader", "variant": "centered", "content": { "title": "Our team", "subtitle": "Meet the people behind the product" } },
+                { "component": "TeamSection", "variant": "leadership-featured" },
+                { "component": "TeamSection", "variant": "grid-by-department" },
+                { "component": "CTASection", "variant": "join-team" },
+                { "component": "Footer", "variant": "4-column" }
+            ]
+        },
+        "team-02": {
+            "name": "Leadership Focus",
+            "description": "Executive bios with detailed profiles",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "PageHeader", "variant": "centered" },
+                { "component": "TeamSection", "variant": "executive-profiles" },
+                { "component": "AdvisorsSection", "variant": "card-grid" },
+                { "component": "InvestorsSection", "variant": "logo-grid" },
+                { "component": "Footer", "variant": "4-column" }
+            ]
+        },
+        "careers-01": {
+            "name": "Careers Landing",
+            "description": "Job listings with culture showcase",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "HeroHeaderSection", "variant": "careers-hero" },
+                { "component": "ValuesSection", "variant": "icon-cards" },
+                { "component": "PerksSection", "variant": "detailed-grid" },
+                { "component": "TeamSection", "variant": "culture-photos" },
+                { "component": "TestimonialSection", "variant": "employee-stories" },
+                { "component": "JobListingsSection", "variant": "by-department" },
+                { "component": "Footer", "variant": "4-column" }
+            ]
+        },
+        "careers-02": {
+            "name": "Job Listings Focus",
+            "description": "Searchable job board",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "PageHeader", "variant": "with-search" },
+                { "component": "JobFilters", "variant": "sidebar" },
+                { "component": "JobListingsSection", "variant": "list-view" },
+                { "component": "Pagination", "variant": "simple" },
+                { "component": "Footer", "variant": "simple" }
+            ]
+        }
+    },
+
+    "layout": {
+        "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-6xl" },
+        "sectionSpacing": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-8xl" }
+    },
+
+    "teamMemberCard": {
+        "elements": ["photo", "name", "title", "bio", "social-links"],
+        "photoSize": { "width": 280, "height": 280 },
+        "aspectRatio": "1:1"
+    },
+
+    "usage": {
+        "purpose": "Showcase team and attract talent",
+        "integrations": ["ATS (Greenhouse, Lever)", "LinkedIn", "Glassdoor"]
+    }
+}

@@ -1,0 +1,96 @@
+{
+    "meta": {
+        "name": "FileUploadItem",
+        "description": "Individual file item showing upload progress or status",
+        "category": "molecule",
+        "figmaId": "1259:136345",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Icon", "Button", "ProgressBar"]
+    },
+
+    "variants": {
+        "state": ["uploading", "complete", "error"]
+    },
+
+    "props": {
+        "fileName": {
+            "type": "string",
+            "required": true
+        },
+        "fileSize": {
+            "type": "number",
+            "description": "Size in bytes"
+        },
+        "fileType": {
+            "type": "string"
+        },
+        "state": {
+            "type": "enum",
+            "default": "complete",
+            "options": ["uploading", "complete", "error"]
+        },
+        "progress": {
+            "type": "number",
+            "description": "Upload progress (0-100)"
+        },
+        "error": {
+            "type": "string"
+        },
+        "preview": {
+            "type": "string",
+            "description": "Preview URL for images"
+        },
+        "onRemove": {
+            "type": "function"
+        },
+        "onRetry": {
+            "type": "function"
+        }
+    },
+
+    "sizing": {
+        "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+        "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+        "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-lg" },
+        "previewSize": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-5xl" },
+        "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-lg" }
+    },
+
+    "tokens": {
+        "container": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+        },
+        "icon": {
+            "default": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" },
+            "complete": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-success-secondary" },
+            "error": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-error-secondary" }
+        }
+    },
+
+    "textStyles": {
+        "fileName": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Medium" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        },
+        "fileSize": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xs/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        },
+        "error": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xs/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-error-primary (600)" }
+        }
+    },
+
+    "accessibility": {
+        "notes": [
+            "Progress should be announced",
+            "Remove button should have accessible label"
+        ]
+    }
+}

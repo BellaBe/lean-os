@@ -1,0 +1,159 @@
+{
+    "meta": {
+        "name": "EmailTemplate",
+        "description": "Transactional email templates for notifications and communications",
+        "category": "layout",
+        "figmaId": "1387:210037",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "internal": ["_EmailTemplateHeader", "_EmailTemplateFooter"]
+    },
+
+    "variants": {
+        "type": [
+            "simple-welcome-01",
+            "simple-welcome-02",
+            "simple-invite",
+            "simple-verification",
+            "image-welcome",
+            "video-welcome-01",
+            "video-welcome-02",
+            "video-welcome-03",
+            "mockup-01",
+            "mockup-02"
+        ]
+    },
+
+    "props": {
+        "type": {
+            "type": "enum",
+            "default": "simple-welcome-01",
+            "options": ["simple-welcome-01", "simple-invite", "simple-verification", "image-welcome"]
+        },
+        "logo": {
+            "type": "component"
+        },
+        "preheader": {
+            "type": "string",
+            "description": "Preview text shown in email clients"
+        },
+        "title": {
+            "type": "string"
+        },
+        "body": {
+            "type": "string"
+        },
+        "ctaButton": {
+            "type": "object",
+            "properties": {
+                "label": { "type": "string" },
+                "href": { "type": "string" }
+            }
+        },
+        "showSocialLinks": {
+            "type": "boolean",
+            "default": true
+        },
+        "unsubscribeLink": {
+            "type": "string"
+        }
+    },
+
+    "subcomponents": {
+        "header": {
+            "figmaId": "1387:204785",
+            "props": {
+                "logo": "component",
+                "logoWidth": { "value": 120, "unit": "px" }
+            }
+        },
+        "footer": {
+            "figmaId": "1387:202048",
+            "props": {
+                "companyName": "string",
+                "address": "string",
+                "socialLinks": "array",
+                "unsubscribeLink": "string"
+            }
+        }
+    },
+
+    "sizing": {
+        "container": {
+            "maxWidth": { "value": 600, "unit": "px" },
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" }
+        },
+        "header": {
+            "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" }
+        },
+        "content": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" }
+        },
+        "footer": {
+            "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" }
+        }
+    },
+
+    "tokens": {
+        "background": { "value": "#ffffff" },
+        "containerBackground": { "value": "#f9fafb" },
+        "border": { "value": "#e5e7eb" }
+    },
+
+    "textStyles": {
+        "title": {
+            "fontFamily": "system-ui, -apple-system, sans-serif",
+            "fontSize": { "value": 24, "unit": "px" },
+            "fontWeight": 600,
+            "lineHeight": 1.3,
+            "color": { "value": "#111827" }
+        },
+        "body": {
+            "fontFamily": "system-ui, -apple-system, sans-serif",
+            "fontSize": { "value": 16, "unit": "px" },
+            "fontWeight": 400,
+            "lineHeight": 1.5,
+            "color": { "value": "#4b5563" }
+        },
+        "footer": {
+            "fontFamily": "system-ui, -apple-system, sans-serif",
+            "fontSize": { "value": 12, "unit": "px" },
+            "fontWeight": 400,
+            "lineHeight": 1.5,
+            "color": { "value": "#9ca3af" }
+        }
+    },
+
+    "button": {
+        "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-solid" },
+        "text": { "value": "#ffffff" },
+        "borderRadius": { "value": 8, "unit": "px" },
+        "paddingX": { "value": 24, "unit": "px" },
+        "paddingY": { "value": 12, "unit": "px" }
+    },
+
+    "emailClientNotes": {
+        "compatibility": [
+            "Use table-based layout for Outlook compatibility",
+            "Inline all CSS styles",
+            "Use web-safe fonts with fallbacks",
+            "Maximum width 600px for mobile compatibility"
+        ],
+        "darkMode": [
+            "Use color-scheme: light dark meta tag",
+            "Provide dark mode media query styles"
+        ]
+    },
+
+    "accessibility": {
+        "notes": [
+            "Include alt text for all images",
+            "Ensure sufficient color contrast",
+            "Use semantic HTML where supported",
+            "Provide plain text version"
+        ]
+    }
+}

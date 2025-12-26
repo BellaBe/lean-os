@@ -1,0 +1,124 @@
+{
+    "meta": {
+        "name": "Toggle",
+        "description": "Toggle switch for binary on/off settings with optional label",
+        "category": "atom",
+        "figmaId": "1102:4208",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "variants": {
+        "size": ["sm", "md"],
+        "pressed": [false, true],
+        "state": ["default", "hover", "focused", "disabled"],
+        "showText": [false, true]
+    },
+
+    "props": {
+        "pressed": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether toggle is on"
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md"]
+        },
+        "label": {
+            "type": "string",
+            "description": "Label text"
+        },
+        "supportingText": {
+            "type": "string",
+            "description": "Supporting description text"
+        },
+        "disabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "onChange": {
+            "type": "function",
+            "description": "Callback when toggle state changes"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "trackWidth": { "value": 36, "unit": "px" },
+            "trackHeight": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" },
+            "thumbSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-xs" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" }
+        },
+        "md": {
+            "trackWidth": { "value": 44, "unit": "px" },
+            "trackHeight": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" },
+            "thumbSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" }
+        }
+    },
+
+    "tokens": {
+        "off": {
+            "default": {
+                "trackBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-tertiary" },
+                "thumbBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "thumbShadow": { "isAlias": true, "collection": "Effect Styles", "name": "Shadows/shadow-sm" }
+            },
+            "hover": {
+                "trackBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-quaternary" }
+            },
+            "focused": {
+                "ring": { "isAlias": true, "collection": "Effect Styles", "name": "Focus rings/focus-ring" }
+            },
+            "disabled": {
+                "trackBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-tertiary" },
+                "thumbBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-disabled_subtle" }
+            }
+        },
+        "on": {
+            "default": {
+                "trackBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-solid" },
+                "thumbBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "thumbShadow": { "isAlias": true, "collection": "Effect Styles", "name": "Shadows/shadow-sm" }
+            },
+            "hover": {
+                "trackBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-solid_hover" }
+            },
+            "focused": {
+                "ring": { "isAlias": true, "collection": "Effect Styles", "name": "Focus rings/focus-ring" }
+            },
+            "disabled": {
+                "trackBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-tertiary" },
+                "thumbBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-disabled_subtle" }
+            }
+        }
+    },
+
+    "textStyles": {
+        "label": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Medium" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        },
+        "supportingText": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "accessibility": {
+        "role": "switch",
+        "focusable": true,
+        "keyboardInteraction": {
+            "Space": "toggle",
+            "Enter": "toggle"
+        },
+        "ariaAttributes": {
+            "aria-checked": "current pressed state",
+            "aria-disabled": "when disabled"
+        }
+    }
+}

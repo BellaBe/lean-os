@@ -1,0 +1,100 @@
+{
+    "meta": {
+        "name": "FeatureText",
+        "description": "Feature description with icon, heading, and supporting text",
+        "category": "molecule",
+        "figmaId": "1327:180772",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Icon", "Badge"]
+    },
+
+    "variants": {
+        "iconStyle": ["featured", "simple", "none"],
+        "size": ["sm", "md", "lg"],
+        "alignment": ["left", "center"]
+    },
+
+    "props": {
+        "icon": {
+            "type": "string",
+            "description": "Icon name"
+        },
+        "iconStyle": {
+            "type": "enum",
+            "default": "featured",
+            "options": ["featured", "simple", "none"]
+        },
+        "heading": {
+            "type": "string",
+            "required": true
+        },
+        "description": {
+            "type": "string",
+            "required": true
+        },
+        "alignment": {
+            "type": "enum",
+            "default": "left",
+            "options": ["left", "center"]
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md", "lg"]
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" }
+        },
+        "md": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-lg" }
+        },
+        "lg": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-2xl" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-xl" }
+        },
+        "featuredIcon": {
+            "containerSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-lg" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-lg" }
+        },
+        "textGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" }
+    },
+
+    "tokens": {
+        "featuredIcon": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-primary" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        },
+        "simpleIcon": {
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        }
+    },
+
+    "textStyles": {
+        "heading": {
+            "sm": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Semibold" },
+            "md": { "isAlias": true, "collection": "Typography Styles", "name": "Text lg/Semibold" },
+            "lg": { "isAlias": true, "collection": "Typography Styles", "name": "Text xl/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "description": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "accessibility": {
+        "notes": [
+            "Icon should be decorative (aria-hidden) if heading conveys meaning",
+            "Heading should use appropriate semantic level"
+        ]
+    }
+}

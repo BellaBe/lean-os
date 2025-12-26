@@ -1,0 +1,76 @@
+{
+    "meta": {
+        "name": "CountryIcon",
+        "description": "Country flag icons for localization and international features",
+        "category": "shared-asset",
+        "figmaId": "1107:70094",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "variants": {
+        "size": ["xs", "sm", "md", "lg"],
+        "shape": ["circle", "rounded-rectangle"]
+    },
+
+    "props": {
+        "country": {
+            "type": "string",
+            "required": true,
+            "description": "ISO 3166-1 alpha-2 country code (e.g., 'US', 'GB', 'DE')"
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["xs", "sm", "md", "lg"]
+        },
+        "shape": {
+            "type": "enum",
+            "default": "circle",
+            "options": ["circle", "rounded-rectangle"]
+        }
+    },
+
+    "sizing": {
+        "xs": {
+            "size": { "value": 16, "unit": "px" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" }
+        },
+        "sm": {
+            "size": { "value": 20, "unit": "px" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" }
+        },
+        "md": {
+            "size": { "value": 24, "unit": "px" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" }
+        },
+        "lg": {
+            "size": { "value": 32, "unit": "px" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" }
+        }
+    },
+
+    "tokens": {
+        "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" },
+        "borderWidth": { "value": 0.5, "unit": "px" }
+    },
+
+    "commonCountries": [
+        { "code": "US", "name": "United States" },
+        { "code": "GB", "name": "United Kingdom" },
+        { "code": "CA", "name": "Canada" },
+        { "code": "AU", "name": "Australia" },
+        { "code": "DE", "name": "Germany" },
+        { "code": "FR", "name": "France" },
+        { "code": "JP", "name": "Japan" },
+        { "code": "CN", "name": "China" },
+        { "code": "IN", "name": "India" },
+        { "code": "BR", "name": "Brazil" }
+    ],
+
+    "accessibility": {
+        "role": "img",
+        "ariaLabel": "{country name} flag",
+        "notes": "Always include country name in aria-label, not just country code"
+    }
+}

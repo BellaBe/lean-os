@@ -1,0 +1,131 @@
+{
+    "meta": {
+        "name": "FileUpload",
+        "description": "File upload dropzone with drag-and-drop support",
+        "category": "molecule",
+        "figmaId": "1259:136234",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Icon", "Button", "ProgressBar"]
+    },
+
+    "variants": {
+        "size": ["sm", "md", "lg"],
+        "state": ["default", "hover", "active", "disabled", "error"]
+    },
+
+    "props": {
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md", "lg"]
+        },
+        "accept": {
+            "type": "string",
+            "description": "Accepted file types (e.g., 'image/*,.pdf')"
+        },
+        "multiple": {
+            "type": "boolean",
+            "default": false
+        },
+        "maxSize": {
+            "type": "number",
+            "description": "Maximum file size in bytes"
+        },
+        "maxFiles": {
+            "type": "number"
+        },
+        "disabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "error": {
+            "type": "string"
+        },
+        "helperText": {
+            "type": "string"
+        },
+        "onDrop": {
+            "type": "function"
+        },
+        "onRemove": {
+            "type": "function"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" }
+        },
+        "md": {
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-lg" }
+        },
+        "lg": {
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-xl" }
+        },
+        "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+        "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-xl" },
+        "borderWidth": { "isAlias": true, "collection": "Border Styles", "name": "border-width-thin" }
+    },
+
+    "tokens": {
+        "default": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" }
+        },
+        "hover": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-secondary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-brand" }
+        },
+        "active": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-secondary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-brand" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        },
+        "error": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-error-secondary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-error" }
+        }
+    },
+
+    "textStyles": {
+        "title": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        },
+        "subtitle": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xs/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        },
+        "link": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-brand-secondary (700)" }
+        },
+        "error": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xs/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-error-primary (600)" }
+        }
+    },
+
+    "accessibility": {
+        "role": "button",
+        "ariaAttributes": {
+            "aria-label": "Upload files"
+        },
+        "keyboardInteraction": {
+            "Enter": "open file dialog",
+            "Space": "open file dialog"
+        },
+        "notes": [
+            "Should announce file upload status",
+            "Error messages should be announced"
+        ]
+    }
+}

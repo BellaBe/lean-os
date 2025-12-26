@@ -1,0 +1,147 @@
+{
+    "meta": {
+        "name": "Slider",
+        "description": "Range slider with one or two draggable handles for value selection",
+        "category": "atom",
+        "figmaId": "1086:534",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "variants": {
+        "type": ["single", "range"],
+        "label": ["none", "bottom", "tooltip"],
+        "state": ["default", "hover", "focused", "disabled"]
+    },
+
+    "props": {
+        "value": {
+            "type": "number",
+            "required": true,
+            "description": "Current value (single) or [min, max] for range"
+        },
+        "min": {
+            "type": "number",
+            "default": 0,
+            "description": "Minimum value"
+        },
+        "max": {
+            "type": "number",
+            "default": 100,
+            "description": "Maximum value"
+        },
+        "step": {
+            "type": "number",
+            "default": 1,
+            "description": "Step increment"
+        },
+        "type": {
+            "type": "enum",
+            "default": "single",
+            "options": ["single", "range"]
+        },
+        "label": {
+            "type": "enum",
+            "default": "none",
+            "options": ["none", "bottom", "tooltip"]
+        },
+        "disabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "onChange": {
+            "type": "function",
+            "description": "Callback when value changes"
+        }
+    },
+
+    "sizing": {
+        "track": {
+            "height": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" },
+            "minWidth": { "value": 320, "unit": "px" }
+        },
+        "handle": {
+            "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-lg" },
+            "borderWidth": { "value": 2, "unit": "px" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" }
+        },
+        "label": {
+            "offsetBottom": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "offsetTop": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" }
+        },
+        "tooltip": {
+            "padding": { "value": "8px 12px" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-md" },
+            "arrowSize": { "value": 8, "unit": "px" }
+        }
+    },
+
+    "tokens": {
+        "track": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-quaternary" }
+        },
+        "fill": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        },
+        "handle": {
+            "default": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" },
+                "shadow": { "isAlias": true, "collection": "Effect Styles", "name": "Shadows/shadow-md" }
+            },
+            "hover": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" },
+                "shadow": { "isAlias": true, "collection": "Effect Styles", "name": "Shadows/shadow-md" }
+            },
+            "focused": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" },
+                "ring": { "isAlias": true, "collection": "Effect Styles", "name": "Focus rings/focus-ring-brand" }
+            },
+            "disabled": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-disabled" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-disabled_subtle" }
+            }
+        },
+        "tooltip": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" },
+            "shadow": { "isAlias": true, "collection": "Effect Styles", "name": "Shadows/shadow-lg" }
+        }
+    },
+
+    "textStyles": {
+        "labelBottom": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Medium" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "tooltip": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xs/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        }
+    },
+
+    "accessibility": {
+        "role": "slider",
+        "focusable": true,
+        "keyboardInteraction": {
+            "ArrowRight": "increase value by step",
+            "ArrowUp": "increase value by step",
+            "ArrowLeft": "decrease value by step",
+            "ArrowDown": "decrease value by step",
+            "PageUp": "increase by larger step",
+            "PageDown": "decrease by larger step",
+            "Home": "set to minimum",
+            "End": "set to maximum"
+        },
+        "ariaAttributes": {
+            "aria-valuemin": "minimum value",
+            "aria-valuemax": "maximum value",
+            "aria-valuenow": "current value",
+            "aria-valuetext": "human-readable value",
+            "aria-orientation": "horizontal"
+        }
+    }
+}

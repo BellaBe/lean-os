@@ -1,0 +1,67 @@
+{
+    "meta": {
+        "name": "Pricing Pages",
+        "description": "Pricing page composition patterns",
+        "category": "page",
+        "figmaId": "1622:261461",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "breakpoints": ["desktop", "mobile"],
+
+    "patterns": {
+        "pricing-01": {
+            "name": "Three-Tier Comparison",
+            "description": "Classic 3-column pricing with feature comparison",
+            "figmaId": "1639:306156",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "PageHeader", "variant": "centered", "content": { "title": "Simple, transparent pricing", "subtitle": "Choose the plan that's right for you" } },
+                { "component": "PricingSection", "variant": "3-tier-highlighted" },
+                { "component": "FeatureComparisonTable", "variant": "full" },
+                { "component": "FAQSection", "variant": "two-column" },
+                { "component": "CTASection", "variant": "contact-sales" },
+                { "component": "Footer", "variant": "4-column" }
+            ]
+        },
+        "pricing-02": {
+            "name": "Toggle Annual/Monthly",
+            "description": "Pricing with billing toggle and savings highlight",
+            "figmaId": "1639:303919",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "PageHeader", "variant": "centered-with-toggle" },
+                { "component": "PricingSection", "variant": "4-tier-cards" },
+                { "component": "TestimonialSection", "variant": "single-quote" },
+                { "component": "FAQSection", "variant": "accordion" },
+                { "component": "Footer", "variant": "simple" }
+            ]
+        },
+        "pricing-03": {
+            "name": "Enterprise Focus",
+            "description": "Custom pricing with enterprise features",
+            "figmaId": "1639:306148",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "PageHeader", "variant": "centered" },
+                { "component": "PricingSection", "variant": "2-tier-enterprise" },
+                { "component": "FeatureComparisonTable", "variant": "detailed" },
+                { "component": "SocialProofSection", "variant": "enterprise-logos" },
+                { "component": "ContactSection", "variant": "sales-cta" },
+                { "component": "Footer", "variant": "4-column" }
+            ]
+        }
+    },
+
+    "layout": {
+        "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-6xl" },
+        "sectionSpacing": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-8xl" }
+    },
+
+    "usage": {
+        "purpose": "Convert visitors to paying customers",
+        "keyElements": ["price anchoring", "feature comparison", "social proof", "FAQ for objections"],
+        "conversionTips": ["Highlight recommended plan", "Show savings for annual", "Include money-back guarantee"]
+    }
+}

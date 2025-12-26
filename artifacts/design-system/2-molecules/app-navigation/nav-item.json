@@ -1,0 +1,111 @@
+{
+    "meta": {
+        "name": "AppNavItem",
+        "description": "Navigation item for application sidebar and header navigation",
+        "category": "molecule",
+        "figmaId": "1152:89220",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Icon", "Badge"]
+    },
+
+    "variants": {
+        "state": ["default", "hover", "active", "disabled"],
+        "size": ["sm", "md", "lg"],
+        "hasIcon": [false, true],
+        "hasBadge": [false, true]
+    },
+
+    "props": {
+        "label": {
+            "type": "string",
+            "required": true
+        },
+        "icon": {
+            "type": "string"
+        },
+        "href": {
+            "type": "string"
+        },
+        "active": {
+            "type": "boolean",
+            "default": false
+        },
+        "disabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "badge": {
+            "type": "string",
+            "description": "Badge text or count"
+        },
+        "onClick": {
+            "type": "function"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/height-sm" },
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" }
+        },
+        "md": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/height-md" },
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" }
+        },
+        "lg": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/height-lg" },
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" }
+        },
+        "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-md" }
+    },
+
+    "tokens": {
+        "default": {
+            "background": null,
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" }
+        },
+        "hover": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary_hover" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        },
+        "active": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-active" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        },
+        "disabled": {
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-disabled" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-disabled" }
+        }
+    },
+
+    "textStyles": {
+        "label": {
+            "sm": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Medium" },
+            "md": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" },
+            "lg": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Semibold" }
+        }
+    },
+
+    "accessibility": {
+        "role": "menuitem",
+        "ariaAttributes": {
+            "aria-current": "page when active"
+        },
+        "keyboardInteraction": {
+            "Enter": "activate item",
+            "Space": "activate item"
+        }
+    }
+}

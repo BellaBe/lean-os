@@ -1,0 +1,112 @@
+{
+    "meta": {
+        "name": "BlogSection",
+        "description": "Blog post listing section with featured and grid layouts",
+        "category": "organism",
+        "figmaId": "1291:142012",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Badge", "Avatar"],
+        "molecules": ["BlogCard"]
+    },
+
+    "variants": {
+        "layout": ["grid", "list", "featured"],
+        "columns": [2, 3, 4]
+    },
+
+    "props": {
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "posts": {
+            "type": "array",
+            "required": true,
+            "description": "Array of {title, excerpt, image, category, author, date, href}"
+        },
+        "layout": {
+            "type": "enum",
+            "default": "grid",
+            "options": ["grid", "list", "featured"]
+        },
+        "columns": {
+            "type": "enum",
+            "default": 3,
+            "options": [2, 3, 4]
+        },
+        "showCategories": {
+            "type": "boolean",
+            "default": true
+        },
+        "showAuthors": {
+            "type": "boolean",
+            "default": true
+        },
+        "viewAllLink": {
+            "type": "object",
+            "properties": {
+                "label": { "type": "string" },
+                "href": { "type": "string" }
+            }
+        }
+    },
+
+    "sizing": {
+        "container": {
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" },
+            "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-8xl" },
+            "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-5xl" }
+        },
+        "header": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "marginBottom": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-5xl" }
+        },
+        "grid": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" },
+            "rowGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-5xl" }
+        }
+    },
+
+    "tokens": {
+        "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" }
+    },
+
+    "textStyles": {
+        "title": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Display md/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "description": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xl/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "responsiveBehavior": {
+        "mobile": {
+            "description": "Single column layout",
+            "breakpoint": "< 768px"
+        },
+        "tablet": {
+            "description": "Two column layout",
+            "breakpoint": "768px - 1024px"
+        },
+        "desktop": {
+            "description": "Full column layout based on prop",
+            "breakpoint": ">= 1024px"
+        }
+    },
+
+    "accessibility": {
+        "notes": [
+            "Section should have appropriate heading level",
+            "Blog cards should be in a list element"
+        ]
+    }
+}

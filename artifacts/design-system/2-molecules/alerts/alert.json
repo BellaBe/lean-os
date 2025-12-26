@@ -1,0 +1,151 @@
+{
+    "meta": {
+        "name": "Alert",
+        "description": "Inline alert message for contextual feedback",
+        "category": "molecule",
+        "figmaId": "1156:101234",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Icon", "Button"]
+    },
+
+    "variants": {
+        "variant": ["info", "success", "warning", "error"],
+        "style": ["light", "accent"],
+        "size": ["sm", "md"],
+        "dismissible": [false, true]
+    },
+
+    "props": {
+        "variant": {
+            "type": "enum",
+            "default": "info",
+            "options": ["info", "success", "warning", "error"]
+        },
+        "style": {
+            "type": "enum",
+            "default": "light",
+            "options": ["light", "accent"]
+        },
+        "title": {
+            "type": "string"
+        },
+        "message": {
+            "type": "string",
+            "required": true
+        },
+        "icon": {
+            "type": "string",
+            "description": "Custom icon, defaults based on variant"
+        },
+        "dismissible": {
+            "type": "boolean",
+            "default": false
+        },
+        "action": {
+            "type": "object",
+            "properties": {
+                "label": { "type": "string" },
+                "onClick": { "type": "function" }
+            }
+        },
+        "onDismiss": {
+            "type": "function"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" }
+        },
+        "md": {
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" }
+        },
+        "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-lg" },
+        "borderWidth": { "isAlias": true, "collection": "Border Styles", "name": "border-width-thin" }
+    },
+
+    "tokens": {
+        "info": {
+            "light": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-secondary" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-brand" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+            },
+            "accent": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-solid" },
+                "border": null,
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-white" }
+            }
+        },
+        "success": {
+            "light": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-success-secondary" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Component colors/Utility/Success/utility-success-300" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-success-secondary" }
+            },
+            "accent": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-success-solid" },
+                "border": null,
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-white" }
+            }
+        },
+        "warning": {
+            "light": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-warning-secondary" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Component colors/Utility/Warning/utility-warning-300" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-warning-secondary" }
+            },
+            "accent": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-warning-solid" },
+                "border": null,
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-white" }
+            }
+        },
+        "error": {
+            "light": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-error-secondary" },
+                "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-error" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-error-secondary" }
+            },
+            "accent": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-error-solid" },
+                "border": null,
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-white" }
+            }
+        }
+    },
+
+    "textStyles": {
+        "title": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "message": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        },
+        "accent": {
+            "title": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-white" },
+            "message": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-white" }
+        }
+    },
+
+    "accessibility": {
+        "role": "alert",
+        "ariaAttributes": {
+            "aria-live": "polite"
+        },
+        "notes": [
+            "Use aria-live='assertive' for errors",
+            "Dismiss button should have aria-label"
+        ]
+    }
+}

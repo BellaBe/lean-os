@@ -1,0 +1,154 @@
+{
+    "meta": {
+        "name": "FullWidthHeaderNavigation",
+        "description": "Full-width mega menu header navigation with rich content panels",
+        "category": "organism",
+        "figmaId": "1287:2392",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Badge", "Icon", "Avatar"],
+        "molecules": ["NavMenuButton", "NavigationActions", "NavMenuItem", "NavMenuItemDropdown", "NavMenuItemCard"]
+    },
+
+    "variants": {
+        "mobileOpen": [false, true],
+        "mobileSubnavOpen": [false, true],
+        "type": ["2col-links", "3col-links", "2col-cards", "full-mega"],
+        "breakpoint": ["mobile", "desktop"]
+    },
+
+    "props": {
+        "type": {
+            "type": "enum",
+            "default": "2col-links",
+            "options": ["2col-links", "3col-links", "2col-cards", "full-mega"]
+        },
+        "navSections": {
+            "type": "array",
+            "description": "Navigation sections with categories and items"
+        },
+        "footerTitle": { "type": "string" },
+        "footerDescription": { "type": "string" },
+        "footerPrimaryLabel": { "type": "string" },
+        "user": { "type": "object" },
+        "onSignUp": { "type": "function" },
+        "onLogIn": { "type": "function" },
+        "onLogOut": { "type": "function" }
+    },
+
+    "sizing": {
+        "header": {
+            "height": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-8xl" },
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-5xl" },
+            "paddingXMobile": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" }
+        },
+        "logo": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-sm" }
+        },
+        "nav": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-2xl" }
+        },
+        "megaMenu": {
+            "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-3xl" },
+            "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" },
+            "columnGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" },
+            "categoryGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-2xl" },
+            "itemGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" }
+        },
+        "footer": {
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" },
+            "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" }
+        },
+        "featuredIcon": { "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-lg" } },
+        "smallIcon": { "size": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" } }
+    },
+
+    "tokens": {
+        "header": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+        },
+        "megaMenu": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" },
+            "shadow": { "isAlias": true, "collection": "Effect Styles", "name": "Shadows/shadow-xl" }
+        },
+        "footer": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary_hover" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+        },
+        "mobileMenu": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" }
+        },
+        "featuredIcon": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-primary" }
+        }
+    },
+
+    "textStyles": {
+        "navLink": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        },
+        "navLinkHover": {
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "categoryTitle": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-disabled" },
+            "textTransform": "uppercase",
+            "letterSpacing": "0.05em"
+        },
+        "footerTitle": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "footerDescription": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "stateManagement": {
+        "local": ["mobileMenuOpen", "activeDropdown", "mobileExpandedSections"],
+        "global": ["user"]
+    },
+
+    "responsiveBehavior": {
+        "mobile": {
+            "description": "Full-screen overlay with accordion sections",
+            "breakpoint": "< 1024px"
+        },
+        "desktop": {
+            "description": "Horizontal nav with full-width mega menu",
+            "breakpoint": ">= 1024px"
+        }
+    },
+
+    "accessibility": {
+        "role": "navigation",
+        "ariaAttributes": {
+            "aria-label": "Main navigation"
+        },
+        "keyboardInteraction": {
+            "Tab": "move through nav items and mega menu",
+            "Enter": "open mega menu or activate link",
+            "Space": "open mega menu or activate link",
+            "Escape": "close mega menu",
+            "ArrowLeft": "move between top-level nav items",
+            "ArrowRight": "move between top-level nav items",
+            "ArrowDown": "enter mega menu content",
+            "ArrowUp": "return to nav trigger"
+        },
+        "notes": [
+            "Mega menu should be announced when opened",
+            "Category headings should be semantically marked",
+            "Focus should be managed when navigating in/out of mega menu",
+            "Mobile accordion should use proper ARIA for expansion state",
+            "Skip navigation link recommended"
+        ]
+    }
+}

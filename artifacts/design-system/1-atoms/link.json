@@ -1,0 +1,122 @@
+{
+    "meta": {
+        "name": "Link",
+        "description": "Text link with optional icon for navigation",
+        "category": "atom",
+        "figmaId": "1052:460",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "variants": {
+        "size": ["sm", "md", "lg"],
+        "color": ["gray", "brand"],
+        "state": ["default", "hover", "focused", "visited"],
+        "iconPosition": ["none", "leading", "trailing"]
+    },
+
+    "props": {
+        "href": {
+            "type": "string",
+            "required": true,
+            "description": "Link destination URL"
+        },
+        "children": {
+            "type": "node",
+            "required": true,
+            "description": "Link text content"
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md", "lg"]
+        },
+        "color": {
+            "type": "enum",
+            "default": "brand",
+            "options": ["gray", "brand"]
+        },
+        "icon": {
+            "type": "string",
+            "description": "Icon name"
+        },
+        "iconPosition": {
+            "type": "enum",
+            "default": "none",
+            "options": ["none", "leading", "trailing"]
+        },
+        "external": {
+            "type": "boolean",
+            "default": false,
+            "description": "Opens in new tab with security attributes"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-xs" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xs" }
+        },
+        "md": {
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xs" }
+        },
+        "lg": {
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-sm" }
+        }
+    },
+
+    "tokens": {
+        "gray": {
+            "default": {
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" }
+            },
+            "hover": {
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-tertiary (600)" }
+            },
+            "focused": {
+                "ring": { "isAlias": true, "collection": "Effect Styles", "name": "Focus rings/focus-ring" }
+            }
+        },
+        "brand": {
+            "default": {
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-brand-secondary (700)" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-secondary (500)" }
+            },
+            "hover": {
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-brand-tertiary (600)" },
+                "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+            },
+            "focused": {
+                "ring": { "isAlias": true, "collection": "Effect Styles", "name": "Focus rings/focus-ring-brand" }
+            }
+        }
+    },
+
+    "textStyles": {
+        "sm": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" }
+        },
+        "md": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Semibold" }
+        },
+        "lg": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text lg/Semibold" }
+        }
+    },
+
+    "accessibility": {
+        "role": "link",
+        "focusable": true,
+        "keyboardInteraction": {
+            "Enter": "activate link"
+        },
+        "ariaAttributes": {
+            "aria-label": "descriptive text for screen readers"
+        },
+        "notes": "External links should include rel='noopener noreferrer'"
+    }
+}

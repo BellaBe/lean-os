@@ -1,0 +1,95 @@
+{
+    "meta": {
+        "name": "ProgressBar",
+        "description": "Linear progress indicator for tracking completion",
+        "category": "atom",
+        "figmaId": "1255:135156",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {},
+
+    "variants": {
+        "size": ["sm", "md"],
+        "variant": ["default", "success", "warning", "error"],
+        "indeterminate": [false, true]
+    },
+
+    "props": {
+        "value": {
+            "type": "number",
+            "description": "Current progress (0-100)"
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md"]
+        },
+        "variant": {
+            "type": "enum",
+            "default": "default",
+            "options": ["default", "success", "warning", "error"]
+        },
+        "indeterminate": {
+            "type": "boolean",
+            "default": false
+        },
+        "showLabel": {
+            "type": "boolean",
+            "default": false
+        },
+        "label": {
+            "type": "string"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "height": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-sm" }
+        },
+        "md": {
+            "height": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" }
+        },
+        "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-full" }
+    },
+
+    "tokens": {
+        "track": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-secondary" },
+        "fill": {
+            "default": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-solid" },
+            "success": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-success-solid" },
+            "warning": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-warning-solid" },
+            "error": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-error-solid" }
+        }
+    },
+
+    "textStyles": {
+        "label": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Medium" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        }
+    },
+
+    "animation": {
+        "transition": {
+            "duration": { "isAlias": true, "collection": "Motion Styles", "name": "duration-normal" },
+            "timing": "ease-out"
+        },
+        "indeterminate": {
+            "duration": { "isAlias": true, "collection": "Motion Styles", "name": "duration-slower" },
+            "timing": "linear",
+            "iteration": "infinite"
+        }
+    },
+
+    "accessibility": {
+        "role": "progressbar",
+        "ariaAttributes": {
+            "aria-valuenow": "current value",
+            "aria-valuemin": "0",
+            "aria-valuemax": "100",
+            "aria-label": "progress description"
+        }
+    }
+}

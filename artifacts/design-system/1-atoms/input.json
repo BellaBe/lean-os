@@ -1,0 +1,129 @@
+{
+    "meta": {
+        "name": "Input",
+        "description": "Standard form input field with multiple types and states",
+        "category": "atom",
+        "figmaId": "1090:57817",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "variants": {
+        "size": ["sm", "md"],
+        "type": ["default", "icon-leading", "leading-dropdown", "leading-text", "payment", "tags", "trailing-button", "trailing-dropdown"],
+        "state": ["default", "placeholder", "filled", "focused", "disabled"],
+        "destructive": [false, true]
+    },
+
+    "props": {
+        "value": {
+            "type": "string",
+            "description": "Input value"
+        },
+        "placeholder": {
+            "type": "string",
+            "description": "Placeholder text"
+        },
+        "label": {
+            "type": "string",
+            "description": "Label text above input"
+        },
+        "hint": {
+            "type": "string",
+            "description": "Hint text below input"
+        },
+        "error": {
+            "type": "string",
+            "description": "Error message (enables destructive state)"
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md"]
+        },
+        "disabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "leadingIcon": {
+            "type": "string",
+            "description": "Icon name for leading position"
+        },
+        "trailingIcon": {
+            "type": "string",
+            "description": "Icon name for trailing position"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Input/height-sm" },
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-md" },
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" }
+        },
+        "md": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Input/height-md" },
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" },
+            "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-md" },
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-md" },
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Regular" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" }
+        }
+    },
+
+    "tokens": {
+        "default": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" },
+            "placeholder": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-placeholder" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-primary" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" },
+            "shadow": { "isAlias": true, "collection": "Effect Styles", "name": "Shadows/shadow-xs" }
+        },
+        "focused": {
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-brand" },
+            "ring": { "isAlias": true, "collection": "Effect Styles", "name": "Focus rings/focus-ring" }
+        },
+        "disabled": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-disabled_subtle" },
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-disabled" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-disabled" }
+        },
+        "error": {
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-error" }
+        },
+        "errorFocused": {
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-error" },
+            "ring": { "isAlias": true, "collection": "Effect Styles", "name": "Focus rings/focus-ring-error" }
+        }
+    },
+
+    "textStyles": {
+        "label": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Medium" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        },
+        "hint": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        },
+        "error": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-error-primary (600)" }
+        }
+    },
+
+    "accessibility": {
+        "role": "textbox",
+        "focusable": true,
+        "ariaAttributes": {
+            "aria-invalid": "when in error state",
+            "aria-describedby": "reference to hint/error text"
+        }
+    }
+}

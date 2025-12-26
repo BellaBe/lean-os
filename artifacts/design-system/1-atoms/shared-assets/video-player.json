@@ -1,0 +1,116 @@
+{
+    "meta": {
+        "name": "VideoPlayer",
+        "description": "Video player component with controls and progress bar",
+        "category": "shared-asset",
+        "figmaId": "1113:1576",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "internal": ["_VideoProgress", "_PlayButton"]
+    },
+
+    "variants": {
+        "state": ["idle", "playing", "paused", "loading"],
+        "controls": ["hidden", "visible", "hover-only"],
+        "aspectRatio": ["16:9", "4:3", "1:1", "9:16"]
+    },
+
+    "props": {
+        "src": {
+            "type": "string",
+            "required": true,
+            "description": "Video source URL"
+        },
+        "poster": {
+            "type": "string",
+            "description": "Thumbnail image URL"
+        },
+        "autoplay": {
+            "type": "boolean",
+            "default": false
+        },
+        "loop": {
+            "type": "boolean",
+            "default": false
+        },
+        "muted": {
+            "type": "boolean",
+            "default": false
+        },
+        "controls": {
+            "type": "enum",
+            "default": "hover-only",
+            "options": ["hidden", "visible", "hover-only"]
+        },
+        "aspectRatio": {
+            "type": "enum",
+            "default": "16:9",
+            "options": ["16:9", "4:3", "1:1", "9:16"]
+        }
+    },
+
+    "subcomponents": {
+        "playButton": {
+            "figmaId": "1142:96110",
+            "sizing": {
+                "sm": { "size": { "value": 48, "unit": "px" } },
+                "md": { "size": { "value": 64, "unit": "px" } },
+                "lg": { "size": { "value": 80, "unit": "px" } }
+            }
+        },
+        "progressBar": {
+            "figmaId": "1113:1792",
+            "sizing": {
+                "height": { "value": 4, "unit": "px" },
+                "heightHover": { "value": 6, "unit": "px" }
+            }
+        }
+    },
+
+    "sizing": {
+        "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-xl" },
+        "controlsPadding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" }
+    },
+
+    "tokens": {
+        "overlay": {
+            "background": "rgba(0, 0, 0, 0.4)"
+        },
+        "playButton": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" },
+            "shadow": { "isAlias": true, "collection": "Effect Styles", "name": "Shadows/shadow-lg" }
+        },
+        "progress": {
+            "track": "rgba(255, 255, 255, 0.3)",
+            "fill": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-solid" },
+            "buffer": "rgba(255, 255, 255, 0.5)"
+        },
+        "controls": {
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-white" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-white" }
+        }
+    },
+
+    "accessibility": {
+        "role": "region",
+        "ariaLabel": "Video player",
+        "keyboardInteraction": {
+            "Space": "Play/Pause",
+            "Enter": "Play/Pause",
+            "ArrowLeft": "Seek backward 10s",
+            "ArrowRight": "Seek forward 10s",
+            "ArrowUp": "Volume up",
+            "ArrowDown": "Volume down",
+            "M": "Mute/Unmute",
+            "F": "Fullscreen"
+        },
+        "notes": [
+            "Provide captions/subtitles for accessibility",
+            "Ensure controls are keyboard accessible"
+        ]
+    }
+}

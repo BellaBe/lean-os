@@ -1,0 +1,111 @@
+{
+    "meta": {
+        "name": "Pagination",
+        "description": "Pagination controls for navigating through pages",
+        "category": "molecule",
+        "figmaId": "1207:106234",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Icon"]
+    },
+
+    "variants": {
+        "type": ["simple", "numbered", "with-text"],
+        "size": ["sm", "md"]
+    },
+
+    "props": {
+        "currentPage": {
+            "type": "number",
+            "required": true
+        },
+        "totalPages": {
+            "type": "number",
+            "required": true
+        },
+        "type": {
+            "type": "enum",
+            "default": "numbered",
+            "options": ["simple", "numbered", "with-text"]
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md"]
+        },
+        "showFirstLast": {
+            "type": "boolean",
+            "default": false
+        },
+        "siblingCount": {
+            "type": "number",
+            "default": 1,
+            "description": "Pages shown on each side of current"
+        },
+        "onPageChange": {
+            "type": "function"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "buttonSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/size-sm" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xs" }
+        },
+        "md": {
+            "buttonSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/size-md" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-sm" }
+        }
+    },
+
+    "tokens": {
+        "button": {
+            "default": {
+                "background": null,
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+            },
+            "hover": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary_hover" }
+            },
+            "active": {
+                "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-active" },
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+            },
+            "disabled": {
+                "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-disabled" }
+            }
+        },
+        "ellipsis": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-quaternary (500)" }
+    },
+
+    "textStyles": {
+        "sm": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Medium" }
+        },
+        "md": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Medium" }
+        },
+        "text": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "accessibility": {
+        "role": "navigation",
+        "ariaAttributes": {
+            "aria-label": "Pagination"
+        },
+        "keyboardInteraction": {
+            "Tab": "navigate between buttons",
+            "Enter": "activate page"
+        },
+        "notes": [
+            "Current page should have aria-current='page'",
+            "Prev/Next buttons should have aria-label"
+        ]
+    }
+}

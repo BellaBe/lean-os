@@ -1,0 +1,67 @@
+{
+    "meta": {
+        "name": "IntegrationIcon",
+        "description": "Third-party app and service integration icons",
+        "category": "shared-asset",
+        "figmaId": "6452:229238",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "variants": {
+        "size": ["sm", "md", "lg", "xl"],
+        "style": ["color", "monochrome", "grayscale"]
+    },
+
+    "props": {
+        "service": {
+            "type": "string",
+            "required": true,
+            "description": "Integration service name (e.g., 'slack', 'notion', 'figma')"
+        },
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md", "lg", "xl"]
+        },
+        "style": {
+            "type": "enum",
+            "default": "color",
+            "options": ["color", "monochrome", "grayscale"]
+        }
+    },
+
+    "sizing": {
+        "sm": { "size": { "value": 24, "unit": "px" } },
+        "md": { "size": { "value": 32, "unit": "px" } },
+        "lg": { "size": { "value": 40, "unit": "px" } },
+        "xl": { "size": { "value": 48, "unit": "px" } }
+    },
+
+    "commonIntegrations": [
+        "slack", "notion", "figma", "github", "gitlab", "jira",
+        "asana", "trello", "monday", "linear", "intercom",
+        "zendesk", "salesforce", "hubspot", "mailchimp",
+        "stripe", "zapier", "google-drive", "dropbox", "aws"
+    ],
+
+    "tokens": {
+        "container": {
+            "borderRadius": { "isAlias": true, "collection": "Radius Styles", "name": "radius-md" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" }
+        },
+        "monochrome": {
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" }
+        },
+        "grayscale": {
+            "filter": "grayscale(100%)",
+            "opacity": 0.6
+        }
+    },
+
+    "accessibility": {
+        "role": "img",
+        "ariaLabel": "{service name} integration",
+        "notes": "Include service name in alt text"
+    }
+}

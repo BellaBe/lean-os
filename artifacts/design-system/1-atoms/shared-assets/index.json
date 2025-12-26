@@ -1,0 +1,70 @@
+{
+    "meta": {
+        "name": "Shared Assets",
+        "description": "Design system shared assets catalog",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "figmaPages": {
+            "foundations": "925:34508",
+            "sharedAssets": "1238:52",
+            "icons": "3463:407484",
+            "logos": "1083:118533",
+            "miscIcons": "1025:31781",
+            "backgrounds": "4938:371336",
+            "miscAssets": "1291:157819"
+        },
+        "version": "2.0.0"
+    },
+
+    "assets": {
+        "icons": {
+            "file": "icons.json",
+            "description": "Untitled UI icon library (15 categories, 1000+ icons)"
+        },
+        "featuredIcons": {
+            "file": "featured-icons.json",
+            "description": "Decorative icon containers (light/dark/modern/outline)"
+        },
+        "socialIcons": {
+            "file": "social-icons.json",
+            "description": "Social media brand icons"
+        },
+        "countryIcons": {
+            "file": "country-icons.json",
+            "description": "Country flag icons (ISO 3166-1)"
+        },
+        "paymentIcons": {
+            "file": "payment-icons.json",
+            "description": "Payment method and credit card icons"
+        },
+        "integrationIcons": {
+            "file": "integration-icons.json",
+            "description": "Third-party service integration icons"
+        },
+        "utilityIcons": {
+            "file": "utility-icons.json",
+            "description": "Stars, checks, and indicator icons"
+        },
+        "logos": {
+            "file": "logos.json",
+            "description": "Brand logos and logomarks"
+        },
+        "backgroundPatterns": {
+            "file": "background-patterns.json",
+            "description": "Decorative backgrounds and overlays"
+        },
+        "mockups": {
+            "file": "mockups.json",
+            "description": "Device and product mockups"
+        },
+        "videoPlayer": {
+            "file": "video-player.json",
+            "description": "Video player with controls"
+        }
+    },
+
+    "usage": {
+        "importing": "Import individual asset specs from 1-atoms/shared-assets/",
+        "iconNaming": "Icons use kebab-case naming (e.g., 'arrow-right')",
+        "svgFormat": "All icons are SVG format with stroke-based styling"
+    }
+}

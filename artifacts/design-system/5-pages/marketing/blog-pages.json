@@ -1,0 +1,93 @@
+{
+    "meta": {
+        "name": "Blog Pages",
+        "description": "Blog listing and post page composition patterns",
+        "category": "page",
+        "figmaId": "1622:261459",
+        "figmaFile": "BFATWt2kajie3JJgagoDwr",
+        "version": "2.0.0"
+    },
+
+    "breakpoints": ["desktop", "mobile"],
+
+    "patterns": {
+        "blog-listing-01": {
+            "name": "Featured + Grid",
+            "description": "Featured post hero with card grid below",
+            "figmaId": "1639:319677",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "PageHeader", "variant": "blog-header", "content": { "title": "Blog", "subtitle": "Insights, guides, and updates" } },
+                { "component": "BlogSection", "variant": "featured-large" },
+                { "component": "BlogSection", "variant": "card-grid-3col" },
+                { "component": "Pagination", "variant": "numbered" },
+                { "component": "NewsletterSection", "variant": "inline-cta" },
+                { "component": "Footer", "variant": "4-column" }
+            ]
+        },
+        "blog-listing-02": {
+            "name": "Category Tabs",
+            "description": "Filterable blog with category navigation",
+            "figmaId": "1639:319685",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "PageHeader", "variant": "with-search" },
+                { "component": "CategoryTabs", "variant": "horizontal" },
+                { "component": "BlogSection", "variant": "list-view" },
+                { "component": "Pagination", "variant": "load-more" },
+                { "component": "Footer", "variant": "simple" }
+            ]
+        },
+        "blog-listing-03": {
+            "name": "Magazine Layout",
+            "description": "Editorial magazine-style layout",
+            "figmaId": "1639:319699",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "BlogSection", "variant": "magazine-hero" },
+                { "component": "BlogSection", "variant": "two-column-mixed" },
+                { "component": "NewsletterSection", "variant": "full-width" },
+                { "component": "BlogSection", "variant": "card-grid-4col" },
+                { "component": "Footer", "variant": "4-column" }
+            ]
+        },
+        "blog-post-01": {
+            "name": "Standard Article",
+            "description": "Classic blog post with sidebar",
+            "figmaId": "1631:330597",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "simple" },
+                { "component": "ArticleHeader", "variant": "full-width-image" },
+                { "component": "ArticleContent", "variant": "with-sidebar", "sidebar": ["TableOfContents", "AuthorBio", "RelatedPosts"] },
+                { "component": "AuthorSection", "variant": "card" },
+                { "component": "RelatedPostsSection", "variant": "3-card" },
+                { "component": "NewsletterSection", "variant": "inline" },
+                { "component": "Footer", "variant": "4-column" }
+            ]
+        },
+        "blog-post-02": {
+            "name": "Minimal Article",
+            "description": "Clean, focused reading experience",
+            "sections": [
+                { "component": "HeaderNavigation", "variant": "minimal" },
+                { "component": "ArticleHeader", "variant": "centered" },
+                { "component": "ArticleContent", "variant": "narrow-centered" },
+                { "component": "ShareButtons", "variant": "floating" },
+                { "component": "RelatedPostsSection", "variant": "minimal" },
+                { "component": "Footer", "variant": "simple" }
+            ]
+        }
+    },
+
+    "layout": {
+        "articleMaxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-3xl" },
+        "listingMaxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-6xl" },
+        "sectionSpacing": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-6xl" }
+    },
+
+    "usage": {
+        "purpose": "Content marketing and SEO",
+        "contentTypes": ["how-to guides", "industry insights", "product updates", "case studies"],
+        "seoElements": ["structured data for articles", "breadcrumbs", "related posts", "author schema"]
+    }
+}

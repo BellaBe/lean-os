@@ -1,0 +1,92 @@
+{
+    "meta": {
+        "name": "AppNavItemDropdown",
+        "description": "Expandable navigation item with nested sub-items",
+        "category": "molecule",
+        "figmaId": "1152:90366",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Icon", "Badge"],
+        "molecules": ["AppNavItem"]
+    },
+
+    "variants": {
+        "state": ["default", "hover", "expanded"],
+        "size": ["sm", "md"]
+    },
+
+    "props": {
+        "label": {
+            "type": "string",
+            "required": true
+        },
+        "icon": {
+            "type": "string"
+        },
+        "expanded": {
+            "type": "boolean",
+            "default": false
+        },
+        "items": {
+            "type": "array",
+            "required": true,
+            "description": "Array of child navigation items"
+        },
+        "onToggle": {
+            "type": "function"
+        }
+    },
+
+    "sizing": {
+        "trigger": {
+            "height": { "isAlias": true, "collection": "Sizing Styles", "name": "Button/height-md" },
+            "paddingX": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" }
+        },
+        "chevronSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" },
+        "subItemIndent": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" },
+        "subItemGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xs" }
+    },
+
+    "tokens": {
+        "default": {
+            "background": null,
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" },
+            "chevron": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" }
+        },
+        "hover": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary_hover" }
+        },
+        "expanded": {
+            "text": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-secondary (700)" }
+        }
+    },
+
+    "textStyles": {
+        "label": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" }
+        }
+    },
+
+    "icons": {
+        "collapsed": "chevron-right",
+        "expanded": "chevron-down"
+    },
+
+    "accessibility": {
+        "role": "button",
+        "ariaAttributes": {
+            "aria-expanded": "expansion state",
+            "aria-controls": "submenu id"
+        },
+        "keyboardInteraction": {
+            "Enter": "toggle expansion",
+            "Space": "toggle expansion",
+            "ArrowRight": "expand",
+            "ArrowLeft": "collapse"
+        }
+    }
+}

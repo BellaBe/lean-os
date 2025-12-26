@@ -1,0 +1,134 @@
+{
+    "meta": {
+        "name": "TestimonialSection",
+        "description": "Marketing section showcasing customer testimonials with various layouts",
+        "category": "organism",
+        "figmaId": "1377:11884",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Avatar", "Icon"],
+        "molecules": ["TestimonialCard"]
+    },
+
+    "variants": {
+        "type": ["single-quote", "carousel", "grid", "masonry", "split-image", "logo-cloud"],
+        "theme": ["default", "brand"],
+        "breakpoint": ["mobile", "desktop"]
+    },
+
+    "props": {
+        "type": {
+            "type": "enum",
+            "default": "carousel",
+            "options": ["single-quote", "carousel", "grid", "masonry", "split-image", "logo-cloud"]
+        },
+        "theme": {
+            "type": "enum",
+            "default": "default",
+            "options": ["default", "brand"]
+        },
+        "eyebrow": {
+            "type": "string"
+        },
+        "heading": {
+            "type": "string"
+        },
+        "subheading": {
+            "type": "string"
+        },
+        "testimonials": {
+            "type": "array",
+            "required": true,
+            "description": "Array of testimonial objects"
+        },
+        "logos": {
+            "type": "array",
+            "description": "Company logos for logo cloud variant"
+        },
+        "autoPlay": {
+            "type": "boolean",
+            "default": false,
+            "description": "Auto-advance carousel"
+        }
+    },
+
+    "sizing": {
+        "container": {
+            "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-3xl" },
+            "paddingX": { "isAlias": true, "collection": "Container Styles", "name": "container-padding-desktop" },
+            "paddingXMobile": { "isAlias": true, "collection": "Container Styles", "name": "container-padding-mobile" }
+        },
+        "section": {
+            "paddingY": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-9xl" },
+            "paddingYMobile": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-7xl" }
+        },
+        "header": {
+            "marginBottom": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-6xl" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" }
+        },
+        "grid": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" }
+        },
+        "carousel": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" },
+            "arrowSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-lg" }
+        },
+        "logoCloud": {
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-6xl" },
+            "logoHeight": { "isAlias": true, "collection": "Sizing Styles", "name": "Avatar/size-lg" }
+        }
+    },
+
+    "tokens": {
+        "default": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" }
+        },
+        "brand": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-brand-section" }
+        },
+        "carouselArrow": {
+            "background": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-primary" },
+            "border": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" },
+            "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" }
+        }
+    },
+
+    "textStyles": {
+        "eyebrow": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-brand-secondary (700)" }
+        },
+        "heading": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Display md/Semibold" },
+            "typographyMobile": { "isAlias": true, "collection": "Typography Styles", "name": "Display sm/Semibold" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "subheading": {
+            "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text xl/Regular" },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "responsiveBehavior": {
+        "mobile": {
+            "description": "Single column, swipeable carousel",
+            "breakpoint": "< 768px"
+        },
+        "desktop": {
+            "description": "Multi-column grid or side-by-side",
+            "breakpoint": ">= 768px"
+        }
+    },
+
+    "accessibility": {
+        "notes": [
+            "Carousel should have pause button for autoplay",
+            "Carousel arrows should be keyboard accessible",
+            "Current slide should be announced",
+            "Logo cloud should have company names as alt text"
+        ]
+    }
+}

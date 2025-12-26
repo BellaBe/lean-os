@@ -1,0 +1,116 @@
+{
+    "meta": {
+        "name": "EmptyState",
+        "description": "Placeholder for empty content areas with illustration and action",
+        "category": "organism",
+        "figmaId": "1251:134567",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {
+        "atoms": ["Button", "Icon"]
+    },
+
+    "variants": {
+        "size": ["sm", "md", "lg"],
+        "type": ["default", "search", "error", "permissions"]
+    },
+
+    "props": {
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["sm", "md", "lg"]
+        },
+        "type": {
+            "type": "enum",
+            "default": "default",
+            "options": ["default", "search", "error", "permissions"]
+        },
+        "icon": {
+            "type": "string"
+        },
+        "illustration": {
+            "type": "string",
+            "description": "URL or component for custom illustration"
+        },
+        "title": {
+            "type": "string",
+            "required": true
+        },
+        "description": {
+            "type": "string"
+        },
+        "primaryAction": {
+            "type": "object",
+            "properties": {
+                "label": { "type": "string" },
+                "icon": { "type": "string" },
+                "onClick": { "type": "function" }
+            }
+        },
+        "secondaryAction": {
+            "type": "object"
+        }
+    },
+
+    "sizing": {
+        "sm": {
+            "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-xxs" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-lg" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" }
+        },
+        "md": {
+            "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-xs" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-xl" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-xl" }
+        },
+        "lg": {
+            "maxWidth": { "isAlias": true, "collection": "Width Styles", "name": "width-sm" },
+            "iconSize": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-2xl" },
+            "gap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-3xl" }
+        },
+        "padding": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-4xl" },
+        "actionGap": { "isAlias": true, "collection": "Spacing Styles", "name": "spacing-lg" }
+    },
+
+    "tokens": {
+        "iconBackground": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Background/bg-secondary" },
+        "icon": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-quaternary (500)" }
+    },
+
+    "textStyles": {
+        "title": {
+            "sm": {
+                "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Semibold" }
+            },
+            "md": {
+                "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text lg/Semibold" }
+            },
+            "lg": {
+                "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Display xs/Semibold" }
+            },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-primary (900)" }
+        },
+        "description": {
+            "sm": {
+                "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" }
+            },
+            "md": {
+                "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text sm/Regular" }
+            },
+            "lg": {
+                "typography": { "isAlias": true, "collection": "Typography Styles", "name": "Text md/Regular" }
+            },
+            "color": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Text/text-tertiary (600)" }
+        }
+    },
+
+    "accessibility": {
+        "notes": [
+            "Should be announced to screen readers",
+            "Actions should be keyboard accessible"
+        ]
+    }
+}

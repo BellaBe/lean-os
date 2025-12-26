@@ -1,0 +1,69 @@
+{
+    "meta": {
+        "name": "Spinner",
+        "description": "Loading spinner indicator",
+        "category": "atom",
+        "figmaId": "1255:135012",
+        "figmaFile": "7NsVWhvg7xLJUvGUyRkgEc",
+        "version": "2.0.0"
+    },
+
+    "dependencies": {},
+
+    "variants": {
+        "size": ["xs", "sm", "md", "lg", "xl"],
+        "variant": ["default", "white"]
+    },
+
+    "props": {
+        "size": {
+            "type": "enum",
+            "default": "md",
+            "options": ["xs", "sm", "md", "lg", "xl"]
+        },
+        "variant": {
+            "type": "enum",
+            "default": "default",
+            "options": ["default", "white"]
+        },
+        "label": {
+            "type": "string",
+            "description": "Accessible label for screen readers"
+        }
+    },
+
+    "sizing": {
+        "xs": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-xs" },
+        "sm": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-sm" },
+        "md": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-md" },
+        "lg": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-lg" },
+        "xl": { "isAlias": true, "collection": "Sizing Styles", "name": "Icon/size-xl" },
+        "strokeWidth": { "isAlias": true, "collection": "Border Styles", "name": "border-width-medium" }
+    },
+
+    "tokens": {
+        "default": {
+            "track": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Border/border-secondary" },
+            "fill": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-brand-primary (600)" }
+        },
+        "white": {
+            "track": { "isAlias": true, "collection": "Color Styles", "name": "Component colors/Alpha/alpha-white-20" },
+            "fill": { "isAlias": true, "collection": "Color Styles", "name": "Colors/Foreground/fg-white" }
+        }
+    },
+
+    "animation": {
+        "type": "rotate",
+        "duration": { "isAlias": true, "collection": "Motion Styles", "name": "duration-slow" },
+        "timing": "linear",
+        "iteration": "infinite"
+    },
+
+    "accessibility": {
+        "role": "status",
+        "ariaAttributes": {
+            "aria-label": "Loading",
+            "aria-live": "polite"
+        }
+    }
+}
