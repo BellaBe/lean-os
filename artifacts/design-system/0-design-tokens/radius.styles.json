@@ -12,38 +12,24 @@
                     "unit": "px"
                 },
                 {
-                    "name": "radius-xxs",
-                    "type": "number",
-                    "isAlias": false,
-                    "value": 2,
-                    "unit": "px"
-                },
-                {
-                    "name": "radius-xs",
+                    "name": "radius-sm",
                     "type": "number",
                     "isAlias": false,
                     "value": 4,
                     "unit": "px"
                 },
                 {
-                    "name": "radius-sm",
+                    "name": "radius-md",
                     "type": "number",
                     "isAlias": false,
                     "value": 6,
                     "unit": "px"
                 },
                 {
-                    "name": "radius-md",
-                    "type": "number",
-                    "isAlias": false,
-                    "value": 8,
-                    "unit": "px"
-                },
-                {
                     "name": "radius-lg",
                     "type": "number",
                     "isAlias": false,
-                    "value": 10,
+                    "value": 8,
                     "unit": "px"
                 },
                 {

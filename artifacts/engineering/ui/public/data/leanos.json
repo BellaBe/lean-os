@@ -469,6 +469,27 @@
       "location": ".claude/skills/engineering-foundation-targets/SKILL.md"
     },
     {
+      "name": "engineering-frontend-api-connector",
+      "category": "engineering",
+      "purpose": "Connect frontend pages to backend APIs. Adds data fetching, loading states, error handling to existing pages. Use after backend APIs are ready.\nallowed-tools: Read, Write, Bash\n---",
+      "whenToUse": [],
+      "location": ".claude/skills/engineering-frontend-api-connector/SKILL.md"
+    },
+    {
+      "name": "engineering-frontend-page-builder",
+      "category": "engineering",
+      "purpose": "Build pages from product specs using Untitled UI components and design system. Main frontend implementation - maps wireframes to code, uses free components when available, builds custom only when need",
+      "whenToUse": [],
+      "location": ".claude/skills/engineering-frontend-page-builder/SKILL.md"
+    },
+    {
+      "name": "engineering-frontend-theme-setup",
+      "category": "engineering",
+      "purpose": "Setup Untitled UI theme for Next.js project. One-time initialization - installs Untitled UI, configures Tailwind, downloads resources. Use when starting new frontend project.\nallowed-tools: Read, Writ",
+      "whenToUse": [],
+      "location": ".claude/skills/engineering-frontend-theme-setup/SKILL.md"
+    },
+    {
       "name": "engineering-gen-code",
       "category": "engineering",
       "purpose": "|\n  Generate actual source code from verified code maps. This skill only runs\n  AFTER verify-maps passes. Code is generated mechanically from maps, ensuring\n  correctness. Use when: code maps are veri",
@@ -834,6 +855,12 @@
       "location": ".claude/agents/foundations-builder.md"
     },
     {
+      "name": "frontend-builder",
+      "purpose": "es theme setup, page building, and API integration. Use when implementing UI, creating pages, or connecting to backend.\nskills: frontend-theme-setup, frontend-page-builder, frontend-api-connector\n---",
+      "skills": [],
+      "location": ".claude/agents/frontend-builder.md"
+    },
+    {
       "name": "knowledge-builder",
       "purpose": "es knowledge synthesis pipeline from expert sources to actionable frameworks.\n  Use when processing videos, podcasts, articles, or books into insights, playbooks, and\n  synthesized frameworks. Routes ",
       "skills": [],
@@ -912,7 +939,7 @@
     "playbooks": []
   },
   "meta": {
-    "lastBuilt": "2025-12-26T15:58:35.510Z",
+    "lastBuilt": "2025-12-27T09:59:11.979Z",
     "version": "1.0.0"
   }
 }

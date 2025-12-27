@@ -1,6 +1,6 @@
 "use client";
 
-import { cx } from "@/lib/utils/cx";
+import { cx } from "@/utils/cx";
 
 export interface ProgressBarProps {
     /**

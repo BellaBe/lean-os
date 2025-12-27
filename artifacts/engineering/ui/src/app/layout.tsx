@@ -1,40 +1,50 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Sidebar } from "@/components/layout/Sidebar";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+import { RouteProvider } from "@/providers/router-provider";
+import { Theme } from "@/providers/theme";
+import { DataProvider } from "@/providers/data-provider";
+import { Sidebar } from "@/components/leanos/sidebar";
+import { getLeanOSData } from "@/lib/data";
+import "@/styles/globals.css";
+import { cx } from "@/utils/cx";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const inter = Inter({
+    subsets: ["latin"],
+    display: "swap",
+    variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  title: "LeanOS",
-  description: "AI-native operating system for lean startups",
+    title: "LeanOS Dashboard",
+    description: "Autonomous operating system for startups",
 };
 
-export default function RootLayout({
-  children,
+export const viewport: Viewport = {
+    themeColor: "#7f56d9",
+    colorScheme: "light dark",
+};
+
+export default async function RootLayout({
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" className="dark-mode">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-bg-primary text-text-primary`}
-      >
-        <div className="flex h-screen">
-          <Sidebar />
-          <main className="flex-1 overflow-auto p-6">
-            {children}
-          </main>
-        </div>
-      </body>
-    </html>
-  );
+    const data = await getLeanOSData();
+
+    return (
+        <html lang="en" suppressHydrationWarning>
+            <body className={cx(inter.variable, "bg-primary antialiased")}>
+                <RouteProvider>
+                    <Theme>
+                        <DataProvider data={data}>
+                            <Sidebar mode={data.canvas.mode} />
+                            <main className="lg:pl-64 min-h-screen">
+                                {children}
+                            </main>
+                        </DataProvider>
+                    </Theme>
+                </RouteProvider>
+            </body>
+        </html>
+    );
 }

@@ -1,164 +1,223 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import fs from "fs";
-import path from "path";
+"use client";
 
-interface Skill {
-  name: string;
-  category: string;
-  purpose: string;
-  location: string;
-}
+import { useState } from "react";
+import { useLeanOSData } from "@/providers/data-provider";
+import { getSkillCategories } from "@/lib/data";
+import { cx } from "@/utils/cx";
+import { Zap, SearchLg, ChevronDown, ChevronUp } from "@untitledui/icons";
 
-interface Agent {
-  name: string;
-  purpose: string;
-  skills: string[];
-  location: string;
-}
-
-interface LeanOSData {
-  skills: Skill[];
-  agents: Agent[];
-}
-
-async function getData(): Promise<LeanOSData> {
-  const dataPath = path.join(process.cwd(), "public/data/leanos.json");
-  try {
-    const data = fs.readFileSync(dataPath, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return { skills: [], agents: [] };
-  }
-}
-
-export default async function SkillsPage() {
-  const data = await getData();
-
-  // Group skills by category
-  const skillsByCategory = data.skills.reduce((acc, skill) => {
-    if (!acc[skill.category]) acc[skill.category] = [];
-    acc[skill.category].push(skill);
-    return acc;
-  }, {} as Record<string, Skill[]>);
-
-  const categories = Object.keys(skillsByCategory).sort();
-
-  // Category colors
-  const categoryColors: Record<string, string> = {
-    action: "bg-blue-500/10 text-blue-500 border-blue-500/20",
-    engineering: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-    foundations: "bg-green-500/10 text-green-500 border-green-500/20",
-    goal: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
-    marketing: "bg-pink-500/10 text-pink-500 border-pink-500/20",
-    product: "bg-orange-500/10 text-orange-500 border-orange-500/20",
-    reasoning: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
-    research: "bg-indigo-500/10 text-indigo-500 border-indigo-500/20",
-    sales: "bg-red-500/10 text-red-500 border-red-500/20",
-  };
+function SkillCard({ skill }: { skill: { name: string; purpose: string; category: string } }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasLongDescription = skill.purpose && skill.purpose.length > 80;
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Skills & Agents</h1>
-        <p className="text-text-tertiary">
-          {data.skills.length} skills across {categories.length} categories,
-          orchestrated by {data.agents.length} agents
+    <div
+      className={cx(
+        "group rounded-xl border-2 bg-white p-4 transition-all duration-200",
+        "border-gray-200 hover:border-brand-300 hover:shadow-md hover:-translate-y-0.5",
+        hasLongDescription && "cursor-pointer"
+      )}
+      onClick={() => hasLongDescription && setIsExpanded(!isExpanded)}
+    >
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 shrink-0 transition-transform group-hover:scale-105">
+          <Zap className="h-5 w-5 text-purple-600" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-sm font-semibold text-gray-900">
+            {skill.name}
+          </h3>
+          {skill.purpose && (
+            <p className={cx(
+              "mt-1.5 text-sm text-gray-600 leading-relaxed",
+              !isExpanded && hasLongDescription && "line-clamp-2"
+            )}>
+              {skill.purpose}
+            </p>
+          )}
+          {hasLongDescription && (
+            <button
+              className={cx(
+                "mt-3 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all",
+                isExpanded
+                  ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  : "bg-brand-50 text-brand-700 hover:bg-brand-100 border border-brand-200"
+              )}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsExpanded(!isExpanded);
+              }}
+            >
+              {isExpanded ? (
+                <>Show less <ChevronUp className="h-3.5 w-3.5" /></>
+              ) : (
+                <>Show more <ChevronDown className="h-3.5 w-3.5" /></>
+              )}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function SkillsPage() {
+  const data = useLeanOSData();
+  const categories = getSkillCategories(data.skills);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredSkills = data.skills.filter((skill) => {
+    const matchesCategory = !activeCategory || skill.category === activeCategory;
+    const matchesSearch =
+      !searchQuery ||
+      skill.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      skill.purpose.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  // Group skills by category for display
+  const groupedSkills = filteredSkills.reduce((acc, skill) => {
+    if (!acc[skill.category]) {
+      acc[skill.category] = [];
+    }
+    acc[skill.category].push(skill);
+    return acc;
+  }, {} as Record<string, typeof data.skills>);
+
+  return (
+    <div className="p-6 lg:p-8 bg-gray-50 min-h-screen">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900">Skills</h1>
+        <p className="mt-1 text-sm font-medium text-gray-500">
+          {data.skills.length} AI-powered capabilities across{" "}
+          {categories.length} categories
         </p>
       </div>
 
-      <Tabs defaultValue="skills" className="w-full">
-        <TabsList>
-          <TabsTrigger value="skills">Skills ({data.skills.length})</TabsTrigger>
-          <TabsTrigger value="agents">Agents ({data.agents.length})</TabsTrigger>
-        </TabsList>
+      {/* Search */}
+      <div className="mb-6">
+        <div className="relative">
+          <SearchLg className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search skills by name or description..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full rounded-xl border-2 border-gray-200 bg-white pl-10 pr-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100 transition-all"
+          />
+        </div>
+      </div>
 
-        <TabsContent value="skills" className="mt-6">
-          {/* Category Overview */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
-            {categories.map((category) => (
-              <Card key={category} className="hover:bg-accent/50 transition-colors">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium capitalize">{category}</span>
-                    <Badge variant="secondary">
-                      {skillsByCategory[category].length}
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      {/* Category Filter */}
+      <div className="mb-6 flex flex-wrap items-center gap-2">
+        <button
+          onClick={() => setActiveCategory(null)}
+          className={cx(
+            "rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200",
+            activeCategory === null
+              ? "bg-brand-600 text-white shadow-sm"
+              : "bg-white border-2 border-gray-200 text-gray-700 hover:border-brand-300 hover:bg-brand-50"
+          )}
+        >
+          All ({data.skills.length})
+        </button>
+        {categories.map((category) => {
+          const count = data.skills.filter((s) => s.category === category).length;
+          return (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={cx(
+                "rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 capitalize",
+                activeCategory === category
+                  ? "bg-brand-600 text-white shadow-sm"
+                  : "bg-white border-2 border-gray-200 text-gray-700 hover:border-brand-300 hover:bg-brand-50"
+              )}
+            >
+              {category} ({count})
+            </button>
+          );
+        })}
+      </div>
 
-          {/* Skills by Category */}
-          <div className="space-y-6">
-            {categories.map((category) => (
+      {/* Skills Grid */}
+      {Object.keys(groupedSkills).length > 0 ? (
+        <div className="space-y-8">
+          {Object.entries(groupedSkills)
+            .sort(([a], [b]) => a.localeCompare(b))
+            .map(([category, skills]) => (
               <div key={category}>
-                <h2 className="text-lg font-semibold capitalize mb-3 flex items-center gap-2">
-                  {category}
-                  <Badge
-                    variant="outline"
-                    className={categoryColors[category] || ""}
-                  >
-                    {skillsByCategory[category].length}
-                  </Badge>
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {skillsByCategory[category].map((skill) => (
-                    <Card key={skill.name} className="hover:bg-accent/30 transition-colors">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium">
-                          {skill.name}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-text-tertiary line-clamp-2">
-                          {skill.purpose || "No description available"}
-                        </p>
-                      </CardContent>
-                    </Card>
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-lg font-bold text-gray-900 capitalize">
+                    {category}
+                  </h2>
+                  <span className="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-600">
+                    {skills.length}
+                  </span>
+                </div>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {skills.map((skill) => (
+                    <SkillCard key={skill.name} skill={skill} />
                   ))}
                 </div>
               </div>
             ))}
+        </div>
+      ) : (
+        <div className="text-center py-16 rounded-xl border-2 border-dashed border-gray-300 bg-white">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gray-100">
+            <SearchLg className="h-7 w-7 text-gray-400" />
           </div>
-        </TabsContent>
+          <h3 className="text-lg font-semibold text-gray-900">
+            No skills match "{searchQuery || activeCategory}"
+          </h3>
+          <p className="mt-2 text-sm text-gray-500 max-w-md mx-auto">
+            {searchQuery
+              ? "Try different keywords or check your spelling."
+              : `No skills in the "${activeCategory}" category.`}
+          </p>
 
-        <TabsContent value="agents" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {data.agents.map((agent) => (
-              <Card key={agent.name}>
-                <CardHeader>
-                  <CardTitle className="text-base">{agent.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-text-tertiary mb-3">
-                    {agent.purpose || "Orchestrator agent"}
-                  </p>
-                  {agent.skills.length > 0 && (
-                    <div>
-                      <p className="text-xs font-medium mb-2">Routes to:</p>
-                      <div className="flex flex-wrap gap-1">
-                        {agent.skills.slice(0, 8).map((skill) => (
-                          <Badge key={skill} variant="outline" className="text-xs">
-                            {skill}
-                          </Badge>
-                        ))}
-                        {agent.skills.length > 8 && (
-                          <Badge variant="outline" className="text-xs">
-                            +{agent.skills.length - 8} more
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
+          {/* Suggestions */}
+          <div className="mt-6 p-4 bg-gray-50 rounded-lg max-w-md mx-auto">
+            <p className="text-xs font-medium text-gray-600 mb-3">Try searching for:</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {["marketing", "sales", "product", "research", "engineering"].map((term) => (
+                <button
+                  key={term}
+                  onClick={() => {
+                    setSearchQuery(term);
+                    setActiveCategory(null);
+                  }}
+                  className="rounded-full bg-white border border-gray-200 px-3 py-1 text-xs font-medium text-gray-700 hover:border-brand-300 hover:bg-brand-50 transition-colors"
+                >
+                  {term}
+                </button>
+              ))}
+            </div>
           </div>
-        </TabsContent>
-      </Tabs>
+
+          <div className="mt-4 flex items-center justify-center gap-3">
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="inline-flex items-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors"
+              >
+                Clear search
+              </button>
+            )}
+            {activeCategory && (
+              <button
+                onClick={() => setActiveCategory(null)}
+                className="inline-flex items-center rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-200 transition-colors"
+              >
+                View all skills
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

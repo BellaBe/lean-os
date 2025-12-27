@@ -1,612 +1,269 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/base/badges/badges";
-import { ProgressBarBase } from "@/components/base/progress-indicators/progress-indicators";
-import {
-  Target,
-  Grid3X3,
-  GitBranch,
-  Zap,
-  Sparkles,
-} from "lucide-react";
+"use client";
+
+import { useLeanOSData } from "@/providers/data-provider";
+import { computeStats } from "@/lib/data";
+import { StatCard, EmptyStateCard } from "@/components/leanos/stat-card";
+import { CanvasGrid } from "@/components/leanos/canvas-grid";
+import { ThreadCard } from "@/components/leanos/thread-progress";
+import { Target04, Grid01, Route, Zap, Users01, ArrowRight, CheckCircle, AlertCircle, Circle } from "@untitledui/icons";
 import Link from "next/link";
-import fs from "fs";
-import path from "path";
+import { cx } from "@/utils/cx";
 
-// Canvas phases for logical grouping
-const CANVAS_PHASES = [
-  { id: "discovery", name: "Discovery", sections: ["01", "02", "03"], color: "blue" },
-  { id: "problem", name: "Problem & Market", sections: ["04", "05", "06"], color: "purple" },
-  { id: "solution", name: "Solution & Value", sections: ["07", "08", "09"], color: "brand" },
-  { id: "validation", name: "Validation", sections: ["10"], color: "warning" },
-  { id: "business", name: "Business Model", sections: ["11", "12", "13", "14", "15"], color: "success" },
-] as const;
+export default function DashboardPage() {
+  const data = useLeanOSData();
+  const stats = computeStats(data);
 
-type CanvasSection = {
-  number: string;
-  name: string;
-  status: string;
-};
-
-function getSectionsForPhase(sections: CanvasSection[], phaseId: string) {
-  const phase = CANVAS_PHASES.find((p) => p.id === phaseId);
-  if (!phase) return [];
-  return sections
-    .filter((s) => (phase.sections as readonly string[]).includes(s.number))
-    .sort((a, b) => parseInt(a.number) - parseInt(b.number));
-}
-
-interface LeanOSData {
-  goals: Array<{
-    id: string;
-    title: string;
-    status: string;
-    progress: number;
-  }>;
-  canvas: {
-    mode: string;
-    sections: Array<{
-      number: string;
-      name: string;
-      status: string;
-    }>;
-    health: number;
-  };
-  threads: Array<{
-    type: string;
-    name: string;
-    currentStage: number;
-    goalId?: string;
-  }>;
-  skills: Array<{
-    name: string;
-    category: string;
-  }>;
-  agents: Array<{
-    name: string;
-  }>;
-  meta: {
-    lastBuilt: string;
-  };
-}
-
-async function getData(): Promise<LeanOSData> {
-  const dataPath = path.join(process.cwd(), "public/data/leanos.json");
-  try {
-    const data = fs.readFileSync(dataPath, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return {
-      goals: [],
-      canvas: { mode: "VENTURE", sections: [], health: 0 },
-      threads: [],
-      skills: [],
-      agents: [],
-      meta: { lastBuilt: new Date().toISOString() },
-    };
-  }
-}
-
-// Stage names for better context
-const STAGE_NAMES = ["Trigger", "Context", "Analysis", "Options", "Decision", "Outcome"];
-
-// Get relative time string
-function getRelativeTime(date: Date): string {
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
-  const minutes = Math.floor(diff / 60000);
-  const hours = Math.floor(diff / 3600000);
-  const days = Math.floor(diff / 86400000);
-
-  if (minutes < 1) return "just now";
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  return `${days}d ago`;
-}
-
-export default async function Dashboard() {
-  const data = await getData();
-
-  const activeGoals = data.goals.filter((g) => g.status === "active");
   const activeThreads = data.threads.filter((t) => t.currentStage < 6);
-  const completeSections = data.canvas.sections.filter(
-    (s) => s.status === "complete"
-  );
-  const draftSections = data.canvas.sections.filter(
-    (s) => s.status === "draft"
-  );
-
-  // Group skills by category with counts
-  const skillsByCategory = data.skills.reduce((acc, skill) => {
-    acc[skill.category] = (acc[skill.category] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-
-  const sortedCategories = Object.entries(skillsByCategory)
-    .sort((a, b) => b[1] - a[1]);
-
-  // Calculate health status
-  const healthStatus = data.canvas.health >= 80 ? "healthy" : data.canvas.health >= 50 ? "warning" : "critical";
-
-  // Check if this is a fresh/empty state
-  const isEmpty = data.goals.length === 0 && data.threads.length === 0 && completeSections.length === 0;
+  const hasNoGoals = stats.goals.total === 0;
+  const hasEmptyCanvas = stats.canvas.health === 0;
 
   return (
-    <div className="min-h-screen">
-      {/* Page Header */}
-      <header className="mb-8">
-        <div className="flex items-start justify-between">
-          <div className="space-y-1">
-            <h1 className="text-2xl font-semibold text-text-primary">
-              Dashboard
-            </h1>
-            <p className="text-text-tertiary text-sm">
-              Your operating system at a glance
-            </p>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-text-tertiary">
-              Updated {getRelativeTime(new Date(data.meta.lastBuilt))}
-            </span>
-            <Badge type="modern" size="lg">
-              {data.canvas.mode} Mode
-            </Badge>
-          </div>
-        </div>
-      </header>
+    <div className="p-6 lg:p-8 bg-gray-50 min-h-screen">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <p className="mt-1 text-sm font-medium text-gray-500">
+          Overview of your LeanOS system state
+        </p>
+      </div>
 
-      {/* Empty State - Onboarding */}
-      {isEmpty ? (
-        <EmptyDashboard />
-      ) : (
-        <>
-          {/* Metrics */}
-          <section className="mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <MetricCard
-                href="/goals"
-                icon={Target}
-                label="Active Goals"
-                value={activeGoals.length}
-                subtext={`${data.goals.length} total`}
-                accentColor="brand"
-              />
-              <MetricCard
-                href="/canvas"
-                icon={Grid3X3}
-                label="Canvas Health"
-                value={`${data.canvas.health}%`}
-                subtext={`${completeSections.length} complete, ${draftSections.length} draft`}
-                accentColor="success"
-              />
-              <MetricCard
-                href="/threads"
-                icon={GitBranch}
-                label="Active Threads"
-                value={activeThreads.length}
-                subtext={`${data.threads.length} total`}
-                accentColor="blue"
-              />
-              <MetricCard
-                href="/skills"
-                icon={Zap}
-                label="Capabilities"
-                value={data.skills.length}
-                subtext={`${data.agents.length} agents`}
-                accentColor="purple"
-              />
+      {/* Stats Grid */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+        <StatCard
+          title="Goals"
+          value={stats.goals.total}
+          subtitle={
+            stats.goals.active > 0
+              ? `${stats.goals.active} active`
+              : "No active goals"
+          }
+          icon={Target04}
+          color="brand"
+          href="/goals"
+          action={hasNoGoals ? { label: "Create your first goal" } : undefined}
+        />
+        <StatCard
+          title="Canvas Health"
+          value={`${stats.canvas.health}%`}
+          subtitle={`${stats.canvas.populated}/${stats.canvas.total} sections`}
+          icon={Grid01}
+          color={stats.canvas.health > 50 ? "success" : "warning"}
+          href="/canvas"
+          action={hasEmptyCanvas ? { label: "Set up Canvas" } : undefined}
+        />
+        <StatCard
+          title="Threads"
+          value={stats.threads.total}
+          subtitle={`${stats.threads.completed} completed`}
+          icon={Route}
+          color="default"
+          href="/threads"
+        />
+        <StatCard
+          title="Skills"
+          value={stats.skills.total}
+          subtitle={`${stats.agents.total} agents`}
+          icon={Zap}
+          color="brand"
+          href="/skills"
+        />
+      </div>
+
+      {/* Two Column Layout */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Canvas Health */}
+        <div className="rounded-xl border-2 border-gray-200 bg-white p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-bold text-gray-900">
+                Canvas Health
+              </h2>
+              <p className="text-sm text-gray-500">
+                Your 15-section strategic foundation
+              </p>
             </div>
-          </section>
-
-          {/* Main Content Grid - Equal columns */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Left Column */}
-            <div className="space-y-6">
-              {/* Active Threads */}
-              <Card>
-                <CardHeader className="border-b border-border-secondary pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base font-semibold">Active Threads</CardTitle>
-                    <Link
-                      href="/threads"
-                      className="text-sm text-text-tertiary hover:text-text-primary transition-colors"
-                    >
-                      View all
-                    </Link>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-4">
-                  {activeThreads.length === 0 ? (
-                    <EmptyThreadsState />
-                  ) : (
-                    <div className="space-y-1">
-                      {activeThreads.slice(0, 5).map((thread, index) => (
-                        <ThreadItem
-                          key={`${thread.type}/${thread.name}`}
-                          thread={thread}
-                          isFirst={index === 0}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-
-              {/* Canvas Status */}
-              <Card>
-                <CardHeader className="border-b border-border-secondary pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base font-semibold">Canvas Status</CardTitle>
-                    <Link
-                      href="/canvas"
-                      className="text-sm text-text-tertiary hover:text-text-primary transition-colors"
-                    >
-                      View all
-                    </Link>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-4">
-                  {data.canvas.sections.length === 0 ? (
-                    <EmptyCanvasState />
-                  ) : (
-                    <div className="space-y-3">
-                      {CANVAS_PHASES.map((phase) => {
-                        const phaseSections = getSectionsForPhase(data.canvas.sections, phase.id);
-                        const complete = phaseSections.filter((s) => s.status === "complete").length;
-                        const total = phaseSections.length;
-
-                        return (
-                          <div key={phase.id} className="flex items-center gap-4">
-                            <span className="text-sm text-text-primary w-32 truncate">
-                              {phase.name}
-                            </span>
-                            <div className="flex-1 flex gap-1">
-                              {phaseSections.map((section) => (
-                                <div
-                                  key={section.number}
-                                  className={`flex-1 h-2 rounded-full ${
-                                    section.status === "complete"
-                                      ? "bg-fg-success-primary"
-                                      : section.status === "draft"
-                                      ? "bg-fg-warning-primary"
-                                      : "bg-bg-quaternary"
-                                  }`}
-                                  title={`${section.number}. ${section.name}`}
-                                />
-                              ))}
-                            </div>
-                            <span className="text-xs text-text-tertiary tabular-nums w-8 text-right">
-                              {complete}/{total}
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Right Column */}
-            <div className="space-y-6">
-              {/* Goals */}
-              <Card>
-                <CardHeader className="border-b border-border-secondary pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base font-semibold">Goals</CardTitle>
-                    <Link
-                      href="/goals"
-                      className="text-sm text-text-tertiary hover:text-text-primary transition-colors"
-                    >
-                      View all
-                    </Link>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-4">
-                  {activeGoals.length === 0 ? (
-                    <EmptyGoalsState />
-                  ) : (
-                    <div className="space-y-1">
-                      {activeGoals.slice(0, 4).map((goal) => (
-                        <div
-                          key={goal.id}
-                          className="flex items-center justify-between px-4 py-3 -mx-4 rounded-lg hover:bg-bg-primary_hover transition-colors cursor-pointer"
-                        >
-                          <span className="text-sm text-text-primary truncate flex-1 mr-3">
-                            {goal.title}
-                          </span>
-                          <div className="flex items-center gap-3">
-                            <div className="w-16">
-                              <ProgressBarBase value={goal.progress} className="h-1.5" />
-                            </div>
-                            <span className="text-xs text-text-tertiary tabular-nums w-8">
-                              {goal.progress}%
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-
-              {/* Skills */}
-              <Card>
-                <CardHeader className="border-b border-border-secondary pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base font-semibold">Skills</CardTitle>
-                    <Link
-                      href="/skills"
-                      className="text-sm text-text-tertiary hover:text-text-primary transition-colors"
-                    >
-                      View all
-                    </Link>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-4">
-                  {sortedCategories.length === 0 ? (
-                    <EmptySkillsState />
-                  ) : (
-                    <div className="space-y-1">
-                      {sortedCategories.slice(0, 6).map(([category, count]) => (
-                        <div
-                          key={category}
-                          className="flex items-center justify-between px-4 py-2.5 -mx-4 rounded-lg hover:bg-bg-primary_hover transition-colors cursor-pointer"
-                        >
-                          <span className="text-sm text-text-primary capitalize">
-                            {category.replace(/-/g, " ")}
-                          </span>
-                          <span className="text-xs text-text-tertiary tabular-nums">
-                            {count}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-
-              {/* Agents */}
-              <Card>
-                <CardHeader className="border-b border-border-secondary pb-4">
-                  <CardTitle className="text-base font-semibold">Agents</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-4">
-                  {data.agents.length === 0 ? (
-                    <EmptyAgentsState />
-                  ) : (
-                    <div className="flex flex-wrap gap-2">
-                      {data.agents.map((agent) => (
-                        <Badge key={agent.name} type="modern" size="sm">
-                          {agent.name}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-// ============================================================================
-// COMPONENT: MetricCard
-// ============================================================================
-interface MetricCardProps {
-  href: string;
-  icon: React.ElementType;
-  label: string;
-  value: string | number;
-  subtext: string;
-  accentColor: "brand" | "success" | "warning" | "error" | "blue" | "purple";
-}
-
-function MetricCard({ href, icon: Icon, label, value, subtext, accentColor }: MetricCardProps) {
-  const colorMap = {
-    brand: "var(--color-brand-500)",
-    success: "var(--color-success-500)",
-    warning: "var(--color-warning-500)",
-    error: "var(--color-error-500)",
-    blue: "var(--color-blue-500)",
-    purple: "var(--color-brand-500)",
-  };
-
-  return (
-    <Link href={href}>
-      <Card hover>
-        <CardContent className="p-5">
-          <div className="flex items-start justify-between">
-            <div className="space-y-1">
-              <p className="text-sm text-text-tertiary">{label}</p>
-              <p className="text-2xl font-semibold tabular-nums">{value}</p>
-              <p className="text-xs text-text-tertiary">{subtext}</p>
-            </div>
-            <div
-              className="p-2 rounded-lg"
-              style={{
-                backgroundColor: `color-mix(in srgb, ${colorMap[accentColor]} 15%, transparent)`,
-              }}
+            <Link
+              href="/canvas"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-700"
             >
-              <Icon
-                className="w-5 h-5"
-                style={{ color: colorMap[accentColor] }}
+              View all
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          {/* Progress bar */}
+          <div className="mb-6">
+            <div className="flex items-center justify-between text-sm mb-2">
+              <span className="font-medium text-gray-600">Progress</span>
+              <span className="font-bold text-gray-900">
+                {stats.canvas.health}%
+              </span>
+            </div>
+            <div className="h-2.5 rounded-full bg-gray-100 overflow-hidden">
+              <div
+                className={cx(
+                  "h-full rounded-full transition-all duration-500",
+                  stats.canvas.health > 50 ? "bg-success-500" : stats.canvas.health > 0 ? "bg-brand-600" : "bg-gray-300"
+                )}
+                style={{ width: `${Math.max(stats.canvas.health, 2)}%` }}
               />
             </div>
           </div>
-        </CardContent>
-      </Card>
-    </Link>
-  );
-}
 
-// ============================================================================
-// COMPONENT: ThreadItem
-// ============================================================================
-interface ThreadItemProps {
-  thread: {
-    type: string;
-    name: string;
-    currentStage: number;
-    goalId?: string;
-  };
-  isFirst: boolean;
-}
+          {/* Canvas Grid */}
+          <CanvasGrid sections={data.canvas.sections} compact />
 
-function ThreadItem({ thread, isFirst }: ThreadItemProps) {
-  const currentStageName = STAGE_NAMES[thread.currentStage - 1] || "Starting";
-  const progressPercent = ((thread.currentStage) / 6) * 100;
+          {/* Legend */}
+          <div className="mt-4 flex items-center justify-center gap-4 text-xs">
+            <div className="flex items-center gap-1.5">
+              <div className="h-3 w-3 rounded bg-success-100 border border-success-300" />
+              <span className="text-gray-600">Complete</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="h-3 w-3 rounded bg-warning-100 border border-warning-300" />
+              <span className="text-gray-600">Draft</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="h-3 w-3 rounded bg-gray-100 border border-gray-300" />
+              <span className="text-gray-600">Missing</span>
+            </div>
+          </div>
 
-  return (
-    <div className="flex items-center justify-between px-4 py-3 -mx-4 rounded-lg hover:bg-bg-primary_hover transition-colors cursor-pointer">
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-sm font-medium text-text-primary truncate">
-            {thread.name}
-          </span>
-          {isFirst && (
-            <Badge color="brand" size="sm">
-              Current
-            </Badge>
+          {/* CTA for empty canvas */}
+          {hasEmptyCanvas && (
+            <div className="mt-6 rounded-lg bg-brand-50 border border-brand-200 p-4">
+              <p className="text-sm font-medium text-brand-800">
+                Your Canvas is empty. Populate it to define your strategic foundation.
+              </p>
+              <p className="mt-1 text-xs text-brand-600">
+                Run <code className="bg-brand-100 px-1 py-0.5 rounded">foundations-builder</code> to get started.
+              </p>
+            </div>
           )}
         </div>
-        <div className="flex items-center gap-2 text-xs text-text-tertiary">
-          <span className="capitalize">{thread.type}</span>
-          <span>•</span>
-          <span>Stage {thread.currentStage}: {currentStageName}</span>
+
+        {/* Active Threads */}
+        <div className="rounded-xl border-2 border-gray-200 bg-white p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-bold text-gray-900">
+                Active Threads
+              </h2>
+              <p className="text-sm text-gray-500">
+                Execution threads in progress
+              </p>
+            </div>
+            <Link
+              href="/threads"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-700"
+            >
+              View all
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          {activeThreads.length > 0 ? (
+            <div className="space-y-4">
+              {activeThreads.slice(0, 3).map((thread) => (
+                <ThreadCard key={thread.path} thread={thread} />
+              ))}
+              {activeThreads.length > 3 && (
+                <Link
+                  href="/threads"
+                  className="block text-center text-sm font-medium text-brand-600 hover:text-brand-700 py-2"
+                >
+                  +{activeThreads.length - 3} more threads
+                </Link>
+              )}
+            </div>
+          ) : (
+            <EmptyStateCard
+              title="No active threads"
+              description="Threads track execution through the 6-stage causal flow: Input → Hypothesis → Implication → Decision → Actions → Learning"
+              icon={Route}
+              action={{
+                label: "View all threads",
+                href: "/threads",
+              }}
+            />
+          )}
         </div>
       </div>
-      <div className="flex items-center gap-3">
-        <div className="w-16">
-          <ProgressBarBase value={progressPercent} className="h-1.5" />
+
+      {/* Quick Reference Cards */}
+      <div className="mt-8">
+        <h2 className="text-lg font-bold text-gray-900 mb-4">Quick Reference</h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Link
+            href="/agents"
+            className="group rounded-xl border-2 border-brand-200 bg-brand-50/50 p-5 hover:border-brand-400 hover:bg-brand-50 hover:shadow-md transition-all duration-200"
+          >
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-brand-100 group-hover:scale-110 transition-transform">
+                <Users01 className="h-7 w-7 text-brand-600" />
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-gray-900">
+                  {stats.agents.total}
+                </p>
+                <p className="text-sm font-semibold text-brand-700">Agents</p>
+              </div>
+            </div>
+            <p className="mt-3 text-sm text-gray-600">
+              Orchestrator agents that route skills for domain-specific tasks
+            </p>
+            <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-brand-600">
+              View agents <ArrowRight className="h-3.5 w-3.5" />
+            </div>
+          </Link>
+
+          <Link
+            href="/skills"
+            className="group rounded-xl border-2 border-purple-200 bg-purple-50/50 p-5 hover:border-purple-400 hover:bg-purple-50 hover:shadow-md transition-all duration-200"
+          >
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-purple-100 group-hover:scale-110 transition-transform">
+                <Zap className="h-7 w-7 text-purple-600" />
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-gray-900">
+                  {Object.keys(stats.skills.byCategory).length}
+                </p>
+                <p className="text-sm font-semibold text-purple-700">Skill Categories</p>
+              </div>
+            </div>
+            <p className="mt-3 text-sm text-gray-600">
+              AI capabilities organized by domain: engineering, marketing, sales
+            </p>
+            <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-purple-600">
+              Browse skills <ArrowRight className="h-3.5 w-3.5" />
+            </div>
+          </Link>
+
+          <Link
+            href="/threads"
+            className="group rounded-xl border-2 border-orange-200 bg-orange-50/50 p-5 hover:border-orange-400 hover:bg-orange-50 hover:shadow-md transition-all duration-200"
+          >
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-orange-100 group-hover:scale-110 transition-transform">
+                <Route className="h-7 w-7 text-orange-600" />
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-gray-900">
+                  {Object.keys(stats.threads.byType).length}
+                </p>
+                <p className="text-sm font-semibold text-orange-700">Thread Types</p>
+              </div>
+            </div>
+            <p className="mt-3 text-sm text-gray-600">
+              Execution tracks: sales, marketing, operations workflows
+            </p>
+            <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-orange-600">
+              View threads <ArrowRight className="h-3.5 w-3.5" />
+            </div>
+          </Link>
         </div>
-        <span className="text-xs text-text-tertiary tabular-nums w-8">
-          {thread.currentStage}/6
-        </span>
       </div>
-    </div>
-  );
-}
-
-// ============================================================================
-// EMPTY STATES
-// ============================================================================
-
-function EmptyDashboard() {
-  return (
-    <div className="flex flex-col items-center justify-center py-16 px-4">
-      <div className="w-16 h-16 rounded-2xl bg-bg-brand-secondary flex items-center justify-center mb-6">
-        <Sparkles className="w-8 h-8 text-fg-brand-primary" />
-      </div>
-      <h2 className="text-xl font-semibold text-text-primary mb-2">
-        Welcome to LeanOS
-      </h2>
-      <p className="text-text-tertiary text-center max-w-md mb-8">
-        Your operating system is ready. Start by defining your business context and creating your first goal.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-3">
-        <Link
-          href="/canvas"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-        >
-          <Grid3X3 className="w-4 h-4" />
-          Set up Canvas
-        </Link>
-        <Link
-          href="/goals/new"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border border-border-secondary hover:bg-bg-primary_hover transition-colors"
-        >
-          <Target className="w-4 h-4" />
-          Create a Goal
-        </Link>
-      </div>
-    </div>
-  );
-}
-
-function EmptyThreadsState() {
-  return (
-    <div className="flex flex-col items-center justify-center py-8 text-center">
-      <div className="w-12 h-12 rounded-xl bg-bg-secondary flex items-center justify-center mb-4">
-        <GitBranch className="w-6 h-6 text-text-tertiary" />
-      </div>
-      <p className="text-sm font-medium text-text-primary mb-1">No active threads</p>
-      <p className="text-xs text-text-tertiary max-w-xs">
-        Threads are created automatically when you start working on goals. Create a goal to get started.
-      </p>
-    </div>
-  );
-}
-
-function EmptyCanvasState() {
-  return (
-    <div className="flex flex-col items-center justify-center py-8 text-center">
-      <div className="w-12 h-12 rounded-xl bg-bg-secondary flex items-center justify-center mb-4">
-        <Grid3X3 className="w-6 h-6 text-text-tertiary" />
-      </div>
-      <p className="text-sm font-medium text-text-primary mb-1">Canvas not configured</p>
-      <p className="text-xs text-text-tertiary max-w-xs mb-4">
-        Set up your strategy canvas to define your business context, problems, and solutions.
-      </p>
-      <Link
-        href="/canvas"
-        className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
-      >
-        Configure Canvas
-      </Link>
-    </div>
-  );
-}
-
-function EmptyGoalsState() {
-  return (
-    <div className="flex flex-col items-center justify-center py-6 text-center">
-      <div className="w-10 h-10 rounded-lg bg-bg-secondary flex items-center justify-center mb-3">
-        <Target className="w-5 h-5 text-text-tertiary" />
-      </div>
-      <p className="text-sm font-medium text-text-primary mb-1">No active goals</p>
-      <p className="text-xs text-text-tertiary mb-3">
-        Goals drive your work forward.
-      </p>
-      <Link
-        href="/goals/new"
-        className="text-xs text-primary hover:text-primary/80 font-medium transition-colors"
-      >
-        Create your first goal
-      </Link>
-    </div>
-  );
-}
-
-function EmptySkillsState() {
-  return (
-    <div className="flex flex-col items-center justify-center py-6 text-center">
-      <div className="w-10 h-10 rounded-lg bg-bg-secondary flex items-center justify-center mb-3">
-        <Zap className="w-5 h-5 text-text-tertiary" />
-      </div>
-      <p className="text-sm text-text-tertiary">
-        No skills configured
-      </p>
-    </div>
-  );
-}
-
-function EmptyAgentsState() {
-  return (
-    <div className="flex flex-col items-center justify-center py-6 text-center">
-      <div className="w-10 h-10 rounded-lg bg-bg-secondary flex items-center justify-center mb-3">
-        <Sparkles className="w-5 h-5 text-text-tertiary" />
-      </div>
-      <p className="text-sm text-text-tertiary">
-        No agents available
-      </p>
     </div>
   );
 }
