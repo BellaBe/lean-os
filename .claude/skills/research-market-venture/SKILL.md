@@ -22,19 +22,19 @@ Conduct market research focused on:
 
 ## When to Use
 
-Check `strategy/canvas/00-business-model-mode.md` first. Use this skill ONLY when mode = VENTURE.
+Check `strategy/canvas/00.mode.md` first. Use this skill ONLY when mode = VENTURE.
 
 If mode = BOOTSTRAP, use `market-research-bootstrap` instead.
 
 ## Input Requirements
 
 Read Canvas files from `strategy/canvas/`:
-- `00-business-model-mode.md` (verify VENTURE mode)
-- `01-context.md` (product and market context)
-- `04-segments.md` (target customer segments)
-- `05-problem.md` (problem being solved)
-- `06-solution.md` (solution approach)
-- `07-uvp.md` (unique value proposition)
+- `00.mode.md` (verify VENTURE mode)
+- `01.context.md` (product and market context)
+- `04.segments.md` (target customer segments)
+- `05.problem.md` (problem being solved)
+- `09.solution.md` (solution approach)
+- `07.uvp.md` (unique value proposition)
 
 **Before proceeding**, verify mode = VENTURE. If mode = BOOTSTRAP, stop and suggest using bootstrap research skill.
 
@@ -225,7 +225,7 @@ Scalability Analysis:
 
 ### Step 1: Validate Mode
 ```
-1. Read strategy/canvas/00-business-model-mode.md
+1. Read strategy/canvas/00.mode.md
 2. Verify mode = VENTURE
 3. If not VENTURE, stop and recommend correct skill
 ```
@@ -388,8 +388,8 @@ Generate file: `research/market/venture-analysis-{date}.md`
 
 After generating research:
 
-1. Update `strategy/canvas/10-assumptions.md` with market hypotheses to test
-2. Update `strategy/canvas/13-metrics.md` with venture metrics to track
+1. Update `strategy/canvas/10.assumptions.md` with market hypotheses to test
+2. Update `strategy/canvas/13.metrics.md` with venture metrics to track
 3. Flag if research contradicts Canvas positioning (requires human review)
 
 ## Examples of Venture-Viable vs Not

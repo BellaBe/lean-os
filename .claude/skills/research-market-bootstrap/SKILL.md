@@ -23,7 +23,7 @@ Conduct market research focused on:
 
 ## When to Use
 
-Check `strategy/canvas/00-business-model-mode.md` first. Use this skill ONLY when mode = BOOTSTRAP.
+Check `strategy/canvas/00.mode.md` first. Use this skill ONLY when mode = BOOTSTRAP.
 
 If mode = VENTURE, use `market-research-venture` instead.
 
@@ -47,11 +47,11 @@ Bootstrap research is about finding **existing money flows** and inserting yours
 ## Input Requirements
 
 Read Canvas files from `strategy/canvas/`:
-- `00-business-model-mode.md` (verify BOOTSTRAP mode)
-- `01-context.md` (product and market context)
-- `04-segments.md` (target customer segments)
-- `05-problem.md` (problem being solved)
-- `06-solution.md` (solution approach)
+- `00.mode.md` (verify BOOTSTRAP mode)
+- `01.context.md` (product and market context)
+- `04.segments.md` (target customer segments)
+- `05.problem.md` (problem being solved)
+- `09.solution.md` (solution approach)
 
 **Before proceeding**, verify mode = BOOTSTRAP. If mode = VENTURE, stop and suggest using venture research skill.
 
@@ -341,7 +341,7 @@ Path to Profitability:
 
 ### Step 1: Validate Mode
 ```
-1. Read strategy/canvas/00-business-model-mode.md
+1. Read strategy/canvas/00.mode.md
 2. Verify mode = BOOTSTRAP
 3. If not BOOTSTRAP, stop and recommend correct skill
 ```
@@ -530,8 +530,8 @@ Generate file: `research/market/bootstrap-analysis-{date}.md`
 
 After generating research:
 
-1. Update `strategy/canvas/10-assumptions.md` with monetization hypotheses to test
-2. Update `strategy/canvas/13-metrics.md` with bootstrap metrics (MRR, margin, cash flow)
+1. Update `strategy/canvas/10.assumptions.md` with monetization hypotheses to test
+2. Update `strategy/canvas/13.metrics.md` with bootstrap metrics (MRR, margin, cash flow)
 3. If research shows venture might be better, flag for human review and mode switch consideration
 
 ## Examples of Bootstrap-Viable vs Not

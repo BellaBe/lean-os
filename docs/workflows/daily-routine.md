@@ -91,7 +91,7 @@ What resources/constraints should I know about?
 
 ### Step 3: Apply Business Model Mode
 
-For `business` goals, read `strategy/canvas/00-business-model-mode.md`:
+For `business` goals, read `strategy/canvas/00.mode.md`:
 
 | Aspect | VENTURE | BOOTSTRAP |
 |--------|---------|-----------|
@@ -216,7 +216,7 @@ canvas_refs: ["{section}.md", ...]
 ## Canvas Links
 
 **Validates assumptions:**
-- {id}: "{assumption}" (10-assumptions.md)
+- {id}: "{assumption}" (10.assumptions.md)
 
 ## Log
 - {date}: Goal created
@@ -226,10 +226,10 @@ canvas_refs: ["{section}.md", ...]
 
 | Goal Type | Required Reading | Link To |
 |-----------|------------------|---------|
-| business | 00-mode, 11-pricing, 12-costs, 13-metrics | 10-assumptions |
-| brand | 01-context, 07-uvp, 04-segments | 10-assumptions |
-| product | 09-solution, 05-problem, 02-constraints | 10-assumptions |
-| learning | 01-context | 10-assumptions |
+| business | 00.mode, 12.revenue, 14.costs, 13.metrics | 10.assumptions |
+| brand | 01.context, 07.uvp, 04.segments | 10.assumptions |
+| product | 09.solution, 05.problem, 02.constraints | 10.assumptions |
+| learning | 01.context | 10.assumptions |
 
 ---
 

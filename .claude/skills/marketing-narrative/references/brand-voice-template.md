@@ -1,7 +1,7 @@
 # Brand Voice - {Product}
 
 Generated: {date}
-Source: strategy/canvas/07.uvp.md, 08.advantage.md
+Source: strategy/canvas/07.uvp.md, 08.unfair.md
 
 ## Voice Attributes
 

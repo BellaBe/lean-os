@@ -1,6 +1,6 @@
 ---
 name: marketing-content-strategy
-description: Motion-aware content discovery and opportunity detection. Use when: searching for content opportunities, detecting campaign triggers, finding engagement opportunities, evaluating content potential. Reads GTM motion from 15.go-to-market.md and adapts scoring accordingly.
+description: Motion-aware content discovery and opportunity detection. Use when: searching for content opportunities, detecting campaign triggers, finding engagement opportunities, evaluating content potential. Reads GTM motion from 15.gtm.md and adapts scoring accordingly.
 allowed-tools: "Read,Write,WebSearch,WebFetch,AskUserQuestion"
 ---
 
@@ -18,7 +18,7 @@ Opportunities are scored based on GTM motion. What matters for PLG differs from 
 - `strategy/canvas/04.segments.md`  -  Target audience
 - `strategy/canvas/05.problem.md`  -  Problems we solve
 - `strategy/canvas/07.uvp.md`  -  Value proposition
-- `strategy/canvas/15.go-to-market.md`  -  Motion, channels, stage
+- `strategy/canvas/15.gtm.md`  -  Motion, channels, stage
 - `artifacts/marketing/narrative/content-pillars.md`  -  What we talk about
 
 If GTM file missing → Flag "Run go-to-market skill first"
@@ -26,7 +26,7 @@ If GTM file missing → Flag "Run go-to-market skill first"
 ## Motion Detection
 
 ```python
-gtm = read("strategy/canvas/15.go-to-market.md")
+gtm = read("strategy/canvas/15.gtm.md")
 
 if gtm.motion in ["PLG", "Content-Led"]:
     mode = "loop-driven"

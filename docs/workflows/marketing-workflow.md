@@ -67,7 +67,7 @@ Goal: "Build LinkedIn Presence"
 ```
 Skill: foundations-go-to-market
 Input: Canvas (segments, problem, UVP, solution, pricing)
-Output: strategy/canvas/15-go-to-market.md
+Output: strategy/canvas/15.gtm.md
 ```
 
 **GTM file declares:**
@@ -115,7 +115,7 @@ Output: artifacts/marketing/narrative/
 ### Opportunity Detection
 ```
 Skill: marketing-content-strategy
-Reads: 15-go-to-market.md + narrative/content-pillars.md
+Reads: 15.gtm.md + narrative/content-pillars.md
 ```
 
 **Motion determines scoring:**
@@ -151,7 +151,7 @@ threads/marketing/campaigns/{slug}/
 ### Stage 5: Execution
 ```
 Agent: marketing-execution
-Reads: strategy/canvas/15-go-to-market.md
+Reads: strategy/canvas/15.gtm.md
 Determines: mode (loop-driven | marketplace-driven | sales-driven)
 Invokes: skills with mode parameter
 ```
@@ -159,7 +159,7 @@ Invokes: skills with mode parameter
 **Composition pattern:**
 ```
 marketing-execution (agent)
-├── Reads: 15-go-to-market.md
+├── Reads: 15.gtm.md
 ├── Detects: motion → mode (ONLY HERE)
 ├── Passes: mode to all skills
 │
@@ -304,7 +304,7 @@ marketing-execution (agent)
   - sales-driven: Usage in deals, pipeline attribution
 
 ### marketing-channel-optimization
-- **Reads:** channels from 15-go-to-market.md
+- **Reads:** channels from 11.channels.md
 - **Activates:** Relevant modules (app-store, seo, linkedin, sales)
 - **Used:** When channel needs improvement (not per-campaign)
 
@@ -323,7 +323,7 @@ Marketing thread created (goal-linked if brand goal exists)
     ↓
 marketing-execution agent invoked
     ↓
-Agent detects mode from 15-go-to-market.md
+Agent detects mode from 15.gtm.md
     ↓
 Skills invoked with mode parameter
     ↓

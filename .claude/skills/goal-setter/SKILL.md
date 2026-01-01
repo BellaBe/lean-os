@@ -32,22 +32,22 @@ Goal-setter uses Canvas sections for context, constraints, and success criteria 
 
 | Section | Purpose | Goal-setter Use |
 |---------|---------|-----------------|
-| `00-business-model-mode.md` | VENTURE/BOOTSTRAP mode | **Required** - determines metrics, decomposition |
-| `01-context.md` | Product, market context (KBOS) | Goal alignment check |
-| `02-constraints.md` | Budget, time, resources | Goal constraints |
-| `03-opportunity.md` | TAM/SAM/SOM, timing | Business goal sizing |
-| `04-segments.md` | Customer segments | Target audience for goals |
-| `05-problem.md` | Top 3 problems | Problem-focused goals |
-| `06-competitive.md` | Competitors, positioning | Competitive goals |
-| `07-uvp.md` | Unique Value Proposition | Messaging alignment |
-| `08-advantage.md` | Unfair advantages, moats | Strategic goals |
-| `09-solution.md` | MVP features | Product goals |
-| `10-assumptions.md` | Hypotheses, validation status | **Key** - link goals to assumptions |
-| `11-pricing.md` | Revenue model, tiers | Revenue goal targets |
-| `12-costs.md` | Cost structure, burn | Profitability constraints |
-| `13-metrics.md` | Key metrics, targets | Success criteria source |
-| `14-growth.md` | Channels, tactics | Growth goal strategies |
-| `15-go-to-market.md` | GTM strategy | Marketing/sales goals |
+| `00.mode.md` | VENTURE/BOOTSTRAP mode | **Required** - determines metrics, decomposition |
+| `01.context.md` | Product, market context (KBOS) | Goal alignment check |
+| `02.constraints.md` | Budget, time, resources | Goal constraints |
+| `03.opportunity.md` | TAM/SAM/SOM, timing | Business goal sizing |
+| `04.segments.md` | Customer segments | Target audience for goals |
+| `05.problem.md` | Top 3 problems | Problem-focused goals |
+| `06.competitive.md` | Competitors, positioning | Competitive goals |
+| `07.uvp.md` | Unique Value Proposition | Messaging alignment |
+| `08.unfair.md` | Unfair advantages, moats | Strategic goals |
+| `09.solution.md` | MVP features | Product goals |
+| `10.assumptions.md` | Hypotheses, validation status | **Key** - link goals to assumptions |
+| `11.channels.md` | Acquisition channels | Channel strategy |
+| `12.revenue.md` | Revenue model, tiers | Revenue goal targets |
+| `13.metrics.md` | Key metrics, targets | Success criteria source |
+| `14.costs.md` | Cost structure, burn | Profitability constraints |
+| `15.gtm.md` | GTM strategy | Marketing/sales goals |
 
 ### Canvas Reading by Goal Type
 
@@ -74,22 +74,22 @@ learning goals:
 
 ### Linking Goals to Canvas Assumptions
 
-Every goal should link to Canvas assumptions (`10-assumptions.md`):
+Every goal should link to Canvas assumptions (`10.assumptions.md`):
 
 ```markdown
 ## Canvas Links
 
 **Validates assumptions:**
-- A3: "Enterprise customers will pay $500/month" (10-assumptions.md)
-- A7: "Content marketing drives qualified leads" (10-assumptions.md)
+- A3: "Enterprise customers will pay $500/month" (10.assumptions.md)
+- A7: "Content marketing drives qualified leads" (10.assumptions.md)
 
 **Informs sections:**
-- 13-metrics.md (success updates metrics)
-- 11-pricing.md (if pricing assumption validated)
+- 13.metrics.md (success updates metrics)
+- 12.revenue.md (if revenue assumption validated)
 ```
 
 When goal completes:
-1. Update linked assumption status in `10-assumptions.md`
+1. Update linked assumption status in `10.assumptions.md`
 2. Update relevant Canvas section if assumption validated/invalidated
 3. Log learning in goal file
 
@@ -101,7 +101,7 @@ GoalSetter : Objective × CanvasContext × Mode × ExistingGoals → Goal
 Where:
   Objective     : string (user's stated intent)
   CanvasContext : strategy/canvas/* (beliefs, constraints, segments)
-  Mode          : VENTURE | BOOTSTRAP (from strategy/canvas/00-business-model-mode.md)
+  Mode          : VENTURE | BOOTSTRAP (from strategy/canvas/00.mode.md)
   ExistingGoals : strategy/goals/active/* (avoid conflicts)
   Goal          : Objective × SuccessCriteria × Plan × Autonomy × State
   Plan          : [Subgoal] × [Milestone] × [Dependency]
@@ -146,7 +146,7 @@ Infer from context or ask:
 
 ### 3. Apply Mode (Business Goals)
 
-For `business` type goals, read mode from `strategy/canvas/00-business-model-mode.md`:
+For `business` type goals, read mode from `strategy/canvas/00.mode.md`:
 
 | Aspect | VENTURE | BOOTSTRAP |
 |--------|---------|-----------|
@@ -328,7 +328,7 @@ canvas_refs: ["{section}.md", ...]  # Optional Canvas links
 ## Canvas Links
 
 **Validates assumptions:**
-- {assumption-id}: "{assumption text}" (10-assumptions.md)
+- {assumption-id}: "{assumption text}" (10.assumptions.md)
 
 **Informs sections:**
 - {section}.md (what updates on success)

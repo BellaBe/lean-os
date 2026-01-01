@@ -18,7 +18,7 @@ Content serves strategy. Different modes need different content. Mode is determi
 
 | File | Purpose | If Missing |
 |------|---------|------------|
-| `strategy/canvas/15.go-to-market.md` | Motion, channels | Cannot proceed |
+| `strategy/canvas/15.gtm.md` | Motion, channels | Cannot proceed |
 | `artifacts/marketing/narrative/brand-voice.md` | How we sound | Cannot proceed |
 | `artifacts/marketing/narrative/positioning.md` | What we stand for | Cannot proceed |
 

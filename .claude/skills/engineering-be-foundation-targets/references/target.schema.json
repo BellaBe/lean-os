@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "engineering-foundation-targets",
+  "title": "Targets Schema",
+  "description": "Deployment target configuration and external resources for code generation",
+  "type": "object",
+  "required": ["version", "name", "language"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Unique identifier for this engineering target"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_handoff": {
+      "type": "string",
+      "description": "Path to PM handoff that initiated this target"
+    },
+    "language": {
+      "type": "object",
+      "required": ["primary"],
+      "properties": {
+        "primary": {
+          "enum": ["python", "typescript", "go"]
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "api": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "style": {
+          "enum": ["rest", "graphql", "grpc", "none"]
+        },
+        "framework": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "persistence": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "type": {
+          "enum": ["sql", "nosql", "none"]
+        },
+        "provider": {
+          "type": "string"
+        },
+        "orm": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "events": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "style": {
+          "enum": ["sync", "async", null]
+        },
+        "broker": {
+          "type": ["string", "null"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "topology": {
+      "type": "object",
+      "properties": {
+        "style": {
+          "enum": ["monolith", "microservices", "serverless", "library"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "external": {
+      "type": "array",
+      "description": "External resources: SDKs, APIs, services",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "purpose"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*$",
+            "description": "Unique identifier for this resource"
+          },
+          "type": {
+            "enum": ["sdk", "api", "service"],
+            "description": "sdk=installable package, api=HTTP integration, service=infrastructure"
+          },
+          "package": {
+            "type": "string",
+            "description": "Package name (required for sdk type)"
+          },
+          "version": {
+            "type": "string",
+            "description": "Version constraint (for sdk type)"
+          },
+          "base_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Base URL (required for api type)"
+          },
+          "auth": {
+            "enum": ["api_key", "bearer", "basic", "oauth2", "none"],
+            "description": "Authentication method (for api type)"
+          },
+          "purpose": {
+            "type": "string",
+            "description": "What this resource is used for"
+          },
+          "config": {
+            "type": "object",
+            "properties": {
+              "env_vars": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Required environment variables"
+              },
+              "endpoints": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Key endpoints used (for api type)"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "const": "sdk" } } },
+            "then": { "required": ["package"] }
+          },
+          {
+            "if": { "properties": { "type": { "const": "api" } } },
+            "then": { "required": ["base_url", "auth"] }
+          }
+        ]
+      }
+    },
+    "standardization": {
+      "type": "object",
+      "properties": {
+        "auth": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "type": { "enum": ["jwt", "api_key", "oauth2", "session", "none"] }
+          }
+        },
+        "logging": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "format": { "enum": ["json", "text"] },
+            "level": { "enum": ["debug", "info", "warning", "error"] }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" }
+          }
+        },
+        "error_handling": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" }
+          }
+        },
+        "tracing": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "provider": { "type": "string" }
+          }
+        },
+        "rate_limiting": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

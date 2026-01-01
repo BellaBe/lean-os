@@ -94,7 +94,7 @@ Execute stages **sequentially**. Each stage produces a markdown file in the thre
 - Testable prediction
 
 **Rules:**
-- Must reference `strategy/canvas/10-assumptions.md`
+- Must reference `strategy/canvas/10.assumptions.md`
 - State falsifiable hypothesis
 - Define success/failure criteria
 
@@ -190,7 +190,7 @@ Check `strategy/canvas/00-business-model-mode.md` for mode.
 - New threads generated
 
 **Rules:**
-- Update `strategy/canvas/10-assumptions.md`
+- Update `strategy/canvas/10.assumptions.md`
 - Link learning to original hypothesis
 - If goal-linked: Update goal state via goal-tracker
 - Generate follow-up threads if needed

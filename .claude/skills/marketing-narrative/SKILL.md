@@ -13,7 +13,7 @@ Generate brand identity and content patterns that work across any channel or GTM
 This skill answers: **Who are we and how do we sound?**
 
 It does NOT answer:
-- Which channels to use (→ `strategy/canvas/15.go-to-market.md`)
+- Which channels to use (→ `strategy/canvas/15.gtm.md`)
 - How to optimize channels (→ `channel-optimization`)
 - Where to distribute (→ `content-delivery`)
 - Loop mechanics (→ `content-generation`)
@@ -24,7 +24,7 @@ It does NOT answer:
 - `strategy/canvas/04.segments.md`
 - `strategy/canvas/05.problem.md`
 - `strategy/canvas/07.uvp.md`
-- `strategy/canvas/08.advantage.md`
+- `strategy/canvas/08.unfair.md`
 - `strategy/canvas/09.solution.md`
 
 **Optional (enhances output):**

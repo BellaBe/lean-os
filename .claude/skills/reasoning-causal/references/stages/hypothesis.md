@@ -228,20 +228,20 @@ pay premium for {premium tier} solutions. Social proof is secondary to brand pur
 ## Canvas Impact
 
 **Sections to Update:**
-1. `canvas/4.customer-segments.md` → Split enterprise into:
+1. `strategy/canvas/04.segments.md` → Split enterprise into:
    - {premium segment}/Premium ({premium tier} focus)
    - Fast {industry} (co-branded focus)
 
-2. `canvas/11.pricing-plans-revenue-streams.md` → Add revenue tier:
+2. `strategy/canvas/12.revenu.md` → Add revenue tier:
    - {premium tier} enterprise: $400K-600K/year
 
-3. `canvas/10.assumptions_validation_methods.md` → Update status:
+3. `strategy/canvas/10.assumptions.md` → Update status:
    - A4: Mark as CHALLENGED, reduce confidence to 30%
    - A2: Mark as VALIDATED, increase confidence to 85%
    - A9: Mark as VALIDATED, increase confidence to 70%
    - H12: Add new hypothesis
 
-4. `canvas/15.go-to-market.md` → Split GTM by segment:
+4. `strategy/canvas/15.gtm.md` → Split GTM by segment:
    - {premium segment}: Brand control messaging
    - Fast {industry}: Trust signal messaging
 
@@ -315,39 +315,39 @@ Confidence: 70% (strong pattern, but small sample)
 
 Map hypotheses to Canvas sections:
 
-### Section 4: Customer Segments
+### 04.segments.md: Customer Segments
 - Who are the customers?
 - How do we segment them?
 - What are their characteristics?
 
 **Example:** {premium segment} vs fast {industry} enterprise segmentation
-**File:** `canvas/4.customer-segments.md`
+**File:** `strategy/canvas/04.segments.md`
 
-### Section 11: Pricing & Revenue Streams
+### 12.revenu.md: Revenue
 - What do customers pay?
 - How much?
 - What pricing tiers?
 
 **Example:** $400K-600K {premium tier} tier
-**File:** `canvas/11.pricing-plans-revenue-streams.md`
+**File:** `strategy/canvas/12.revenu.md`
 
-### Section 10: Assumptions & Validation
+### 10.assumptions.md: Assumptions & Validation
 - What do we believe?
 - How confident are we?
 - What evidence supports/contradicts?
 - How do we validate?
 
 **Example:** A4 (brand preferences), A2 (pricing)
-**File:** `canvas/10.assumptions_validation_methods.md`
+**File:** `strategy/canvas/10.assumptions.md`
 
 ### Other Common Sections
-- Section 3: Opportunity Evaluation
-- Section 5: Problem Definition
-- Section 6: Competitive Landscape
-- Section 7: UVP & Mission
-- Section 9: Solution Definition
-- Section 13: Key Metrics
-- Section 15: Go-To-Market
+- 03.opportunity.md: Opportunity Evaluation
+- 05.problem.md: Problem Definition
+- 06.competitive.md: Competitive Landscape
+- 07.uvp.md: UVP & Mission
+- 09.solution.md: Solution Definition
+- 13.metrics.md: Key Metrics
+- 15.gtm.md: Go-To-Market
 
 ## Validation Rules
 

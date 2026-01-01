@@ -1,6 +1,6 @@
 ---
 name: marketing-channel-optimization
-description: Optimize acquisition channels based on GTM motion. Use when improving app store listing, LinkedIn profile, SEO, or any active channel. Reads 15.go-to-market.md to activate relevant modules.
+description: Optimize acquisition channels based on GTM motion. Use when improving app store listing, LinkedIn profile, SEO, or any active channel. Reads 15.gtm.md to activate relevant modules.
 allowed-tools: "Read,Write,WebSearch,WebFetch,Bash"
 ---
 
@@ -10,7 +10,7 @@ Optimize the channels that matter for your GTM motion.
 
 ## Core Principle
 
-One skill, multiple modules. Activates based on what `15.go-to-market.md` declares.
+One skill, multiple modules. Activates based on what `15.gtm.md` declares.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ One skill, multiple modules. Activates based on what `15.go-to-market.md` declar
 
 | File | Purpose | If Missing |
 |------|---------|------------|
-| `strategy/canvas/15.go-to-market.md` | Channels | Cannot proceed |
+| `strategy/canvas/15.gtm.md` | Channels | Cannot proceed |
 
 **Recommended:**
 
@@ -30,7 +30,7 @@ One skill, multiple modules. Activates based on what `15.go-to-market.md` declar
 ## Module Activation
 
 ```python
-gtm = read("strategy/canvas/15.go-to-market.md")
+gtm = read("strategy/canvas/15.gtm.md")
 
 active = []
 for channel in gtm.channels:

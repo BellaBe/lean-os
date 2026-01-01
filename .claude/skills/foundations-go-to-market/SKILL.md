@@ -12,7 +12,7 @@ Generate GTM strategy that all downstream skills read and adapt to.
 
 This skill answers: **How do we acquire customers?**
 
-It produces ONE artifact: `strategy/canvas/15.go-to-market.md`
+It produces ONE artifact: `strategy/canvas/15.gtm.md`
 
 All other skills (marketing-narrative, content-strategy, channel-optimization, marketing-execution) read this file and adapt their behavior.
 
@@ -23,17 +23,17 @@ All other skills (marketing-narrative, content-strategy, channel-optimization, m
 - `strategy/canvas/05.problem.md`
 - `strategy/canvas/07.uvp.md`
 - `strategy/canvas/09.solution.md`
-- `strategy/canvas/14.pricing-plans-revenue-streams.md` (for ACV assessment)
+- `strategy/canvas/12.revenue.md` (for ACV assessment)
 
 **Optional:**
-- Existing `strategy/canvas/15.go-to-market.md` (if updating)
+- Existing `strategy/canvas/15.gtm.md` (if updating)
 - Channel performance data (if iterating)
 - Competitor GTM analysis
 
 ## Output
 
 ```
-strategy/canvas/15.go-to-market.md
+strategy/canvas/15.gtm.md
 ```
 
 Single file. All GTM decisions in one place.
@@ -98,14 +98,14 @@ For each active channel, define:
 1. Analyze Canvas (segments, pricing, solution complexity)
 2. Determine motion type
 3. Recommend primary channel
-4. Generate `15.go-to-market.md`
+4. Generate `15.gtm.md`
 
 ### Mode 2: GTM Update
 
 **Trigger:** Channel performance data, market shift, stage change
 
 **Process:**
-1. Read existing `15.go-to-market.md`
+1. Read existing `15.gtm.md`
 2. Analyze what's working/not working
 3. Recommend adjustments
 4. Update file with rationale
@@ -117,7 +117,7 @@ For each active channel, define:
 **Process:**
 1. Validate primary channel is working (CAC, conversion)
 2. Evaluate candidate channels
-3. Add to `15.go-to-market.md` with experiment plan
+3. Add to `15.gtm.md` with experiment plan
 
 ## Output Template
 
@@ -168,7 +168,7 @@ Before completing:
 
 ## Downstream Skills
 
-These skills read `15.go-to-market.md` and adapt:
+These skills read `15.gtm.md` and adapt:
 
 | Skill | What It Reads | How It Adapts |
 |-------|---------------|---------------|

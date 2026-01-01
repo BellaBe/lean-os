@@ -20,7 +20,7 @@ Distribution and tracking serve strategy. Different modes need different metrics
 |------|---------|------------|
 | Approved drafts | Content to publish | Cannot proceed |
 
-**Note:** This skill does not read `15.go-to-market.md` directly. It receives `mode` from orchestrator.
+**Note:** This skill does not read `15.gtm.md` directly. It receives `mode` from orchestrator.
 
 ## Input
 

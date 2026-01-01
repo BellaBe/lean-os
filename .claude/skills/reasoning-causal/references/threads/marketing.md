@@ -169,9 +169,9 @@ Goal: 15 demo requests in 30 days
 - Competitive landscape: First-mover advantage ({your positioning})
 
 ## Strategic Alignment
-- Canvas Section 7 (UVP): "Brand-first {industry} AI"
-- Canvas Section 14 (Growth): Enterprise expansion priority
-- Canvas Section 15 (GTM): LinkedIn + direct outreach
+- 07.uvp.md: "Brand-first {industry} AI"
+- 14.growth.md: Enterprise expansion priority
+- 15.gtm.md: LinkedIn + direct outreach
 
 ## Next Steps
 Proceed to hypothesis validation (Stage 2)
@@ -207,9 +207,9 @@ Proceed to hypothesis validation (Stage 2)
 **Confidence:** 90%
 
 ## Canvas Impact
-- **Section 13:** Key Metrics → Update channel mix (LinkedIn focus)
-- **Section 15:** Go-To-Market → Prioritize LinkedIn over blog
-- **Section 7:** UVP → Lead with brand control messaging
+- **13.metrics.md:** Update channel mix (LinkedIn focus)
+- **15.gtm.md:** Prioritize LinkedIn over blog
+- **07.uvp.md:** Lead with brand control messaging
 
 ## Next Steps
 Proceed to implication analysis (Stage 3)
@@ -354,9 +354,9 @@ Proceed to decision (Stage 4)
 ## Rationale
 
 ### Strategic Alignment
-- **Canvas Section 7 (UVP):** "Brand-first {industry} AI" → lead with brand control
-- **Canvas Section 14 (Growth):** Enterprise expansion = priority
-- **Canvas Section 15 (GTM):** LinkedIn + content = validated channels
+- **07.uvp.md:** "Brand-first {industry} AI" → lead with brand control
+- **14.growth.md:** Enterprise expansion = priority
+- **15.gtm.md:** LinkedIn + content = validated channels
 
 ### Financial Justification
 - **ROI:** 600x ($5K → $3M expected)
@@ -489,8 +489,8 @@ Proceed to actions (Stage 5)
 - **A15:** Messaging Hierarchy → ✅ VALIDATED (Brand control > Cost)
 
 ### Sections Modified
-- canvas/13.key-metrics.md
-- canvas/15.go-to-market.md
+- strategy/canvas/13.metrics.md
+- strategy/canvas/15.gtm.md
 
 ### New Hypotheses
 - H16: Video content performs 2x better than text

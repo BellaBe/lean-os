@@ -187,11 +187,11 @@ Proceed to hypothesis validation (Stage 2)
 **Confidence:** 95%
 
 ## Canvas Impact
-- **Section 4:** Customer Segments → Split enterprise by brand type ({premium segment} vs fast {industry})
-- **Section 7:** UVP → Add {premium tier} positioning for {premium segment} segment
-- **Section 9:** Solution → Add {premium tier} tier to product architecture
-- **Section 10:** Assumptions → Update A4, A8 status
-- **Section 11:** Pricing → Add {premium tier} tier pricing ($400K-$600K)
+- **04.segments.md:** Split enterprise by brand type ({premium segment} vs fast {industry})
+- **07.uvp.md:** Add {premium tier} positioning for {premium segment} segment
+- **09.solution.md:** Add {premium tier} tier to product architecture
+- **10.assumptions.md:** Update A4, A8 status
+- **12.revenu.md:** Add {premium tier} tier pricing ($400K-$600K)
 
 ## Next Steps
 Proceed to implication analysis (Stage 3)
@@ -341,9 +341,9 @@ Proceed to decision (Stage 4)
 ## Rationale
 
 ### Strategic Alignment
-- **Canvas Section 3 (Opportunity):** Enterprise segment = 40% of addressable market
-- **Canvas Section 7 (UVP):** "Brand-first {industry} AI" → {premium tier} strengthens UVP
-- **Canvas Section 14 (Growth):** Enterprise expansion = primary growth vector
+- **03.opportunity.md:** Enterprise segment = 40% of addressable market
+- **07.uvp.md:** "Brand-first {industry} AI" → {premium tier} strengthens UVP
+- **14.growth.md:** Enterprise expansion = primary growth vector
 
 ### Financial Justification
 - **ROI:** 12x Year 1, 22x Year 2 (cumulative)
@@ -727,7 +727,7 @@ Proceed to learning (Stage 7)
 - {Customer C}: {Choice} ({segment}, ${GMV})
 - {N} additional inquiries: {Choice} preference expressed
 
-**Action:** Update Canvas Section 4 (Customer Segments), Section 10 (Assumptions)
+**Action:** Update Canvas 04.segments.md, 10.assumptions.md
 
 ---
 
@@ -741,7 +741,7 @@ Proceed to learning (Stage 7)
 - Support tickets: +8% (manageable)
 - Tech debt: Minimal (modular architecture)
 
-**Action:** Update Canvas Section 9 (Solution), Section 10 (Assumptions)
+**Action:** Update Canvas 09.solution.md, 10.assumptions.md
 
 ---
 
@@ -752,7 +752,7 @@ Proceed to learning (Stage 7)
 **Confidence:** 100%
 **Evidence:** First deal exceeded hypothesis by 3.7x
 
-**Action:** Update Canvas Section 11 (Pricing)
+**Action:** Update Canvas 12.revenu.md
 
 ---
 
@@ -764,7 +764,7 @@ Proceed to learning (Stage 7)
 **New model:** 45 days (with pilot), 20 days (without pilot)
 **Confidence:** 90%
 
-**Action:** Update Canvas Section 13 (Key Metrics), Stage 3 templates
+**Action:** Update Canvas 13.metrics.md, Stage 3 templates
 
 ---
 
@@ -775,7 +775,7 @@ Proceed to learning (Stage 7)
 **Confidence:** 70% (early signal, need N≥5)
 **Test method:** Track next 5 {premium tier} deals
 
-**Action:** Add to Canvas Section 10 (Assumptions), track in sales threads
+**Action:** Add to Canvas 10.assumptions.md, track in sales threads
 
 ---
 
@@ -790,8 +790,8 @@ Proceed to learning (Stage 7)
 
 ## Canvas Updates Applied
 
-### 1. Customer Segments (Section 4)
-**File:** `canvas/4.customer-segments.md`
+### 1. Segments (04.segments.md)
+**File:** `strategy/canvas/04.segments.md`
 
 **Before:**
 ```markdown
@@ -825,8 +825,8 @@ Proceed to learning (Stage 7)
 
 ---
 
-### 2. Solution Definition (Section 9)
-**File:** `canvas/9.solution-definition.md`
+### 2. Solution (09.solution.md)
+**File:** `strategy/canvas/09.solution.md`
 
 **Added:**
 ```markdown
@@ -847,8 +847,8 @@ Proceed to learning (Stage 7)
 
 ---
 
-### 3. Assumptions & Validation (Section 10)
-**File:** `canvas/10.assumptions_validation_methods.md`
+### 3. Assumptions (10.assumptions.md)
+**File:** `strategy/canvas/10.assumptions.md`
 
 **Updated:**
 ```markdown
@@ -901,8 +901,8 @@ Proceed to learning (Stage 7)
 
 ---
 
-### 4. Pricing & Revenue Streams (Section 11)
-**File:** `canvas/11.pricing-plans-revenue-streams.md`
+### 4. Revenue (12.revenu.md)
+**File:** `strategy/canvas/12.revenu.md`
 
 **Added:**
 ```markdown
@@ -932,8 +932,8 @@ Proceed to learning (Stage 7)
 
 ---
 
-### 5. Key Metrics (Section 13)
-**File:** `canvas/13.key-metrics.md`
+### 5. Metrics (13.metrics.md)
+**File:** `strategy/canvas/13.metrics.md`
 
 **Updated:**
 ```markdown
@@ -1061,11 +1061,11 @@ Track the following patterns for meta-thread creation:
 - **A9:** Sales Cycle → ⚠️ CHALLENGED (90% confidence)
 
 ### Sections Modified
-- canvas/4.customer-segments.md
-- canvas/9.solution-definition.md
-- canvas/10.assumptions_validation_methods.md
-- canvas/11.pricing-plans-revenue-streams.md
-- canvas/13.key-metrics.md
+- strategy/canvas/04.segments.md
+- strategy/canvas/09.solution.md
+- strategy/canvas/10.assumptions.md
+- strategy/canvas/12.revenu.md
+- strategy/canvas/13.metrics.md
 
 ### New Hypotheses
 - H12: Analytics upsell rate >70% for enterprise

@@ -26,7 +26,7 @@ Use the `foundation-builder` skill to populate and validate all 15 Canvas sectio
 **Why first?** Mode determines research focus, decision criteria, and success metrics throughout Canvas building.
 
 **Process:**
-1. Create `strategy/canvas/00-business-model-mode.md`
+1. Create `strategy/canvas/00.mode.md`
 2. Declare mode: VENTURE, BOOTSTRAP, or HYBRID
 3. Document rationale
 
@@ -66,12 +66,12 @@ Use the `foundation-builder` skill to populate and validate all 15 Canvas sectio
 - `problem-solution-fit`: Problem validation through customer research
 
 **Canvas sections populated:**
-- 01-context.md (KBOS framework - Known, Believed, Objective, Subjective)
-- 02-constraints.md (Budget, time, resource constraints)
-- 03-opportunity.md (Market size, timing, trends)
-- 04-segments.md (Customer segments with observable filters)
-- 05-problem.md (Top 3 problems, existing alternatives)
-- 06-competitive.md (Competitive landscape, positioning gaps)
+- 07.uvp.md (Unique Value Proposition - single sentence)
+- 08.unfair.md (Unfair advantages, secret sauce)
+- 09.solution.md (MVP feature set, solution approach)
+- 11.channels.md (Channels strategy)
+- 12.revenue.md (Revenue model, pricing tiers)
+- 13.metrics.md (Key metrics, unit economics)
 
 **Example invocation:**
 ```
@@ -152,7 +152,7 @@ Output: 6 additional Canvas sections defining product and economics
 - `execution`: Task orchestration for running experiments
 
 **Canvas sections updated:**
-- 10-assumptions.md (Hypotheses, validation status, confidence levels)
+- 10.assumptions.md (Hypotheses, validation status, confidence levels)
 
 **Example invocation:**
 ```
@@ -190,8 +190,8 @@ Output: Validated (or invalidated) assumptions with confidence scores
 - `go-to-market`: Channel strategy, launch planning
 
 **Canvas sections populated:**
-- 14-growth.md (Growth channels, acquisition tactics)
-- 15-gtm.md (Go-to-market strategy, launch plan)
+- 11.channels.md (Growth channels, acquisition tactics)
+- 15.gtm.md (Go-to-market strategy, launch plan)
 
 **Example invocation:**
 ```
@@ -321,81 +321,82 @@ Use these agents for specific scenarios outside core operations:
 
 ## Canvas Structure Reference
 
-### 01-context.md (KBOS Framework)
+### 01.context.md (KBOS Framework)
 - **Known:** Verifiable facts (market size, competitors, regulations)
 - **Believed:** High-confidence assumptions (needs validation)
 - **Objective:** Measurable statements (can be proven true/false)
 - **Subjective:** Opinions (acknowledge but don't build on)
 
-### 02-constraints.md
+### 02.constraints.md
 - Budget limits
 - Time constraints
 - Resource availability
 - Regulatory requirements
 
-### 03-opportunity.md
+### 03.opportunity.md
 - TAM/SAM/SOM (Total/Serviceable/Obtainable Market)
 - Market timing (why now?)
 - Key trends enabling opportunity
 
-### 04-segments.md
+### 04.segments.md
 - Customer segments with observable filters
 - Segment size and attractiveness
 - Prioritization
 
-### 05-problem.md
+### 05.problem.md
 - Top 3 problems (ranked by severity)
 - Existing alternatives (how customers solve today)
 - Why alternatives fail
 
-### 06-competitive.md
+### 06.competitive.md
 - Direct competitors
 - Indirect competitors
 - Positioning gaps (white space opportunities)
+- Alternative ways customers solve the problem
 
-### 07-uvp.md
+### 07.uvp.md
 - Unique Value Proposition (single sentence)
 - What makes it unique
 - Why it matters to customers
 
-### 08-advantage.md
+### 08.unfair.md
 - Unfair advantages (hard to copy)
 - Secret sauce
 - Moats (network effects, data, brand, etc.)
 
-### 09-solution.md
+### 09.solution.md
 - MVP feature set (minimum viable)
 - Solution approach
 - Technical architecture (high-level)
 
-### 10-assumptions.md
+### 10.assumptions.md
 - Critical hypotheses to test
 - Validation status (untested, testing, validated, invalidated)
 - Confidence levels (0-100%)
 - Evidence for each assumption
 
-### 11-pricing.md
+### 11.channels.md
+- Channel strategy
+- Distribution approach
+- Partner channels
+
+### 12.revenue.md
 - Revenue model (subscription, usage, one-time, etc.)
 - Pricing tiers
 - Unit economics (LTV, CAC, payback period)
-
-### 12-costs.md
-- Fixed costs
-- Variable costs
-- Burn rate
-- Runway
 
 ### 13-metrics.md
 - Key metrics to track (North Star, AARRR, etc.)
 - Targets and benchmarks
 - Measurement methodology
 
-### 14-growth.md
-- Growth channels (organic, paid, partnerships, etc.)
-- Acquisition tactics per channel
-- Expected performance
-
-### 15-go-to-market.md
+### 14.costs.md
+- Fixed costs
+- Variable costs
+- Burn rate
+- Runway
+    
+### 15.gtm.md
 - Go-to-market strategy
 - Launch plan
 - Early customer acquisition approach

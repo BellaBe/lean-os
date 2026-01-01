@@ -207,22 +207,22 @@ deadline: YYYY-MM-DD
 **Purpose:** Strategic context for goals, updated by learning
 
 **Key files:**
-- 00-business-model-mode.md - VENTURE/BOOTSTRAP/HYBRID mode declaration
-- 01-context.md - KBOS framework (Known, Believed, Objective, Subjective)
-- 02-constraints.md - Budget, time, resource limits
-- 03-opportunity.md - Market size, timing, trends
-- 04-segments.md - Customer segments with observable filters
-- 05-problem.md - Top 3 problems, existing alternatives
-- 06-competitive.md - Competitive landscape, positioning gaps
-- 07-uvp.md - Unique Value Proposition (single sentence)
-- 08-advantage.md - Unfair advantages, secret sauce
-- 09-solution.md - MVP feature set, solution approach
-- 10-assumptions.md - Hypotheses, validation status, confidence levels
-- 11-pricing.md - Revenue model, pricing tiers
-- 12-costs.md - Cost structure, burn rate
-- 13-metrics.md - Key metrics, unit economics
-- 14-growth.md - Growth channels, acquisition tactics
-- 15-gtm.md - Go-to-market strategy, launch plan
+- 00.mode.md - VENTURE/BOOTSTRAP/HYBRID business model mode declaration
+- 01.context.md - Industry reality, KBOS framework (Known, Believed, Objective, Subjective)
+- 02.constraints.md - Budget, time, resource limits
+- 03.opportunity.md - Market size, timing, trends
+- 04.segments.md - Customer segments with observable filters
+- 05.problem.md - Top 3 problems, existing alternatives
+- 06.competitive.md - Competitive landscape, positioning gaps
+- 07.uvp.md - Unique Value Proposition (single sentence)
+- 08.unfair.md - Unfair advantages, secret sauce
+- 09.solution.md - MVP feature set, solution approach
+- 10.assumptions.md - Hypotheses, validation status, confidence levels
+- 11.channels.md - Distribution channels, partnerships
+- 12.revenue.md - Revenue streams, pricing model
+- 13.metrics.md - Key metrics, unit economics
+- 14.costs.md - Cost structure, burn rate
+- 15.gtm.md - Go-to-market strategy, launch plan
 
 **Updates:** Automatically updated by Stage 6 (Learning) in threads
 

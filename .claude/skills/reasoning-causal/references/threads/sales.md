@@ -233,9 +233,9 @@ Proceed to hypothesis validation (Stage 2)
 **Confidence:** 95%
 
 ## Canvas Impact
-- Section 4: Customer Segments (split by brand type)
-- Section 10: Assumptions (mark A4 challenged, A2 validated)
-- Section 11: Pricing (validate {premium tier} tier)
+- 04.segments.md (split by brand type)
+- 10.assumptions.md (mark A4 challenged, A2 validated)
+- 12.revenu.md (validate {premium tier} tier)
 
 ## Next Steps
 Proceed to implication analysis (Stage 3)
@@ -576,8 +576,8 @@ Proceed to learning (Stage 7)
 
 ## Canvas Updates Applied
 
-### 1. Customer Segments (Section 4)
-**File:** `canvas/4.customer-segments.md`
+### 1. Segments (04.segments.md)
+**File:** `strategy/canvas/04.segments.md`
 **Change:** Split enterprise segment by brand type
 ```markdown
 ## Enterprise Segment
@@ -595,8 +595,8 @@ Proceed to learning (Stage 7)
 - Close rate: TBD (not yet validated)
 ```
 
-### 2. Assumptions (Section 10)
-**File:** `canvas/10.assumptions_validation_methods.md`
+### 2. Assumptions (10.assumptions.md)
+**File:** `strategy/canvas/10.assumptions.md`
 **Change:** Update A4, A2, A7, A9 status
 
 ```markdown
@@ -631,8 +631,8 @@ Proceed to learning (Stage 7)
 **Last updated:** 2026-01-19
 ```
 
-### 3. Pricing (Section 11)
-**File:** `canvas/11.pricing-plans-revenue-streams.md`
+### 3. Revenue (12.revenu.md)
+**File:** `strategy/canvas/12.revenu.md`
 **Change:** Add validated {premium tier} tier
 
 ```markdown
@@ -644,8 +644,8 @@ Proceed to learning (Stage 7)
 - **Confidence:** 95%
 ```
 
-### 4. Key Metrics (Section 13)
-**File:** `canvas/13.key-metrics.md`
+### 4. Metrics (13.metrics.md)
+**File:** `strategy/canvas/13.metrics.md`
 **Change:** Update enterprise sales metrics
 
 ```markdown
@@ -715,10 +715,10 @@ Proceed to learning (Stage 7)
 - **A9:** Sales Cycle → ⚠️ CHALLENGED (90% confidence)
 
 ### Sections Modified
-- canvas/4.customer-segments.md
-- canvas/10.assumptions_validation_methods.md
-- canvas/11.pricing-plans-revenue-streams.md
-- canvas/13.key-metrics.md
+- strategy/canvas/04.segments.md
+- strategy/canvas/10.assumptions.md
+- strategy/canvas/12.revenu.md
+- strategy/canvas/13.metrics.md
 
 ### New Hypotheses
 - H12: Analytics upsell rate 100% for enterprise

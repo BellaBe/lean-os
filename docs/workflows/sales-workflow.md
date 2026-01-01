@@ -27,7 +27,7 @@ Goal: "Reach $50K MRR by Q2"
 
 ```
 Skill: icp-generator
-Input: strategy/canvas/04-segments.md
+Input: strategy/canvas/04.segments.md
 Output: research/customer/icp/{segment}-icp.yaml
 ```
 
@@ -200,8 +200,8 @@ Capture outcomes and update Canvas:
 - Evidence summary
 
 **Canvas auto-updates:**
-- `10-assumptions.md` → Confidence scores
-- `13-metrics.md` → ARR, cycle time, margins
+- `10.assumptions.md` → Confidence scores
+- `13.metrics.md` → ARR, cycle time, margins
 
 **Goal updates (if goal-linked):**
 - Update subgoal status
@@ -223,8 +223,8 @@ A4: Enterprise customers prefer white-label → VALIDATED
 Confidence: 60% → 95% (N=5, 100% pattern)
 
 Canvas updates:
-- 10-assumptions.md: A4 confidence 95%
-- 13-metrics.md: Average deal size $1.05M
+- 10.assumptions.md: A4 confidence 95%
+- 13.metrics.md: Average deal size $1.05M
 
 Goal updates (g-mrr-50k):
 - SG1 "Close first 3 customers": 2/3 → 3/3 ✓

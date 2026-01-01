@@ -52,7 +52,7 @@ This gives you structured JSON with:
 Read these files to understand current strategic positioning:
 - `strategy/canvas/problem.md` - Validated pain hypothesis
 - `strategy/canvas/solution.md` - How we solve it
-- `strategy/canvas/unique-value.md` - Differentiation
+- `strategy/canvas/uvp.md` - Differentiation
 - `strategy/canvas/metrics.md` - Proof points
 
 ### Step 5: Read Persona Patterns

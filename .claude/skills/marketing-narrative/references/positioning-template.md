@@ -1,7 +1,7 @@
 # Positioning - {Product}
 
 Generated: {date}
-Source: strategy/canvas/05.problem.md, 07.uvp.md, 08.advantage.md
+Source: strategy/canvas/05.problem.md, 07.uvp.md, 08.unfair.md
 
 ## One-Liner
 

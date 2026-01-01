@@ -54,7 +54,7 @@ Date: {date}
 
 **Process:**
 - Identify which assumption this tests
-- Link to `strategy/canvas/10-assumptions.md`
+- Link to `strategy/canvas/10.assumptions.md`
 - State confidence level
 
 **Example:**
@@ -94,7 +94,7 @@ Priority: 0.85
 **File:** `4-decision.md`
 
 **Process:**
-1. Check business model mode (`strategy/canvas/00-business-model-mode.md`)
+1. Check business model mode (`strategy/canvas/00.mode.md`)
 2. Calculate impact score using mode-specific formula
 3. State decision (PROCEED, DEFER, DECLINE)
 4. Document alternatives

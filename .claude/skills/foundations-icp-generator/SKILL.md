@@ -32,7 +32,7 @@ Read Canvas files from `strategy/canvas/`:
 - `segments.md` (primary source)
 - `problem.md` (for problem signals)
 - `solution.md` (for technical requirements)
-- `unique-value-proposition.md` (for value alignment)
+- `uvp.md` (for value alignment)
 
 **Before proceeding**, verify these files exist. If any are missing, inform the user which files are needed.
 

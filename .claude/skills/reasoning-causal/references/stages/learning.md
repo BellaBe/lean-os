@@ -140,17 +140,17 @@ validation_result: success | partial | failure
 
 ## Canvas Updates Required
 
-### Section 5: Customer Segments
+### 04.segments.md
 **Change:** {What needs updating}
 **Rationale:** {Why based on evidence}
 **Confidence:** {X%}
 
-### Section 8: Revenue Streams
+### 12.revenu.md
 **Change:** {What needs updating}
 **Rationale:** {Why based on evidence}
 **Confidence:** {X%}
 
-### Section 13: Assumptions
+### 10.assumptions.md
 **Update A{ID}:** {Assumption text}
 - Status: {Before} → {After}
 - Confidence: {X%} → {Y%}
@@ -362,10 +362,10 @@ conclusively shows solution preference correlates with customer segment:
 Pattern holds across 5 enterprise conversations with 100% consistency.
 
 **Canvas Impact:**
-- Update `canvas/4.customer-segments.md` → Split enterprise segment into:
+- Update `strategy/canvas/04.segments.md` → Split enterprise segment into:
   - {Premium Segment} (premium tier positioning)
   - {Standard Segment} (standard tier positioning)
-- Update `canvas/10.assumptions_validation_methods.md` → Mark A4 as VALIDATED (95% confidence)
+- Update `strategy/canvas/10.assumptions.md` → Mark A4 as VALIDATED (95% confidence)
 
 ---
 
@@ -388,8 +388,8 @@ above minimum threshold. No price resistance at $400K-500K range for premium
 segment.
 
 **Canvas Impact:**
-- Update `canvas/11.pricing-plans-revenue-streams.md` → Set premium tier pricing at $400K-600K/year
-- Update `canvas/10.assumptions_validation_methods.md` → Mark A2 as VALIDATED (95% confidence)
+- Update `strategy/canvas/12.revenu.md` → Set premium tier pricing at $400K-600K/year
+- Update `strategy/canvas/10.assumptions.md` → Mark A2 as VALIDATED (95% confidence)
 
 ---
 
@@ -412,7 +412,7 @@ longer than expected (2 weeks vs 1 week). Sales-to-contract was fast (30-40
 days), but legal review extended total cycle.
 
 **Canvas Impact:**
-- Update `canvas/10.assumptions_validation_methods.md` → Adjust A9 to "45-60 days" (account for legal)
+- Update `strategy/canvas/10.assumptions.md` → Adjust A9 to "45-60 days" (account for legal)
 - Update confidence to 80% (validated with caveat)
 
 ---
@@ -435,8 +435,8 @@ now a validated customer segmentation insight that should drive GTM strategy
 for premium enterprise.
 
 **Canvas Impact:**
-- Update `canvas/15.go-to-market.md` → Premium segment GTM: Lead with {priority} messaging
-- Update `canvas/10.assumptions_validation_methods.md` → Mark H12 as VALIDATED (90% confidence)
+- Update `strategy/canvas/15.gtm.md` → Premium segment GTM: Lead with {priority} messaging
+- Update `strategy/canvas/10.assumptions.md` → Mark H12 as VALIDATED (90% confidence)
 
 ---
 
@@ -488,9 +488,9 @@ for premium enterprise.
 
 ## Canvas Updates Required
 
-### Section 4: Customer Segments
+### 04.segments.md
 **Change:** Split "Enterprise" segment into two sub-segments:
-**File:** `canvas/4.customer-segments.md`
+**File:** `strategy/canvas/04.segments.md`
 1. **{Premium Segment}** ($100M+ {key metric})
    - Characteristics: {Priority} priority, $400K-600K budgets, strong engineering teams
    - Premium tier positioning
@@ -505,9 +505,9 @@ for premium enterprise.
 
 ---
 
-### Section 11: Pricing & Revenue Streams
+### 12.revenu.md
 **Change:** Add validated revenue tier:
-**File:** `canvas/11.pricing-plans-revenue-streams.md`
+**File:** `strategy/canvas/12.revenu.md`
 
 **Premium Enterprise:** $400K-600K/year per client
 - Target: Premium segment customers ($100M+ {key metric})
@@ -521,8 +521,8 @@ for premium enterprise.
 
 ---
 
-### Section 10: Assumptions & Validation
-**File:** `canvas/10.assumptions_validation_methods.md`
+### 10.assumptions.md
+**File:** `strategy/canvas/10.assumptions.md`
 
 **Update A4:** "Solution approach preference correlates with segment"
 - Status: CHALLENGED → ✅ VALIDATED

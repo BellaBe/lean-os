@@ -202,7 +202,7 @@ Complete reference of AI skills and agents for business operations.
 
 **Purpose:** Orchestrate campaign execution (motion-aware)
 
-**Reads:** `strategy/canvas/15.go-to-market.md`
+**Reads:** `strategy/canvas/15.gtm.md`
 
 **Output:** `artifacts/marketing/campaigns/{campaign-slug}/`
 
@@ -562,7 +562,7 @@ Research skills support market analysis and knowledge synthesis. Orchestrated by
 | `research-market-venture` | TAM, growth, defensibility, 10x potential | VENTURE |
 | `research-market-bootstrap` | Spend flows, budget holders, arbitrage, immediate revenue | BOOTSTRAP |
 
-**Selection:** Check `strategy/canvas/00-business-model-mode.md` to determine mode.
+**Selection:** Check `strategy/canvas/00.mode.md` to determine mode.
 
 ### Knowledge Synthesis Skills
 
