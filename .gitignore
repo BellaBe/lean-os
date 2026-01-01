@@ -48,12 +48,16 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
 ENV/
 build/
 dist/
 *.egg-info/
 .pytest_cache/
 .coverage
+.mypy_cache/
+.ruff_cache/
+.pyenv
 
 # IDEs and editors
 .vscode/
@@ -102,4 +106,8 @@ ops/patterns-*.md
 distribution-record-*-actual.yaml
 
 scripts/output/
+
+# Local Python config
+poetry.toml
+pyrightconfig.json
     
