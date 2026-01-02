@@ -497,4 +497,4 @@ Ask: "Review all goal trajectories"
 - **Goal Storage:** `strategy/goals/active/`, `strategy/goals/completed/`
 - **Canvas:** `strategy/canvas/`
 - **Execution:** [Causal Flow](causal-flow.md)
-- **All Skills:** [All Skills](../reference/all-skills.md)
+- **All Skills:** [All Skills](../reference/skills-index.md)

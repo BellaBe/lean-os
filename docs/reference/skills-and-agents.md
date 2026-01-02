@@ -1,6 +1,6 @@
 # Skills and Agents Architecture
 
-Reference documentation for Claude Code skills and subagents in LeanOS.
+Reference documentation for Claude Code skills and subagents in LeanOS Core.
 
 ---
 
@@ -119,149 +119,56 @@ Instructions for the agent (not role assignment).
 
 ## Architecture Pattern
 
-### Recommended Structure
+### LeanOS Core Structure
 
 **Skills** = Individual capabilities (flat, one per domain action)
 ```
 .claude/skills/
-├── sales-materials-generation/SKILL.md
-├── sales-prospect-research/SKILL.md
-├── sales-contact-finding/SKILL.md
-├── sales-outreach-sequencing/SKILL.md
-├── sales-qualification-support/SKILL.md
-├── marketing-content-generation/SKILL.md
-├── marketing-content-delivery/SKILL.md
-└── marketing-channel-optimization/SKILL.md
+├── reasoning-causal/SKILL.md
+├── reasoning-abductive/SKILL.md
+├── reasoning-inductive/SKILL.md
+├── reasoning-analogical/SKILL.md
+├── reasoning-dialectical/SKILL.md
+├── reasoning-counterfactual/SKILL.md
+├── action-descriptive/SKILL.md
+├── action-diagnostic/SKILL.md
+├── action-prescriptive/SKILL.md
+├── action-planning/SKILL.md
+├── action-decision/SKILL.md
+├── goal-setter/SKILL.md
+├── goal-tracker/SKILL.md
+├── foundations-market-intelligence/SKILL.md
+└── foundations-problem-solution-fit/SKILL.md
 ```
 
 **Subagents** = Orchestrators that load and route to skills
 ```
 .claude/agents/
-├── sales-execution.md      # loads sales-* skills
-├── marketing-execution.md  # loads marketing-* skills
-└── foundations-builder.md  # loads foundations-* skills
+├── reasoning-gateway.md      # routes to reasoning-* skills
+└── problem-solving-gateway.md # routes to action-* skills
 ```
 
 ### Example Orchestrator Agent
 
 ```markdown
 ---
-name: sales-execution
-description: Orchestrates sales activities (materials, prospecting, contacts, outreach, qualification)
-skills: sales-materials-generation, sales-prospect-research, sales-contact-finding, sales-outreach-sequencing, sales-qualification-support
+name: reasoning-gateway
+description: Route to appropriate reasoning mode based on task context
+skills: reasoning-causal, reasoning-abductive, reasoning-inductive, reasoning-analogical, reasoning-dialectical, reasoning-counterfactual
 ---
 
-Route based on activity_type parameter:
+Route based on context:
 
-| activity_type | Skill to follow |
-|---------------|-----------------|
-| materials | sales-materials-generation |
-| prospecting | sales-prospect-research |
-| contact-finding | sales-contact-finding |
-| outreach | sales-outreach-sequencing |
-| qualification | sales-qualification-support |
+| Context | Reasoning Mode |
+|---------|----------------|
+| Operational execution | reasoning-causal |
+| Anomaly diagnosis | reasoning-abductive |
+| Pattern detection | reasoning-inductive |
+| Novel situation | reasoning-analogical |
+| Stakeholder conflict | reasoning-dialectical |
+| Decision evaluation | reasoning-counterfactual |
 
-Pass through all context parameters (product, Canvas, ICP) to the skill.
-Return skill output to caller.
-```
-
----
-
-## Current Structure
-
-```
-.claude/
-├── skills/                        # FLAT - one capability per skill (62 total)
-│   │
-│   │  # Action Skills (11)
-│   ├── action-alignment/
-│   ├── action-constrain/
-│   ├── action-decision/
-│   ├── action-descriptive/
-│   ├── action-diagnostic/
-│   ├── action-evaluative/
-│   ├── action-planning/
-│   ├── action-prescriptive/
-│   ├── action-procedural/
-│   ├── action-risk/
-│   ├── action-validation/
-│   │
-│   │  # Engineering Skills (20)
-│   ├── engineering-spec-objects/
-│   ├── engineering-spec-morphisms/
-│   ├── engineering-spec-effects/
-│   ├── engineering-spec-constraints/
-│   ├── engineering-build-category/
-│   ├── engineering-build-effects/
-│   ├── engineering-build-functors/
-│   ├── engineering-build-transformations/
-│   ├── engineering-verify-laws/
-│   ├── engineering-verify-constraints/
-│   ├── engineering-verify-coverage/
-│   ├── engineering-verify-maps/
-│   ├── engineering-gen-types/
-│   ├── engineering-gen-morphisms/
-│   ├── engineering-gen-maps/
-│   ├── engineering-gen-code/
-│   ├── engineering-gen-wiring/
-│   ├── engineering-apply-standards/
-│   ├── engineering-foundation-schema/
-│   ├── engineering-foundation-targets/
-│   │
-│   │  # Foundations Skills (10)
-│   ├── foundations-market-intelligence/
-│   ├── foundations-problem-solution-fit/
-│   ├── foundations-value-proposition/
-│   ├── foundations-business-model/
-│   ├── foundations-validation/
-│   ├── foundations-go-to-market/
-│   ├── foundations-funding/
-│   ├── foundations-regulatory/
-│   ├── foundations-retention-optimizer/
-│   ├── foundations-icp-generator/
-│   │
-│   │  # Goal Skills (2)
-│   ├── goal-setter/
-│   ├── goal-tracker/
-│   │
-│   │  # Marketing Skills (5)
-│   ├── marketing-content-generation/
-│   ├── marketing-content-delivery/
-│   ├── marketing-channel-optimization/
-│   ├── marketing-content-strategy/
-│   ├── marketing-narrative/
-│   │
-│   │  # Reasoning Skills (6)
-│   ├── reasoning-causal/
-│   ├── reasoning-abductive/
-│   ├── reasoning-inductive/
-│   ├── reasoning-analogical/
-│   ├── reasoning-dialectical/
-│   ├── reasoning-counterfactual/
-│   │
-│   │  # Research Skills (2)
-│   ├── research-market-venture/
-│   ├── research-market-bootstrap/
-│   │
-│   │  # Sales Skills (6)
-│   ├── sales-materials-generation/
-│   ├── sales-prospect-research/
-│   ├── sales-contact-finding/
-│   ├── sales-outreach-sequencing/
-│   ├── sales-qualification-support/
-│   └── sales-narrative/
-│
-└── agents/                        # ORCHESTRATORS (10)
-    ├── lean-os.md                 # Main engineering orchestrator
-    ├── lean-os-spec.md            # SPEC phase
-    ├── lean-os-build.md           # BUILD phase
-    ├── lean-os-verify.md          # VERIFY phase
-    ├── lean-os-gen.md             # GEN phase
-    ├── problem-solving-gateway.md # Action skill routing
-    ├── reasoning-gateway.md       # Reasoning mode routing
-    ├── foundations-builder.md     # Canvas population
-    ├── sales-execution.md         # Sales orchestration
-    └── marketing-execution.md     # Marketing orchestration
+Select mode, pass context, return structured output.
 ```
 
 ---
@@ -270,7 +177,7 @@ Return skill output to caller.
 
 ### Skills
 1. **One capability per skill** - focused, single purpose
-2. **Descriptive names** - `sales-materials-generation` not `materials`
+2. **Descriptive names** - `reasoning-causal` not `causal`
 3. **Clear descriptions** - include WHEN to use
 4. **References in subfolders** - supporting docs go in `references/`
 
@@ -302,28 +209,11 @@ Tools that can be used in `allowed-tools` (skills) or `tools` (agents).
 | **Glob** | Find files by pattern matching | No |
 | **Grep** | Search file contents with regex | No |
 | **Bash** | Execute shell commands | Yes |
-| **BashOutput** | Get output from background shell | No |
-| **KillBash** | Kill background shell by ID | No |
 | **Task** | Spawn a subagent | No |
 | **TodoWrite** | Manage task lists | No |
 | **AskUserQuestion** | Ask user multiple choice questions | No |
 | **WebFetch** | Fetch and process URL content | Yes |
 | **WebSearch** | Search the web | Yes |
-| **NotebookEdit** | Modify Jupyter notebook cells | Yes |
-| **Skill** | Execute a skill | Yes |
-| **SlashCommand** | Run custom slash commands | Yes |
-| **ExitPlanMode** | Exit plan mode | Yes |
-| **ListMcpResources** | List MCP resources | No |
-| **ReadMcpResource** | Read MCP resource | No |
-
-### MCP Tools
-
-Tools from configured MCP servers use the format: `mcp__servername__toolname`
-
-Examples:
-- `mcp__github__create_issue`
-- `mcp__ide__getDiagnostics`
-- `mcp__postgres__query`
 
 ### Tool Inheritance
 
@@ -356,6 +246,5 @@ tools: Read, Grep, Glob
 
 ## Related Documentation
 
-- [All Skills Reference](all-skills.md)
+- [Skills Reference](skills-index.md)
 - [Architecture Overview](architecture.md)
-- [How It Works](architecture.md)

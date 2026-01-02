@@ -1,10 +1,86 @@
-# LeanOS System Changes
+# LeanOS Core Changelog
 
-Record of significant system optimizations, refactorings, and architectural improvements.
+Record of significant system changes.
 
 ---
 
-## 2025-12-24: Product, Research & Knowledge Pipeline (v4.0)
+## 2026-01-02: LeanOS Core Open Source Release (v1.0)
+
+### Summary
+
+Initial public release of LeanOS Core. The foundational reasoning and goal management system, now open source under MIT license.
+
+### What Changed
+
+**LeanOS Core (this repo):**
+- 15 skills (reasoning, actions, goals, foundations basics)
+- 2 agents (reasoning-gateway, problem-solving-gateway)
+- MIT License, free to use
+
+**LeanOS Pro (separate repo):**
+- 63 skills (all domains including sales, marketing, product, engineering)
+- 12 agents (full orchestration)
+- Available via Gumroad
+
+### Skills Retained in Core
+
+| Category | Count | Skills |
+|----------|-------|--------|
+| Reasoning | 6 | causal, abductive, inductive, analogical, dialectical, counterfactual |
+| Actions | 5 | descriptive, diagnostic, prescriptive, planning, decision |
+| Goals | 2 | setter, tracker |
+| Foundations | 2 | market-intelligence, problem-solution-fit |
+
+### Skills Moved to Pro
+
+- Sales (6 skills)
+- Marketing (5 skills)
+- Product (5 skills)
+- Engineering (12 skills)
+- Research (4 skills)
+- Additional Foundations (8 skills)
+- Additional Actions (6 skills)
+
+### Agents Retained in Core
+
+- `reasoning-gateway` — Route to reasoning modes
+- `problem-solving-gateway` — Route to action skills
+
+### Agents Moved to Pro
+
+- `sales-execution`, `marketing-execution`, `product-manager`
+- `engineering-be-setup`, `engineering-fe`, `engineering-fe-shopify`, `engineering-testing`
+- `foundations-builder`, `market-research`, `knowledge-builder`
+
+### Documentation Updated
+
+- README.md — Core-focused quick start
+- CLAUDE.md — Simplified for Core skills
+- docs/reference/skills-index.md — Core skills only
+- docs/reference/architecture.md — Simplified architecture
+- Removed Pro-only workflow docs
+
+### Migration
+
+**For Core users:** No action needed. Clone and use.
+
+**For Pro features:** Purchase LeanOS Pro via Gumroad.
+
+---
+
+**Change type:** Initial release
+**Version:** 1.0
+**Status:** Complete
+
+---
+
+## Pre-Release History
+
+The following entries document the internal development history before the public Core release.
+
+---
+
+## 2025-12-24: Product, Research & Knowledge Pipeline
 
 ### Summary
 Added 3 new orchestrator agents and 8 new skills for product management, knowledge synthesis, and enhanced research capabilities. LeanOS now covers the full Canvas → Product → Engineering pipeline.
@@ -72,7 +148,7 @@ Sources → Insights → Playbooks → Synthesis
 
 - `README.md` - Updated agent/skill counts
 - `CLAUDE.md` - Added Product, Market Research, Knowledge routing
-- `docs/reference/all-skills.md` - Full documentation of new agents/skills
+- `docs/reference/skills-index.md` - Full documentation of new agents/skills
 - `docs/reference/architecture.md` - Updated diagrams, counts, artifact locations
 
 ### New Output Locations
@@ -102,7 +178,7 @@ research/
 
 ---
 
-## 2025-12-10: Goal-Oriented Operations (v2.2)
+## 2025-12-10: Goal-Oriented Operations
 
 ### Summary
 Implemented goal-oriented operations as the primary operating mode for LeanOS. Goals drive all work, threads execute goals, state is derived from execution. Removed redundant ops-* skills, integrated goals with causal-flow threads, updated all workflow documentation.
@@ -169,7 +245,7 @@ Goal (strategy/goals/active/)
 
 #### 4. Updated Architecture
 
-**7-layer architecture (v2.2):**
+**7-layer architecture:**
 ```
 Layer 7: Goals (primary interface)
 Layer 6: Strategy (Canvas)
@@ -386,7 +462,7 @@ docs/
 ├── reference/           # Static knowledge
 │   ├── what-is-leanos.md
 │   ├── architecture.md
-│   ├── all-skills.md
+│   ├── skills-index.md
 │   └── skills-and-agents.md
 └── workflows/           # How to do things
     ├── canvas-setup.md
@@ -1303,7 +1379,7 @@ Orchestrates: content-generation → seo-optimization → content-distribution �
 - `.claude/skills/marketing-execution/content-strategy/` (moved to top-level)
 
 #### Documentation Files
-- `docs/skills/all-skills.md` (updated marketing skills section)
+- `docs/skills/skills-index.md` (updated marketing skills section)
 - `docs/overview/architecture.md` (updated architecture diagram and marketing skills description)
 
 ### Migration Notes
@@ -1453,7 +1529,7 @@ Impact = (Revenue Impact × Time to Cash × Margin) / 3
 ### Files Modified
 
 - `CLAUDE.md` (mode-aware impact scoring, skill references, decision framework)
-- `docs/skills/all-skills.md` (added market research skills)
+- `docs/skills/skills-index.md` (added market research skills)
 
 ### Current Mode
 

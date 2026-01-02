@@ -1,143 +1,114 @@
-# What is LeanOS?
+# What is LeanOS Core?
 
-LeanOS is an **AI-native operating system** for startups, small teams, and founders. It automates 95%+ of business operations while maintaining human oversight for strategic decisions.
+LeanOS Core is an **AI-native operating system** for structured reasoning, goal management, and problem-solving.
 
-**Result:** 1-person team operates with 5-person velocity. Founder spends <30 min/day on operations.
+**Open Source (MIT)** | 15 skills | 2 agents
 
 ---
 
 ## Core Capabilities
 
-- **Goal-driven execution:** Declare objectives, AI decomposes into plans and executes
-- **Single source of truth:** Lean Canvas (15 living documents) drives all operations
-- **Reasoning gateway:** Routes to appropriate mode (causal, abductive, inductive, analogical, dialectical, counterfactual)
-- **Impact-based autonomy:** Auto-execute low-impact (<0.8), flag high-impact for approval
-- **Mode-aware operations:** Adapts to VENTURE (scale) or BOOTSTRAP (profit) business models
+- **Structured reasoning:** 6 reasoning modes for different problem types
+- **Goal-driven execution:** Declare objectives, decompose into actionable plans
+- **Problem-solving gateway:** Route tasks to appropriate action skills
+- **Market foundations:** Market intelligence and problem-solution fit analysis
 
 ---
 
-## Core Principles
+## How It Works
 
-### 1. Goal-Driven Operation
-All work flows from declared objectives:
-```
-Goal → Plan → Threads → Artifacts → Learning → Canvas
- ↑                                              ↓
- └─────────── gap-closing actions ──────────────┘
-```
+### 1. Reasoning Gateway
 
-### 2. Zero Information Duplication
-Information exists in ONE location only:
-- **Goals:** `strategy/goals/` (objectives with plans + state)
-- **Strategy:** `strategy/canvas/` (15 living documents)
-- **Decisions:** `threads/{type}/{name}/` (6-stage causal flow)
-- **Skills:** `.claude/skills/*/SKILL.md`
-- **Artifacts:** `artifacts/{sales|marketing|engineering}/`
-
-### 3. Reasoning Gateway
-Non-trivial tasks route through reasoning-gateway:
+Route complex problems to the appropriate reasoning mode:
 
 | Context | Mode |
 |---------|------|
-| Operational execution | **Causal** (enforced for threads) |
+| Operational execution | **Causal** (6-stage flow) |
 | Anomaly/diagnosis | **Abductive** |
 | Pattern detection | **Inductive** |
 | Novel situation | **Analogical** |
 | Stakeholder conflict | **Dialectical** |
 | Decision evaluation | **Counterfactual** |
 
-### 4. Impact-Based Autonomy
-- **<0.8:** Auto-execute, log in thread
-- **≥0.8:** Flag for human approval
-- **Canvas-altering:** Always require approval
-- **Customer relationships:** Always human
+### 2. Problem-Solving Gateway
 
-### 5. Learning-Driven Operations
-Marketing creates content when business generates insights. Sales validates marketing assumptions. Engineering builds what sales learns customers need. Everything traces back to Canvas.
+Route tasks to action skills based on what you need:
 
-### 6. Mode-Aware Operations
+| Need | Action Skill |
+|------|--------------|
+| Describe current state | `action-descriptive` |
+| Find root cause | `action-diagnostic` |
+| Get recommendations | `action-prescriptive` |
+| Create execution plan | `action-planning` |
+| Choose between options | `action-decision` |
 
-| Mode | Focus | Impact Formula |
-|------|-------|----------------|
-| **VENTURE** | Scale, defensibility | `(Strategic Value × Market Size × Defensibility) / 3` |
-| **BOOTSTRAP** | Cash flow, profit | `(Revenue Impact × Time to Cash × Margin) / 3` |
+### 3. Goal-Driven Operation
+
+Transform objectives into structured, trackable goals:
+
+```
+Goal → Plan → Execution → State → Learning
+ ↑                                    ↓
+ └────── gap-closing actions ─────────┘
+```
 
 ---
 
 ## System Architecture
 
-LeanOS operates in layers: Goals → Strategy → Reasoning → Skills → Threads → Artifacts → State.
+**Agents (2 orchestrators):**
 
-**Layer breakdown:**
+| Agent | Purpose |
+|-------|---------|
+| `reasoning-gateway` | Route to reasoning modes |
+| `problem-solving-gateway` | Route to action skills |
 
-| Layer | Skills | Purpose |
-|-------|--------|---------|
-| Engineering | 20 | SPEC → BUILD → VERIFY → GEN pipeline |
-| Foundations | 10 | Canvas, ICP, sales/marketing narratives |
-| Reasoning | 6 modes | Causal, abductive, inductive, analogical, dialectical, counterfactual |
+**Skills (15 total):**
+
+| Category | Count | Purpose |
+|----------|-------|---------|
+| Reasoning | 6 | Causal, abductive, inductive, analogical, dialectical, counterfactual |
+| Actions | 5 | Descriptive, diagnostic, prescriptive, planning, decision |
 | Goals | 2 | goal-setter, goal-tracker |
-| Sales | 6 | Prospecting, qualification, materials, outreach |
-| Marketing | 5 | Content strategy, generation, delivery |
-| Research | 2 | Venture/bootstrap market research |
-| Actions | 11 | Deliverable contracts for outputs |
+| Foundations | 2 | market-intelligence, problem-solution-fit |
 
-**Full catalog:** [all-skills.md](all-skills.md)
-**Architecture details:** [architecture.md](architecture.md)
+**Full catalog:** [skills-index.md](skills-index.md)
 
 ---
 
-## Success Metrics
+## Directory Structure
 
-**Operational efficiency:**
-- Decision latency: <24h (any decision)
-- Auto-execution rate: >95%
-- Human review time: <30 min/day
-
-**Information quality:**
-- Zero duplication (1 source of truth)
-- 100% decision traceability
-- >95% Canvas auto-update accuracy
-
-**Business velocity:**
-- 2-person team operates like 10-person team
-- Cost: ~$200/month AI vs $200k+/year specialists
+```
+project/
+├── strategy/
+│   ├── goals/           # Objectives + index.md
+│   └── canvas/          # Business context + index.md
+├── threads/             # Decision threads + index.md
+├── artifacts/           # Deliverables + index.md
+└── .claude/
+    ├── agents/          # Orchestrators (2)
+    └── skills/          # Skills (15)
+```
 
 ---
 
-## Technical Requirements
+## Getting Started
 
-- Claude AI access
-- Git for version control
-- Terminal/command line comfort
-- Markdown editing capability
+1. Copy `.claude/` directory to your project
+2. Start using skills via natural language
+3. Optionally set up goal-driven structure
 
----
-
-## Design Philosophy
-
-- **Production-ready:** Every skill produces executable outputs
-- **Evidence over opinion:** All decisions trace to Canvas or measured outcomes
-- **AI-operated, human-supervised:** AI handles execution, humans provide strategy
-- **Context-shaping:** Each skill targets specific decision types
-- **Zero redundancy:** Information exists in one place
+See [README.md](../../README.md) for quick start guide.
 
 ---
 
-## Using LeanOS for Your Project
+## LeanOS Pro
 
-LeanOS is a **base system** that you copy to create project-specific instances.
+Need sales, marketing, product, engineering, and research capabilities?
 
-**To create a new project:**
-1. Copy LeanOS base to `{project-name}/`
-2. Create `docs/reference/what-is-{project}.md` using [the template](what-is-PROJECT.template.md)
-3. Populate Canvas in `strategy/canvas/`
-4. Create first goal using `goal-setter`
+**LeanOS Pro** includes the complete system:
+- 63 skills (all domains)
+- 12 agents (full orchestration)
+- Sales, marketing, product, engineering workflows
 
----
-
-## Next Steps
-
-1. [Architecture Overview](architecture.md) — system layers and data flow
-2. [Canvas Setup](../workflows/canvas-setup.md) — foundation-building process
-3. [All Skills](all-skills.md) — complete skills reference
-
+[Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)

@@ -1,12 +1,12 @@
 # System Architecture
 
-LeanOS operates in 7 layers: Goals → Strategy → Reasoning → Skills → Threads → Artifacts → State.
+LeanOS Core operates in layers: Goals → Strategy → Reasoning → Skills → Threads → State.
 
 ## Operating Model
 
 **Goal-driven (primary):** All work flows from declared objectives
 ```
-Goal → Plan → Threads → Artifacts → Learning → Canvas
+Goal → Plan → Threads → Learning → Canvas
 ```
 
 **Reactive (fallback):** Handles unexpected signals, links back to goals
@@ -26,7 +26,6 @@ Signal → Thread → Link to Goal (or create new goal)
 │ ├─ completed/: Achieved goals (archive)                                                      │
 │ └─ abandoned/: Dropped goals (archive)                                                       │
 │                                                                                              │
-│ Goal Structure: Objective → Success Criteria → Plan (Subgoals + Milestones) → State          │
 │ Skills: goal-setter (creates goals), goal-tracker (derives state)                            │
 │ Autonomy: auto | ask | hybrid (configurable per goal)                                        │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -55,43 +54,24 @@ Signal → Thread → Link to Goal (or create new goal)
 │ │ DIALECTICAL           │ Stakeholder conflicts → Trade-off resolution                   │  │
 │ │ COUNTERFACTUAL        │ Decision evaluation → "What if we had..."                      │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
-│                                                                                              │
-│ Causal mode is ENFORCED for operational threads (business, sales, marketing, engineering)   │
-│ Other modes used for analysis/diagnosis, then chain to causal for action                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ AGENTS + SKILLS LAYER (Domain Execution)                                                     │
-│ Agents: .claude/agents/    Skills: .claude/skills/                                           │
+│ SKILLS LAYER (Domain Execution)                                                              │
+│ Skills: .claude/skills/                                                                      │
 │                                                                                              │
-│ AGENTS (Orchestrators - 13 total):                                                           │
+│ AGENTS (Orchestrators - 2):                                                                  │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ lean-os                │ Main engineering orchestrator (SPEC→BUILD→VERIFY→GEN)         │  │
-│ │ lean-os-spec           │ SPEC phase: engineering-spec-* skills                         │  │
-│ │ lean-os-build          │ BUILD phase: engineering-build-* skills                       │  │
-│ │ lean-os-verify         │ VERIFY phase: engineering-verify-* skills                     │  │
-│ │ lean-os-gen            │ GEN phase: engineering-gen-*, apply-standards                 │  │
-│ │ problem-solving-gateway│ Routes to action-* skills (deliverable contracts)             │  │
-│ │ reasoning-gateway      │ Routes to reasoning-* skills                                  │  │
-│ │ foundations-builder    │ Routes to foundations-* skills                                │  │
-│ │ sales-execution        │ Routes to sales-* skills                                      │  │
-│ │ marketing-execution    │ Routes to marketing-* skills                                  │  │
-│ │ product-builder        │ Routes to product-* skills (Canvas → eng specs)               │  │
-│ │ market-research        │ Routes to research-market-* skills (mode-aware)               │  │
-│ │ knowledge-builder      │ Routes to research-source/playbook-* skills                   │  │
+│ │ reasoning-gateway       │ Routes to reasoning-* skills                                 │  │
+│ │ problem-solving-gateway │ Routes to action-* skills (deliverable contracts)            │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
-│ SKILLS (Flat, single-capability - 70 total):                                                 │
+│ SKILLS (Flat, single-capability - 15 total):                                                 │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ action-*        │ Action skills - deliverable contracts (11)                           │  │
-│ │ engineering-*   │ Categorical verification pipeline (20)                               │  │
-│ │ foundations-*   │ Canvas/business setup (10)                                           │  │
-│ │ goal-*          │ Goal setting and tracking (2)                                        │  │
-│ │ marketing-*     │ Campaign execution (5)                                               │  │
-│ │ product-*       │ Product requirements to specifications (5)                           │  │
-│ │ reasoning-*     │ Reasoning modes (6)                                                  │  │
-│ │ research-*      │ Market research and knowledge synthesis (5)                          │  │
-│ │ sales-*         │ Sales pipeline (6)                                                   │  │
+│ │ reasoning-*    │ Reasoning modes (6)                                                   │  │
+│ │ action-*       │ Deliverable contracts (5)                                             │  │
+│ │ goal-*         │ Goal setting and tracking (2)                                         │  │
+│ │ foundations-*  │ Market and problem analysis (2)                                       │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
@@ -100,32 +80,13 @@ Signal → Thread → Link to Goal (or create new goal)
 │ Complete decision narratives with 6-stage causal flow                                        │
 │ Location: threads/{type}/{thread-name}/                                                      │
 │                                                                                              │
-│ Thread Types:                                                                                │
-│ ├─ business/: Strategic decisions                                                            │
-│ ├─ sales/: Deal pipeline management                                                          │
-│ │   ├─ campaigns/: Outbound prospecting (YYYY-MM-DD-name)                                    │
-│ │   └─ {company-name}/: Individual deal threads                                              │
-│ ├─ marketing/: Content execution                                                             │
-│ │   ├─ campaigns/{campaign-slug}/: Campaign threads                                          │
-│ │   └─ narrative/{product}/: Content strategy                                                │
-│ └─ engineering/: Technical requirements                                                      │
-│     └─ {requirement}/: Engineering decision threads                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────┘
-                                          ↓
-┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ ARTIFACTS LAYER (Deliverables)                                                               │
-│ Published outputs from thread execution                                                      │
-│ Location: artifacts/                                                                         │
-│                                                                                              │
-│ ├─ sales/: Pitch decks, scripts, templates per segment                                       │
-│ ├─ marketing/: Published content (campaigns, blog, social)                                   │
-│ ├─ product/: Requirements, flows, wireframes, specs                                          │
-│ └─ engineering/: Specifications, code, configs, proofs                                       │
-│     ├─ specifications/: Mathematical specs (versioned)                                       │
-│     ├─ maps/: Code structure maps                                                            │
-│     ├─ code/: Generated backend/frontend code                                                │
-│     ├─ configs/: Docker, K8s, CI/CD                                                          │
-│     └─ proofs/: Verification certificates                                                    │
+│ Thread structure:                                                                            │
+│ ├─ 1-input.md                                                                               │
+│ ├─ 2-hypothesis.md                                                                          │
+│ ├─ 3-implication.md                                                                         │
+│ ├─ 4-decision.md                                                                            │
+│ ├─ 5-actions.md                                                                             │
+│ └─ 6-learning.md                                                                            │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -134,15 +95,12 @@ Signal → Thread → Link to Goal (or create new goal)
 │                                                                                              │
 │ Goal state: Derived by goal-tracker from linked threads                                      │
 │ Snapshot: Computed on-demand (no daily file needed)                                          │
-│ Metrics: Aggregated from thread Stage 6 (Learning)                                           │
-│                                                                                              │
-│ ops/ directory (supporting files):                                                           │
-│ ├─ changes.md: Strategic changelog                                                           │
-│ └─ patterns.md: Cross-goal pattern detection                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Layer 1: Goals (Primary Operating Mode)
+---
+
+## Layer 1: Goals
 
 **Location:** `strategy/goals/`
 
@@ -161,7 +119,6 @@ strategy/goals/
 ```markdown
 ---
 id: g-{kebab-case-name}
-type: business | brand | product | learning | custom
 status: active
 autonomy: auto | ask | hybrid
 deadline: YYYY-MM-DD
@@ -178,153 +135,79 @@ deadline: YYYY-MM-DD
 ## Plan
 ### Subgoals
 - SG1: {subgoal} → threads: {linked threads}
-### Milestones
-- M1: {checkpoint} (by {date})
 
 ## State (derived by goal-tracker)
-| Metric | Current | Target | Gap | Trend |
+| Metric | Current | Target | Gap |
 ```
 
 **Skills:**
 - `goal-setter`: Creates goals from objectives, reads Canvas for context
 - `goal-tracker`: Derives state from threads, computes gaps/trajectory
 
-**Autonomy modes:**
-| Mode | Behavior |
-|------|----------|
-| `auto` | AI creates threads and executes without asking |
-| `ask` | AI recommends, waits for approval |
-| `hybrid` | Auto for impact <0.5, ask for ≥0.5 |
-
 ---
 
-## Layer 2: Strategy (Source of Truth)
+## Layer 2: Strategy
 
 **Location:** `strategy/canvas/`
 
 **Contents:** 15 living Lean Canvas documents
 
-**Purpose:** Strategic context for goals, updated by learning
-
 **Key files:**
-- 00.mode.md - VENTURE/BOOTSTRAP/HYBRID business model mode declaration
-- 01.context.md - Industry reality, KBOS framework (Known, Believed, Objective, Subjective)
-- 02.constraints.md - Budget, time, resource limits
-- 03.opportunity.md - Market size, timing, trends
-- 04.segments.md - Customer segments with observable filters
-- 05.problem.md - Top 3 problems, existing alternatives
-- 06.competitive.md - Competitive landscape, positioning gaps
-- 07.uvp.md - Unique Value Proposition (single sentence)
-- 08.unfair.md - Unfair advantages, secret sauce
-- 09.solution.md - MVP feature set, solution approach
-- 10.assumptions.md - Hypotheses, validation status, confidence levels
-- 11.channels.md - Distribution channels, partnerships
-- 12.revenue.md - Revenue streams, pricing model
-- 13.metrics.md - Key metrics, unit economics
-- 14.costs.md - Cost structure, burn rate
-- 15.gtm.md - Go-to-market strategy, launch plan
+- 00.mode.md - Business model mode (VENTURE/BOOTSTRAP)
+- 01-04 - Context, constraints, opportunity, segments
+- 05-09 - Problem, competitive, UVP, unfair advantage, solution
+- 10-15 - Assumptions, channels, revenue, metrics, costs, GTM
 
 **Updates:** Automatically updated by Stage 6 (Learning) in threads
 
-**Relationship to Goals:**
-- Goals READ Canvas for strategic context
-- Learning WRITES to Canvas (validates/invalidates assumptions)
-
 ---
 
-## Layer 3: Reasoning (Meta-Reasoning Gateway)
+## Layer 3: Reasoning
 
 **Agent:** `.claude/agents/reasoning-gateway.md`
 **Skills:** `.claude/skills/reasoning-*/`
 
 **Purpose:** Route non-trivial tasks to appropriate reasoning mode
 
-### Reasoning Modes
-
 | Mode | Use When | Output |
 |------|----------|--------|
 | **Causal** | Operational execution (enforced for threads) | 6-stage thread |
 | **Abductive** | Anomaly diagnosis | Root cause hypothesis |
-| **Inductive** | Pattern detection | Validated pattern/rule |
+| **Inductive** | Pattern detection | Validated pattern |
 | **Analogical** | Novel situation | Adapted playbook |
 | **Dialectical** | Stakeholder conflict | Synthesis decision |
 | **Counterfactual** | Decision evaluation | Learning + recommendation |
 
-### Flow
-
-```
-Task arrives → Gateway selects mode → Mode executes → (chains to causal if action needed)
-```
-
-**Enforced flows:** Operational threads (business, sales, marketing, engineering) always use causal mode.
-
 ---
 
-## Layer 4: Agents + Skills (Domain Execution)
+## Layer 4: Skills
 
 **Agents:** `.claude/agents/`
 **Skills:** `.claude/skills/`
 
-### Agents (Orchestrators - 13)
+### Agents (2)
 
 | Agent | Purpose | Skills Loaded |
 |-------|---------|---------------|
-| `lean-os` | Main engineering orchestrator | Routes to phase agents |
-| `lean-os-spec` | SPEC phase | engineering-spec-* |
-| `lean-os-build` | BUILD phase | engineering-build-* |
-| `lean-os-verify` | VERIFY phase | engineering-verify-* |
-| `lean-os-gen` | GEN phase | engineering-gen-*, apply-standards |
-| `problem-solving-gateway` | Action skill routing | action-* |
 | `reasoning-gateway` | Reasoning mode routing | reasoning-* |
-| `foundations-builder` | Canvas population | foundations-* |
-| `sales-execution` | Sales pipeline | sales-* |
-| `marketing-execution` | Campaign execution | marketing-* |
-| `product-builder` | Product design to eng specs | product-* |
-| `market-research` | Mode-aware market analysis | research-market-*, reasoning-inductive |
-| `knowledge-builder` | Knowledge synthesis | research-source/playbook-*, reasoning-inductive |
+| `problem-solving-gateway` | Action skill routing | action-* |
 
-### Skills (Flat, single-capability - 70)
+### Skills (15)
 
 | Category | Count | Purpose |
 |----------|-------|---------|
-| `action-*` | 11 | Action skills (deliverable contracts) |
-| `engineering-*` | 20 | Categorical verification pipeline |
-| `foundations-*` | 10 | Canvas/business setup |
-| `goal-*` | 2 | Goal setting and tracking |
-| `marketing-*` | 5 | Campaign execution |
-| `product-*` | 5 | Product requirements to specifications |
 | `reasoning-*` | 6 | Reasoning modes |
-| `research-*` | 5 | Market research and knowledge synthesis |
-| `sales-*` | 6 | Sales pipeline |
+| `action-*` | 5 | Deliverable contracts |
+| `goal-*` | 2 | Goal setting and tracking |
+| `foundations-*` | 2 | Market and problem analysis |
 
 ---
 
-## Layer 5: Threads (Decision Storage)
+## Layer 5: Threads
 
 **Location:** `threads/{type}/{name}/`
 
 **Purpose:** Store complete decision narratives with 6-stage causal flow
-
-**Thread types:**
-
-### Business Threads
-- Strategic decisions affecting multiple segments
-- Canvas updates
-- Process improvements
-
-### Sales Threads
-- **Campaigns:** Outbound prospecting (`campaigns/YYYY-MM-DD-name/`)
-- **Deals:** Individual deal progression (`{company-name}/`)
-- 6-stage flow: Input → Hypothesis → Implication → Decision → Actions → Learning
-
-### Marketing Threads
-- **Campaigns:** Campaign execution (`campaigns/{campaign-slug}/`)
-- **Narratives:** Content strategy (`narrative/{product}/`)
-- 6-stage flow with content-specific actions
-
-### Engineering Threads
-- Technical requirements (`{requirement}/`)
-- 6-stage flow producing specifications for engineering skills
 
 **Thread structure:**
 ```
@@ -334,169 +217,68 @@ threads/{type}/{name}/
 ├── 2-hypothesis.md
 ├── 3-implication.md
 ├── 4-decision.md
-├── 5-actions/ (or 5-actions.md)
+├── 5-actions.md
 └── 6-learning.md
 ```
 
-**Relationship to Goals:**
-- Threads are linked to goals via subgoals
-- Thread completion updates goal state
-- Thread Stage 6 (Learning) feeds back to Canvas
-
 ---
 
-## Layer 6: Artifacts (Deliverables)
-
-**Location:** `artifacts/`
-
-**Purpose:** Published outputs from thread execution
-
-### Sales Artifacts
-- Pitch decks, one-pagers per segment
-- Call scripts, email templates
-- Pilot agreements, contracts
-
-### Marketing Artifacts
-- Published blog posts, case studies
-- Social media content
-- Campaign performance records
-
-### Product Artifacts
-- `requirements/`: User stories, story maps, PRDs
-- `flows/`: Journey maps, flow diagrams, state diagrams
-- `wireframes/`: Component specs, layouts, inventories
-- `prioritization/`: DHM scores, stack ranks, LNO classifications
-- `specs/`: Shaped pitches, engineering specifications
-
-### Engineering Artifacts
-- `specifications/`: Mathematical specs (versioned, immutable)
-- `maps/`: Code structure maps (backend, shared)
-- `code/`: Generated code (backend, frontend)
-- `configs/`: Deployment (Docker, K8s, CI/CD)
-- `proofs/`: Verification certificates
-
----
-
-## Layer 7: State (Derived, On-Demand)
+## Layer 6: State
 
 **Purpose:** State is computed, not stored. Goals track their own state.
-
-**Key principle:** No daily file needed. Snapshot computed on-demand by `goal-tracker`.
 
 **State derivation:**
 ```
 goal-tracker reads:
   - Goal files (objectives, success criteria)
   - Linked threads (execution state)
-  - Thread Stage 6 (Learning outcomes)
   ↓
 Computes:
   - Current metrics vs targets
   - Gap analysis
-  - Trajectory projection
-  - Risk level
-  ↓
-Updates:
-  - Goal state section
-  - Recommendations for action
+  - Recommendations
 ```
 
-**Supporting files in `ops/`:**
-- `changes.md`: Strategic changelog
-- `patterns.md`: Cross-goal pattern detection
-
-## Supporting Directories
-
-### research/
-- **customer/icp/:** ICP definitions per segment
-- **customer/prospects/:** Prospect and contact lists
-- **sources/:** Processed expert content (insights.md per source)
-- **playbooks/:** Actionable playbooks by domain
-- **synthesis/:** Cross-source synthesis frameworks
-- **market/:** Market analysis outputs
+---
 
 ## Data Flow
 
-**Goal-driven flow (primary):**
-
+**Goal-driven flow:**
 ```
 User declares objective
     ↓
 goal-setter (reads Canvas for context)
     ↓
-Goal created with plan (subgoals, milestones)
+Goal created with plan
     ↓
-Subgoals spawn threads (based on autonomy mode)
+Subgoals spawn threads
     ↓
 Threads execute (6-stage causal flow)
     ↓
 Learning → Canvas updated
     ↓
-goal-tracker derives state from threads
+goal-tracker derives state
     ↓
 Gap detected → New threads or recommendations
-    ↓
-Goal completed → Move to completed/
 ```
-
-**Reactive flow (fallback):**
-
-```
-Signal arrives (feedback, anomaly, external trigger)
-    ↓
-Reasoning Gateway selects mode
-    ↓
-Thread created → Prompt: "Link to goal or create new goal?"
-    ↓
-6-stage execution → Learning → Canvas update
-```
-
-**Closed-loop:**
-
-```
-Goal → Subgoals → Threads → Artifacts → Learning → Canvas
-                     ↑                              ↓
-                     └────── gap-closing actions ───┘
-```
-
-## Operational Flows
-
-### Goal-Driven Execution
-
-All work should be linked to a goal:
-
-| Trigger | Flow |
-|---------|------|
-| User objective | goal-setter → Goal → Subgoals → Threads |
-| Subgoal activation | Thread created, linked to goal |
-| Thread completion | goal-tracker updates goal state |
-| Gap detected | New thread or recommendation (based on autonomy) |
-
-### Autonomy Modes
-
-| Mode | Thread Impact < 0.5 | Thread Impact ≥ 0.5 |
-|------|---------------------|---------------------|
-| `auto` | Auto-execute | Auto-execute |
-| `ask` | Ask user | Ask user |
-| `hybrid` | Auto-execute | Ask user |
-
-### Reactive (Fallback)
-
-For signals not covered by existing goals:
-
-```
-Signal → Thread → "Link to goal or create new goal?"
-```
-
-Options:
-1. Link to existing goal's subgoals
-2. Create new goal (invokes goal-setter)
-3. Execute as standalone thread (discouraged)
 
 ---
 
 ## Next Steps
 
-- See all skills: [All Skills](all-skills.md)
+- See all skills: [Skills Index](skills-index.md)
 - Understand Canvas setup: [Canvas Setup](../workflows/canvas-setup.md)
-- Learn workflows: [Sales](../workflows/sales-workflow.md) | [Marketing](../workflows/marketing-workflow.md) | [Engineering](../workflows/engineering-workflow.md)
+- Learn causal flow: [Causal Flow](../workflows/causal-flow.md)
+
+---
+
+## LeanOS Pro
+
+Need sales, marketing, product, engineering, and research capabilities?
+
+**LeanOS Pro** includes:
+- 63 skills (all domains)
+- 12 agents (full orchestration)
+- Complete workflows for sales, marketing, product, engineering
+
+[Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)

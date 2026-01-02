@@ -1,86 +1,132 @@
-# LeanOS: AI-Native Operating System for Business Automation
+# LeanOS Core
 
-**Version:** 4.0 | **Status:** Active Development
+AI-native operating system for reasoning, goal management, and problem-solving.
 
-AI-native OS that automates 95%+ of business operations for startups, small teams, and founders.
+**Open Source (MIT)** | 15 skills | 2 agents
 
 ## What It Does
 
-- **Goal-driven execution:** Declare objectives, AI decomposes and executes
-- **Automates decisions:** Claude handles engineering, sales, marketing autonomously
-- **Single source of truth:** 15-section Lean Canvas provides strategic context
-- **State derived from execution:** Metrics computed from threads, no manual tracking
-- **Configurable autonomy:** Auto, ask, or hybrid modes per goal
+- **Structured reasoning:** 6 reasoning modes (causal, abductive, inductive, analogical, dialectical, counterfactual)
+- **Goal-driven execution:** Declare objectives, decompose into actionable plans
+- **Problem-solving:** Route tasks to appropriate action skills
+- **Market foundations:** Market intelligence and problem-solution fit analysis
+
+---
 
 ## Quick Start
 
-**New users:** Read [What is LeanOS?](docs/reference/what-is-leanos.md)
-**Existing projects:** Check `strategy/goals/active/` for current objectives
+### 1. Copy to your project
 
-## Documentation
+```bash
+# Clone LeanOS Core
+git clone https://github.com/BellaBe/lean-os.git
 
-### Core Concepts
-| Topic | Description |
-|-------|-------------|
-| [What is LeanOS?](docs/reference/what-is-leanos.md) | Core principles, problem/solution |
-| [Architecture](docs/reference/architecture.md) | System layers, operating model, data flow |
-| [All Skills](docs/reference/all-skills.md) | Complete skills and agents reference |
+# Copy .claude/ directory to your project
+cp -r lean-os/.claude/ your-project/
+```
 
-### Workflows
+### 2. Start using skills
+
+Skills auto-load based on your task. Try:
+
+- "Help me reason through this decision" → `reasoning-gateway`
+- "I want to achieve X" → `goal-setter`
+- "What's happening with Y?" → `action-descriptive`
+
+### 3. Set up goals (optional)
+
+For goal-driven operation:
+
+```
+your-project/
+├── strategy/
+│   ├── goals/           # Objectives + index.md
+│   └── canvas/          # Business context + index.md
+├── threads/             # Decision threads + index.md
+├── artifacts/           # Deliverables + index.md
+└── .claude/             # LeanOS skills & agents
+```
+
+---
+
+## Core Skills (15)
+
+### Reasoning (6)
+| Skill | Purpose |
+|-------|---------|
+| `reasoning-causal` | Execute known processes with 6-stage flow |
+| `reasoning-abductive` | Diagnose anomalies, form hypotheses |
+| `reasoning-inductive` | Detect patterns, generalize |
+| `reasoning-analogical` | Transfer knowledge across domains |
+| `reasoning-dialectical` | Resolve conflicts through synthesis |
+| `reasoning-counterfactual` | Evaluate decisions via alternatives |
+
+### Actions (5)
+| Skill | Question Answered |
+|-------|-------------------|
+| `action-descriptive` | What is happening? |
+| `action-diagnostic` | Why did this happen? |
+| `action-prescriptive` | What should we do? |
+| `action-planning` | How do we execute this? |
+| `action-decision` | Which option do we choose? |
+
+### Goals (2)
+| Skill | Purpose |
+|-------|---------|
+| `goal-setter` | Transform objectives into structured goals |
+| `goal-tracker` | Track progress, derive state from execution |
+
+### Foundations (2)
+| Skill | Purpose |
+|-------|---------|
+| `foundations-market-intelligence` | Market size, competitive landscape |
+| `foundations-problem-solution-fit` | Problem validation, solution fit |
+
+---
+
+## Core Agents (2)
+
+| Agent | Purpose |
+|-------|---------|
+| `reasoning-gateway` | Route tasks to appropriate reasoning mode |
+| `problem-solving-gateway` | Route tasks to appropriate action skill |
+
+---
+
+## Workflows
+
 | Workflow | Description |
 |----------|-------------|
-| [Canvas Setup](docs/workflows/canvas-setup.md) | Foundation-building process (45-60 min) |
+| [Daily Routine](docs/workflows/daily-routine.md) | Goal-driven daily operations |
 | [Causal Flow](docs/workflows/causal-flow.md) | 6-stage decision framework |
-| [Sales](docs/workflows/sales-workflow.md) | Strategy to execution to learning |
-| [Marketing](docs/workflows/marketing-workflow.md) | Learning-driven content |
-| [Engineering](docs/workflows/engineering-workflow.md) | SPEC → BUILD → VERIFY → GEN |
-| [Daily Routine](docs/workflows/daily-routine.md) | 5-minute review process |
+| [Problem Solving](docs/workflows/problem-solving-workflow.md) | Action skill routing |
+| [Canvas Setup](docs/workflows/canvas-setup.md) | Business context setup |
 
-## Directory Structure
+---
 
-```
-lean-os/
-├── strategy/
-│   ├── goals/active/         # Current objectives (PRIMARY)
-│   └── canvas/               # 15-section Lean Canvas
-├── threads/{type}/{name}/    # 6-stage decision threads
-├── artifacts/                # Deliverables
-├── research/customer/        # ICP definitions, prospects
-├── .claude/
-│   ├── agents/               # 13 orchestrators
-│   └── skills/               # 70 skills
-└── docs/                     # Full documentation
-```
+## Reference
 
-**Details:** [Architecture](docs/reference/architecture.md)
+| Document | Description |
+|----------|-------------|
+| [Skills Index](docs/reference/skills-index.md) | Complete skills reference |
+| [Architecture](docs/reference/architecture.md) | System design |
+| [What is LeanOS](docs/reference/what-is-leanos.md) | System overview |
 
-## Business Model Modes
+---
 
-LeanOS adapts to your business model:
+## LeanOS Pro
 
-| Mode | Focus | Metrics |
-|------|-------|---------|
-| **VENTURE** | Scale, defensibility | MAU, ARR, market share |
-| **BOOTSTRAP** | Cash flow, profitability | MRR, profit, LTV:CAC |
+Need sales, marketing, product, engineering, and research capabilities?
 
-**Configuration:** `strategy/canvas/00-business-model-mode.md`
+**LeanOS Pro** includes the complete system:
+- 63 skills (all domains)
+- 12 agents (full orchestration)
+- Sales, marketing, product, engineering workflows
+- Priority support
 
-## Technology Stack
+[Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)
 
-- **AI:** Claude Skills via Claude Code
-- **Languages:** Python, JS/TS, Bash, Markdown
-- **Infrastructure:** Local file system, Git
-
-## Getting Started
-
-1. Read [What is LeanOS?](docs/reference/what-is-leanos.md)
-2. Follow [Canvas Setup](docs/workflows/canvas-setup.md)
-3. Create first goal using `goal-setter` skill
-4. Review [Daily Routine](docs/workflows/daily-routine.md)
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md)
+---
 
 ## License
 

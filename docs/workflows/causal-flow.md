@@ -257,4 +257,4 @@ reasoning-causal/
 
 - Learn sales workflow: [Sales Workflow](sales-workflow.md)
 - Learn marketing workflow: [Marketing Workflow](marketing-workflow.md)
-- See all skills: [All Skills](../reference/all-skills.md)
+- See all skills: [All Skills](../reference/skills-index.md)

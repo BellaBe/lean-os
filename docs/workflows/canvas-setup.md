@@ -407,5 +407,5 @@ Use these agents for specific scenarios outside core operations:
 ## Next Steps
 
 - Learn architecture: [Architecture Overview](../reference/architecture.md)
-- See all skills: [All Skills](../reference/all-skills.md)
+- See all skills: [All Skills](../reference/skills-index.md)
 - Learn workflows: [Sales](sales-workflow.md) | [Marketing](marketing-workflow.md)
