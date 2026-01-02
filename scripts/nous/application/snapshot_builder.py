@@ -28,21 +28,6 @@ from typing import Any, TypedDict
 from urllib.parse import urlparse
 from uuid import uuid4
 
-
-class UrlMetadata(TypedDict, total=False):
-    """Metadata for a discovered URL."""
-
-    url: str
-    title: str
-    source: str
-    zone: str
-    description: str
-
-from .config import SnapshotBuilderConfig
-from .ui import ConsoleUI
-
-from ..infrastructure.logging import get_structured_logger
-
 from ..domain import (
     AmplificationWarning,
     ConsensusCluster,
@@ -65,8 +50,17 @@ from ..infrastructure import (
     DirectLLMClient,
     ExtractionConfig,
     IdeaExtractor,
-    LLMConfig,
 )
+from ..infrastructure.crawlers.diagnostics import CrawlDiagnostics
+from ..infrastructure.crawlers.page_snapshot import (
+    PageSnapshot,
+    PageSnapshotConfig,
+    PageSnapshotter,
+)
+
+# Crawl4AI-enhanced components
+from ..infrastructure.crawlers.parallel_crawler import ParallelCrawler
+
 # Search APIs - direct integration
 from ..infrastructure.crawlers.search_api import (
     APISearchResult,
@@ -74,23 +68,29 @@ from ..infrastructure.crawlers.search_api import (
     SearchAPIConfig,
 )
 from ..infrastructure.crawlers.url_seeder import (
-    UrlSeeder,
     SeedingConfig,
+    UrlSeeder,
     generate_site_queries,
-    SOCIAL_SITE_SEARCHES,
-    TECH_SITE_SEARCHES,
-    YC_DOMAINS,
 )
-from ..infrastructure.crawlers.page_snapshot import (
-    PageSnapshotter,
-    PageSnapshotConfig,
-    PageSnapshot,
-)
-# Crawl4AI-enhanced components
-from ..infrastructure.crawlers.parallel_crawler import ParallelCrawler
-from ..infrastructure.crawlers.diagnostics import CrawlDiagnostics
 from ..infrastructure.crawlers.zone_config import get_zone_for_domain
-from ..infrastructure.extraction.hybrid_extractor import HybridExtractor, QuickExtraction
+from ..infrastructure.extraction.hybrid_extractor import (
+    HybridExtractor,
+    QuickExtraction,
+)
+from ..infrastructure.logging import get_structured_logger
+from .config import SnapshotBuilderConfig
+from .ui import ConsoleUI
+
+
+class UrlMetadata(TypedDict, total=False):
+    """Metadata for a discovered URL."""
+
+    url: str
+    title: str
+    source: str
+    zone: str
+    description: str
+
 
 # Structured logger for internal logging
 _log = get_structured_logger("nous.snapshot")
@@ -132,21 +132,38 @@ def _classify_source_type(url: str, domain: str) -> SourceType:
         for d in ["arxiv", "nature.com", "science.org", "springer", "ieee"]
     ):
         return SourceType.ACADEMIC
-    if any(d in domain_lower for d in ["reddit", "twitter", "x.com", "mastodon", "threads", "linkedin"]):
+    if any(
+        d in domain_lower
+        for d in ["reddit", "twitter", "x.com", "mastodon", "threads", "linkedin"]
+    ):
         return SourceType.SOCIAL
     if any(d in domain_lower for d in [".gov", "europa.eu", "gov.uk", "whitehouse"]):
         return SourceType.GOVERNMENT
-    if any(d in domain_lower for d in ["substack", "medium", "wordpress", "blogger", "ghost", "dev.to"]):
+    if any(
+        d in domain_lower
+        for d in ["substack", "medium", "wordpress", "blogger", "ghost", "dev.to"]
+    ):
         return SourceType.BLOG
-    if any(d in domain_lower for d in ["ycombinator", "producthunt", "techcrunch", "theverge"]):
+    if any(
+        d in domain_lower
+        for d in ["ycombinator", "producthunt", "techcrunch", "theverge"]
+    ):
         return SourceType.NEWS  # Tech news
 
     # Path-based detection
-    if any(p in url_lower for p in ["/research/", "/paper/", "/publication/", "/abstract/", ".pdf"]):
+    if any(
+        p in url_lower
+        for p in ["/research/", "/paper/", "/publication/", "/abstract/", ".pdf"]
+    ):
         return SourceType.ACADEMIC
-    if any(p in url_lower for p in ["/blog/", "/posts/", "/article/"]) and "news" not in domain_lower:
+    if (
+        any(p in url_lower for p in ["/blog/", "/posts/", "/article/"])
+        and "news" not in domain_lower
+    ):
         return SourceType.BLOG
-    if any(p in url_lower for p in ["/forum/", "/thread/", "/discussion/", "/comments/"]):
+    if any(
+        p in url_lower for p in ["/forum/", "/thread/", "/discussion/", "/comments/"]
+    ):
         return SourceType.FORUM
     if any(p in url_lower for p in ["/video/", "/watch/", "/embed/", "youtube.com"]):
         return SourceType.VIDEO
@@ -235,7 +252,9 @@ class SnapshotBuilder:
 
             discovered_urls = []
             for query in queries:
-                self.ui.info(f"Searching: \"{query[:50]}{'...' if len(query) > 50 else ''}\"")
+                self.ui.info(
+                    f"Searching: \"{query[:50]}{'...' if len(query) > 50 else ''}\""
+                )
                 query_urls = await self._discover_urls(query)
                 # Filter out already-used URLs
                 new_urls = [u for u in query_urls if u["url"] not in used_urls]
@@ -256,7 +275,10 @@ class SnapshotBuilder:
                     source_counts[src] = source_counts.get(src, 0) + 1
 
                 self.ui.separator()
-                self.ui.info(f"Found {len(discovered_urls)} URLs from {len(new_domains)} domains", symbol="✓")
+                self.ui.info(
+                    f"Found {len(discovered_urls)} URLs from {len(new_domains)} domains",
+                    symbol="✓",
+                )
                 for src, count in sorted(source_counts.items(), key=lambda x: -x[1]):
                     self.ui.info(f"{src}: {count} URLs", indent=1, symbol="•")
                 self.ui.separator()
@@ -265,14 +287,18 @@ class SnapshotBuilder:
                     self.ui.info("No URLs found - cannot proceed", symbol="✗")
                     return self._empty_snapshot(snapshot_id, topic, start_time)
                 else:
-                    self.ui.info("No new URLs found, using existing results", symbol="⚠")
+                    self.ui.info(
+                        "No new URLs found, using existing results", symbol="⚠"
+                    )
                     break
 
             # ─────────────────────────────────────────────────────────────
             # Stage 1.2: Domain Expansion via URL Seeding (optional)
             # ─────────────────────────────────────────────────────────────
             if self.config.use_domain_expansion and discovered_urls:
-                self.ui.info("Expanding top domains via sitemap/Common Crawl...", symbol="🔗")
+                self.ui.info(
+                    "Expanding top domains via sitemap/Common Crawl...", symbol="🔗"
+                )
                 expanded_urls = await self._expand_domains(discovered_urls, topic)
                 if expanded_urls:
                     # Add expanded URLs (filter out already-used)
@@ -281,18 +307,29 @@ class SnapshotBuilder:
                             discovered_urls.append(u)
                             used_urls.add(u["url"])
                     urls_discovered += len(expanded_urls)
-                    self.ui.info(f"Added {len(expanded_urls)} URLs from domain expansion", indent=1, symbol="+")
+                    self.ui.info(
+                        f"Added {len(expanded_urls)} URLs from domain expansion",
+                        indent=1,
+                        symbol="+",
+                    )
 
             # ─────────────────────────────────────────────────────────────
             # Stage 1.5: URL Relevance Filtering (optional)
             # ─────────────────────────────────────────────────────────────
             urls_to_crawl = discovered_urls
             if self.config.filter_relevance:
-                urls_to_filter = discovered_urls[:self.config.max_urls_to_filter]
-                self.ui.info(f"Filtering {len(urls_to_filter)} URLs by relevance (threshold: {self.config.relevance_threshold}/10)...", symbol="🎯")
+                urls_to_filter = discovered_urls[: self.config.max_urls_to_filter]
+                self.ui.info(
+                    f"Filtering {len(urls_to_filter)} URLs by relevance (threshold: {self.config.relevance_threshold}/10)...",
+                    symbol="🎯",
+                )
                 urls_to_crawl = await self._filter_by_relevance(urls_to_filter, topic)
                 filtered_count = len(urls_to_filter) - len(urls_to_crawl)
-                self.ui.info(f"Kept {len(urls_to_crawl)} relevant, filtered out {filtered_count}", indent=1, symbol="✓")
+                self.ui.info(
+                    f"Kept {len(urls_to_crawl)} relevant, filtered out {filtered_count}",
+                    indent=1,
+                    symbol="✓",
+                )
                 self.ui.separator()
 
                 if not urls_to_crawl and iteration == 0:
@@ -319,12 +356,23 @@ class SnapshotBuilder:
                 # Show crawl summary
                 self.ui.separator()
                 yield_rate = crawled / num_to_crawl * 100 if num_to_crawl > 0 else 0
-                self.ui.info(f"Crawled: {crawled} success, {failed} failed ({yield_rate:.0f}% yield)", symbol="✓")
+                self.ui.info(
+                    f"Crawled: {crawled} success, {failed} failed ({yield_rate:.0f}% yield)",
+                    symbol="✓",
+                )
 
                 # Count social vs regular
-                social_count = sum(1 for s in sources if s.metadata and s.metadata.get("captured_via") == "page_snapshot")
+                social_count = sum(
+                    1
+                    for s in sources
+                    if s.metadata and s.metadata.get("captured_via") == "page_snapshot"
+                )
                 if social_count > 0:
-                    self.ui.info(f"Social snapshots: {social_count} captured with PageSnapshotter", indent=1, symbol="📸")
+                    self.ui.info(
+                        f"Social snapshots: {social_count} captured with PageSnapshotter",
+                        indent=1,
+                        symbol="📸",
+                    )
                 self.ui.separator()
 
             # ─────────────────────────────────────────────────────────────
@@ -341,10 +389,17 @@ class SnapshotBuilder:
                 # Stage 3.5: Idea Relevance Filtering (optional)
                 # ─────────────────────────────────────────────────────────
                 if self.config.filter_ideas and ideas:
-                    self.ui.info(f"Filtering {len(ideas)} ideas by topic relevance...", symbol="🎯")
+                    self.ui.info(
+                        f"Filtering {len(ideas)} ideas by topic relevance...",
+                        symbol="🎯",
+                    )
                     relevant_ideas = await self._filter_ideas_by_relevance(ideas, topic)
                     filtered_count = len(ideas) - len(relevant_ideas)
-                    self.ui.info(f"Kept {len(relevant_ideas)} relevant, filtered out {filtered_count}", indent=1, symbol="✓")
+                    self.ui.info(
+                        f"Kept {len(relevant_ideas)} relevant, filtered out {filtered_count}",
+                        indent=1,
+                        symbol="✓",
+                    )
                     ideas = relevant_ideas
 
                 all_ideas.extend(ideas)
@@ -354,10 +409,16 @@ class SnapshotBuilder:
 
             # Check if we have enough relevant ideas
             if len(all_ideas) >= self.config.min_relevant_ideas:
-                self.ui.info(f"Found {len(all_ideas)} relevant ideas, proceeding to analysis", symbol="✓")
+                self.ui.info(
+                    f"Found {len(all_ideas)} relevant ideas, proceeding to analysis",
+                    symbol="✓",
+                )
                 break
             elif iteration < self.config.max_search_iterations - 1:
-                self.ui.info(f"Only {len(all_ideas)} ideas (need {self.config.min_relevant_ideas}), searching again...", symbol="⚠")
+                self.ui.info(
+                    f"Only {len(all_ideas)} ideas (need {self.config.min_relevant_ideas}), searching again...",
+                    symbol="⚠",
+                )
                 # Generate new queries for next iteration
                 new_queries = await self._augment_query(f"{topic} latest news trends")
                 queries = [q for q in new_queries if q not in queries][:2]
@@ -365,7 +426,9 @@ class SnapshotBuilder:
                     for q in queries:
                         self.ui.info(f"New query: {q}", indent=1, symbol="•")
                 else:
-                    self.ui.info("No new queries generated, using existing results", symbol="⚠")
+                    self.ui.info(
+                        "No new queries generated, using existing results", symbol="⚠"
+                    )
                     break
                 self.ui.separator()
 
@@ -391,13 +454,21 @@ class SnapshotBuilder:
         )
 
         if consensus_clusters:
-            self.ui.info(f"Consensus clusters: {len(consensus_clusters)}", indent=1, symbol="🤝")
+            self.ui.info(
+                f"Consensus clusters: {len(consensus_clusters)}", indent=1, symbol="🤝"
+            )
             for i, c in enumerate(consensus_clusters[:3]):
-                self.ui.info(f"\"{c.representative_claim[:60]}...\"", indent=2, symbol="•")
+                self.ui.info(
+                    f'"{c.representative_claim[:60]}..."', indent=2, symbol="•"
+                )
         if contention_zones:
-            self.ui.info(f"Contention zones: {len(contention_zones)}", indent=1, symbol="⚔️")
+            self.ui.info(
+                f"Contention zones: {len(contention_zones)}", indent=1, symbol="⚔️"
+            )
             for c in contention_zones[:2]:
-                self.ui.info(f"\"{c.representative_claim[:60]}...\"", indent=2, symbol="•")
+                self.ui.info(
+                    f'"{c.representative_claim[:60]}..."', indent=2, symbol="•"
+                )
         self.ui.separator()
 
         # ─────────────────────────────────────────────────────────────────
@@ -407,7 +478,11 @@ class SnapshotBuilder:
 
         amplification_warnings = self._detect_amplification(sources)
         if amplification_warnings:
-            self.ui.info(f"Amplification warnings: {len(amplification_warnings)}", indent=1, symbol="⚠")
+            self.ui.info(
+                f"Amplification warnings: {len(amplification_warnings)}",
+                indent=1,
+                symbol="⚠",
+            )
         else:
             self.ui.info("No amplification detected", indent=1, symbol="✓")
         self.ui.separator()
@@ -417,18 +492,23 @@ class SnapshotBuilder:
         # ─────────────────────────────────────────────────────────────────
         self.ui.subheader("📝 STAGE 5: SYNTHESIS")
 
-
         summary = ""
         if self.config.generate_summary and ideas:
             self.ui.info("Generating executive summary...")
-            summary = await self._generate_summary(topic, ideas, consensus_clusters, contention_zones)
+            summary = await self._generate_summary(
+                topic, ideas, consensus_clusters, contention_zones
+            )
             self.ui.info(f"Summary: {len(summary)} chars", indent=1, symbol="✓")
 
         graph_nodes, graph_edges = [], []
         if self.config.build_graph:
             self.ui.info("Building knowledge graph...")
             graph_nodes, graph_edges = self._build_graph(sources, ideas)
-            self.ui.info(f"Graph: {len(graph_nodes)} nodes, {len(graph_edges)} edges", indent=1, symbol="✓")
+            self.ui.info(
+                f"Graph: {len(graph_nodes)} nodes, {len(graph_edges)} edges",
+                indent=1,
+                symbol="✓",
+            )
         self.ui.separator()
 
         # ─────────────────────────────────────────────────────────────────
@@ -442,7 +522,9 @@ class SnapshotBuilder:
             for s in sources
             if s.metadata and s.metadata.get("relevance_score")
         ]
-        avg_relevance = sum(relevance_scores) / len(relevance_scores) if relevance_scores else 0
+        avg_relevance = (
+            sum(relevance_scores) / len(relevance_scores) if relevance_scores else 0
+        )
 
         # Determine languages used
         languages_used = ["en"]
@@ -501,7 +583,11 @@ class SnapshotBuilder:
         # Show source type breakdown
         source_type_counts: dict[str, int] = {}
         for s in sources:
-            st = s.source_type.value if hasattr(s.source_type, 'value') else str(s.source_type)
+            st = (
+                s.source_type.value
+                if hasattr(s.source_type, "value")
+                else str(s.source_type)
+            )
             source_type_counts[st] = source_type_counts.get(st, 0) + 1
         if source_type_counts:
             self.ui._write("  📰 Source types:")
@@ -512,7 +598,11 @@ class SnapshotBuilder:
         # Show signal zone breakdown
         zone_counts: dict[str, int] = {}
         for s in sources:
-            z = s.signal_zone.value if hasattr(s.signal_zone, 'value') else str(s.signal_zone)
+            z = (
+                s.signal_zone.value
+                if hasattr(s.signal_zone, "value")
+                else str(s.signal_zone)
+            )
             zone_counts[z] = zone_counts.get(z, 0) + 1
         if zone_counts:
             self.ui._write("  🎯 Signal zones:")
@@ -537,7 +627,9 @@ class SnapshotBuilder:
                 self.ui._write("     ...")
             self.ui.separator()
 
-        _log.info("snapshot_complete", snapshot_id=str(snapshot_id), elapsed_sec=elapsed)
+        _log.info(
+            "snapshot_complete", snapshot_id=str(snapshot_id), elapsed_sec=elapsed
+        )
 
         return snapshot
 
@@ -556,7 +648,9 @@ class SnapshotBuilder:
         Returns URL metadata dicts for the filtering/crawling pipeline.
         """
         _log.info(f"DISCOVERY START: topic='{topic}'")
-        _log.debug(f"  sources={self.config.sources}, max_per_source={self.config.max_results_per_source}")
+        _log.debug(
+            f"  sources={self.config.sources}, max_per_source={self.config.max_results_per_source}"
+        )
 
         # Build list of queries (with translations if enabled)
         queries_to_search = [topic]
@@ -588,8 +682,12 @@ class SnapshotBuilder:
                 _log.info("[Wait] 5s between search queries...")
                 await asyncio.sleep(5)
 
-            region_info = f" (region: {self.config.region})" if self.config.region else ""
-            _log.info(f"Searching via {self.config.sources}{region_info}: {query[:50]}...")
+            region_info = (
+                f" (region: {self.config.region})" if self.config.region else ""
+            )
+            _log.info(
+                f"Searching via {self.config.sources}{region_info}: {query[:50]}..."
+            )
 
             # Core API search
             results = await search.search(
@@ -631,7 +729,9 @@ class SnapshotBuilder:
                             seen_urls.add(result.url)
                             all_results.append(result)
                     if site_results:
-                        _log.debug(f"  {site_query[:40]}... -> {len(site_results)} results")
+                        _log.debug(
+                            f"  {site_query[:40]}... -> {len(site_results)} results"
+                        )
                 except Exception as e:
                     _log.debug(f"  Site search failed: {site_query[:30]}... ({e})")
 
@@ -642,19 +742,29 @@ class SnapshotBuilder:
         all_urls = []
         for result in all_results:
             domain = urlparse(result.url).netloc.replace("www.", "")
-            source_type = result.source_type or _classify_source_type(result.url, domain)
+            source_type = result.source_type or _classify_source_type(
+                result.url, domain
+            )
 
-            all_urls.append({
-                "url": result.url,
-                "title": result.title,
-                "snippet": result.snippet or "",
-                "domain": domain,
-                "relevance_score": result.relevance_score or 0,
-                "source_type": source_type.value if hasattr(source_type, 'value') else str(source_type),
-                "api_source": result.source,
-                "source_name": result.source_name or domain,
-                "published_at": result.published_at.isoformat() if result.published_at else None,
-            })
+            all_urls.append(
+                {
+                    "url": result.url,
+                    "title": result.title,
+                    "snippet": result.snippet or "",
+                    "domain": domain,
+                    "relevance_score": result.relevance_score or 0,
+                    "source_type": (
+                        source_type.value
+                        if hasattr(source_type, "value")
+                        else str(source_type)
+                    ),
+                    "api_source": result.source,
+                    "source_name": result.source_name or domain,
+                    "published_at": (
+                        result.published_at.isoformat() if result.published_at else None
+                    ),
+                }
+            )
 
         _log.info(f"DISCOVERY COMPLETE: {len(all_urls)} URLs discovered")
         return all_urls
@@ -689,13 +799,19 @@ class SnapshotBuilder:
 
         # Select top domains to expand (most URLs = most relevant domains)
         sorted_domains = sorted(domain_counts.items(), key=lambda x: x[1], reverse=True)
-        domains_to_expand = [d for d, _ in sorted_domains[:self.config.expansion_max_domains]]
+        domains_to_expand = [
+            d for d, _ in sorted_domains[: self.config.expansion_max_domains]
+        ]
 
         if not domains_to_expand:
             return []
 
-        _log.info(f"DOMAIN EXPANSION: expanding {len(domains_to_expand)} domains via {self.config.expansion_source}")
-        _log.info(f"Expanding {len(domains_to_expand)} domains via {self.config.expansion_source}...")
+        _log.info(
+            f"DOMAIN EXPANSION: expanding {len(domains_to_expand)} domains via {self.config.expansion_source}"
+        )
+        _log.info(
+            f"Expanding {len(domains_to_expand)} domains via {self.config.expansion_source}..."
+        )
 
         # Configure URL seeding
         seeding_config = SeedingConfig(
@@ -712,28 +828,34 @@ class SnapshotBuilder:
 
         try:
             async with UrlSeeder() as seeder:
-                results = await seeder.discover_many(domains_to_expand, topic, seeding_config)
+                results = await seeder.discover_many(
+                    domains_to_expand, topic, seeding_config
+                )
 
                 for domain, seeded_urls in results.items():
                     new_count = 0
                     for seeded in seeded_urls:
                         if seeded.url not in seen_urls:
                             seen_urls.add(seeded.url)
-                            expanded_urls.append({
-                                "url": seeded.url,
-                                "title": seeded.title or "",
-                                "snippet": seeded.description or "",
-                                "domain": domain,
-                                "relevance_score": seeded.relevance_score,
-                                "source_type": "news",  # Default, will be reclassified
-                                "api_source": "url_seeder",
-                                "source_name": domain,
-                                "published_at": None,
-                            })
+                            expanded_urls.append(
+                                {
+                                    "url": seeded.url,
+                                    "title": seeded.title or "",
+                                    "snippet": seeded.description or "",
+                                    "domain": domain,
+                                    "relevance_score": seeded.relevance_score,
+                                    "source_type": "news",  # Default, will be reclassified
+                                    "api_source": "url_seeder",
+                                    "source_name": domain,
+                                    "published_at": None,
+                                }
+                            )
                             new_count += 1
 
                     if new_count > 0:
-                        _log.info(f"  {domain}: +{new_count} URLs (BM25 score >= {self.config.expansion_score_threshold})")
+                        _log.info(
+                            f"  {domain}: +{new_count} URLs (BM25 score >= {self.config.expansion_score_threshold})"
+                        )
                         _log.info(f"  {domain}: {new_count} new URLs via seeding")
 
         except Exception as e:
@@ -766,7 +888,7 @@ No explanation needed."""
         try:
             response = await self.llm_client.complete(
                 prompt,
-                system_prompt="You are a search query optimizer. Return only valid JSON."
+                system_prompt="You are a search query optimizer. Return only valid JSON.",
             )
 
             # Parse response
@@ -780,7 +902,9 @@ No explanation needed."""
             variations = json.loads(response)
             if isinstance(variations, list):
                 # Return original + variations
-                return [topic] + [v for v in variations if isinstance(v, str)][:self.config.max_query_variations]
+                return [topic] + [v for v in variations if isinstance(v, str)][
+                    : self.config.max_query_variations
+                ]
         except Exception as e:
             _log.info(f"(Query augmentation failed: {e})")
 
@@ -799,11 +923,26 @@ No explanation needed."""
         """
         # Language code to name mapping
         lang_names = {
-            "de": "German", "fr": "French", "es": "Spanish", "it": "Italian",
-            "pt": "Portuguese", "nl": "Dutch", "pl": "Polish", "ru": "Russian",
-            "ja": "Japanese", "ko": "Korean", "zh": "Chinese", "ar": "Arabic",
-            "hi": "Hindi", "sv": "Swedish", "no": "Norwegian", "da": "Danish",
-            "fi": "Finnish", "tr": "Turkish", "he": "Hebrew", "th": "Thai",
+            "de": "German",
+            "fr": "French",
+            "es": "Spanish",
+            "it": "Italian",
+            "pt": "Portuguese",
+            "nl": "Dutch",
+            "pl": "Polish",
+            "ru": "Russian",
+            "ja": "Japanese",
+            "ko": "Korean",
+            "zh": "Chinese",
+            "ar": "Arabic",
+            "hi": "Hindi",
+            "sv": "Swedish",
+            "no": "Norwegian",
+            "da": "Danish",
+            "fi": "Finnish",
+            "tr": "Turkish",
+            "he": "Hebrew",
+            "th": "Thai",
         }
         lang_name = lang_names.get(target_lang.lower(), target_lang)
 
@@ -817,7 +956,7 @@ Translation (just the query, no explanation):"""
         try:
             response = await self.llm_client.complete(
                 prompt,
-                system_prompt="You are a translator. Return only the translated query."
+                system_prompt="You are a translator. Return only the translated query.",
             )
             translated = response.strip().strip('"').strip("'")
             return translated if translated else query
@@ -825,9 +964,7 @@ Translation (just the query, no explanation):"""
             _log.info(f"(Translation to {lang_name} failed: {e})")
             return query
 
-    async def _filter_ideas_by_relevance(
-        self, ideas: list, topic: str
-    ) -> list:
+    async def _filter_ideas_by_relevance(self, ideas: list, topic: str) -> list:
         """
         Filter extracted ideas by topic relevance.
 
@@ -848,8 +985,7 @@ Translation (just the query, no explanation):"""
 
             # Build scoring prompt for this batch
             idea_data = [
-                {"idx": i, "claim": idea.claim[:200]}
-                for i, idea in enumerate(batch)
+                {"idx": i, "claim": idea.claim[:200]} for i, idea in enumerate(batch)
             ]
 
             prompt = f"""Score each idea's relevance to the topic "{topic}" on a scale of 1-10.
@@ -871,7 +1007,7 @@ Return ONLY a JSON array with scores: [{{"idx": 0, "score": 8}}, {{"idx": 1, "sc
             try:
                 response = await self.llm_client.complete(
                     prompt,
-                    system_prompt="You are a relevance scorer. Be strict. Return only valid JSON."
+                    system_prompt="You are a relevance scorer. Be strict. Return only valid JSON.",
                 )
 
                 # Parse response
@@ -892,7 +1028,9 @@ Return ONLY a JSON array with scores: [{{"idx": 0, "score": 8}}, {{"idx": 1, "sc
                         relevant_ideas.append(batch[idx])
 
             except Exception as e:
-                _log.warning(f"(Batch {batch_start//batch_size + 1} filtering failed: {e}, keeping batch)")
+                _log.warning(
+                    f"(Batch {batch_start//batch_size + 1} filtering failed: {e}, keeping batch)"
+                )
                 relevant_ideas.extend(batch)
 
             # Brief delay between batches to respect rate limits
@@ -918,9 +1056,8 @@ Return ONLY a JSON array with scores: [{{"idx": 0, "score": 8}}, {{"idx": 1, "sc
         batch_size = self.config.relevance_batch_size
 
         # Process in batches
-        total_batches = (len(urls) + batch_size - 1) // batch_size
         for batch_num, i in enumerate(range(0, len(urls), batch_size)):
-            batch = urls[i:i + batch_size]
+            batch = urls[i : i + batch_size]
 
             # Rate limit protection: delay between batches (5s for Groq free tier)
             if batch_num > 0:
@@ -955,7 +1092,7 @@ Include ALL URLs from the input. No explanation needed."""
             try:
                 response = await self.llm_client.complete(
                     prompt,
-                    system_prompt="You are a relevance scorer. Return only valid JSON."
+                    system_prompt="You are a relevance scorer. Return only valid JSON.",
                 )
 
                 # Parse scores
@@ -1020,7 +1157,9 @@ Include ALL URLs from the input. No explanation needed."""
                     regular_urls.append(url)
             if social_urls:
                 _log.info(f"  Social URLs: {len(social_urls)} (using PageSnapshotter)")
-                _log.info(f"  Regular URLs: {len(regular_urls)} (using ParallelCrawler)")
+                _log.info(
+                    f"  Regular URLs: {len(regular_urls)} (using ParallelCrawler)"
+                )
         else:
             regular_urls = url_list
 
@@ -1032,24 +1171,28 @@ Include ALL URLs from the input. No explanation needed."""
 
         if regular_urls:
             if self.config.use_parallel_crawler:
-                sources, crawled, failed, diagnostics = await self._crawl_parallel(regular_urls, url_metadata)
+                sources, crawled, failed, diagnostics = await self._crawl_parallel(
+                    regular_urls, url_metadata
+                )
             else:
-                sources, crawled, failed, diagnostics = await self._crawl_sequential(regular_urls, url_metadata)
+                sources, crawled, failed, diagnostics = await self._crawl_sequential(
+                    regular_urls, url_metadata
+                )
             all_sources.extend(sources)
             total_crawled += crawled
             total_failed += failed
 
         # Crawl social URLs with PageSnapshotter
         if social_urls:
-            social_sources, social_crawled, social_failed, snapshots = await self._crawl_social_with_snapshots(
-                social_urls, url_metadata
+            social_sources, social_crawled, social_failed, snapshots = (
+                await self._crawl_social_with_snapshots(social_urls, url_metadata)
             )
             all_sources.extend(social_sources)
             total_crawled += social_crawled
             total_failed += social_failed
 
             # Store snapshots for potential later use (evidence, temporal tracking)
-            if snapshots and hasattr(self, '_social_snapshots'):
+            if snapshots and hasattr(self, "_social_snapshots"):
                 self._social_snapshots.extend(snapshots)
             elif snapshots:
                 self._social_snapshots = snapshots
@@ -1079,14 +1222,20 @@ Include ALL URLs from the input. No explanation needed."""
         )
 
         # Crawl all URLs in parallel with domain batching
-        _log.info(f"Parallel crawling with {self.config.max_concurrent_crawls} concurrent connections...")
+        _log.info(
+            f"Parallel crawling with {self.config.max_concurrent_crawls} concurrent connections..."
+        )
         batch_result = await crawler.crawl_many(url_list, diagnostics=diagnostics)
 
         # Convert results to SourceNodes
         for result in batch_result.results:
             if result.success and result.markdown and len(result.markdown) > 200:
                 domain = urlparse(result.url).netloc.replace("www.", "")
-                zone = get_zone_for_domain(domain) if self.config.use_zone_config else SignalZone.GRASSROOTS
+                zone = (
+                    get_zone_for_domain(domain)
+                    if self.config.use_zone_config
+                    else SignalZone.GRASSROOTS
+                )
 
                 # Get original metadata
                 meta = url_metadata.get(result.url, {})
@@ -1118,7 +1267,9 @@ Include ALL URLs from the input. No explanation needed."""
                 # Note: diagnostics already recorded in parallel_crawler._crawl_single()
 
                 api_src = meta.get("api_source", "")
-                _log.info(f"[{len(sources)}] {domain} [{zone.value}] via {api_src} ({len(result.markdown):,} chars)")
+                _log.info(
+                    f"[{len(sources)}] {domain} [{zone.value}] via {api_src} ({len(result.markdown):,} chars)"
+                )
             # Note: drops already recorded in parallel_crawler._crawl_single()
 
         # Show diagnostics summary
@@ -1128,7 +1279,9 @@ Include ALL URLs from the input. No explanation needed."""
         crawled = diagnostics.crawled
         failed = diagnostics.total_dropped
 
-        _log.info(f"CRAWL COMPLETE: {crawled} success, {failed} failed, yield={diagnostics.yield_rate():.1%}")
+        _log.info(
+            f"CRAWL COMPLETE: {crawled} success, {failed} failed, yield={diagnostics.yield_rate():.1%}"
+        )
         return sources, crawled, failed, diagnostics
 
     async def _crawl_sequential(
@@ -1147,11 +1300,17 @@ Include ALL URLs from the input. No explanation needed."""
                 try:
                     result = await crawler.crawl(url)
 
-                    if result.success and result.markdown and len(result.markdown) > 200:
+                    if (
+                        result.success
+                        and result.markdown
+                        and len(result.markdown) > 200
+                    ):
                         source = crawler.result_to_source_node(result)
                         if source:
                             source.metadata = source.metadata or {}
-                            source.metadata["relevance_score"] = meta.get("relevance_score", 0)
+                            source.metadata["relevance_score"] = meta.get(
+                                "relevance_score", 0
+                            )
                             source.metadata["snippet"] = meta.get("snippet", "")
                             source.metadata["api_source"] = meta.get("api_source", "")
                             source.metadata["source_name"] = meta.get("source_name", "")
@@ -1160,13 +1319,18 @@ Include ALL URLs from the input. No explanation needed."""
                             if not source.title or source.title == domain:
                                 source.title = meta.get("title") or source.title
 
-                            if meta.get("source_name") and meta["source_name"] != domain:
+                            if (
+                                meta.get("source_name")
+                                and meta["source_name"] != domain
+                            ):
                                 source.origin = meta["source_name"]
 
                             sources.append(source)
                             crawled += 1
                             api_src = meta.get("api_source", "")
-                            _log.info(f"[{crawled}] {domain} via {api_src} ({len(result.markdown):,} chars)")
+                            _log.info(
+                                f"[{crawled}] {domain} via {api_src} ({len(result.markdown):,} chars)"
+                            )
                     else:
                         failed += 1
 
@@ -1197,7 +1361,9 @@ Include ALL URLs from the input. No explanation needed."""
         if not url_list:
             return sources, crawled, failed, snapshots
 
-        _log.info(f"SOCIAL SNAPSHOT: Capturing {len(url_list)} social URLs with PageSnapshotter")
+        _log.info(
+            f"SOCIAL SNAPSHOT: Capturing {len(url_list)} social URLs with PageSnapshotter"
+        )
 
         # Configure snapshot capture
         output_dir = None
@@ -1230,18 +1396,32 @@ Include ALL URLs from the input. No explanation needed."""
 
                     # Convert HTML to markdown-like text for extraction
                     # Strip HTML tags for basic text extraction
-                    text_content = re.sub(r"<script[^>]*>.*?</script>", "", content, flags=re.DOTALL | re.IGNORECASE)
-                    text_content = re.sub(r"<style[^>]*>.*?</style>", "", text_content, flags=re.DOTALL | re.IGNORECASE)
+                    text_content = re.sub(
+                        r"<script[^>]*>.*?</script>",
+                        "",
+                        content,
+                        flags=re.DOTALL | re.IGNORECASE,
+                    )
+                    text_content = re.sub(
+                        r"<style[^>]*>.*?</style>",
+                        "",
+                        text_content,
+                        flags=re.DOTALL | re.IGNORECASE,
+                    )
                     text_content = re.sub(r"<[^>]+>", " ", text_content)
                     text_content = re.sub(r"\s+", " ", text_content).strip()
 
                     if len(text_content) < 100:
-                        _log.info(f"  {domain}: Too little content ({len(text_content)} chars), skipping")
+                        _log.info(
+                            f"  {domain}: Too little content ({len(text_content)} chars), skipping"
+                        )
                         failed += 1
                         continue
 
                     # Determine zone for social content
-                    zone = SignalZone.GRASSROOTS  # Social content is grassroots by default
+                    zone = (
+                        SignalZone.GRASSROOTS
+                    )  # Social content is grassroots by default
 
                     # Create SourceNode
                     source = SourceNode(
@@ -1251,7 +1431,7 @@ Include ALL URLs from the input. No explanation needed."""
                         origin=meta.get("source_name") or domain,
                         source_type=SourceType.SOCIAL,
                         signal_zone=zone,
-                        content_markdown=text_content[:self.config.max_content_chars],
+                        content_markdown=text_content[: self.config.max_content_chars],
                     )
 
                     # Add metadata
@@ -1270,8 +1450,12 @@ Include ALL URLs from the input. No explanation needed."""
                     sources.append(source)
                     crawled += 1
 
-                    screenshot_note = " (with screenshot)" if snapshot.screenshot_b64 else ""
-                    _log.info(f"  {domain}: Captured{screenshot_note} ({len(text_content):,} chars)")
+                    screenshot_note = (
+                        " (with screenshot)" if snapshot.screenshot_b64 else ""
+                    )
+                    _log.info(
+                        f"  {domain}: Captured{screenshot_note} ({len(text_content):,} chars)"
+                    )
 
                 except Exception as e:
                     failed += 1
@@ -1310,11 +1494,13 @@ Include ALL URLs from the input. No explanation needed."""
                 topic=topic,
                 min_relevance=self.config.hybrid_min_relevance,
             )
-            _log.info(f"Using hybrid extraction (pre-LLM filtering enabled)")
+            _log.info("Using hybrid extraction (pre-LLM filtering enabled)")
 
         for i, source in enumerate(sources):
             if not source.content_markdown:
-                _log.debug(f"[{i+1}/{len(sources)}] {source.origin}: No content, skipping")
+                _log.debug(
+                    f"[{i+1}/{len(sources)}] {source.origin}: No content, skipping"
+                )
                 continue
 
             # Small delay between sources (Groq limiter handles rate limiting)
@@ -1332,21 +1518,31 @@ Include ALL URLs from the input. No explanation needed."""
 
                 # Use filtered content if available
                 if pre_extracted.relevant_chunks:
-                    content = pre_extracted.content or "\n\n".join(pre_extracted.relevant_chunks)
-                    _log.debug(f"  Hybrid: {original_len} -> {len(content)} chars, saved ~{pre_extracted.tokens_saved} tokens")
+                    content = pre_extracted.content or "\n\n".join(
+                        pre_extracted.relevant_chunks
+                    )
+                    _log.debug(
+                        f"  Hybrid: {original_len} -> {len(content)} chars, saved ~{pre_extracted.tokens_saved} tokens"
+                    )
 
                 # Skip LLM if hybrid extraction got enough data
                 if not pre_extracted.needs_llm and pre_extracted.quotes:
                     # Convert quotes directly to ideas (fast path)
-                    quick_ideas = self._quick_ideas_from_extraction(pre_extracted, source, topic)
+                    quick_ideas = self._quick_ideas_from_extraction(
+                        pre_extracted, source, topic
+                    )
                     all_ideas.extend(quick_ideas)
-                    _log.info(f"{source.origin}: {len(quick_ideas)} ideas (quick extraction)")
+                    _log.info(
+                        f"{source.origin}: {len(quick_ideas)} ideas (quick extraction)"
+                    )
                     continue
 
             # Limit content length to avoid rate limits
             if len(content) > self.config.max_content_chars:
-                content = content[:self.config.max_content_chars]
-                _log.info(f"(Truncated {source.origin} from {original_len:,} to {self.config.max_content_chars:,} chars)")
+                content = content[: self.config.max_content_chars]
+                _log.info(
+                    f"(Truncated {source.origin} from {original_len:,} to {self.config.max_content_chars:,} chars)"
+                )
 
             _log.info(f"[{i+1}/{len(sources)}] EXTRACT: {source.origin}")
             _log.debug(f"  URL: {source.url}")
@@ -1377,7 +1573,9 @@ Include ALL URLs from the input. No explanation needed."""
                 _log.info(f"{source.origin}: Extraction failed - {e}")
 
         if hybrid_extractor and total_tokens_saved > 0:
-            _log.info(f"Total tokens saved by hybrid extraction: ~{total_tokens_saved:,}")
+            _log.info(
+                f"Total tokens saved by hybrid extraction: ~{total_tokens_saved:,}"
+            )
 
         _log.info(f"EXTRACTION COMPLETE: {len(all_ideas)} total ideas extracted")
         return all_ideas
@@ -1423,8 +1621,7 @@ Include ALL URLs from the input. No explanation needed."""
 
         # Build source content map
         source_contents = {
-            source.id: source.content_markdown or ""
-            for source in sources
+            source.id: source.content_markdown or "" for source in sources
         }
 
         analysis = await detector.analyze(topic, ideas, source_contents)
@@ -1450,45 +1647,59 @@ Include ALL URLs from the input. No explanation needed."""
             for sid in list(source_ids_in_cluster)[:3]:
                 source = next((s for s in sources if s.id == sid), None)
                 if source:
-                    top_sources.append({
-                        "origin": source.origin,
-                        "url": source.url,
-                        "credibility_score": source.credibility_score,
-                    })
+                    top_sources.append(
+                        {
+                            "origin": source.origin,
+                            "url": source.url,
+                            "credibility_score": source.credibility_score,
+                        }
+                    )
 
-            consensus_clusters.append(ConsensusCluster(
-                representative_claim=cluster.representative_claim or "",
-                cluster_type="consensus",
-                avg_similarity=cluster.avg_similarity,
-                idea_count=len(cluster.ideas),
-                source_count=cluster.unique_sources,
-                signal_zone_distribution=zone_dist,
-                top_sources=top_sources,
-                idea_ids=[str(idea.id) for idea in cluster.ideas],
-            ))
+            consensus_clusters.append(
+                ConsensusCluster(
+                    representative_claim=cluster.representative_claim or "",
+                    cluster_type="consensus",
+                    avg_similarity=cluster.avg_similarity,
+                    idea_count=len(cluster.ideas),
+                    source_count=cluster.unique_sources,
+                    signal_zone_distribution=zone_dist,
+                    top_sources=top_sources,
+                    idea_ids=[str(idea.id) for idea in cluster.ideas],
+                )
+            )
 
         contention_zones = []
         for cluster in analysis.contention_zones:
             # Find opposing views
             opposing_views = {"pro": "", "con": ""}
-            support_ideas = [i for i in cluster.ideas if i.stance_distribution.get(Stance.SUPPORT, 0) > 0.5]
-            oppose_ideas = [i for i in cluster.ideas if i.stance_distribution.get(Stance.OPPOSE, 0) > 0.5]
+            support_ideas = [
+                i
+                for i in cluster.ideas
+                if i.stance_distribution.get(Stance.SUPPORT, 0) > 0.5
+            ]
+            oppose_ideas = [
+                i
+                for i in cluster.ideas
+                if i.stance_distribution.get(Stance.OPPOSE, 0) > 0.5
+            ]
 
             if support_ideas:
                 opposing_views["pro"] = support_ideas[0].claim[:200]
             if oppose_ideas:
                 opposing_views["con"] = oppose_ideas[0].claim[:200]
 
-            contention_zones.append(ContentionZone(
-                representative_claim=cluster.representative_claim or "",
-                cluster_type="contention",
-                avg_similarity=cluster.avg_similarity,
-                idea_count=len(cluster.ideas),
-                source_count=cluster.unique_sources,
-                opposing_views=opposing_views,
-                key_disagreement="",
-                idea_ids=[str(idea.id) for idea in cluster.ideas],
-            ))
+            contention_zones.append(
+                ContentionZone(
+                    representative_claim=cluster.representative_claim or "",
+                    cluster_type="contention",
+                    avg_similarity=cluster.avg_similarity,
+                    idea_count=len(cluster.ideas),
+                    source_count=cluster.unique_sources,
+                    opposing_views=opposing_views,
+                    key_disagreement="",
+                    idea_ids=[str(idea.id) for idea in cluster.ideas],
+                )
+            )
 
         return consensus_clusters, contention_zones
 
@@ -1514,12 +1725,14 @@ Include ALL URLs from the input. No explanation needed."""
         # Find groups with multiple sources
         for key, group in title_groups.items():
             if len(group) > 1:
-                warnings.append(AmplificationWarning(
-                    original_url=group[0].url,
-                    amplifier_count=len(group) - 1,
-                    similar_titles=[s.title for s in group if s.title],
-                    note=f"{len(group)} sources with similar titles",
-                ))
+                warnings.append(
+                    AmplificationWarning(
+                        original_url=group[0].url,
+                        amplifier_count=len(group) - 1,
+                        similar_titles=[s.title for s in group if s.title],
+                        note=f"{len(group)} sources with similar titles",
+                    )
+                )
 
         return warnings
 
@@ -1533,20 +1746,35 @@ Include ALL URLs from the input. No explanation needed."""
         """Generate natural language summary using LLM."""
 
         # Build summary prompt
-        consensus_text = "\n".join([
-            f"- {c.representative_claim} (agreed by {c.source_count} sources)"
-            for c in consensus_clusters[:3]
-        ]) or "No clear consensus found."
+        consensus_text = (
+            "\n".join(
+                [
+                    f"- {c.representative_claim} (agreed by {c.source_count} sources)"
+                    for c in consensus_clusters[:3]
+                ]
+            )
+            or "No clear consensus found."
+        )
 
-        contention_text = "\n".join([
-            f"- {c.representative_claim}"
-            for c in contention_zones[:3]
-        ]) or "No major contentions found."
+        contention_text = (
+            "\n".join([f"- {c.representative_claim}" for c in contention_zones[:3]])
+            or "No major contentions found."
+        )
 
         stance_counts = {"support": 0, "oppose": 0, "neutral": 0}
         for idea in ideas:
-            max_stance = max(idea.stance_distribution.items(), key=lambda x: x[1], default=(Stance.NEUTRAL, 0))
-            stance_counts[max_stance[0].value if isinstance(max_stance[0], Stance) else max_stance[0]] += 1
+            max_stance = max(
+                idea.stance_distribution.items(),
+                key=lambda x: x[1],
+                default=(Stance.NEUTRAL, 0),
+            )
+            stance_counts[
+                (
+                    max_stance[0].value
+                    if isinstance(max_stance[0], Stance)
+                    else max_stance[0]
+                )
+            ] += 1
 
         prompt = f"""Summarize the discourse on "{topic}" based on this analysis:
 
@@ -1563,7 +1791,10 @@ Write a 2-3 sentence summary capturing the main findings and any notable pattern
 Focus on what the sources agree on, what they disagree on, and the overall sentiment."""
 
         try:
-            summary = await self.llm_client.complete(prompt, system_prompt="You are a research analyst. Be concise and factual.")
+            summary = await self.llm_client.complete(
+                prompt,
+                system_prompt="You are a research analyst. Be concise and factual.",
+            )
             return summary.strip()
         except Exception as e:
             return f"Summary generation failed: {e}"
@@ -1579,33 +1810,49 @@ Focus on what the sources agree on, what they disagree on, and the overall senti
 
         # Add source nodes
         for source in sources:
-            nodes.append({
-                "id": str(source.id),
-                "type": "source",
-                "label": source.origin,
-                "url": source.url,
-                "signal_zone": source.signal_zone.value,
-            })
+            nodes.append(
+                {
+                    "id": str(source.id),
+                    "type": "source",
+                    "label": source.origin,
+                    "url": source.url,
+                    "signal_zone": source.signal_zone.value,
+                }
+            )
 
         # Add idea nodes
         for idea in ideas:
-            max_stance = max(idea.stance_distribution.items(), key=lambda x: x[1], default=(Stance.NEUTRAL, 0))
-            nodes.append({
-                "id": str(idea.id),
-                "type": "idea",
-                "label": idea.claim[:50] + "..." if len(idea.claim) > 50 else idea.claim,
-                "stance": max_stance[0].value if isinstance(max_stance[0], Stance) else max_stance[0],
-                "cluster": idea.cluster,
-            })
+            max_stance = max(
+                idea.stance_distribution.items(),
+                key=lambda x: x[1],
+                default=(Stance.NEUTRAL, 0),
+            )
+            nodes.append(
+                {
+                    "id": str(idea.id),
+                    "type": "idea",
+                    "label": (
+                        idea.claim[:50] + "..." if len(idea.claim) > 50 else idea.claim
+                    ),
+                    "stance": (
+                        max_stance[0].value
+                        if isinstance(max_stance[0], Stance)
+                        else max_stance[0]
+                    ),
+                    "cluster": idea.cluster,
+                }
+            )
 
             # Add edges from sources to ideas
             for source_id in idea.source_ids:
-                edges.append(GraphEdge(
-                    source_id=str(source_id),
-                    target_id=str(idea.id),
-                    relationship="contributes",
-                    weight=1.0,
-                ))
+                edges.append(
+                    GraphEdge(
+                        source_id=str(source_id),
+                        target_id=str(idea.id),
+                        relationship="contributes",
+                        weight=1.0,
+                    )
+                )
 
         return nodes, edges
 

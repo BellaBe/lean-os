@@ -23,12 +23,12 @@ from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, Field
 
-log = logging.getLogger("nous.extract")
-
 from ...domain import IdeaId, IdeaNode, SourceId, Stance
 
 if TYPE_CHECKING:
     from .hybrid_extractor import QuickExtraction
+
+log = logging.getLogger("nous.extract")
 
 
 # Pydantic schemas for LLM extraction
@@ -38,17 +38,24 @@ class ExtractedClaim(BaseModel):
     claim: str = Field(description="The main claim or argument being made")
     stance: str = Field(description="One of: support, oppose, neutral")
     confidence: float = Field(description="Confidence in this extraction (0-1)")
-    evidence: str | None = Field(default=None, description="Supporting evidence if mentioned")
+    evidence: str | None = Field(
+        default=None, description="Supporting evidence if mentioned"
+    )
     context: str | None = Field(default=None, description="Surrounding context")
 
 
 class ExtractedIdeas(BaseModel):
     """Collection of ideas extracted from a single source."""
 
-    ideas: list[ExtractedClaim] = Field(description="List of extracted claims/arguments")
-    summary: str | None = Field(default=None, description="Brief summary of main points")
+    ideas: list[ExtractedClaim] = Field(
+        description="List of extracted claims/arguments"
+    )
+    summary: str | None = Field(
+        default=None, description="Brief summary of main points"
+    )
     sentiment: str | None = Field(
-        default=None, description="Overall sentiment: positive, negative, mixed, neutral"
+        default=None,
+        description="Overall sentiment: positive, negative, mixed, neutral",
     )
 
 
@@ -369,7 +376,10 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
                     model=self.config.provider,
                     messages=[
                         {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": f"Content to analyze:\n\n{content}"},
+                        {
+                            "role": "user",
+                            "content": f"Content to analyze:\n\n{content}",
+                        },
                     ],
                     temperature=self.config.temperature,
                     max_tokens=self.config.max_tokens,
@@ -407,7 +417,7 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
 
                 log.info(f"Extraction complete: {len(ideas)} ideas")
                 return {
-                    "ideas": ideas[:self.config.max_claims_per_source],
+                    "ideas": ideas[: self.config.max_claims_per_source],
                     "chunks": 1,
                     "tokens": actual_tokens,
                 }
@@ -426,7 +436,10 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
                             model=self.config.provider,
                             messages=[
                                 {"role": "system", "content": system_prompt},
-                                {"role": "user", "content": f"Content to analyze:\n\n{content}"},
+                                {
+                                    "role": "user",
+                                    "content": f"Content to analyze:\n\n{content}",
+                                },
                             ],
                             temperature=self.config.temperature,
                             max_tokens=self.config.max_tokens,
@@ -440,7 +453,10 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
                         data = json.loads(resp_content)
                         ideas = data.get("ideas", []) if isinstance(data, dict) else []
 
-                        return {"ideas": ideas[:self.config.max_claims_per_source], "chunks": 1}
+                        return {
+                            "ideas": ideas[: self.config.max_claims_per_source],
+                            "chunks": 1,
+                        }
 
                     except (json.JSONDecodeError, KeyError) as retry_error:
                         log.warning(f"Retry failed: {retry_error}")
@@ -543,7 +559,10 @@ class ChunkingStrategy:
     def fixed_length(content: str, chunk_size: int = 500) -> list[str]:
         """Split into fixed-length word chunks."""
         words = content.split()
-        return [" ".join(words[i : i + chunk_size]) for i in range(0, len(words), chunk_size)]
+        return [
+            " ".join(words[i : i + chunk_size])
+            for i in range(0, len(words), chunk_size)
+        ]
 
     @staticmethod
     def sliding_window(

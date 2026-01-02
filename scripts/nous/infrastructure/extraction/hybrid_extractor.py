@@ -115,26 +115,32 @@ REGEX_PATTERNS: dict[str, re.Pattern] = {
     "doi": re.compile(r"10\.\d{4,}/[^\s]+"),
     "arxiv_id": re.compile(r"arXiv:\d{4}\.\d{4,5}(?:v\d+)?", re.IGNORECASE),
     "url": re.compile(r"https?://[^\s<>\"')\]]+"),
-
     # Numbers and statistics
     "percentage": re.compile(r"\d+(?:\.\d+)?%"),
-    "currency": re.compile(r"\$\d+(?:,\d{3})*(?:\.\d{2})?(?:\s*(?:million|billion|trillion))?", re.IGNORECASE),
-    "large_number": re.compile(r"\d+(?:,\d{3})+|\d+\s*(?:million|billion|trillion)", re.IGNORECASE),
-
+    "currency": re.compile(
+        r"\$\d+(?:,\d{3})*(?:\.\d{2})?(?:\s*(?:million|billion|trillion))?",
+        re.IGNORECASE,
+    ),
+    "large_number": re.compile(
+        r"\d+(?:,\d{3})+|\d+\s*(?:million|billion|trillion)", re.IGNORECASE
+    ),
     # Quotes
     "quote": re.compile(r'"([^"]{20,})"'),
     "quote_smart": re.compile(r'"([^"]{20,})"'),
-
     # Social signals
-    "upvotes": re.compile(r"(\d+(?:,\d{3})*)\s*(?:upvotes?|points?|likes?)", re.IGNORECASE),
+    "upvotes": re.compile(
+        r"(\d+(?:,\d{3})*)\s*(?:upvotes?|points?|likes?)", re.IGNORECASE
+    ),
     "comments": re.compile(r"(\d+(?:,\d{3})*)\s*comments?", re.IGNORECASE),
-
     # Dates
     "date_iso": re.compile(r"\d{4}-\d{2}-\d{2}"),
-    "date_relative": re.compile(r"(\d+)\s*(?:hours?|days?|weeks?|months?)\s*ago", re.IGNORECASE),
-
+    "date_relative": re.compile(
+        r"(\d+)\s*(?:hours?|days?|weeks?|months?)\s*ago", re.IGNORECASE
+    ),
     # Author patterns
-    "author_by": re.compile(r"(?:by|author:?)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)", re.IGNORECASE),
+    "author_by": re.compile(
+        r"(?:by|author:?)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)", re.IGNORECASE
+    ),
 }
 
 
@@ -262,19 +268,28 @@ class HybridExtractor:
         """Detect site type from URL."""
         url_lower = url.lower()
 
-        if any(x in url_lower for x in ["arxiv", "scholar", "pubmed", ".edu", "nature.com", "science.org"]):
+        if any(
+            x in url_lower
+            for x in ["arxiv", "scholar", "pubmed", ".edu", "nature.com", "science.org"]
+        ):
             return "academic"
 
         if any(x in url_lower for x in ["reddit.com", "x.com", "linkedin.com"]):
             return "social"
 
-        if any(x in url_lower for x in ["forum", "discuss", "community", "news.ycombinator"]):
+        if any(
+            x in url_lower
+            for x in ["forum", "discuss", "community", "news.ycombinator"]
+        ):
             return "forum"
 
         if any(x in url_lower for x in ["medium.com", "substack", "blog", "wordpress"]):
             return "blog"
 
-        if any(x in url_lower for x in ["nytimes", "bbc", "reuters", "wsj", "bloomberg", "cnn"]):
+        if any(
+            x in url_lower
+            for x in ["nytimes", "bbc", "reuters", "wsj", "bloomberg", "cnn"]
+        ):
             return "news"
 
         return "news"  # Default
@@ -291,14 +306,14 @@ class HybridExtractor:
         soup = BeautifulSoup(html, "html.parser")
 
         extracted = {}
-        for field, selectors in schema.items():
+        for field_name, selectors in schema.items():
             for selector in selectors.split(", "):
                 try:
                     element = soup.select_one(selector)
                     if element:
                         text = element.get_text(strip=True)
                         if text and len(text) > 2:
-                            extracted[field] = text
+                            extracted[field_name] = text
                             break
                 except Exception:
                     continue

@@ -7,24 +7,24 @@ across the snapshot building pipeline.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .config import SnapshotBuilderConfig
-    from .ui import ConsoleUI
-    from .stages import (
-        PipelineStage,
-        DiscoveryStage,
-        CrawlingStage,
-        ExtractionStage,
-        AnalysisStage,
-        SynthesisStage,
-    )
     from ..infrastructure import DirectLLMClient
+    from ..infrastructure.analysis.consensus_detector import ConsensusDetector
     from ..infrastructure.crawlers.parallel_crawler import ParallelCrawler
     from ..infrastructure.extraction.idea_extractor import IdeaExtractor
-    from ..infrastructure.analysis.consensus_detector import ConsensusDetector
+    from .config import SnapshotBuilderConfig
+    from .stages import (
+        AnalysisStage,
+        CrawlingStage,
+        DiscoveryStage,
+        ExtractionStage,
+        PipelineStage,
+        SynthesisStage,
+    )
+    from .ui import ConsoleUI
 
 
 @dataclass
@@ -38,32 +38,32 @@ class SnapshotDependencies:
     """
 
     # Core services
-    llm_client: "DirectLLMClient | None" = None
-    crawler: "ParallelCrawler | None" = None
-    extractor: "IdeaExtractor | None" = None
-    analyzer: "ConsensusDetector | None" = None
+    llm_client: DirectLLMClient | None = None
+    crawler: ParallelCrawler | None = None
+    extractor: IdeaExtractor | None = None
+    analyzer: ConsensusDetector | None = None
 
     # UI
-    ui: "ConsoleUI | None" = None
+    ui: ConsoleUI | None = None
 
     # Pipeline stages (override default stage implementations)
-    discovery_stage: "DiscoveryStage | None" = None
-    crawling_stage: "CrawlingStage | None" = None
-    extraction_stage: "ExtractionStage | None" = None
-    analysis_stage: "AnalysisStage | None" = None
-    synthesis_stage: "SynthesisStage | None" = None
+    discovery_stage: DiscoveryStage | None = None
+    crawling_stage: CrawlingStage | None = None
+    extraction_stage: ExtractionStage | None = None
+    analysis_stage: AnalysisStage | None = None
+    synthesis_stage: SynthesisStage | None = None
 
-    def get_stages(self) -> list["PipelineStage"]:
+    def get_stages(self) -> list[PipelineStage]:
         """
         Get the ordered list of pipeline stages.
 
         Uses injected stages or creates defaults.
         """
         from .stages import (
-            DiscoveryStage,
-            CrawlingStage,
-            ExtractionStage,
             AnalysisStage,
+            CrawlingStage,
+            DiscoveryStage,
+            ExtractionStage,
             SynthesisStage,
         )
 
@@ -77,7 +77,7 @@ class SnapshotDependencies:
 
 
 def create_default_dependencies(
-    config: "SnapshotBuilderConfig",
+    config: SnapshotBuilderConfig,
 ) -> SnapshotDependencies:
     """
     Create dependencies with default implementations.
@@ -88,11 +88,14 @@ def create_default_dependencies(
     Returns:
         SnapshotDependencies with all defaults initialized
     """
-    from .ui import ConsoleUI
     from ..infrastructure import DirectLLMClient, LLMConfig
-    from ..infrastructure.crawlers.parallel_crawler import ParallelCrawler
-    from ..infrastructure.extraction.idea_extractor import IdeaExtractor, ExtractionConfig
     from ..infrastructure.analysis.consensus_detector import ConsensusDetector
+    from ..infrastructure.crawlers.parallel_crawler import ParallelCrawler
+    from ..infrastructure.extraction.idea_extractor import (
+        ExtractionConfig,
+        IdeaExtractor,
+    )
+    from .ui import ConsoleUI
 
     # Create LLM client
     llm_config = LLMConfig(

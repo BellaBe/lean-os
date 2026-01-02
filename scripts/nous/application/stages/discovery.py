@@ -14,17 +14,17 @@ import asyncio
 from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
-from ...infrastructure.logging import get_structured_logger
 from ...infrastructure.crawlers.search_api import (
     APISearchResult,
     MultiSourceSearch,
     SearchAPIConfig,
 )
 from ...infrastructure.crawlers.url_seeder import (
-    UrlSeeder,
     SeedingConfig,
+    UrlSeeder,
     generate_site_queries,
 )
+from ...infrastructure.logging import get_structured_logger
 
 if TYPE_CHECKING:
     from .base import PipelineContext
@@ -40,25 +40,47 @@ def _classify_source_type(url: str, domain: str):
     domain_lower = domain.lower()
 
     # Domain-based detection
-    if any(d in domain_lower for d in ["arxiv.org", "scholar.google", "researchgate", "pubmed"]):
+    if any(
+        d in domain_lower
+        for d in ["arxiv.org", "scholar.google", "researchgate", "pubmed"]
+    ):
         return SourceType.ACADEMIC
-    if any(d in domain_lower for d in ["reddit.com", "twitter.com", "x.com", "linkedin.com"]):
+    if any(
+        d in domain_lower
+        for d in ["reddit.com", "twitter.com", "x.com", "linkedin.com"]
+    ):
         return SourceType.SOCIAL
-    if any(d in domain_lower for d in ["github.com", "gitlab.com", "stackoverflow.com"]):
+    if any(
+        d in domain_lower for d in ["github.com", "gitlab.com", "stackoverflow.com"]
+    ):
         return SourceType.CODE
     if any(d in domain_lower for d in [".gov", "official", "government"]):
         return SourceType.OFFICIAL
-    if any(d in domain_lower for d in ["medium.com", "substack.com", "wordpress.com", "blogspot"]):
+    if any(
+        d in domain_lower
+        for d in ["medium.com", "substack.com", "wordpress.com", "blogspot"]
+    ):
         return SourceType.BLOG
-    if any(d in domain_lower for d in ["ycombinator", "producthunt", "techcrunch", "theverge"]):
+    if any(
+        d in domain_lower
+        for d in ["ycombinator", "producthunt", "techcrunch", "theverge"]
+    ):
         return SourceType.NEWS
 
     # Path-based detection
-    if any(p in url_lower for p in ["/research/", "/paper/", "/publication/", "/abstract/", ".pdf"]):
+    if any(
+        p in url_lower
+        for p in ["/research/", "/paper/", "/publication/", "/abstract/", ".pdf"]
+    ):
         return SourceType.ACADEMIC
-    if any(p in url_lower for p in ["/blog/", "/posts/", "/article/"]) and "news" not in domain_lower:
+    if (
+        any(p in url_lower for p in ["/blog/", "/posts/", "/article/"])
+        and "news" not in domain_lower
+    ):
         return SourceType.BLOG
-    if any(p in url_lower for p in ["/forum/", "/thread/", "/discussion/", "/comments/"]):
+    if any(
+        p in url_lower for p in ["/forum/", "/thread/", "/discussion/", "/comments/"]
+    ):
         return SourceType.FORUM
     if any(p in url_lower for p in ["/video/", "/watch/", "/embed/", "youtube.com"]):
         return SourceType.VIDEO
@@ -77,7 +99,7 @@ class DiscoveryStage:
     def name(self) -> str:
         return "discovery"
 
-    async def execute(self, context: "PipelineContext") -> "PipelineContext":
+    async def execute(self, context: PipelineContext) -> PipelineContext:
         """
         Execute URL discovery.
 
@@ -105,7 +127,7 @@ class DiscoveryStage:
         )
         return context
 
-    async def _build_queries(self, context: "PipelineContext") -> list[str]:
+    async def _build_queries(self, context: PipelineContext) -> list[str]:
         """Build list of search queries including translations."""
         queries = [context.topic]
 
@@ -122,7 +144,7 @@ class DiscoveryStage:
         return queries
 
     async def _translate_query(
-        self, context: "PipelineContext", query: str, target_lang: str
+        self, context: PipelineContext, query: str, target_lang: str
     ) -> str:
         """Translate query to target language using LLM."""
         prompt = f"""Translate this search query to {target_lang}.
@@ -138,7 +160,7 @@ Query: {query}"""
             return query
 
     async def _search_all_sources(
-        self, context: "PipelineContext", queries: list[str]
+        self, context: PipelineContext, queries: list[str]
     ) -> list[dict]:
         """Search all configured sources for URLs."""
         api_config = SearchAPIConfig(
@@ -158,8 +180,15 @@ Query: {query}"""
                 _log.debug("query_delay", seconds=5)
                 await asyncio.sleep(5)
 
-            region_info = f" (region: {context.config.region})" if context.config.region else ""
-            _log.info("searching", query=query[:50], sources=context.config.sources, region=region_info)
+            region_info = (
+                f" (region: {context.config.region})" if context.config.region else ""
+            )
+            _log.info(
+                "searching",
+                query=query[:50],
+                sources=context.config.sources,
+                region=region_info,
+            )
 
             results = await search.search(
                 query,
@@ -174,13 +203,13 @@ Query: {query}"""
 
             scores = [r.relevance_score for r in results if r.relevance_score]
             avg_score = sum(scores) / len(scores) if scores else 0
-            _log.info("search_results", count=len(results), avg_relevance=f"{avg_score:.2f}")
+            _log.info(
+                "search_results", count=len(results), avg_relevance=f"{avg_score:.2f}"
+            )
 
         # Site-specific searches
         if context.config.use_site_specific_search:
-            site_results = await self._search_site_specific(
-                context, search, seen_urls
-            )
+            site_results = await self._search_site_specific(context, search, seen_urls)
             all_results.extend(site_results)
 
         # Convert to dict format
@@ -188,7 +217,7 @@ Query: {query}"""
 
     async def _search_site_specific(
         self,
-        context: "PipelineContext",
+        context: PipelineContext,
         search: MultiSourceSearch,
         seen_urls: set[str],
     ) -> list[APISearchResult]:
@@ -199,7 +228,8 @@ Query: {query}"""
         site_queries = generate_site_queries(
             context.topic,
             include_social=True,
-            include_tech="tech" in context.topic.lower() or "startup" in context.topic.lower(),
+            include_tech="tech" in context.topic.lower()
+            or "startup" in context.topic.lower(),
         )
 
         for site_query in site_queries[:5]:
@@ -214,7 +244,11 @@ Query: {query}"""
                         seen_urls.add(result.url)
                         results.append(result)
                 if site_results:
-                    _log.debug("site_search_results", query=site_query[:40], count=len(site_results))
+                    _log.debug(
+                        "site_search_results",
+                        query=site_query[:40],
+                        count=len(site_results),
+                    )
             except Exception as e:
                 _log.debug("site_search_failed", query=site_query[:30], error=str(e))
 
@@ -227,24 +261,34 @@ Query: {query}"""
         all_urls = []
         for result in results:
             domain = urlparse(result.url).netloc.replace("www.", "")
-            source_type = result.source_type or _classify_source_type(result.url, domain)
+            source_type = result.source_type or _classify_source_type(
+                result.url, domain
+            )
 
-            all_urls.append({
-                "url": result.url,
-                "title": result.title,
-                "snippet": result.snippet or "",
-                "domain": domain,
-                "relevance_score": result.relevance_score or 0,
-                "source_type": source_type.value if hasattr(source_type, "value") else str(source_type),
-                "api_source": result.source,
-                "source_name": result.source_name or domain,
-                "published_at": result.published_at.isoformat() if result.published_at else None,
-            })
+            all_urls.append(
+                {
+                    "url": result.url,
+                    "title": result.title,
+                    "snippet": result.snippet or "",
+                    "domain": domain,
+                    "relevance_score": result.relevance_score or 0,
+                    "source_type": (
+                        source_type.value
+                        if hasattr(source_type, "value")
+                        else str(source_type)
+                    ),
+                    "api_source": result.source,
+                    "source_name": result.source_name or domain,
+                    "published_at": (
+                        result.published_at.isoformat() if result.published_at else None
+                    ),
+                }
+            )
 
         return all_urls
 
     async def _expand_domains(
-        self, context: "PipelineContext", discovered_urls: list[dict]
+        self, context: PipelineContext, discovered_urls: list[dict]
     ) -> list[dict]:
         """Expand domains using URL seeding."""
         if not discovered_urls:
@@ -275,20 +319,24 @@ Query: {query}"""
                 for url_data in seeded:
                     if url_data.url not in seen_urls:
                         seen_urls.add(url_data.url)
-                        new_urls.append({
-                            "url": url_data.url,
-                            "title": url_data.title or "",
-                            "snippet": "",
-                            "domain": domain,
-                            "relevance_score": 0.5,
-                            "source_type": "seeded",
-                            "api_source": "seeder",
-                            "source_name": domain,
-                            "published_at": None,
-                        })
+                        new_urls.append(
+                            {
+                                "url": url_data.url,
+                                "title": url_data.title or "",
+                                "snippet": "",
+                                "domain": domain,
+                                "relevance_score": 0.5,
+                                "source_type": "seeded",
+                                "api_source": "seeder",
+                                "source_name": domain,
+                                "published_at": None,
+                            }
+                        )
                 _log.debug("domain_expanded", domain=domain, new_urls=len(seeded))
             except Exception as e:
                 _log.warning("domain_expansion_failed", domain=domain, error=str(e))
 
-        _log.info("expansion_complete", original=len(discovered_urls), total=len(new_urls))
+        _log.info(
+            "expansion_complete", original=len(discovered_urls), total=len(new_urls)
+        )
         return new_urls

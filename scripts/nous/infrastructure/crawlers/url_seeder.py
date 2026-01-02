@@ -290,9 +290,9 @@ SOCIAL_DOMAINS = [
 
 # YCombinator resources - high-quality startup/tech content
 YC_DOMAINS = [
-    "ycombinator.com/library",      # Founder knowledge, essays
-    "ycombinator.com/companies",    # Startup database
-    "ycombinator.com/launches",     # New product launches
+    "ycombinator.com/library",  # Founder knowledge, essays
+    "ycombinator.com/companies",  # Startup database
+    "ycombinator.com/launches",  # New product launches
 ]
 
 # Site-specific search patterns for social discovery via web search

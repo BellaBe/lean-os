@@ -185,7 +185,11 @@ class StorageState:
         self.cookies = [
             c
             for c in self.cookies
-            if not (c.name == cookie.name and c.domain == cookie.domain and c.path == cookie.path)
+            if not (
+                c.name == cookie.name
+                and c.domain == cookie.domain
+                and c.path == cookie.path
+            )
         ]
         self.cookies.append(cookie)
 

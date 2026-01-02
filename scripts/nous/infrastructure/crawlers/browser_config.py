@@ -204,7 +204,9 @@ class BrowserFactory:
                 browser_adapter=adapter,
             )
         except ImportError:
-            print("Warning: UndetectedAdapter not available, falling back to regular browser")
+            print(
+                "Warning: UndetectedAdapter not available, falling back to regular browser"
+            )
             return None
 
     @staticmethod

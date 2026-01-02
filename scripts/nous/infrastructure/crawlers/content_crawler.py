@@ -19,8 +19,7 @@ from urllib.parse import urlparse
 
 from ...domain import SignalZone, SourceId, SourceNode, SourceType
 from .diagnostics import CrawlDiagnostics
-from .parallel_crawler import BatchCrawlResult, ParallelCrawler
-from .parallel_crawler import CrawlResult as ParallelCrawlResult
+from .parallel_crawler import ParallelCrawler
 from .zone_config import get_zone_for_domain
 
 logger = logging.getLogger(__name__)
@@ -34,7 +33,15 @@ class ContentConfig:
     timeout: int = 30000
     wait_for_selector: str | None = None
     exclude_tags: list[str] = field(
-        default_factory=lambda: ["nav", "footer", "aside", "header", "script", "style", "noscript"]
+        default_factory=lambda: [
+            "nav",
+            "footer",
+            "aside",
+            "header",
+            "script",
+            "style",
+            "noscript",
+        ]
     )
     word_count_threshold: int = 50
     use_pruning_filter: bool = True  # Use PruningContentFilter for cleaner markdown
@@ -149,7 +156,13 @@ class ContentCrawler:
             return SourceType.VIDEO
 
         # Forums
-        forum_patterns = ["forum", "community", "discuss", "hackernews", "news.ycombinator"]
+        forum_patterns = [
+            "forum",
+            "community",
+            "discuss",
+            "hackernews",
+            "news.ycombinator",
+        ]
         if any(p in domain for p in forum_patterns):
             return SourceType.FORUM
 
@@ -179,7 +192,9 @@ class ContentCrawler:
 
         return SourceType.UNKNOWN
 
-    def _detect_signal_zone(self, url: str, source_type: SourceType | None = None) -> SignalZone:
+    def _detect_signal_zone(
+        self, url: str, source_type: SourceType | None = None
+    ) -> SignalZone:
         """
         Detect signal zone based on URL.
 
@@ -237,7 +252,7 @@ class ContentCrawler:
                 word_count_threshold=cfg.word_count_threshold,
                 excluded_tags=cfg.exclude_tags,
                 markdown_generator=md_generator,
-                wait_for=cfg.wait_for_selector # type: ignore
+                wait_for=cfg.wait_for_selector,  # type: ignore
             )
 
             result = await crawler.arun(url=url, config=run_config)
@@ -272,9 +287,11 @@ class ContentCrawler:
                 fit_markdown=fit_markdown,
                 html=result.html or "",
                 links=result.links if hasattr(result, "links") and result.links else [],
-                images=result.media.get("images", [])
-                if hasattr(result, "media") and result.media
-                else [],
+                images=(
+                    result.media.get("images", [])
+                    if hasattr(result, "media") and result.media
+                    else []
+                ),
                 metadata=result.metadata or {},
                 zone=zone,
             )
@@ -389,7 +406,9 @@ class ContentCrawler:
 
         source_type = self._detect_source_type(result.url)
         # Use zone from result if available (set during crawl)
-        signal_zone = result.zone if result.zone else self._detect_signal_zone(result.url)
+        signal_zone = (
+            result.zone if result.zone else self._detect_signal_zone(result.url)
+        )
 
         return SourceNode(
             id=SourceId(),

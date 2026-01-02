@@ -95,7 +95,9 @@ class RateLimiter:
         if "x-ratelimit-limit-requests" in headers:
             self.state.limit_requests = int(headers["x-ratelimit-limit-requests"])
         if "x-ratelimit-remaining-requests" in headers:
-            self.state.remaining_requests = int(headers["x-ratelimit-remaining-requests"])
+            self.state.remaining_requests = int(
+                headers["x-ratelimit-remaining-requests"]
+            )
         if "x-ratelimit-reset-requests" in headers:
             # Parse reset time (could be duration or timestamp)
             reset_val = headers["x-ratelimit-reset-requests"]

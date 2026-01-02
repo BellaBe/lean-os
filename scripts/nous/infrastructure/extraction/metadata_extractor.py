@@ -77,7 +77,17 @@ class MetadataPatterns(IntFlag):
     SOCIAL = TWITTER | HASHTAG
     ATTRIBUTION = EMAIL | TWITTER
     NUMERIC = PERCENTAGE | CURRENCY
-    ALL = DATE_ISO | DATE_US | EMAIL | URL | TWITTER | HASHTAG | PERCENTAGE | CURRENCY | PHONE
+    ALL = (
+        DATE_ISO
+        | DATE_US
+        | EMAIL
+        | URL
+        | TWITTER
+        | HASHTAG
+        | PERCENTAGE
+        | CURRENCY
+        | PHONE
+    )
 
 
 # Custom patterns for content analysis
@@ -290,7 +300,9 @@ class MetadataExtractor:
 
         if patterns & MetadataPatterns.CURRENCY:
             # USD, EUR, GBP formats
-            currency_pattern = r"(?:\$|€|£|USD|EUR|GBP)\s*\d{1,3}(?:,\d{3})*(?:\.\d{2})?"
+            currency_pattern = (
+                r"(?:\$|€|£|USD|EUR|GBP)\s*\d{1,3}(?:,\d{3})*(?:\.\d{2})?"
+            )
             for match in re.finditer(currency_pattern, content):
                 if match.group(0) not in metadata.currencies:
                     metadata.currencies.append(match.group(0))
@@ -351,7 +363,9 @@ class MetadataExtractor:
             metadata.upvotes = parse_number(upvote_match.group(1))
 
         # Comments
-        comment_match = re.search(ADDITIONAL_PATTERNS["comments"], content, re.IGNORECASE)
+        comment_match = re.search(
+            ADDITIONAL_PATTERNS["comments"], content, re.IGNORECASE
+        )
         if comment_match:
             metadata.comment_count = parse_number(comment_match.group(1))
 
@@ -366,7 +380,9 @@ class MetadataExtractor:
             metadata.view_count = parse_number(view_match.group(1))
 
         # Relative time
-        time_match = re.search(ADDITIONAL_PATTERNS["relative_time"], content, re.IGNORECASE)
+        time_match = re.search(
+            ADDITIONAL_PATTERNS["relative_time"], content, re.IGNORECASE
+        )
         if time_match:
             metadata.relative_time = time_match.group(0)
 
@@ -402,7 +418,9 @@ class QuoteExtractor:
             quote = match.group(1).strip()
             if self.min_length <= len(quote) <= self.max_length:
                 # Avoid common contractions and possessives
-                if not any(word in quote.lower() for word in ["it's", "don't", "can't"]):
+                if not any(
+                    word in quote.lower() for word in ["it's", "don't", "can't"]
+                ):
                     quotes.append(quote)
 
         return quotes

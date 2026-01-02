@@ -117,7 +117,9 @@ class PageSnapshot:
     def compute_content_hash(self) -> str:
         """Compute hash of HTML content for diff detection."""
         if self.html_content:
-            self.content_hash = hashlib.sha256(self.html_content.encode("utf-8")).hexdigest()[:16]
+            self.content_hash = hashlib.sha256(
+                self.html_content.encode("utf-8")
+            ).hexdigest()[:16]
         return self.content_hash or ""
 
 
@@ -172,7 +174,9 @@ class PageSnapshotter:
             if self.browser_profile:
                 from .browser_config import BrowserFactory
 
-                self._crawler = await BrowserFactory.create_crawler(self.browser_profile)
+                self._crawler = await BrowserFactory.create_crawler(
+                    self.browser_profile
+                )
             else:
                 config = BrowserConfig(headless=True, verbose=False)
                 self._crawler = AsyncWebCrawler(config=config)

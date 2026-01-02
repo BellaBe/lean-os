@@ -139,8 +139,7 @@ def setup_logging(
     file_handler = logging.FileHandler(log_file, encoding="utf-8")
     file_handler.setLevel(logging.DEBUG)
     file_format = logging.Formatter(
-        "%(asctime)s | %(levelname)-8s | %(name)-30s | %(message)s",
-        datefmt="%H:%M:%S"
+        "%(asctime)s | %(levelname)-8s | %(name)-30s | %(message)s", datefmt="%H:%M:%S"
     )
     file_handler.setFormatter(file_format)
     logger.addHandler(file_handler)
@@ -198,7 +197,7 @@ def get_current_log_file() -> Path | None:
 
 
 def init_session_logging(
-    app_level: LogLevel = "INFO", # Log level for nous application logs, can be DEBUG for more detail
+    app_level: LogLevel = "INFO",  # Log level for nous application logs, can be DEBUG for more detail
     third_party_level: LogLevel = "WARNING",
     litellm_level: LogLevel = "INFO",
 ) -> Path:
@@ -240,8 +239,7 @@ def init_session_logging(
     file_handler = logging.FileHandler(log_file, encoding="utf-8")
     file_handler.setLevel(logging.DEBUG)
     file_format = logging.Formatter(
-        "%(asctime)s | %(levelname)-8s | %(name)-30s | %(message)s",
-        datefmt="%H:%M:%S"
+        "%(asctime)s | %(levelname)-8s | %(name)-30s | %(message)s", datefmt="%H:%M:%S"
     )
     file_handler.setFormatter(file_format)
     root_logger.addHandler(file_handler)
@@ -258,7 +256,9 @@ def init_session_logging(
     nous_logger.info("=" * 60)
     nous_logger.info("NOUS SESSION STARTED")
     nous_logger.info(f"Log file: {log_file}")
-    nous_logger.info(f"Log levels: app={app_level}, third_party={third_party_level}, litellm={litellm_level}")
+    nous_logger.info(
+        f"Log levels: app={app_level}, third_party={third_party_level}, litellm={litellm_level}"
+    )
     nous_logger.info("=" * 60)
 
     return log_file
@@ -280,9 +280,7 @@ def cleanup_old_logs(max_files: int = 20) -> int:
 
     # Get all log files sorted by modification time (newest first)
     log_files = sorted(
-        log_dir.glob("nous_*.log"),
-        key=lambda p: p.stat().st_mtime,
-        reverse=True
+        log_dir.glob("nous_*.log"), key=lambda p: p.stat().st_mtime, reverse=True
     )
 
     # Remove files beyond the limit
@@ -361,7 +359,7 @@ class StructuredLogger:
         """Log exception with traceback and context."""
         self._logger.exception(self._format_message(event, **context))
 
-    def bind(self, **context: Any) -> "BoundLogger":
+    def bind(self, **context: Any) -> BoundLogger:
         """Create a bound logger with persistent context."""
         return BoundLogger(self, context)
 
@@ -394,7 +392,7 @@ class BoundLogger:
     def exception(self, event: str, **context: Any) -> None:
         self._logger.exception(event, **self._merge_context(**context))
 
-    def bind(self, **context: Any) -> "BoundLogger":
+    def bind(self, **context: Any) -> BoundLogger:
         """Create a new bound logger with additional context."""
         return BoundLogger(self._logger, self._merge_context(**context))
 

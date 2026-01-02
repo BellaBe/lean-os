@@ -26,12 +26,10 @@ then use Crawl4AI for content extraction from any page.
 
 import asyncio
 import logging
-import os
 import re
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
-from urllib.parse import urlencode
+from datetime import UTC, datetime, timedelta
 
 import aiohttp
 
@@ -67,10 +65,26 @@ class SearchAPIConfig:
 # Region code mappings for DuckDuckGo
 REGION_TO_DDG = {
     # DuckDuckGo uses region-lang format: "us-en", "de-de", "fr-fr"
-    "us": "us-en", "gb": "uk-en", "uk": "uk-en", "au": "au-en", "ca": "ca-en",
-    "de": "de-de", "fr": "fr-fr", "es": "es-es", "it": "it-it", "nl": "nl-nl",
-    "jp": "jp-jp", "kr": "kr-kr", "cn": "cn-zh", "br": "br-pt", "mx": "mx-es",
-    "in": "in-en", "ru": "ru-ru", "pl": "pl-pl", "se": "se-sv", "no": "no-no",
+    "us": "us-en",
+    "gb": "uk-en",
+    "uk": "uk-en",
+    "au": "au-en",
+    "ca": "ca-en",
+    "de": "de-de",
+    "fr": "fr-fr",
+    "es": "es-es",
+    "it": "it-it",
+    "nl": "nl-nl",
+    "jp": "jp-jp",
+    "kr": "kr-kr",
+    "cn": "cn-zh",
+    "br": "br-pt",
+    "mx": "mx-es",
+    "in": "in-en",
+    "ru": "ru-ru",
+    "pl": "pl-pl",
+    "se": "se-sv",
+    "no": "no-no",
 }
 
 
@@ -86,25 +100,21 @@ NEWS_RSS_FEEDS = {
     "zdnet": "https://www.zdnet.com/news/rss.xml",
     "venturebeat": "https://venturebeat.com/feed/",  # Updated: feedburner deprecated
     "thenextweb": "https://thenextweb.com/feed",
-
     # General News - Tech sections
     "bbc_tech": "https://feeds.bbci.co.uk/news/technology/rss.xml",
     "guardian_tech": "https://www.theguardian.com/technology/rss",
     "nyt_tech": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
     # reuters_tech: REMOVED - Reuters discontinued RSS in 2020, use screenshot fallback
-
     # Business/Finance
     "bloomberg_tech": "https://feeds.bloomberg.com/technology/news.rss",
     "forbes_tech": "https://www.forbes.com/innovation/feed/",
     "businessinsider": "https://www.businessinsider.com/sai/rss",
-
     # AI/ML Specific
     "mit_news": "https://news.mit.edu/rss/topic/artificial-intelligence2",
     "nvidia_blog": "https://blogs.nvidia.com/feed/",
     "openai_blog": "https://openai.com/blog/rss/",
     "deepmind_blog": "https://deepmind.google/blog/rss.xml",
     "huggingface": "https://huggingface.co/blog/feed.xml",
-
     # Startup/VC
     "techcrunch_startups": "https://techcrunch.com/category/startups/feed/",
     "sifted": "https://sifted.eu/feed",
@@ -195,7 +205,7 @@ class RSSNewsProvider(SearchAPIProvider):
         keywords = [k.lower().strip() for k in query.split() if len(k) > 2]
 
         all_results: list[APISearchResult] = []
-        cutoff_date = datetime.now(timezone.utc) - timedelta(days=days_back)
+        cutoff_date = datetime.now(UTC) - timedelta(days=days_back)
 
         # Fetch feeds concurrently
         async with aiohttp.ClientSession() as session:
@@ -213,13 +223,17 @@ class RSSNewsProvider(SearchAPIProvider):
 
         # Sort by relevance (keyword match count) and recency
         # Use timezone-aware datetime.min for comparison safety
-        min_dt = datetime.min.replace(tzinfo=timezone.utc)
-        all_results.sort(key=lambda x: (-x.relevance_score, x.published_at or min_dt), reverse=True)
+        min_dt = datetime.min.replace(tzinfo=UTC)
+        all_results.sort(
+            key=lambda x: (-x.relevance_score, x.published_at or min_dt), reverse=True
+        )
 
         # Limit results
         results = all_results[:max_results]
         print(f"    ✓ RSS: Found {len(results)} matching articles")
-        log.info(f"RSS: found {len(results)} matching entries from {len(all_results)} total")
+        log.info(
+            f"RSS: found {len(results)} matching entries from {len(all_results)} total"
+        )
         return results
 
     async def _fetch_feed(
@@ -258,18 +272,30 @@ class RSSNewsProvider(SearchAPIProvider):
         results = []
 
         # Try RSS 2.0 format first (<item> elements)
-        items = re.findall(r"<item[^>]*>(.*?)</item>", xml_text, re.DOTALL | re.IGNORECASE)
+        items = re.findall(
+            r"<item[^>]*>(.*?)</item>", xml_text, re.DOTALL | re.IGNORECASE
+        )
 
         # Fallback to Atom format (<entry> elements)
         if not items:
-            items = re.findall(r"<entry[^>]*>(.*?)</entry>", xml_text, re.DOTALL | re.IGNORECASE)
+            items = re.findall(
+                r"<entry[^>]*>(.*?)</entry>", xml_text, re.DOTALL | re.IGNORECASE
+            )
 
         for item in items:
             # Extract fields with regex (avoiding XML parser dependency)
             title = self._extract_tag(item, "title") or ""
             link = self._extract_link(item)
-            description = self._extract_tag(item, "description") or self._extract_tag(item, "summary") or ""
-            pub_date = self._extract_tag(item, "pubDate") or self._extract_tag(item, "published") or self._extract_tag(item, "updated")
+            description = (
+                self._extract_tag(item, "description")
+                or self._extract_tag(item, "summary")
+                or ""
+            )
+            pub_date = (
+                self._extract_tag(item, "pubDate")
+                or self._extract_tag(item, "published")
+                or self._extract_tag(item, "updated")
+            )
 
             # Clean HTML from description
             description = re.sub(r"<[^>]+>", "", description)
@@ -322,7 +348,9 @@ class RSSNewsProvider(SearchAPIProvider):
             return link_match.group(1).strip()
 
         # Atom: <link href="url" />
-        href_match = re.search(r'<link[^>]*href=["\']([^"\']+)["\']', text, re.IGNORECASE)
+        href_match = re.search(
+            r'<link[^>]*href=["\']([^"\']+)["\']', text, re.IGNORECASE
+        )
         if href_match:
             return href_match.group(1).strip()
 
@@ -360,16 +388,16 @@ class RSSNewsProvider(SearchAPIProvider):
         # Formats that include timezone info
         formats_with_tz = [
             "%a, %d %b %Y %H:%M:%S %z",  # RFC 822: Mon, 01 Jan 2024 12:00:00 +0000
-            "%Y-%m-%dT%H:%M:%S%z",       # ISO 8601 with offset
+            "%Y-%m-%dT%H:%M:%S%z",  # ISO 8601 with offset
         ]
 
         # Formats without timezone info (will be assumed UTC)
         formats_naive = [
-            "%a, %d %b %Y %H:%M:%S",     # RFC 822 without tz
-            "%Y-%m-%dT%H:%M:%SZ",        # ISO 8601 UTC (Z suffix)
-            "%Y-%m-%dT%H:%M:%S",         # ISO 8601 no tz
-            "%Y-%m-%d %H:%M:%S",         # Simple format
-            "%Y-%m-%d",                  # Date only
+            "%a, %d %b %Y %H:%M:%S",  # RFC 822 without tz
+            "%Y-%m-%dT%H:%M:%SZ",  # ISO 8601 UTC (Z suffix)
+            "%Y-%m-%dT%H:%M:%S",  # ISO 8601 no tz
+            "%Y-%m-%d %H:%M:%S",  # Simple format
+            "%Y-%m-%d",  # Date only
         ]
 
         # Try timezone-aware formats first
@@ -384,7 +412,7 @@ class RSSNewsProvider(SearchAPIProvider):
             try:
                 dt = datetime.strptime(date_str, fmt)
                 # Make timezone-aware (assume UTC)
-                return dt.replace(tzinfo=timezone.utc)
+                return dt.replace(tzinfo=UTC)
             except ValueError:
                 continue
 
@@ -393,7 +421,7 @@ class RSSNewsProvider(SearchAPIProvider):
             dt = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
             # Ensure it's timezone-aware
             if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
+                dt = dt.replace(tzinfo=UTC)
             return dt
         except (ValueError, TypeError, AttributeError):
             pass
@@ -427,7 +455,7 @@ class ArxivProvider(SearchAPIProvider):
         max_results: int = 50,
         **kwargs,
     ) -> list[APISearchResult]:
-        print(f"  → arXiv: Searching academic papers...")
+        print("  → arXiv: Searching academic papers...")
         log.debug(f"arXiv: searching query='{query}'")
         params = {
             "search_query": f"all:{query}",
@@ -453,7 +481,9 @@ class ArxivProvider(SearchAPIProvider):
                     text = await response.text()
                     results = self._parse_arxiv_response(text, max_results)
                     print(f"    ✓ arXiv: Found {len(results)} papers")
-                    log.info(f"arXiv: received {len(results)} papers for query='{query}'")
+                    log.info(
+                        f"arXiv: received {len(results)} papers for query='{query}'"
+                    )
                     return results
 
             except Exception as e:
@@ -461,7 +491,9 @@ class ArxivProvider(SearchAPIProvider):
                 print(f"arXiv error: {e}")
                 return []
 
-    def _parse_arxiv_response(self, xml_text: str, max_results: int) -> list[APISearchResult]:
+    def _parse_arxiv_response(
+        self, xml_text: str, max_results: int
+    ) -> list[APISearchResult]:
         """Parse arXiv Atom XML response."""
         results = []
 
@@ -543,7 +575,7 @@ class RedditSearchProvider(SearchAPIProvider):
         max_results: int = 50,
         **kwargs,
     ) -> list[APISearchResult]:
-        print(f"  → Reddit: Searching discussions...")
+        print("  → Reddit: Searching discussions...")
         log.debug(f"Reddit: searching query='{query}'")
         params = {
             "q": query,
@@ -572,7 +604,9 @@ class RedditSearchProvider(SearchAPIProvider):
                     data = await response.json()
                     children = data.get("data", {}).get("children", [])
                     print(f"    ✓ Reddit: Found {len(children)} posts")
-                    log.info(f"Reddit: received {len(children)} posts for query='{query}'")
+                    log.info(
+                        f"Reddit: received {len(children)} posts for query='{query}'"
+                    )
 
                     results = []
                     for i, child in enumerate(children):
@@ -587,7 +621,9 @@ class RedditSearchProvider(SearchAPIProvider):
                         url = f"https://www.reddit.com{permalink}" if permalink else ""
 
                         # Get snippet from selftext or title
-                        snippet = post.get("selftext", "")[:500] or post.get("title", "")
+                        snippet = post.get("selftext", "")[:500] or post.get(
+                            "title", ""
+                        )
 
                         results.append(
                             APISearchResult(
@@ -596,7 +632,9 @@ class RedditSearchProvider(SearchAPIProvider):
                                 snippet=snippet,
                                 source=self.name,
                                 source_name=f"r/{post.get('subreddit', '')}",
-                                published_at=datetime.fromtimestamp(post.get("created_utc", 0)),
+                                published_at=datetime.fromtimestamp(
+                                    post.get("created_utc", 0)
+                                ),
                                 relevance_score=1.0 - (i / max_results),
                                 source_type=self.source_type,
                                 metadata={
@@ -648,7 +686,7 @@ class DuckDuckGoProvider(SearchAPIProvider):
             return []
 
         try:
-            print(f"  → DuckDuckGo: Searching web...")
+            print("  → DuckDuckGo: Searching web...")
             log.debug(f"DuckDuckGo: searching query='{query}' region={region}")
             results = []
 
@@ -660,14 +698,20 @@ class DuckDuckGoProvider(SearchAPIProvider):
             # Run sync DDG search in executor to avoid blocking
             def _search():
                 ddgs = DDGS()
-                search_kwargs: dict[str, int | str] = {"max_results": min(max_results, 50)}
+                search_kwargs: dict[str, int | str] = {
+                    "max_results": min(max_results, 50)
+                }
                 if ddg_region:
                     search_kwargs["region"] = ddg_region
                 return list(ddgs.text(query, **search_kwargs))
 
-            ddg_results = await asyncio.get_running_loop().run_in_executor(None, _search)
+            ddg_results = await asyncio.get_running_loop().run_in_executor(
+                None, _search
+            )
             print(f"    ✓ DuckDuckGo: Found {len(ddg_results)} results")
-            log.info(f"DuckDuckGo: received {len(ddg_results)} results for query='{query}'")
+            log.info(
+                f"DuckDuckGo: received {len(ddg_results)} results for query='{query}'"
+            )
 
             for i, result in enumerate(ddg_results):
                 # Infer source type from domain
@@ -712,12 +756,26 @@ class DuckDuckGoProvider(SearchAPIProvider):
         domain = self._extract_domain(url).lower()
 
         # Academic indicators
-        academic_indicators = [".edu", "arxiv", "scholar", "academic", "journal", "research"]
+        academic_indicators = [
+            ".edu",
+            "arxiv",
+            "scholar",
+            "academic",
+            "journal",
+            "research",
+        ]
         if any(ind in domain for ind in academic_indicators):
             return SourceType.ACADEMIC
 
         # Social indicators
-        social_indicators = ["reddit", "twitter", "x.com", "facebook", "linkedin", "medium"]
+        social_indicators = [
+            "reddit",
+            "twitter",
+            "x.com",
+            "facebook",
+            "linkedin",
+            "medium",
+        ]
         if any(ind in domain for ind in social_indicators):
             return SourceType.SOCIAL
 
@@ -783,7 +841,9 @@ class MultiSourceSearch:
         providers = self._resolve_sources(sources)
 
         if not providers:
-            log.warning(f"No providers available. Available: {self.available_providers}")
+            log.warning(
+                f"No providers available. Available: {self.available_providers}"
+            )
             print(f"No providers available. Available: {self.available_providers}")
             return []
 
@@ -828,7 +888,9 @@ class MultiSourceSearch:
         all_results.sort(key=lambda x: x.relevance_score, reverse=True)
 
         # Screenshot fallback for blocked sites (if enabled)
-        if self.config.use_screenshot_fallback and ("news" in (sources or []) or "all" in (sources or [])):
+        if self.config.use_screenshot_fallback and (
+            "news" in (sources or []) or "all" in (sources or [])
+        ):
             try:
                 screenshot_results = await self._search_screenshot_sites(query)
                 for result in screenshot_results:
@@ -838,7 +900,9 @@ class MultiSourceSearch:
             except Exception as e:
                 log.error(f"Screenshot fallback error: {e}")
 
-        log.info(f"MultiSourceSearch complete: {len(all_results)} unique results from {len(tasks)} provider tasks")
+        log.info(
+            f"MultiSourceSearch complete: {len(all_results)} unique results from {len(tasks)} provider tasks"
+        )
         return all_results
 
     async def _search_screenshot_sites(self, query: str) -> list[APISearchResult]:
@@ -889,7 +953,9 @@ class MultiSourceSearch:
 
         # Deduplicate
         unique_providers = list({id(p): p for p in providers}.values())
-        log.debug(f"Resolved to {len(unique_providers)} providers: {[p.name for p in unique_providers]}")
+        log.debug(
+            f"Resolved to {len(unique_providers)} providers: {[p.name for p in unique_providers]}"
+        )
         return unique_providers
 
 
@@ -897,28 +963,38 @@ class MultiSourceSearch:
 async def search_news(query: str, max_results: int = 100) -> list[APISearchResult]:
     """Search news sources via RSS feeds from 20+ major outlets."""
     search = MultiSourceSearch()
-    return await search.search(query, sources=["news"], max_results_per_source=max_results)
+    return await search.search(
+        query, sources=["news"], max_results_per_source=max_results
+    )
 
 
 async def search_academic(query: str, max_results: int = 100) -> list[APISearchResult]:
     """Search academic sources (arXiv)."""
     search = MultiSourceSearch()
-    return await search.search(query, sources=["academic"], max_results_per_source=max_results)
+    return await search.search(
+        query, sources=["academic"], max_results_per_source=max_results
+    )
 
 
 async def search_social(query: str, max_results: int = 100) -> list[APISearchResult]:
     """Search social sources (Reddit)."""
     search = MultiSourceSearch()
-    return await search.search(query, sources=["social"], max_results_per_source=max_results)
+    return await search.search(
+        query, sources=["social"], max_results_per_source=max_results
+    )
 
 
 async def search_web(query: str, max_results: int = 50) -> list[APISearchResult]:
     """Search general web via DuckDuckGo."""
     search = MultiSourceSearch()
-    return await search.search(query, sources=["web"], max_results_per_source=max_results)
+    return await search.search(
+        query, sources=["web"], max_results_per_source=max_results
+    )
 
 
-async def search_all(query: str, max_results_per_source: int = 50) -> list[APISearchResult]:
+async def search_all(
+    query: str, max_results_per_source: int = 50
+) -> list[APISearchResult]:
     """Search all available sources."""
     search = MultiSourceSearch()
     return await search.search(

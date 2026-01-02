@@ -14,12 +14,12 @@ import re
 from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
-from ...infrastructure.logging import get_structured_logger
-from ...infrastructure.crawlers.parallel_crawler import ParallelCrawler
-from ...infrastructure.crawlers.page_snapshot import PageSnapshotter, PageSnapshotConfig
+from ...domain import SourceId, SourceNode, SourceType
 from ...infrastructure.crawlers.diagnostics import CrawlDiagnostics
+from ...infrastructure.crawlers.page_snapshot import PageSnapshotConfig, PageSnapshotter
+from ...infrastructure.crawlers.parallel_crawler import ParallelCrawler
 from ...infrastructure.crawlers.zone_config import get_zone_for_domain
-from ...domain import SourceId, SourceNode, SourceType, SignalZone
+from ...infrastructure.logging import get_structured_logger
 
 if TYPE_CHECKING:
     from .base import PipelineContext
@@ -55,24 +55,46 @@ def _classify_source_type(url: str, domain: str) -> SourceType:
     url_lower = url.lower()
     domain_lower = domain.lower()
 
-    if any(d in domain_lower for d in ["arxiv.org", "scholar.google", "researchgate", "pubmed"]):
+    if any(
+        d in domain_lower
+        for d in ["arxiv.org", "scholar.google", "researchgate", "pubmed"]
+    ):
         return SourceType.ACADEMIC
-    if any(d in domain_lower for d in ["reddit.com", "twitter.com", "x.com", "linkedin.com"]):
+    if any(
+        d in domain_lower
+        for d in ["reddit.com", "twitter.com", "x.com", "linkedin.com"]
+    ):
         return SourceType.SOCIAL
-    if any(d in domain_lower for d in ["github.com", "gitlab.com", "stackoverflow.com"]):
+    if any(
+        d in domain_lower for d in ["github.com", "gitlab.com", "stackoverflow.com"]
+    ):
         return SourceType.CODE
     if any(d in domain_lower for d in [".gov", "official", "government"]):
         return SourceType.OFFICIAL
-    if any(d in domain_lower for d in ["medium.com", "substack.com", "wordpress.com", "blogspot"]):
+    if any(
+        d in domain_lower
+        for d in ["medium.com", "substack.com", "wordpress.com", "blogspot"]
+    ):
         return SourceType.BLOG
-    if any(d in domain_lower for d in ["ycombinator", "producthunt", "techcrunch", "theverge"]):
+    if any(
+        d in domain_lower
+        for d in ["ycombinator", "producthunt", "techcrunch", "theverge"]
+    ):
         return SourceType.NEWS
 
-    if any(p in url_lower for p in ["/research/", "/paper/", "/publication/", "/abstract/", ".pdf"]):
+    if any(
+        p in url_lower
+        for p in ["/research/", "/paper/", "/publication/", "/abstract/", ".pdf"]
+    ):
         return SourceType.ACADEMIC
-    if any(p in url_lower for p in ["/blog/", "/posts/", "/article/"]) and "news" not in domain_lower:
+    if (
+        any(p in url_lower for p in ["/blog/", "/posts/", "/article/"])
+        and "news" not in domain_lower
+    ):
         return SourceType.BLOG
-    if any(p in url_lower for p in ["/forum/", "/thread/", "/discussion/", "/comments/"]):
+    if any(
+        p in url_lower for p in ["/forum/", "/thread/", "/discussion/", "/comments/"]
+    ):
         return SourceType.FORUM
     if any(p in url_lower for p in ["/video/", "/watch/", "/embed/", "youtube.com"]):
         return SourceType.VIDEO
@@ -93,13 +115,15 @@ class CrawlingStage:
     def name(self) -> str:
         return "crawling"
 
-    async def execute(self, context: "PipelineContext") -> "PipelineContext":
+    async def execute(self, context: PipelineContext) -> PipelineContext:
         """
         Execute content crawling.
 
         Populates context.sources, context.urls_crawled, context.urls_failed.
         """
-        _log.info("stage_start", stage=self.name, url_count=len(context.discovered_urls))
+        _log.info(
+            "stage_start", stage=self.name, url_count=len(context.discovered_urls)
+        )
 
         urls = context.discovered_urls
         if not urls:
@@ -121,7 +145,9 @@ class CrawlingStage:
                 else:
                     regular_urls.append(url)
             if social_urls:
-                _log.info("url_split", social=len(social_urls), regular=len(regular_urls))
+                _log.info(
+                    "url_split", social=len(social_urls), regular=len(regular_urls)
+                )
         else:
             regular_urls = url_list
 
@@ -166,7 +192,7 @@ class CrawlingStage:
 
     async def _crawl_regular(
         self,
-        context: "PipelineContext",
+        context: PipelineContext,
         url_list: list[str],
         url_metadata: dict[str, dict],
     ) -> tuple[list[SourceNode], int, int, CrawlDiagnostics | None]:
@@ -215,7 +241,7 @@ class CrawlingStage:
 
     async def _crawl_social(
         self,
-        context: "PipelineContext",
+        context: PipelineContext,
         url_list: list[str],
         url_metadata: dict[str, dict],
     ) -> tuple[list[SourceNode], int, int]:
@@ -247,7 +273,9 @@ class CrawlingStage:
                     text_content = self._extract_text_from_html(content)
 
                     if len(text_content) < 100:
-                        _log.debug("social_too_short", domain=domain, chars=len(text_content))
+                        _log.debug(
+                            "social_too_short", domain=domain, chars=len(text_content)
+                        )
                         failed += 1
                         continue
 
@@ -262,7 +290,11 @@ class CrawlingStage:
                         zone=zone,
                         raw_content=text_content,
                         metadata={
-                            "captured_at": snapshot.captured_at.isoformat() if snapshot.captured_at else None,
+                            "captured_at": (
+                                snapshot.captured_at.isoformat()
+                                if snapshot.captured_at
+                                else None
+                            ),
                             "word_count": len(text_content.split()),
                             "zone": zone.value,
                         },
@@ -279,8 +311,12 @@ class CrawlingStage:
     @staticmethod
     def _extract_text_from_html(html: str) -> str:
         """Extract text from HTML, removing scripts and styles."""
-        text = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.DOTALL | re.IGNORECASE)
-        text = re.sub(r"<style[^>]*>.*?</style>", "", text, flags=re.DOTALL | re.IGNORECASE)
+        text = re.sub(
+            r"<script[^>]*>.*?</script>", "", html, flags=re.DOTALL | re.IGNORECASE
+        )
+        text = re.sub(
+            r"<style[^>]*>.*?</style>", "", text, flags=re.DOTALL | re.IGNORECASE
+        )
         text = re.sub(r"<[^>]+>", " ", text)
         text = re.sub(r"\s+", " ", text).strip()
         return text

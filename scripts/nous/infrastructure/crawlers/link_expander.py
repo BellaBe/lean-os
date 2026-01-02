@@ -10,17 +10,15 @@ back to their original sources. Useful for:
 Uses Crawl4AI's result.links for external link extraction.
 """
 
-import asyncio
 import logging
 import re
 from dataclasses import dataclass, field
 from urllib.parse import urljoin, urlparse
 
-from .diagnostics import CrawlDiagnostics, DropReason
+from ...domain import SignalZone
+from .diagnostics import CrawlDiagnostics
 from .parallel_crawler import CrawlResult, ParallelCrawler
 from .zone_config import get_zone_for_domain
-
-from ...domain import SignalZone
 
 logger = logging.getLogger(__name__)
 
@@ -142,9 +140,7 @@ class LinkExpander:
         while to_expand and current_depth <= self.config.max_depth:
             # Limit URLs per depth
             urls_to_crawl = [
-                link.url
-                for link in to_expand
-                if link.url not in self._seen_urls
+                link.url for link in to_expand if link.url not in self._seen_urls
             ][: self.config.max_total_urls - result.total_crawled]
 
             if not urls_to_crawl:
@@ -332,9 +328,7 @@ class LinkExpander:
         topic_words = self.topic.split()
 
         # Count topic word occurrences
-        total_matches = sum(
-            content_lower.count(word) for word in topic_words
-        )
+        total_matches = sum(content_lower.count(word) for word in topic_words)
 
         # Normalize by content length
         word_count = len(content_lower.split())

@@ -200,7 +200,11 @@ class LinkAnalyzer:
             all_links = internal + external
             total = len(all_links)
             with_head = len([link for link in all_links if link.page_title])
-            avg_score = sum(link.score.total for link in all_links) / total if total > 0 else 0.0
+            avg_score = (
+                sum(link.score.total for link in all_links) / total
+                if total > 0
+                else 0.0
+            )
 
             return LinkAnalysisResult(
                 source_url=url,
@@ -303,7 +307,9 @@ class LinkAnalyzer:
         url_sources: dict[str, list[str]] = {}
 
         # Also collect titles for similarity matching
-        title_to_urls: dict[str, list[tuple[str, str]]] = {}  # title -> [(url, source_url)]
+        title_to_urls: dict[str, list[tuple[str, str]]] = (
+            {}
+        )  # title -> [(url, source_url)]
 
         for analysis in analyses:
             for link in analysis.external_links:
@@ -321,20 +327,22 @@ class LinkAnalyzer:
 
         # Find URLs referenced by multiple sources (exact match)
         amplified = [
-            (url, sources)
-            for url, sources in url_sources.items()
-            if len(sources) > 1
+            (url, sources) for url, sources in url_sources.items() if len(sources) > 1
         ]
 
         # Find similar titles across different sources (fuzzy match)
         if title_to_urls and similarity_threshold < 1.0:
-            title_groups = self._group_similar_titles(title_to_urls, similarity_threshold)
+            title_groups = self._group_similar_titles(
+                title_to_urls, similarity_threshold
+            )
             for group_title, url_source_pairs in title_groups.items():
                 # Get unique sources that linked to similar-titled pages
                 unique_sources = list(set(source for _, source in url_source_pairs))
                 if len(unique_sources) > 1:
                     # Use representative title as key
-                    amplified.append((f"[similar titles: {group_title[:50]}...]", unique_sources))
+                    amplified.append(
+                        (f"[similar titles: {group_title[:50]}...]", unique_sources)
+                    )
 
         # Sort by number of sources (most amplified first)
         amplified.sort(key=lambda x: len(x[1]), reverse=True)

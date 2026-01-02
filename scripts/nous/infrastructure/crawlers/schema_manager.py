@@ -53,9 +53,11 @@ class CachedSchema:
             name=data["name"],
             schema=data["schema"],
             generated_at=datetime.fromisoformat(data["generated_at"]),
-            expires_at=datetime.fromisoformat(data["expires_at"])
-            if data.get("expires_at")
-            else None,
+            expires_at=(
+                datetime.fromisoformat(data["expires_at"])
+                if data.get("expires_at")
+                else None
+            ),
             version=data.get("version", 1),
         )
 
@@ -163,7 +165,9 @@ class SchemaManager:
                 return cached.schema
 
         if self.generator is None:
-            raise ValueError(f"No generator configured and schema '{config.name}' not in cache")
+            raise ValueError(
+                f"No generator configured and schema '{config.name}' not in cache"
+            )
 
         schema = await self.generator.generate(html, config)
 

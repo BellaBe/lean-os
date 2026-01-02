@@ -16,7 +16,6 @@ Uses Crawl4AI features:
 
 from dataclasses import dataclass, field
 from typing import Any
-from urllib.parse import urlparse
 
 from crawl4ai import CacheMode, CrawlerRunConfig
 
@@ -40,7 +39,14 @@ class ZoneCrawlProfile:
     # Content filtering
     word_count_threshold: int = 50
     excluded_tags: list[str] = field(
-        default_factory=lambda: ["nav", "footer", "aside", "script", "style", "noscript"]
+        default_factory=lambda: [
+            "nav",
+            "footer",
+            "aside",
+            "script",
+            "style",
+            "noscript",
+        ]
     )
     remove_overlay_elements: bool = True
 

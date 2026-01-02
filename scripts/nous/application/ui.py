@@ -228,9 +228,13 @@ class ConsoleUI:
         total = success + failed
         yield_rate = (success / total * 100) if total > 0 else 0
         self.separator()
-        self.success(f"Crawled: {success} success, {failed} failed ({yield_rate:.0f}% yield)")
+        self.success(
+            f"Crawled: {success} success, {failed} failed ({yield_rate:.0f}% yield)"
+        )
         if social_count > 0:
-            self.bullet(f"Social snapshots: {social_count} captured with PageSnapshotter")
+            self.bullet(
+                f"Social snapshots: {social_count} captured with PageSnapshotter"
+            )
         self.separator()
 
         self._log.info(

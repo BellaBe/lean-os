@@ -12,15 +12,11 @@ from __future__ import annotations
 from collections import Counter
 from typing import TYPE_CHECKING
 
-from ...infrastructure.logging import get_structured_logger
-from ...infrastructure.analysis.consensus_detector import ConsensusDetector
 from ...domain import (
     AmplificationWarning,
-    ConsensusCluster,
-    ContentionZone,
-    IdeaNode,
-    Stance,
 )
+from ...infrastructure.analysis.consensus_detector import ConsensusDetector
+from ...infrastructure.logging import get_structured_logger
 
 if TYPE_CHECKING:
     from .base import PipelineContext
@@ -42,7 +38,7 @@ class AnalysisStage:
     def name(self) -> str:
         return "analysis"
 
-    async def execute(self, context: "PipelineContext") -> "PipelineContext":
+    async def execute(self, context: PipelineContext) -> PipelineContext:
         """
         Execute analysis.
 
@@ -81,7 +77,9 @@ class AnalysisStage:
         )
         return context
 
-    def _detect_amplification(self, context: "PipelineContext") -> list[AmplificationWarning]:
+    def _detect_amplification(
+        self, context: PipelineContext
+    ) -> list[AmplificationWarning]:
         """
         Detect amplification patterns.
 

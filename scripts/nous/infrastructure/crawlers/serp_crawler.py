@@ -49,7 +49,11 @@ DUCKDUCKGO_RESULTS_SCHEMA = {
     "fields": [
         {"name": "title", "selector": "h2 a span", "type": "text"},
         {"name": "url", "selector": "h2 a", "type": "attribute", "attribute": "href"},
-        {"name": "snippet", "selector": "div[data-result='snippet'] span", "type": "text"},
+        {
+            "name": "snippet",
+            "selector": "div[data-result='snippet'] span",
+            "type": "text",
+        },
     ],
 }
 
@@ -71,7 +75,9 @@ class SerpCrawler(ABC):
     """Base class for SERP crawlers."""
 
     @abstractmethod
-    async def search(self, query: str, config: SerpConfig | None = None) -> SearchResponse:
+    async def search(
+        self, query: str, config: SerpConfig | None = None
+    ) -> SearchResponse:
         """Execute search and return parsed results."""
 
     @abstractmethod
@@ -362,7 +368,7 @@ class MockSerpCrawler(SerpCrawler):
         # Respect num_results from config if provided
         results = self.mock_results
         if config and config.num_results:
-            results = results[:config.num_results]
+            results = results[: config.num_results]
 
         return SearchResponse(
             query=query,

@@ -12,11 +12,11 @@ This allows for:
 - Clear data flow between stages
 """
 
-from .base import PipelineContext, PipelineStage
-from .discovery import DiscoveryStage
-from .crawling import CrawlingStage
-from .extraction import ExtractionStage
 from .analysis import AnalysisStage
+from .base import PipelineContext, PipelineStage
+from .crawling import CrawlingStage
+from .discovery import DiscoveryStage
+from .extraction import ExtractionStage
 from .synthesis import SynthesisStage
 
 __all__ = [

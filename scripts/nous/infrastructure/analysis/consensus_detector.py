@@ -334,9 +334,15 @@ class ConsensusDetector:
         if has_opposing_stances:
             # Ideas with opposing stances = contention, regardless of similarity
             cluster_type = ClusterType.CONTENTION
-        elif avg_sim >= self.consensus_threshold and len(all_sources) >= self.min_consensus_sources:
+        elif (
+            avg_sim >= self.consensus_threshold
+            and len(all_sources) >= self.min_consensus_sources
+        ):
             cluster_type = ClusterType.CONSENSUS
-        elif avg_sim >= self.consensus_threshold and len(all_sources) < self.min_consensus_sources:
+        elif (
+            avg_sim >= self.consensus_threshold
+            and len(all_sources) < self.min_consensus_sources
+        ):
             # High similarity but single source = emerging (potential consensus, not confirmed)
             cluster_type = ClusterType.EMERGING
         elif avg_sim <= self.contention_threshold:
@@ -444,7 +450,9 @@ class ConsensusDetector:
         # Factor 2: Non-institutional concentration
         total_count = sum(zone_distribution.values()) if zone_distribution else 1
         institutional_count = zone_distribution.get(SignalZone.INSTITUTIONAL, 0)
-        non_institutional_ratio = 1.0 - (institutional_count / total_count) if total_count else 0.5
+        non_institutional_ratio = (
+            1.0 - (institutional_count / total_count) if total_count else 0.5
+        )
 
         # Factor 3: Grassroots/Speculative dominance
         grassroots = zone_distribution.get(SignalZone.GRASSROOTS, 0)
@@ -453,9 +461,7 @@ class ConsensusDetector:
 
         # Combined score (weighted average)
         amplification = (
-            0.3 * sources_factor +
-            0.3 * non_institutional_ratio +
-            0.4 * echo_zones
+            0.3 * sources_factor + 0.3 * non_institutional_ratio + 0.4 * echo_zones
         )
 
         return min(amplification, 1.0)

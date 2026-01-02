@@ -140,7 +140,9 @@ class ContentionZone:
     avg_similarity: float = 0.0
     idea_count: int = 0
     source_count: int = 0
-    opposing_views: dict[str, str] = field(default_factory=dict)  # {pro: "...", con: "..."}
+    opposing_views: dict[str, str] = field(
+        default_factory=dict
+    )  # {pro: "...", con: "..."}
     key_disagreement: str = ""
     idea_ids: list[str] = field(default_factory=list)
 

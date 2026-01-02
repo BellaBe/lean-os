@@ -66,7 +66,9 @@ class GroqRateLimiter:
     def _cleanup_old_entries(self) -> None:
         """Remove entries older than 1 minute."""
         cutoff = time.time() - 60
-        self._token_usage = [(t, tokens) for t, tokens in self._token_usage if t > cutoff]
+        self._token_usage = [
+            (t, tokens) for t, tokens in self._token_usage if t > cutoff
+        ]
         self._request_times = [t for t in self._request_times if t > cutoff]
 
     def _current_usage(self) -> tuple[int, int]:
@@ -100,7 +102,9 @@ class GroqRateLimiter:
 
             # Check token budget
             available = self.available_tokens()
-            log.debug(f"Token budget: available={available}, estimated={estimated_tokens}")
+            log.debug(
+                f"Token budget: available={available}, estimated={estimated_tokens}"
+            )
 
             if estimated_tokens > available:
                 # Need to wait for tokens to free up
@@ -113,8 +117,12 @@ class GroqRateLimiter:
                 # Add buffer and cap at 60 seconds
                 wait_time = min(wait_time + 2, 60)
 
-                log.info(f"Rate limit wait: {wait_time:.1f}s (need {tokens_needed} more tokens)")
-                print(f"      [Rate Limit] Waiting {wait_time:.1f}s for token budget...")
+                log.info(
+                    f"Rate limit wait: {wait_time:.1f}s (need {tokens_needed} more tokens)"
+                )
+                print(
+                    f"      [Rate Limit] Waiting {wait_time:.1f}s for token budget..."
+                )
                 await asyncio.sleep(wait_time)
 
             self._last_request = time.time()
@@ -125,7 +133,9 @@ class GroqRateLimiter:
         self._token_usage.append((now, actual_tokens))
         self._request_times.append(now)
         used, reqs = self._current_usage()
-        log.debug(f"Recorded {actual_tokens} tokens. Total last minute: {used} tokens, {reqs} requests")
+        log.debug(
+            f"Recorded {actual_tokens} tokens. Total last minute: {used} tokens, {reqs} requests"
+        )
 
     @staticmethod
     def parse_retry_after(error_message: str) -> float:
@@ -135,11 +145,11 @@ class GroqRateLimiter:
         Example: "Please try again in 7.56s" -> 7.56
         """
         # Try to find "in X.XXs" or "in XXXms" pattern
-        match = re.search(r'try again in (\d+\.?\d*)s', str(error_message))
+        match = re.search(r"try again in (\d+\.?\d*)s", str(error_message))
         if match:
             return float(match.group(1)) + 1  # Add 1s buffer
 
-        match = re.search(r'try again in (\d+)ms', str(error_message))
+        match = re.search(r"try again in (\d+)ms", str(error_message))
         if match:
             return float(match.group(1)) / 1000 + 1
 
@@ -171,7 +181,7 @@ class GroqRateLimiter:
 
         # Truncate at word boundary
         truncated = content[:max_chars]
-        last_space = truncated.rfind(' ')
+        last_space = truncated.rfind(" ")
         if last_space > max_chars * 0.8:  # Don't cut too much
             truncated = truncated[:last_space]
 
@@ -219,7 +229,7 @@ async def groq_safe_call(
             result = await func()
 
             # Try to record actual usage
-            if hasattr(result, 'usage') and hasattr(result.usage, 'total_tokens'):
+            if hasattr(result, "usage") and hasattr(result.usage, "total_tokens"):
                 limiter.record_usage(result.usage.total_tokens)
             else:
                 limiter.record_usage(estimated_tokens)
@@ -229,7 +239,7 @@ async def groq_safe_call(
         except Exception as e:
             error_str = str(e).lower()
 
-            if 'rate' in error_str and 'limit' in error_str:
+            if "rate" in error_str and "limit" in error_str:
                 wait_time = limiter.parse_retry_after(str(e))
                 print(f"      [Rate Limit] Groq limit hit, waiting {wait_time:.1f}s...")
                 await asyncio.sleep(wait_time)

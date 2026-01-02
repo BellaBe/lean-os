@@ -12,7 +12,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from ...infrastructure.logging import get_structured_logger
-from ...domain import GraphEdge
 
 if TYPE_CHECKING:
     from .base import PipelineContext
@@ -33,7 +32,7 @@ class SynthesisStage:
     def name(self) -> str:
         return "synthesis"
 
-    async def execute(self, context: "PipelineContext") -> "PipelineContext":
+    async def execute(self, context: PipelineContext) -> PipelineContext:
         """
         Execute synthesis.
 
@@ -64,7 +63,7 @@ class SynthesisStage:
         )
         return context
 
-    async def _generate_summary(self, context: "PipelineContext") -> str:
+    async def _generate_summary(self, context: PipelineContext) -> str:
         """Generate topic summary from ideas and consensus."""
         if not context.ideas:
             return "No significant ideas extracted from sources."
@@ -110,65 +109,81 @@ Summary:"""
             _log.error("summary_generation_failed", error=str(e))
             return f"Summary generation failed: {e}"
 
-    def _build_graph(self, context: "PipelineContext") -> tuple[list[dict], list[dict]]:
+    def _build_graph(self, context: PipelineContext) -> tuple[list[dict], list[dict]]:
         """Build knowledge graph from sources, ideas, and clusters."""
         nodes = []
         edges = []
 
         # Add source nodes
         for source in context.sources:
-            nodes.append({
-                "id": str(source.id),
-                "type": "source",
-                "label": source.title[:50],
-                "url": source.url,
-                "domain": source.domain,
-                "zone": source.zone.value,
-            })
+            nodes.append(
+                {
+                    "id": str(source.id),
+                    "type": "source",
+                    "label": source.title[:50],
+                    "url": source.url,
+                    "domain": source.domain,
+                    "zone": source.zone.value,
+                }
+            )
 
         # Add idea nodes
         for idea in context.ideas:
-            nodes.append({
-                "id": str(idea.id),
-                "type": "idea",
-                "label": idea.claim[:100],
-                "stance": idea.stance.value,
-                "confidence": idea.confidence,
-            })
+            nodes.append(
+                {
+                    "id": str(idea.id),
+                    "type": "idea",
+                    "label": idea.claim[:100],
+                    "stance": idea.stance.value,
+                    "confidence": idea.confidence,
+                }
+            )
 
             # Edge: source -> idea
-            edges.append({
-                "source": str(idea.source_id),
-                "target": str(idea.id),
-                "type": "extracted_from",
-            })
+            edges.append(
+                {
+                    "source": str(idea.source_id),
+                    "target": str(idea.id),
+                    "type": "extracted_from",
+                }
+            )
 
         # Add cluster nodes
         for i, cluster in enumerate(context.consensus_clusters):
             cluster_id = f"cluster_{i}"
-            nodes.append({
-                "id": cluster_id,
-                "type": "cluster",
-                "label": f"Consensus {i+1}",
-                "idea_count": len(cluster.idea_ids),
-                "source_count": len(cluster.source_ids),
-            })
+            nodes.append(
+                {
+                    "id": cluster_id,
+                    "type": "cluster",
+                    "label": f"Consensus {i+1}",
+                    "idea_count": len(cluster.idea_ids),
+                    "source_count": len(cluster.source_ids),
+                }
+            )
 
             # Edges: ideas -> cluster
             for idea_id in cluster.idea_ids:
-                edges.append({
-                    "source": str(idea_id),
-                    "target": cluster_id,
-                    "type": "member_of",
-                })
+                edges.append(
+                    {
+                        "source": str(idea_id),
+                        "target": cluster_id,
+                        "type": "member_of",
+                    }
+                )
 
         # Add contention nodes
         for i, contention in enumerate(context.contention_zones):
             contention_id = f"contention_{i}"
-            nodes.append({
-                "id": contention_id,
-                "type": "contention",
-                "label": contention.description[:50] if contention.description else f"Contention {i+1}",
-            })
+            nodes.append(
+                {
+                    "id": contention_id,
+                    "type": "contention",
+                    "label": (
+                        contention.description[:50]
+                        if contention.description
+                        else f"Contention {i+1}"
+                    ),
+                }
+            )
 
         return nodes, edges

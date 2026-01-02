@@ -1,6 +1,5 @@
 """Configuration for snapshot building."""
 
-
 from dataclasses import dataclass, field
 
 
@@ -11,7 +10,9 @@ class SnapshotBuilderConfig:
     # Discovery via Search APIs
     # Sources: "news", "academic", "social", "web", "all"
     # Providers: rss (news, 20+ feeds), arxiv (academic), reddit (social), duckduckgo (web)
-    sources: list[str] = field(default_factory=lambda: ["news", "academic", "social", "web"])
+    sources: list[str] = field(
+        default_factory=lambda: ["news", "academic", "social", "web"]
+    )
     max_urls: int = 20
     max_results_per_source: int = 50
 
@@ -45,8 +46,12 @@ class SnapshotBuilderConfig:
 
     # Post-extraction idea filtering
     filter_ideas: bool = True  # Filter extracted ideas by topic relevance
-    idea_relevance_threshold: int = 7  # Minimum score (1-10) to keep idea (raised from 6 for stricter quality)
-    min_idea_word_count: int = 8  # Minimum words in a claim (filters out metadata noise like "46 members online")
+    idea_relevance_threshold: int = (
+        7  # Minimum score (1-10) to keep idea (raised from 6 for stricter quality)
+    )
+    min_idea_word_count: int = (
+        8  # Minimum words in a claim (filters out metadata noise like "46 members online")
+    )
     min_relevant_ideas: int = 5  # Minimum relevant ideas before re-search
     max_search_iterations: int = 2  # Max re-search attempts with new queries
 
@@ -94,7 +99,9 @@ class SnapshotBuilderConfig:
     use_social_snapshots: bool = True  # Use PageSnapshotter for social URLs
     social_snapshot_screenshot: bool = True  # Capture screenshots
     social_snapshot_delay: float = 2.0  # Wait for dynamic content to load
-    social_snapshot_output_dir: str | None = None  # Directory to save snapshots (None = don't save)
+    social_snapshot_output_dir: str | None = (
+        None  # Directory to save snapshots (None = don't save)
+    )
 
     # Output
     generate_summary: bool = True

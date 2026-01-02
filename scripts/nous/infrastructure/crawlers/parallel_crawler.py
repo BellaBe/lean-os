@@ -171,7 +171,9 @@ class ParallelCrawler:
         )
 
         # Log domain distribution
-        for domain, domain_urls in sorted(by_domain.items(), key=lambda x: -len(x[1]))[:5]:
+        for domain, domain_urls in sorted(by_domain.items(), key=lambda x: -len(x[1]))[
+            :5
+        ]:
             zone = get_zone_for_domain(domain)
             logger.debug(f"  {domain}: {len(domain_urls)} URLs (zone: {zone.name})")
         if len(by_domain) > 5:
@@ -385,7 +387,7 @@ class ParallelCrawler:
 
             return result
 
-        except asyncio.TimeoutError:
+        except TimeoutError:
             logger.warning(f"Timeout crawling {url}")
             diag.drop(DropReason.TIMEOUT, urls=[url])
             return CrawlResult(

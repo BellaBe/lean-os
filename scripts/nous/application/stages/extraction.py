@@ -11,14 +11,14 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ...infrastructure.logging import get_structured_logger
-from ...infrastructure.extraction.idea_extractor import IdeaExtractor, ExtractionConfig
-from ...infrastructure.extraction.hybrid_extractor import HybridExtractor
 from ...domain import IdeaNode
+from ...infrastructure.extraction.hybrid_extractor import HybridExtractor
+from ...infrastructure.extraction.idea_extractor import ExtractionConfig, IdeaExtractor
+from ...infrastructure.logging import get_structured_logger
 
 if TYPE_CHECKING:
-    from .base import PipelineContext
     from ...domain import SourceNode
+    from .base import PipelineContext
 
 _log = get_structured_logger("nous.stages.extraction")
 
@@ -35,7 +35,7 @@ class ExtractionStage:
     def name(self) -> str:
         return "extraction"
 
-    async def execute(self, context: "PipelineContext") -> "PipelineContext":
+    async def execute(self, context: PipelineContext) -> PipelineContext:
         """
         Execute idea extraction.
 
@@ -88,8 +88,8 @@ class ExtractionStage:
 
     async def _extract_from_source(
         self,
-        context: "PipelineContext",
-        source: "SourceNode",
+        context: PipelineContext,
+        source: SourceNode,
         extractor: IdeaExtractor,
         hybrid: HybridExtractor,
     ) -> list[IdeaNode]:
@@ -123,7 +123,7 @@ class ExtractionStage:
             return result.ideas
 
     async def _filter_by_relevance(
-        self, context: "PipelineContext", ideas: list[IdeaNode]
+        self, context: PipelineContext, ideas: list[IdeaNode]
     ) -> list[IdeaNode]:
         """Filter ideas by topic relevance using LLM."""
         if len(ideas) <= 10:

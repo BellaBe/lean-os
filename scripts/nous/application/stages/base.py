@@ -11,11 +11,11 @@ from typing import TYPE_CHECKING, Protocol
 from uuid import UUID
 
 if TYPE_CHECKING:
-    from ..config import SnapshotBuilderConfig
-    from ..ui import ConsoleUI
     from ...domain import IdeaNode, SourceNode
     from ...infrastructure import DirectLLMClient
     from ...infrastructure.crawlers.diagnostics import CrawlDiagnostics
+    from ..config import SnapshotBuilderConfig
+    from ..ui import ConsoleUI
 
 
 @dataclass
@@ -28,9 +28,9 @@ class PipelineContext:
     """
 
     # Configuration
-    config: "SnapshotBuilderConfig"
-    llm_client: "DirectLLMClient"
-    ui: "ConsoleUI"
+    config: SnapshotBuilderConfig
+    llm_client: DirectLLMClient
+    ui: ConsoleUI
 
     # Identifiers
     topic: str
@@ -45,13 +45,13 @@ class PipelineContext:
     domains_searched: list[str] = field(default_factory=list)
 
     # Crawling outputs (Stage 2)
-    sources: list["SourceNode"] = field(default_factory=list)
-    crawl_diagnostics: "CrawlDiagnostics | None" = None
+    sources: list[SourceNode] = field(default_factory=list)
+    crawl_diagnostics: CrawlDiagnostics | None = None
     urls_crawled: int = 0
     urls_failed: int = 0
 
     # Extraction outputs (Stage 3)
-    ideas: list["IdeaNode"] = field(default_factory=list)
+    ideas: list[IdeaNode] = field(default_factory=list)
 
     # Analysis outputs (Stage 4-5)
     consensus_clusters: list = field(default_factory=list)

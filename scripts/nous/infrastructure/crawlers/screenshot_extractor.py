@@ -12,16 +12,15 @@ Features:
 """
 
 import asyncio
-import base64
 import logging
 import random
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from urllib.parse import urlparse
 
-from .page_snapshot import PageSnapshot, PageSnapshotConfig, PageSnapshotter
-from .search_api import APISearchResult, SCREENSHOT_FALLBACK_SITES
 from ...domain import SourceType
+from .page_snapshot import PageSnapshot, PageSnapshotConfig, PageSnapshotter
+from .search_api import SCREENSHOT_FALLBACK_SITES, APISearchResult
 
 log = logging.getLogger("nous.screenshot")
 
@@ -87,7 +86,7 @@ class ExtractedArticle:
     url: str | None
     snippet: str
     source_name: str
-    extracted_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    extracted_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
 @dataclass
@@ -160,7 +159,7 @@ class ScreenshotExtractor:
             await asyncio.sleep(delay)
 
         self._last_domain = domain
-        self._last_request_time = datetime.now(timezone.utc)
+        self._last_request_time = datetime.now(UTC)
 
     async def extract_from_url(
         self,
@@ -186,7 +185,9 @@ class ScreenshotExtractor:
             await self._human_delay(url)
             if attempt > 0:
                 retry_delay = 2.0 * attempt  # Exponential backoff
-                log.info(f"Retry {attempt}/{max_retries} for {url}, waiting {retry_delay}s...")
+                log.info(
+                    f"Retry {attempt}/{max_retries} for {url}, waiting {retry_delay}s..."
+                )
                 await asyncio.sleep(retry_delay)
 
             try:
@@ -389,14 +390,20 @@ Return ONLY the JSON array, no other text."""
                                 source="screenshot",
                                 source_name=article.source_name.title(),
                                 published_at=article.extracted_at,
-                                relevance_score=min(1.0, matches / len(keywords)) if keywords else 0.5,
+                                relevance_score=(
+                                    min(1.0, matches / len(keywords))
+                                    if keywords
+                                    else 0.5
+                                ),
                                 source_type=SourceType.NEWS,
                                 metadata={"extraction_method": "screenshot_llm"},
                             )
                         )
 
         print(f"    ✓ Screenshot: Found {len(all_results)} matching articles")
-        log.info(f"Screenshot extraction: {len(all_results)} results from {len(sites)} sites")
+        log.info(
+            f"Screenshot extraction: {len(all_results)} results from {len(sites)} sites"
+        )
 
         return all_results
 
