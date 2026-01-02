@@ -7,15 +7,18 @@ Features:
 - Project-local log directory (not ~/.nous)
 - Silences noisy third-party loggers (httpcore, hpack, urllib3)
 - Configurable log levels per component
+- Structured logging with key-value pairs
 - Clean, readable output format
 """
 
+from __future__ import annotations
+
+import json
 import logging
-import os
 import warnings
 from datetime import datetime
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 # Log level type
 LogLevel = Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
@@ -292,3 +295,118 @@ def cleanup_old_logs(max_files: int = 20) -> int:
             pass
 
     return removed
+
+
+# ============================================================================
+# Structured Logging
+# ============================================================================
+
+
+class StructuredLogger:
+    """
+    Structured logger wrapper providing key-value logging.
+
+    Wraps stdlib logging but formats messages with structured context.
+    Compatible with the existing file-based logging setup.
+
+    Usage:
+        log = get_structured_logger("nous.crawl")
+        log.info("page_crawled", url=url, chars=len(content), elapsed_ms=123)
+        log.error("crawl_failed", url=url, error=str(e))
+    """
+
+    def __init__(self, name: str) -> None:
+        self._logger = logging.getLogger(name)
+        self._name = name
+
+    def _format_message(self, event: str, **context: Any) -> str:
+        """Format event with structured context."""
+        if not context:
+            return event
+
+        # Format context as key=value pairs
+        pairs = []
+        for key, value in context.items():
+            if isinstance(value, str):
+                # Quote strings with spaces
+                if " " in value or "=" in value:
+                    pairs.append(f'{key}="{value}"')
+                else:
+                    pairs.append(f"{key}={value}")
+            elif isinstance(value, (dict, list)):
+                # Compact JSON for complex types
+                pairs.append(f"{key}={json.dumps(value, separators=(',', ':'))}")
+            else:
+                pairs.append(f"{key}={value}")
+
+        return f"{event} | {' '.join(pairs)}"
+
+    def debug(self, event: str, **context: Any) -> None:
+        """Log debug message with context."""
+        self._logger.debug(self._format_message(event, **context))
+
+    def info(self, event: str, **context: Any) -> None:
+        """Log info message with context."""
+        self._logger.info(self._format_message(event, **context))
+
+    def warning(self, event: str, **context: Any) -> None:
+        """Log warning message with context."""
+        self._logger.warning(self._format_message(event, **context))
+
+    def error(self, event: str, **context: Any) -> None:
+        """Log error message with context."""
+        self._logger.error(self._format_message(event, **context))
+
+    def exception(self, event: str, **context: Any) -> None:
+        """Log exception with traceback and context."""
+        self._logger.exception(self._format_message(event, **context))
+
+    def bind(self, **context: Any) -> "BoundLogger":
+        """Create a bound logger with persistent context."""
+        return BoundLogger(self, context)
+
+
+class BoundLogger:
+    """Logger with bound context that's included in every log message."""
+
+    def __init__(self, logger: StructuredLogger, context: dict[str, Any]) -> None:
+        self._logger = logger
+        self._context = context
+
+    def _merge_context(self, **extra: Any) -> dict[str, Any]:
+        """Merge bound context with extra context."""
+        merged = self._context.copy()
+        merged.update(extra)
+        return merged
+
+    def debug(self, event: str, **context: Any) -> None:
+        self._logger.debug(event, **self._merge_context(**context))
+
+    def info(self, event: str, **context: Any) -> None:
+        self._logger.info(event, **self._merge_context(**context))
+
+    def warning(self, event: str, **context: Any) -> None:
+        self._logger.warning(event, **self._merge_context(**context))
+
+    def error(self, event: str, **context: Any) -> None:
+        self._logger.error(event, **self._merge_context(**context))
+
+    def exception(self, event: str, **context: Any) -> None:
+        self._logger.exception(event, **self._merge_context(**context))
+
+    def bind(self, **context: Any) -> "BoundLogger":
+        """Create a new bound logger with additional context."""
+        return BoundLogger(self._logger, self._merge_context(**context))
+
+
+def get_structured_logger(name: str = "nous") -> StructuredLogger:
+    """
+    Get a structured logger.
+
+    Args:
+        name: Logger name (e.g., "nous.crawl", "nous.extract")
+
+    Returns:
+        StructuredLogger instance
+    """
+    return StructuredLogger(name)

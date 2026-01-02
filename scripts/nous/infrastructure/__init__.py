@@ -69,11 +69,13 @@ from .extraction import (
     extract_metadata,
 )
 from .llm import Crawl4AISchemaGenerator, DirectLLMClient, LLMConfig
-from .llm import IdeaExtractor as LLMIdeaExtractor  # Renamed to avoid conflict
 from .logging import (
+    BoundLogger,
+    StructuredLogger,
     cleanup_old_logs,
     get_current_log_file,
     get_logger,
+    get_structured_logger,
     init_session_logging,
     setup_logging,
 )
@@ -134,7 +136,6 @@ __all__ = [
     "LLMConfig",
     "Crawl4AISchemaGenerator",
     "DirectLLMClient",
-    "LLMIdeaExtractor",
     # Analysis
     "ConsensusDetector",
     "ConsensusAnalysis",
@@ -154,6 +155,9 @@ __all__ = [
     "init_session_logging",
     "setup_logging",
     "get_logger",
+    "get_structured_logger",
     "get_current_log_file",
     "cleanup_old_logs",
+    "StructuredLogger",
+    "BoundLogger",
 ]
