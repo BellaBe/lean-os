@@ -176,7 +176,7 @@ class ConsoleUI:
             self._write("  📝 Summary:")
             lines = summary.split("\n")
             max_lines = 8
-            for i, line in enumerate(lines[:max_lines]):
+            for line in lines[:max_lines]:
                 if line.strip():
                     self._write(f"     {line.strip()}")
             if len(lines) > max_lines:
