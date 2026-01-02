@@ -1,2 +1,15 @@
-# Meeting notes and call summaries
-# Optional directory for capturing meeting outcomes
+# Meeting Notes Directory
+
+Store notes from meetings, calls, and conversations.
+
+## Naming Convention
+
+```
+YYYY-MM-DD-{topic}.md
+```
+
+## Usage
+
+- Capture key decisions and action items
+- Link to relevant goals or threads
+- Extract insights to Canvas when applicable
