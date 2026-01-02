@@ -85,6 +85,7 @@ class IdeaNode:
     behavioral_triggers: list[str] = field(default_factory=list)
     extracted_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     cluster: str | None = None  # "consensus" or "contention"
+    metadata: dict = field(default_factory=dict)
 
 
 @dataclass

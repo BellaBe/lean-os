@@ -17,7 +17,6 @@ from .crawlers import (
     # Browser configuration / Anti-bot
     BrowserFactory,
     BrowserProfile,
-    CapturedSnapshot,
     ContentConfig,
     # Content crawling
     ContentCrawler,
@@ -31,6 +30,11 @@ from .crawlers import (
     LinkAnalyzer,
     LinkScore,
     MockSerpCrawler,
+    # Page snapshot
+    PageComparison,
+    PageSnapshot,
+    PageSnapshotConfig,
+    PageSnapshotter,
     ProtectedSiteCrawler,
     ProtectionLevel,
     ProxyConfig,
@@ -44,16 +48,12 @@ from .crawlers import (
     SerpCrawler,
     # Session management
     SessionManager,
-    # Snapshot capture
-    SnapshotCapturer,
-    SnapshotComparison,
-    SnapshotConfig,
     StealthConfig,
     StorageState,
     TemporalArchive,
     # URL seeding
     UrlSeeder,
-    capture_snapshot,
+    capture_page_snapshot,
     create_session_from_cookies,
     get_profile_for_site,
     seed_topic,
@@ -70,6 +70,13 @@ from .extraction import (
 )
 from .llm import Crawl4AISchemaGenerator, DirectLLMClient, LLMConfig
 from .llm import IdeaExtractor as LLMIdeaExtractor  # Renamed to avoid conflict
+from .logging import (
+    cleanup_old_logs,
+    get_current_log_file,
+    get_logger,
+    init_session_logging,
+    setup_logging,
+)
 
 __all__ = [
     # SERP crawling
@@ -110,13 +117,13 @@ __all__ = [
     "PROFILE_STEALTH",
     "PROFILE_UNDETECTED",
     "PROFILE_MAXIMUM",
-    # Snapshot capture
-    "SnapshotCapturer",
-    "SnapshotConfig",
-    "CapturedSnapshot",
-    "SnapshotComparison",
+    # Page snapshot
+    "PageSnapshotter",
+    "PageSnapshotConfig",
+    "PageSnapshot",
+    "PageComparison",
     "TemporalArchive",
-    "capture_snapshot",
+    "capture_page_snapshot",
     # Session management
     "SessionManager",
     "StorageState",
@@ -143,4 +150,10 @@ __all__ = [
     "ExtractionConfig",
     "ChunkingStrategy",
     "extract_ideas",
+    # Logging
+    "init_session_logging",
+    "setup_logging",
+    "get_logger",
+    "get_current_log_file",
+    "cleanup_old_logs",
 ]

@@ -1,0 +1,1603 @@
+{
+  "id": "96ed077f-bf9d-447f-be5e-4da4a39cdd8c",
+  "topic": "UAE AI Progress 2026",
+  "generated_at": "2026-01-01T10:37:59.963988+00:00",
+  "scope": {
+    "time_range": "2026-01-01",
+    "source_types": [
+      "news",
+      "social",
+      "academic"
+    ],
+    "domains_searched": [
+      "imarcgroup.com",
+      "news.google.com",
+      "dii-desertenergy.org",
+      "semanticscholar.org",
+      "iflr.com",
+      "fintechnews.ae",
+      "reddit.com",
+      "kpmg.com",
+      "dubaiaicampus.com",
+      "economictimes.indiatimes.com",
+      "mbzuai.ac.ae",
+      "emirativogue.com",
+      "binance.com",
+      "thetechnologyexpress.com",
+      "ypredict.ai",
+      "thefastmode.com",
+      "wellfound.com",
+      "blog.google",
+      "dubaiaifestival.com",
+      "archivemarketresearch.com",
+      "seoflightdeck.com",
+      "cxoinsightme.com",
+      "gulftoday.ae",
+      "gateofai.com",
+      "pwc.com",
+      "aibucket.io",
+      "ksofttechnologies.com",
+      "difc.com",
+      "computerweekly.com",
+      "startupnews.fyi",
+      "masterofcode.com",
+      "biztoday.news",
+      "mediaoffice.abudhabi",
+      "esferasoft.com",
+      "forbes.com",
+      "dubaieye1038.com",
+      "failory.com",
+      "news.ycombinator.com",
+      "trendsresearch.org",
+      "businessnewse.com",
+      "synergylabs.co",
+      "meyka.com",
+      "entrepreneur.com",
+      "solulab.com",
+      "tracxn.com",
+      "aimcongress.com",
+      "dubaidiaries.com",
+      "dubaitimes.com",
+      "arxiv.org",
+      "en.aletihad.ae",
+      "completeaitraining.com",
+      "hai.stanford.edu",
+      "ainewshub.org",
+      "ibtimes.ae",
+      "antiersolutions.com",
+      "analyticsinsight.net",
+      "machinescanthink.ai",
+      "eiu.com",
+      "thearabianpost.com",
+      "focus.hidubai.com",
+      "breakingtravelnews.com",
+      "added.gov.ae",
+      "elysian.com",
+      "aimagazine.com",
+      "govaisummitmea.com",
+      "g42.ai",
+      "en.wikipedia.org",
+      "cnbc.com",
+      "communicateonline.me",
+      "medium.com",
+      "digitransformationsummit.com",
+      "apptunix.com",
+      "markets.financialcontent.com",
+      "coincentral.com",
+      "atomicmail.io",
+      "blog.abudhabicityguide.com",
+      "ciobusinessworld.com",
+      "gccbusinessnews.com",
+      "businesstoday.me",
+      "researchkonnection.com",
+      "bing.com",
+      "thebrewnews.com",
+      "scoopempire.com",
+      "tahawultech.com",
+      "cio.com",
+      "forpressrelease.com",
+      "timesofindia.indiatimes.com",
+      "theresearchinsights.com",
+      "teqnovos.com",
+      "umu.com",
+      "zawya.com",
+      "travelandtourworld.com",
+      "kanebridgenewsme.com",
+      "u.ae",
+      "hub71.com",
+      "financemiddleeast.com",
+      "thebrandberries.com",
+      "cbs-uae.ae",
+      "cxodx.com",
+      "middleeastainews.com",
+      "tii.ae",
+      "crowell.com",
+      "6wresearch.com",
+      "insidetelecom.com",
+      "thenationalnews.com",
+      "expertmarketresearch.com",
+      "deloitte.com",
+      "techpolicy.press",
+      "indianeconomicobserver.com",
+      "finanshels.com",
+      "arabiatravelnews.com",
+      "gitex.com",
+      "theguardian.com",
+      "jennifergraner5665.wixsite.com",
+      "uaecentre.com",
+      "economymiddleeast.com",
+      "madhyamamonline.com",
+      "blog.9cv9.com",
+      "dayofdubai.com",
+      "ibtimes.co.uk",
+      "orangeglobal.in",
+      "cointelegraph.com",
+      "incorpyfy.com",
+      "thereportcubes.com",
+      "gulfnews.com",
+      "statista.com",
+      "indiehackers.com",
+      "gartner.com",
+      "uaenews247.com",
+      "aieverythingabudhabi.com",
+      "thesoogroup.com",
+      "shuraa.in",
+      "openxcell.com",
+      "middleeastevents.com",
+      "yotru.com",
+      "worldaiexpo.io",
+      "menafn.com",
+      "techgropse.com",
+      "startupsmagazine.co.uk",
+      "theweek.in",
+      "linkedin.com",
+      "csis.org",
+      "alphapartners.co",
+      "arabnews.com",
+      "fundingsouq.com",
+      "code-brew.com",
+      "adipec.com",
+      "gludo.org",
+      "grandviewresearch.com",
+      "startus-insights.com",
+      "techcrunch.com",
+      "psmarketresearch.com",
+      "dubai.news",
+      "thefinanceworld.com",
+      "gulfbusiness.com",
+      "khaleejtimes.com",
+      "tradearabia.com"
+    ],
+    "languages": [
+      "en"
+    ]
+  },
+  "stats": {
+    "urls_discovered": 581,
+    "urls_crawled": 28,
+    "urls_failed": 2,
+    "ideas_extracted": 228,
+    "avg_relevance_score": 0.82,
+    "crawl_time_seconds": 1163.6
+  },
+  "summary": "Based on the analysis, the discourse on \"UAE AI Progress 2026\" reveals a predominantly positive sentiment, with 183 out of 228 ideas supporting the UAE's AI advancements. Key consensus points include the UAE's ambitious goal to become a fully AI-powered government, the launch of the National Artificial Intelligence Strategy 2031, and the success of the Dubai Shopping Festival. However, there is limited disagreement on the exponential progress in machine learning and artificial intelligence, particularly with large language models.",
+  "consensus_clusters": [
+    {
+      "representative_claim": "Dubai Shopping Festival (DSF) continues to turn everyday shopping into extraordinary winning moments.",
+      "idea_count": 7,
+      "source_count": 1
+    },
+    {
+      "representative_claim": "The UAE aims to become the world's first fully AI-powered government within the next two years.",
+      "idea_count": 9,
+      "source_count": 1
+    },
+    {
+      "representative_claim": "The UAE has launched the National Artificial Intelligence Strategy 2031.",
+      "idea_count": 9,
+      "source_count": 1
+    },
+    {
+      "representative_claim": "The UAE has a subreddit with 228K members.",
+      "idea_count": 23,
+      "source_count": 4
+    },
+    {
+      "representative_claim": "The UAE is rapidly cementing its position as a global leader in Artificial Intelligence (AI).",
+      "idea_count": 7,
+      "source_count": 1
+    },
+    {
+      "representative_claim": "The UAE has launched an AI-driven government performance system to transform public sector efficiency.",
+      "idea_count": 18,
+      "source_count": 2
+    },
+    {
+      "representative_claim": "The UAE has solidified its position as a world leader in AI adoption, with a 97% utilization rate across government entities and a developer pool exceeding 450,000 programmers.",
+      "idea_count": 10,
+      "source_count": 1
+    },
+    {
+      "representative_claim": "The UAE plans to produce 60 trillion AI tokens through its Stargate AI campus in Abu Dhabi.",
+      "idea_count": 9,
+      "source_count": 1
+    }
+  ],
+  "contention_zones": [
+    {
+      "representative_claim": "Progress in machine learning and artificial intelligence, particularly with respect to large language models, has been exponential over the recent past.",
+      "opposing_views": {
+        "pro": "If progress were truly exponential, I would expect something noticeably better than GPT-4 on the horizon, if not already released.",
+        "con": "Progress in machine learning and artificial intelligence, particularly with respect to large language models, has been exponential over the recent past."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "07861929-f60f-40ed-a777-2293542dc4ba",
+      "url": "https://news.ycombinator.com/item?id=36233487",
+      "title": "Ask HN: Is the rate of progress in AI exponential?",
+      "origin": "Hacker News",
+      "source_type": "news",
+      "signal_zone": "grassroots"
+    },
+    {
+      "id": "16c7ec03-0a40-48ba-8323-f512640ea6d6",
+      "url": "https://news.ycombinator.com/item?id=44432486",
+      "title": "Ask HN: The Proof or Bluff paper. Can \"AI\" do math?",
+      "origin": "Hacker News",
+      "source_type": "news",
+      "signal_zone": "grassroots"
+    },
+    {
+      "id": "822dd1cf-3bd0-4c61-8d6e-f31333ac38c4",
+      "url": "https://news.ycombinator.com/item?id=46336990",
+      "title": "LLM Benchmark: Frontier models now statistically indistinguishable",
+      "origin": "Hacker News",
+      "source_type": "news",
+      "signal_zone": "grassroots"
+    },
+    {
+      "id": "2a23b5a1-0470-4047-89eb-1d97eb26757d",
+      "url": "https://arabiatravelnews.com/travel-technology/ai/abu-dhabi-to-host-ai-everything-global-2026-advancing-the-uaes-ai-ambitions/",
+      "title": "Abu Dhabi to host AI Everything Global 2026, advancing the",
+      "origin": "arabiatravelnews.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "f44c1d25-09ae-4906-9902-6352bbcf96a5",
+      "url": "http://arxiv.org/abs/2509.00961v1",
+      "title": "Ultra Strong Machine Learning: Teaching Humans Active Learning Strategies via Automated AI Explanations",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "88799992-7d16-42ba-9a00-fbf2d6a6bfd4",
+      "url": "http://arxiv.org/abs/2008.07326v1",
+      "title": "Progressing Towards Responsible AI",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "1dd3c2a8-279b-43b6-8f05-fa5bcbbe8445",
+      "url": "http://arxiv.org/abs/2512.20376v1",
+      "title": "Linking Faces and Voices Across Languages: Insights from the FAME 2026 Challenge",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "1e2723fa-9ec8-4653-b5fb-2f0c450ddf1e",
+      "url": "http://arxiv.org/abs/1512.05849v1",
+      "title": "Modeling Progress in AI",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "18bdbec6-51d6-4069-a585-d9dcd2ffbbbe",
+      "url": "http://arxiv.org/abs/2408.13775v1",
+      "title": "Progress: A Post-AI Manifesto",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "de05cc46-4b79-45f0-94a1-6d05893285ad",
+      "url": "http://arxiv.org/abs/2401.15284v6",
+      "title": "Beyond principlism: Practical strategies for ethical AI use in research practices",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "9278b6fd-fc91-4c5b-8cda-0a93ebacefa6",
+      "url": "http://arxiv.org/abs/2308.12400v1",
+      "title": "Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "96525085-6024-4581-ad91-05a96bbc1607",
+      "url": "http://arxiv.org/abs/2504.16770v1",
+      "title": "DeBiasMe: De-biasing Human-AI Interactions with Metacognitive AIED (AI in Education) Interventions",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "2bff6802-3516-4ec3-b5b4-da4b895ed59f",
+      "url": "http://arxiv.org/abs/2504.08817v2",
+      "title": "Exploring utilization of generative AI for research and education in data-driven materials science",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "d1fb2536-e70d-4081-817a-baf0032d1902",
+      "url": "http://arxiv.org/abs/2504.09138v1",
+      "title": "White-Box AI Model: Next Frontier of Wireless Communications",
+      "origin": "arXiv",
+      "source_type": "academic",
+      "signal_zone": "institutional"
+    },
+    {
+      "id": "cf2b4e61-6061-449b-bf65-12a3de6305a3",
+      "url": "https://www.financemiddleeast.com/fintech/ai/uae-advances-toward-ai-pioneer-status-amid-regional-momentum/",
+      "title": "UAE advances toward AI pioneer status amid regional momentum -",
+      "origin": "financemiddleeast.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "541b9c97-bc40-4639-a175-a8e9b0daf610",
+      "url": "https://www.breakingtravelnews.com/news/article/abu-dhabi-to-host-ai-everything-global-2026-accelerating-the-uaes-ambition/",
+      "title": "Abu Dhabi to Host Ai Everything Global 2026: Accelerating the",
+      "origin": "breakingtravelnews.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "f3c22b65-ef0c-456a-b656-901fc07ce5e2",
+      "url": "https://uaenews247.com/2025/11/19/uaes-new-ai-centre-of-excellence-unites-academia-and-industry-to-shape-the-future-of-sovereign-ai/",
+      "title": "UAE\u2019s New AI Centre of Excellence Unites Academia and",
+      "origin": "uaenews247.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "47e5ae11-3a72-471d-ad8f-47f667d4ef86",
+      "url": "https://thebrandberries.com/abu-dhabi-to-host-ai-everything-global-2026-accelerating-the-uaes-ambition-as-a-global-hub-for-ai-innovation-and-investments/",
+      "title": "Abu Dhabi To Host Ai Everything Global 2026: Accelerating The",
+      "origin": "thebrandberries.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "72c0727e-d0de-46c7-a624-1272afd4b0de",
+      "url": "https://www.tahawultech.com/region/uae/uae-ready-embrace-ai-enhance-quality-life-sheikh-mohammed/",
+      "title": "UAE is ready to embrace AI to enhance quality of life: Sheikh",
+      "origin": "tahawultech.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "89af5419-e384-4639-abc6-69d64664af0d",
+      "url": "https://www.reddit.com/r/AINewsMinute/comments/1psxkan/ai_progress_is_moving_insanely_fast_2026_is_going/",
+      "title": "AI Progress Is Moving Insanely Fast 2026 Is Going to Be Wild",
+      "origin": "r/AINewsMinute",
+      "source_type": "social",
+      "signal_zone": "grassroots"
+    },
+    {
+      "id": "4a777925-161b-48d6-88d2-a8eea89affc4",
+      "url": "https://www.reddit.com/r/DeepSeek/comments/1pwwtg8/by_the_end_of_2026_the_problem_will_no_longer_be/",
+      "title": "By the end of 2026, the problem will no longer be AI slop. The problem will be human slop.",
+      "origin": "r/DeepSeek",
+      "source_type": "social",
+      "signal_zone": "grassroots"
+    },
+    {
+      "id": "3a591cda-2477-49a7-94a9-57065d2dea2d",
+      "url": "https://www.reddit.com/r/agi/comments/1puqg63/ai_progress_is_speeding_up_this_combines_many/",
+      "title": "AI progress is speeding up. (This combines many different AI benchmarks.)",
+      "origin": "r/agi",
+      "source_type": "social",
+      "signal_zone": "grassroots"
+    },
+    {
+      "id": "d0db4a0f-c73c-41c1-b816-a180f2e170ac",
+      "url": "https://www.reddit.com/r/Bard/comments/1psxkwx/ai_progress_is_moving_insanely_fast_2026_is_going/",
+      "title": "AI Progress Is Moving Insanely Fast 2026 Is Going to Be Wild",
+      "origin": "r/Bard",
+      "source_type": "social",
+      "signal_zone": "grassroots"
+    },
+    {
+      "id": "a55f03cd-bb95-4bd7-9999-158b31c21ca6",
+      "url": "https://thebrewnews.com/thebrew-news/uae/uae-ai-leadership-education-skills-2031/",
+      "title": "UAE AI leadership powered by education",
+      "origin": "thebrewnews.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "38c2c215-eac2-4e77-86a0-9c07e5fe24bf",
+      "url": "https://thetechnologyexpress.com/uae-launches-ai-driven-government-performance-system-to-transform-public-sector-efficiency/",
+      "title": "UAE Launches AI-Driven Government Performance System to",
+      "origin": "thetechnologyexpress.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "37bb6be7-bbbe-45f6-a558-b405047c9b4f",
+      "url": "https://thetechnologyexpress.com/uae-poised-to-be-ai-hub-and-next-silicon-valley-say-experts/",
+      "title": "UAE poised to be AI hub and next Silicon Valley, say experts -",
+      "origin": "thetechnologyexpress.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "d683b979-2b45-46cc-ad4a-35742172b3d6",
+      "url": "https://www.businesstoday.me/tech-news/the-ai-entrepreneurs-roadmap-uae-2026/",
+      "title": "The AI Entrepreneur\u2019s Roadmap: UAE 2026 - Business Today Middle East",
+      "origin": "businesstoday.me",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    },
+    {
+      "id": "b00704fe-3dbd-4365-ac00-2c1e4be16489",
+      "url": "https://timesofindia.indiatimes.com/world/middle-east/uae-aims-to-produce-60-trillion-ai-tokens-what-are-ai-tokens-and-why-they-matter/articleshow/125814739.cms",
+      "title": "UAE aims to produce 60 trillion AI tokens: What are AI tokens and why they matter | World News - The Times of India",
+      "origin": "timesofindia.indiatimes.com",
+      "source_type": "news",
+      "signal_zone": "speculative"
+    }
+  ],
+  "ideas": [
+    {
+      "id": "2002be49-13b3-42b0-9480-dae8ad8eecc5",
+      "claim": "Progress in machine learning and artificial intelligence, particularly with respect to large language models, has been exponential over the recent past.",
+      "stance": "oppose"
+    },
+    {
+      "id": "4edf726f-506d-477d-9035-ac9da1426c70",
+      "claim": "It took several years to go from the invention of the transformer architecture to a broadly useful autoregressive text completer.",
+      "stance": "neutral"
+    },
+    {
+      "id": "659be1bd-ad2f-4a3c-ac27-6639dd1666b5",
+      "claim": "Between March of 2022 and March of 2023 OpenAI went from GPT-3.5 to GPT-4; a clear improvement, but not a transformationally massive one.",
+      "stance": "neutral"
+    },
+    {
+      "id": "ad880b85-ff78-4eef-b59b-c40593b9e9b6",
+      "claim": "GPT-4 remains the most capable model widely available and that shows no signs of changing -- it's not clear at this point if GPT-5 is even a glimmer in Ilya Sutskever's eye.",
+      "stance": "neutral"
+    },
+    {
+      "id": "2b3218f4-832e-48c5-bf96-f4cd6e153531",
+      "claim": "Further progress towards more capable large language models requires either ever-increasing amounts of data and compute for marginal gains, or the development of new approaches that better leverage available data.",
+      "stance": "neutral"
+    },
+    {
+      "id": "d9f7766b-d3a5-4818-900a-8124a436163b",
+      "claim": "The research and development I'm seeing is all about: 1. Better ways to prompt LLMs (chain of thought, tree of thoughts) 2. New LLMs that use less compute than GPT-4 (but are almost uniformly worse, e.g. Bard) 3. Better ways of running smaller (i.e. worse) models on commodity hardware 4. New software tools that employ LLMs (document search, web search, etc).",
+      "stance": "neutral"
+    },
+    {
+      "id": "76494e65-ecad-4824-b443-2639236fa397",
+      "claim": "If progress were truly exponential, I would expect something noticeably better than GPT-4 on the horizon, if not already released.",
+      "stance": "support"
+    },
+    {
+      "id": "d1bad54c-969c-4ed6-a5f2-7ae7abb4a8ff",
+      "claim": "We got on the S-curve for \u201cdeep learning\u201d about 20 years ago by that measure and we might be closer to the end than we are to the beginning.",
+      "stance": "support"
+    },
+    {
+      "id": "5af187be-ef9f-46bd-895b-cc606b359b84",
+      "claim": "It's _always_ an S-curve. It's never an exponential forever.",
+      "stance": "support"
+    },
+    {
+      "id": "b2192e95-c0a5-4e23-8864-2848c0f0d950",
+      "claim": "We are on the next one that involves feedback and composition. This one is going to last _awhile_.",
+      "stance": "neutral"
+    },
+    {
+      "id": "fab85659-e2fb-4dfa-9cd2-a8f5c6d79a36",
+      "claim": "Over the past 12 months, there have been many comments making the case for AI performance on the IMO being evidence for continued rapid increases in LLM performance.",
+      "stance": "support"
+    },
+    {
+      "id": "22f142e6-8fac-4b30-9084-a197c9a107c8",
+      "claim": "The DeepMind results from last summer and February this year are the basis for these comments.",
+      "stance": "support"
+    },
+    {
+      "id": "85076fea-ded2-4f7c-ad77-39a4e54e0dd9",
+      "claim": "The models used by DeepMind for these tasks are very specialised to the task and only accept formal language as input.",
+      "stance": "support"
+    },
+    {
+      "id": "2925a5f5-df0b-47b0-947b-a6bfd3dbadb2",
+      "claim": "None of the tested SOTA LLMs were able to make any meaningful progress on solving questions in the test set, according to the Proof or Bluff paper.",
+      "stance": "support"
+    },
+    {
+      "id": "69b0c9ad-f8a8-4526-bf9b-a5cbac11cea8",
+      "claim": "The DeepMind results are convenient headline-grabbers for the AI safety crowd.",
+      "stance": "oppose"
+    },
+    {
+      "id": "880c174a-986f-41f1-bb76-86ae41f5fefb",
+      "claim": "The AI safety crowd is conflating the performance of a task-specific model with more general LLMs.",
+      "stance": "oppose"
+    },
+    {
+      "id": "811839e2-aba5-4313-9497-3c38328d628c",
+      "claim": "The Proof or Bluff paper provides hard data about how good these models actually are.",
+      "stance": "support"
+    },
+    {
+      "id": "bb61c1e4-0ab3-414b-9e16-8d19ec5eafaa",
+      "claim": "The results of the Proof or Bluff paper are useful context for evaluating the next few decades of AI progress.",
+      "stance": "support"
+    },
+    {
+      "id": "5c80e77d-ecd8-4e3b-bc9d-eafe1d442e22",
+      "claim": "The capability gap has closed between leading LLM models.",
+      "stance": "support"
+    },
+    {
+      "id": "81e84242-13c0-4be2-9d71-033889341279",
+      "claim": "Hallucination resistance is mostly solved for obvious cases.",
+      "stance": "support"
+    },
+    {
+      "id": "c60f44d6-87ef-48ff-902e-4ed0785b9eff",
+      "claim": "Safety training has matured and every common adversarial pattern failed.",
+      "stance": "support"
+    },
+    {
+      "id": "5363a169-fde3-4a93-b987-f147ebeb4137",
+      "claim": "The differentiators now are price, speed, ecosystem, and trust\u2014not raw intelligence.",
+      "stance": "support"
+    },
+    {
+      "id": "a968b18d-3264-4b5e-992a-6ce95f50917f",
+      "claim": "The age of 'GPT-X is clearly better than everything else' is over.",
+      "stance": "support"
+    },
+    {
+      "id": "1d74986e-c1a1-4ad2-9657-5ae72340d817",
+      "claim": "Competition on price will intensify.",
+      "stance": "support"
+    },
+    {
+      "id": "91aaa95f-66ec-4ecc-835c-493e5f51ba7b",
+      "claim": "Users can switch providers without major capability loss.",
+      "stance": "support"
+    },
+    {
+      "id": "e4744f25-effd-4f78-96b2-4ea3ecdc5bc7",
+      "claim": "The 'best model' will vary by use case.",
+      "stance": "support"
+    },
+    {
+      "id": "ac063290-a4cb-4537-a8fc-9ae9aff3d663",
+      "claim": "The benchmark might be too easy (96-98% doesn't discriminate well).",
+      "stance": "oppose"
+    },
+    {
+      "id": "70309807-6979-4387-ba2a-d57059f7af4e",
+      "claim": "Novel attacks might succeed against the models.",
+      "stance": "oppose"
+    },
+    {
+      "id": "66589959-e05f-4972-909c-e2e91cde434d",
+      "claim": "The UAE's journey of spearheading AI progress worldwide has marked another milestone, with the announcement that Ai Everything Global Summit & Expo will be hosted in Abu Dhabi in 2026.",
+      "stance": "support"
+    },
+    {
+      "id": "d76dd0b9-88d6-4022-9c5a-50a67f7ee9f8",
+      "claim": "The UAE is already a leading global hub for AI talent, second only to the United States.",
+      "stance": "support"
+    },
+    {
+      "id": "945be870-48a2-44c9-a0e1-084d75d6a8bc",
+      "claim": "Abu Dhabi aims to become the world's first fully AI-powered government within the next two years, driven by the newly announced Abu Dhabi Government Digital Strategy 2025-2027.",
+      "stance": "support"
+    },
+    {
+      "id": "bb24bd16-cd17-4ef5-a4de-b12218bc8a0f",
+      "claim": "The 2026 launch announcement comes amid major global AI investments, the rise of new AI models, and shifting dynamics in the global AI race.",
+      "stance": "neutral"
+    },
+    {
+      "id": "9d0c5a6a-a0f9-4274-ba58-e08a4b521762",
+      "claim": "Ai Everything Global is the cross industries fully AI-focused forward-looking event of GITEX GLOBAL, the largest tech and startup show in the world.",
+      "stance": "support"
+    },
+    {
+      "id": "b654a97c-7150-4ad3-93c9-a0e487bc7446",
+      "claim": "The first edition of the event opened to an oversubscribed full house audience with delegates from over 149 countries.",
+      "stance": "support"
+    },
+    {
+      "id": "8705dcdc-feb9-4623-92ce-b2e872d2ee70",
+      "claim": "Ai Everything Global will be hosted at the ADNEC Centre Abu Dhabi, part of ADNEC Group, in strategic partnership with the Abu Dhabi Department of Culture and Tourism (DCT).",
+      "stance": "support"
+    },
+    {
+      "id": "e18279d7-d01a-4ac8-a52a-9e0747ed0634",
+      "claim": "The UAE is committed to becoming a premier global hub for AI excellence.",
+      "stance": "support"
+    },
+    {
+      "id": "9a39ae73-c877-48dc-bbb0-87b3e1d30166",
+      "claim": "The UAE's role as an architect of future intelligence-driven economies will be strengthened by the safe development and deployment of AI.",
+      "stance": "support"
+    },
+    {
+      "id": "c61e5b35-1566-4c57-bd97-3c56ba221f0c",
+      "claim": "Abu Dhabi is positioning itself as a global hub for technological innovation and artificial intelligence.",
+      "stance": "support"
+    },
+    {
+      "id": "6e331242-d611-4402-b13b-2b383a2e96ef",
+      "claim": "The UAE has made significant progress in AI research and development.",
+      "stance": "neutral"
+    },
+    {
+      "id": "a3ac84b9-420d-490c-9f5d-77fc565c3e46",
+      "claim": "The UAE has a strong focus on AI education and training.",
+      "stance": "neutral"
+    },
+    {
+      "id": "73b5a097-9acb-429c-94de-866923890c64",
+      "claim": "The UAE has implemented various AI-powered initiatives in various sectors.",
+      "stance": "neutral"
+    },
+    {
+      "id": "f6a111d5-0770-4f92-942e-11bf01367cb7",
+      "claim": "The UAE has a well-established AI research community.",
+      "stance": "neutral"
+    },
+    {
+      "id": "bfeae4b7-6661-4238-9dcb-9a537dbcb35e",
+      "claim": "The UAE has made significant investments in AI research and development.",
+      "stance": "neutral"
+    },
+    {
+      "id": "8a143ced-2a8d-4021-83c9-041c18e8682f",
+      "claim": "The UAE has a strong AI industry with many startups and companies.",
+      "stance": "neutral"
+    },
+    {
+      "id": "5e7f1fd9-0679-4a31-828b-d0ffd30b0400",
+      "claim": "The UAE has a well-developed AI ecosystem with various initiatives and programs.",
+      "stance": "neutral"
+    },
+    {
+      "id": "be2fb83d-271f-4f04-87bd-aeacdea3971a",
+      "claim": "The UAE has a strong focus on AI innovation and entrepreneurship.",
+      "stance": "neutral"
+    },
+    {
+      "id": "0026bcdd-ced2-4c77-96f6-c80ac803af30",
+      "claim": "The UAE has implemented various AI-powered initiatives in various sectors, including healthcare, finance, and education.",
+      "stance": "neutral"
+    },
+    {
+      "id": "00c1290b-3cb0-4f61-8bf2-663d7200112f",
+      "claim": "The UAE has a strong AI research community with many researchers and experts.",
+      "stance": "neutral"
+    },
+    {
+      "id": "9ecf76b2-fd3e-423f-bbfd-4237905093cb",
+      "claim": "The field of Artificial Intelligence (AI) and, in particular, the Machine Learning area, counts on a wide range of performance metrics and benchmark data sets to assess the problem-solving effectiveness of its solutions.",
+      "stance": "neutral"
+    },
+    {
+      "id": "720e9e26-9596-42e4-a853-a681f5cf525b",
+      "claim": "Research centres, projects or institutions addressing AI solutions from a multidisciplinary and multi-stakeholder perspective suggest a new approach to assessment comprising ethical guidelines, reports or tools and frameworks.",
+      "stance": "support"
+    },
+    {
+      "id": "4ea5dde0-909a-41b6-8844-4dad36555006",
+      "claim": "Three key aspects are highlighted in the new approach to assessment: enhancing cooperation among stakeholders, promoting multidisciplinary dialogue, and fostering public engagement.",
+      "stance": "support"
+    },
+    {
+      "id": "2483362e-11bd-466a-87e9-c26075ec45a3",
+      "claim": "The Observatory on Society and Artificial Intelligence (OSAI) is an initiative aimed at stimulating reflection on a broad spectrum of issues of AI.",
+      "stance": "support"
+    },
+    {
+      "id": "ef35e294-b819-4c6e-8718-46d2c540f4af",
+      "claim": "The OSAI initiative can promote a wider appraisal of progress in AI.",
+      "stance": "support"
+    },
+    {
+      "id": "f5cc5866-2ce9-4232-8ea7-f076af2e3c21",
+      "claim": "The implementation of the three fundamental dimensions can be enhanced by initiatives like OSAI.",
+      "stance": "support"
+    },
+    {
+      "id": "b490e7ee-490b-4f2c-85a9-558e0d15f96f",
+      "claim": "The Face-Voice Association in Multilingual Environments (FAME) 2026 Challenge focuses on developing methods for face-voice association that are effective when the language at test-time is different than the training one.",
+      "stance": "neutral"
+    },
+    {
+      "id": "913dae99-0a72-4369-9fb2-caf332537406",
+      "claim": "Over half of the world's population is bilingual and people often communicate under multilingual scenarios.",
+      "stance": "neutral"
+    },
+    {
+      "id": "ad5bd1d5-dbeb-49a2-9475-4ba9fb9bbc9d",
+      "claim": "The FAME 2026 Challenge was held at ICASSP 2026.",
+      "stance": "neutral"
+    },
+    {
+      "id": "2d465ba3-a63a-4958-8bc8-91a0fd2b2062",
+      "claim": "The paper titled Linking Faces and Voices Across Languages: Insights from the FAME 2026 Challenge was submitted on December 23, 2025.",
+      "stance": "support"
+    },
+    {
+      "id": "83ffc37d-4276-4b74-829d-f76c515916d8",
+      "claim": "The paper titled Linking Faces and Voices Across Languages: Insights from the FAME 2026 Challenge was accepted at ICASSP 2026.",
+      "stance": "support"
+    },
+    {
+      "id": "4a7b3ee7-01f8-40d0-b972-d8e5e272a3fa",
+      "claim": "The paper titled Linking Faces and Voices Across Languages: Insights from the FAME 2026 Challenge is available in PDF format.",
+      "stance": "support"
+    },
+    {
+      "id": "03ce44f7-f070-417a-82df-63a1ce5a01b0",
+      "claim": "The paper titled Linking Faces and Voices Across Languages: Insights from the FAME 2026 Challenge is available in HTML format.",
+      "stance": "support"
+    },
+    {
+      "id": "1065a4ca-9ab2-4505-a718-21c80c06a31b",
+      "claim": "The paper titled Linking Faces and Voices Across Languages: Insights from the FAME 2026 Challenge is available in TeX Source format.",
+      "stance": "support"
+    },
+    {
+      "id": "22809e01-1ac8-4a95-ab38-8a7ffd7037ff",
+      "claim": "The paper titled Linking Faces and Voices Across Languages: Insights from the FAME 2026 Challenge has a DOI of 10.48550/arXiv.2512.20376.",
+      "stance": "support"
+    },
+    {
+      "id": "beb61d2e-ac56-462d-9db0-5552f0f3e58f",
+      "claim": "Participants in recent discussions of AI-related issues have made diverse claims about the nature, pace, and drivers of progress in AI.",
+      "stance": "neutral"
+    },
+    {
+      "id": "a05c3b46-4b9d-44d4-9125-417b0eee02ce",
+      "claim": "These theories are rarely specified in enough detail to enable systematic evaluation of their assumptions or to extrapolate progress quantitatively.",
+      "stance": "neutral"
+    },
+    {
+      "id": "36a3bf41-49d0-4828-bb29-39435dce6f2d",
+      "claim": "The relationship between hardware speed increases and algorithmic improvements in AI can be accounted for.",
+      "stance": "support"
+    },
+    {
+      "id": "9c6d681d-c6e4-4324-a001-20bd79b17bf9",
+      "claim": "Human inputs play a crucial role in enabling AI capabilities.",
+      "stance": "support"
+    },
+    {
+      "id": "d667712a-2c22-4ce2-8ec4-8171cccbf83e",
+      "claim": "Different sub-fields of AI are related to each other.",
+      "stance": "support"
+    },
+    {
+      "id": "eb7a22bc-89df-4203-aaac-32e5a5c44586",
+      "claim": "AI progress models can be tailored to generate insights on the specific issue of technological unemployment.",
+      "stance": "support"
+    },
+    {
+      "id": "b04ab891-2f3c-4a78-8853-b676f36c9f3a",
+      "claim": "Research on AI progress is an ongoing and future direction.",
+      "stance": "support"
+    },
+    {
+      "id": "8b65a1e1-cdc1-45ed-83dd-60f8351ec646",
+      "claim": "The UAE is making significant progress in AI.",
+      "stance": "neutral"
+    },
+    {
+      "id": "9b8349d8-8eb3-42c7-a6fa-950ed8e0bf05",
+      "claim": "The post-AI era will require a symbiosis of artificial intelligence capabilities and human ingenuity.",
+      "stance": "support"
+    },
+    {
+      "id": "53b6c5db-9073-4ef6-a7c8-b80b89a9d1e7",
+      "claim": "AI has the potential to accelerate progress across industries.",
+      "stance": "support"
+    },
+    {
+      "id": "f618750c-e52b-488a-a3d0-edcb3ab736be",
+      "claim": "AI can create illusions of understanding and potentially narrow problem-solving approaches.",
+      "stance": "support"
+    },
+    {
+      "id": "e3b71be4-3c5d-4ab6-b58a-b3add66aa23c",
+      "claim": "True progress in the AI age requires a holistic, interdisciplinary approach.",
+      "stance": "support"
+    },
+    {
+      "id": "1fc5ac9c-29c3-4bcc-90b9-a3597c89bc82",
+      "claim": "The UAE's AI progress in 2026 will be substantial, durable, and replicable.",
+      "stance": "neutral"
+    },
+    {
+      "id": "bb95a3e1-97c8-4a7d-910d-eb90c6ed2570",
+      "claim": "The UAE's AI progress in 2026 will be driven by a balance of technological innovation and human-centric values.",
+      "stance": "neutral"
+    },
+    {
+      "id": "e1aa1119-2887-496c-b65e-38f3699dc0f4",
+      "claim": "The UAE's AI progress in 2026 will be shaped by a post-AI manifesto emphasizing non-linear yet cumulative advancement.",
+      "stance": "neutral"
+    },
+    {
+      "id": "14799231-bd27-49bd-a67d-53a3258282be",
+      "claim": "The rapid adoption of generative artificial intelligence (AI) in scientific research has outpaced the development of ethical guidelines.",
+      "stance": "support"
+    },
+    {
+      "id": "8b5a9d31-c740-4173-bd33-564592454c69",
+      "claim": "Existing approaches to ethical AI use, such as principlism, formalism, and technological solutionism, offer little practical guidance for addressing ethical challenges of AI in scientific research practices.",
+      "stance": "support"
+    },
+    {
+      "id": "24f085b9-136a-47e4-bff2-2fd811308be3",
+      "claim": "A user-centered, realism-inspired approach is proposed to bridge the gap between abstract principles and day-to-day research practices.",
+      "stance": "support"
+    },
+    {
+      "id": "7497ffbd-a8d7-4bbe-b389-b4679f31dd18",
+      "claim": "Ethical AI application requires evaluating its utility against existing alternatives rather than isolated performance metrics.",
+      "stance": "support"
+    },
+    {
+      "id": "d86046b1-2f46-4325-b762-e9c287f8d7c7",
+      "claim": "Targeted professional development, training programs, and balanced enforcement mechanisms are needed to promote responsible AI use while fostering innovation.",
+      "stance": "support"
+    },
+    {
+      "id": "dd738f01-af03-4eb4-b5a6-9b91b3e85e40",
+      "claim": "Refining ethical guidelines and adapting them to emerging AI capabilities can accelerate scientific progress without compromising research integrity.",
+      "stance": "support"
+    },
+    {
+      "id": "f71cf29d-319b-406f-9429-a7257744cc4b",
+      "claim": "ChatGPT AI can be instructed through a gamification environment to define and benchmark hypothetical physical theories.",
+      "stance": "support"
+    },
+    {
+      "id": "38cb05b9-449b-4227-847b-845417ac5b57",
+      "claim": "ChatGPT successfully simulates the creation of a new improved model, called GPT^4^4^4.",
+      "stance": "support"
+    },
+    {
+      "id": "507da399-2540-4288-9434-5a921ebc26b3",
+      "claim": "The paper 'Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI' is the first paper entirely generated with outputs from ChatGPT.",
+      "stance": "support"
+    },
+    {
+      "id": "347812ba-5b8f-4f7b-97e2-96ca8e94a4b7",
+      "claim": "ChatGPT AI has the potential to be used for scientific discovery.",
+      "stance": "support"
+    },
+    {
+      "id": "256648e3-0c62-447b-a6c7-ab5c53eea41e",
+      "claim": "The paper 'Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI' will appear in AI Magazine.",
+      "stance": "support"
+    },
+    {
+      "id": "32e4451c-2d02-4e42-be53-aa2a5f61ce5a",
+      "claim": "ChatGPT AI can be used to create new models and improve existing ones.",
+      "stance": "support"
+    },
+    {
+      "id": "2f617379-5f2a-4ba4-889d-232f4e29a74d",
+      "claim": "The paper 'Towards The Ultimate Brain: Exploring Scientific Discovery with ChatGPT AI' is a novel approach to scientific discovery.",
+      "stance": "support"
+    },
+    {
+      "id": "8b7d9e1e-17a1-433a-97d7-6db7413a9115",
+      "claim": "ChatGPT AI has the potential to revolutionize the field of scientific discovery.",
+      "stance": "support"
+    },
+    {
+      "id": "363a688f-38ce-40d7-84b4-17feaba670d4",
+      "claim": "Generative artificial intelligence (Gen AI) is transforming academic environments.",
+      "stance": "support"
+    },
+    {
+      "id": "9010bd1e-5291-41a5-9473-d9a863b45bda",
+      "claim": "There is a critical gap in understanding and mitigating human biases in AI interactions.",
+      "stance": "support"
+    },
+    {
+      "id": "dc032d3a-acb2-439a-be59-54d70a69450a",
+      "claim": "Metacognitive AI literacy interventions can help university students critically engage with AI and address biases.",
+      "stance": "support"
+    },
+    {
+      "id": "1d98565b-2c4d-4f88-a618-2c88a151058e",
+      "claim": "Adaptive scaffolding that responds to diverse user engagement patterns is necessary for effective AI interactions.",
+      "stance": "support"
+    },
+    {
+      "id": "6c181ee5-1aa2-4745-ae3d-c378c9dfa1e5",
+      "claim": "The field of AI-augmented learning emphasizes the critical role of metacognition in navigating human, statistical, and systemic biases in AI use.",
+      "stance": "support"
+    },
+    {
+      "id": "d9b35c5e-3bc0-4b49-a1f0-f15117efc411",
+      "claim": "Cognitive adaptation to AI systems must be explicitly integrated into comprehensive AI literacy frameworks.",
+      "stance": "support"
+    },
+    {
+      "id": "a9077e96-175b-4d41-85bb-fa43a2824d48",
+      "claim": "The paper presents ongoing work on 'DeBiasMe,' AIED (AI in Education) interventions designed to enhance awareness of cognitive biases.",
+      "stance": "support"
+    },
+    {
+      "id": "51e5c031-5b4c-4eb5-83c4-b5bf58f3d522",
+      "claim": "The paper invites multiple stakeholders to engage in discussions on design and evaluation methods for scaffolding mechanisms, bias visualization, and analysis frameworks.",
+      "stance": "support"
+    },
+    {
+      "id": "3b4636f1-fea1-44eb-ab33-74e00ab99d25",
+      "claim": "The ACM Workshop on Human-AI Interaction for Augmented Reasoning is a relevant conference for discussing AI-augmented learning.",
+      "stance": "support"
+    },
+    {
+      "id": "0956fd58-2b35-4ade-a0c6-07403d2f6488",
+      "claim": "Generative AI has recently had a profound impact on various fields, including daily life, research, and education.",
+      "stance": "support"
+    },
+    {
+      "id": "4dc24696-e1b1-4c89-b552-9e1a7523f11f",
+      "claim": "Generative AI continues to evolve rapidly.",
+      "stance": "support"
+    },
+    {
+      "id": "b4001e2b-e9e7-45cf-9e41-d976da9c369c",
+      "claim": "This paper presents topics related to (1) conducting AI-assisted software trials, (2) building AI tutors for software, and (3) developing GUI applications for software.",
+      "stance": "neutral"
+    },
+    {
+      "id": "befffd62-ddb2-4c1f-8ce7-0cce250ffc81",
+      "claim": "Generative AI can facilitate research and education in data-driven materials science.",
+      "stance": "support"
+    },
+    {
+      "id": "2f9240c6-e6d5-43c7-9489-4c44d2c675e5",
+      "claim": "This paper provides an early record of the application of generative AI in data-driven materials science.",
+      "stance": "support"
+    },
+    {
+      "id": "cfd4f31b-b66d-4810-ab66-b77c86b7dbc6",
+      "claim": "The hackathon AIMHack2024 was organized to explore the efficient utilization of generative AI in data-driven materials science.",
+      "stance": "support"
+    },
+    {
+      "id": "86fc193b-089d-4191-8b11-d05863ad3bfb",
+      "claim": "Researchers from fields such as materials science, information science, bioinformatics, and condensed matter physics worked together to explore how generative AI can facilitate research and education.",
+      "stance": "support"
+    },
+    {
+      "id": "103ec532-2407-412a-b33f-623fbe49885f",
+      "claim": "This paper highlights strategies for integrating AI into research and education.",
+      "stance": "support"
+    },
+    {
+      "id": "fbcd6605-d25c-4de0-bfc0-720553c60bc2",
+      "claim": "White-box AI (WAI) offers a new approach to address key challenges of interpretability and mathematical validation in traditional black-box models.",
+      "stance": "support"
+    },
+    {
+      "id": "2e78bca4-e5f8-4e94-b9fa-4842cac1a644",
+      "claim": "WAI-aided wireless communication systems are proposed and investigated thoroughly to utilize the promising capabilities of WAI.",
+      "stance": "support"
+    },
+    {
+      "id": "6f52e01e-3d73-4a3d-835e-c96890fa8b53",
+      "claim": "WAI leverages theory-driven causal modeling and verifiable optimization paths, thereby demonstrating potential advantages in areas such as signal processing and resource allocation.",
+      "stance": "support"
+    },
+    {
+      "id": "cec1b711-147f-4e23-8b58-318e6e74213a",
+      "claim": "The integration of WAI in wireless communication systems is a future research direction.",
+      "stance": "support"
+    },
+    {
+      "id": "f2cd1f64-ba44-4f5e-bac2-65262d63bc74",
+      "claim": "The authors of the paper propose a novel tool to achieve the reasoning behind decisions and predictions made by AI algorithms.",
+      "stance": "support"
+    },
+    {
+      "id": "d46eff4e-63bd-4309-83a0-aff428ab9b06",
+      "claim": "The paper introduces the fundamental principles of WAI.",
+      "stance": "support"
+    },
+    {
+      "id": "c4ac28d7-582f-48fb-adb6-dd5d50ae61ec",
+      "claim": "A detailed comparison between WAI and traditional black-box models is conducted in terms of optimization objectives and architecture design.",
+      "stance": "support"
+    },
+    {
+      "id": "ef95132e-df13-464d-8232-fec4b0459e67",
+      "claim": "WAI offers a new approach to address key challenges of interpretability and mathematical validation in traditional black-box models.",
+      "stance": "support"
+    },
+    {
+      "id": "1657f054-1130-47d2-9e59-3253c772649d",
+      "claim": "The authors of the paper propose a novel tool to achieve the reasoning behind decisions and predictions made by AI algorithms.",
+      "stance": "support"
+    },
+    {
+      "id": "980c4622-85f7-4222-b21c-9fdc9ff3702c",
+      "claim": "The integration of WAI in wireless communication systems is a future research direction.",
+      "stance": "support"
+    },
+    {
+      "id": "2e03f518-b558-4505-a42c-bbf39bed831a",
+      "claim": "The UAE has been designated as an \u2018AI Contender\u2019 in Boston Consulting Group\u2019s (BCG) 2024 AI Maturity Matrix.",
+      "stance": "support"
+    },
+    {
+      "id": "21d193c7-0609-481a-ba56-8430eb24c5e2",
+      "claim": "The UAE and Saudi Arabia are identified as Contenders, while other Gulf Cooperation Council (GCC) nations are classified as Practitioners.",
+      "stance": "support"
+    },
+    {
+      "id": "7626c33f-1ee1-4ad1-b8f1-6352e4b1fb35",
+      "claim": "The UAE hosts 35 data centres and records the highest public cloud expenditure per employee in the GCC at $228.",
+      "stance": "support"
+    },
+    {
+      "id": "a2a1a95e-6f69-45ba-b00c-acae3ba05aec",
+      "claim": "The UAE has nearly 7,000 AI specialists and approximately 700 AI-related academic publications.",
+      "stance": "support"
+    },
+    {
+      "id": "a6b23d91-71af-46fe-9e2c-5f1b15291d06",
+      "claim": "Private sector engagement is also notable, with the UAE surpassing average investment levels within its peer group.",
+      "stance": "support"
+    },
+    {
+      "id": "f2a2d113-e866-4c0a-a74f-2927a61b1acd",
+      "claim": "Establishing the $100 billion MGX fund reflects the nation\u2019s commitment to global AI development.",
+      "stance": "support"
+    },
+    {
+      "id": "e88ffaf8-2129-464a-a3b4-fadce2c87020",
+      "claim": "To achieve \u2018AI Pioneer\u2019 status, the UAE should focus on expanding its domestic AI talent pool, enhancing research and development outcomes, and increasing private sector investment.",
+      "stance": "support"
+    },
+    {
+      "id": "473ee847-bdc7-4c29-8b0c-fc026f9e097b",
+      "claim": "The broader GCC region is also experiencing a push toward AI maturity, with countries implementing national strategies and infrastructure investments to bolster their AI capabilities.",
+      "stance": "support"
+    },
+    {
+      "id": "3acf733c-995a-49e8-bbd9-d6eb1b7993e7",
+      "claim": "The UAE's journey of spearheading AI progress worldwide has marked another milestone, with the announcement that Ai Everything Global Summit & Expo will be hosted in Abu Dhabi in 2026.",
+      "stance": "support"
+    },
+    {
+      "id": "ff7772d4-6e2e-408a-bf9c-8265829a94e0",
+      "claim": "The UAE is already a leading global hub for AI talent, second only to the United States.",
+      "stance": "support"
+    },
+    {
+      "id": "ae0279ec-1cd4-4885-b39f-828ed1cb74ac",
+      "claim": "Abu Dhabi aims to become the world's first fully AI-powered government within the next two years, driven by the newly announced Abu Dhabi Government Digital Strategy 2025-2027.",
+      "stance": "support"
+    },
+    {
+      "id": "38cdf3bc-fa29-47b3-b97a-1a0de58e03f6",
+      "claim": "The UAE is projected to contribute $100 billion in national GDP contributions by 2030.",
+      "stance": "support"
+    },
+    {
+      "id": "e317dd9e-63fb-47a1-9ec0-3232d61a7845",
+      "claim": "The UAE is actively engaged in global AI initiatives, including MGX's participation in the $500 billion Stargate AI Consortium \u2013 the largest AI infrastructure.",
+      "stance": "support"
+    },
+    {
+      "id": "badfc7aa-d9b3-4a6d-bd28-68f61c2c9adb",
+      "claim": "The UAE continues to drive AI talent development through its ambitious 'One Million Arab Coders' initiative, training and equipping the next generation with essential AI and coding skills to future-proof the region's workforce.",
+      "stance": "support"
+    },
+    {
+      "id": "2c112c77-0571-43bb-9ea8-c0954f216a4a",
+      "claim": "Ai Everything Global 2026 will accelerate new tech infrastructure projects and sector-wide AI applications.",
+      "stance": "support"
+    },
+    {
+      "id": "f2f605f7-bf3f-482b-b0b7-f54af40cb4c9",
+      "claim": "The UAE National Strategy for Artificial Intelligence 2031 and the Abu Dhabi Government Digital Strategy 2025-2027, reaffirm the country's role in shaping AI-driven economies.",
+      "stance": "support"
+    },
+    {
+      "id": "25fdbb8c-2467-4a00-8a21-d6c4ea5549a3",
+      "claim": "The UAE is committed to advance cross continental collaborations, enabling the transition of worldwide governments towards robust AI frameworks, optimising international talent development and deployment, harnessing the creation and responsible large-scale adoption of AI across industries, fostering R&D, and augmenting the power of AI for socio-economic growth.",
+      "stance": "support"
+    },
+    {
+      "id": "5b17d954-10d2-4576-a535-b5389b8ebfbf",
+      "claim": "Dubai Shopping Festival (DSF) continues to turn everyday shopping into extraordinary winning moments.",
+      "stance": "support"
+    },
+    {
+      "id": "f6589fd5-c05a-43c3-bc26-d18f16f56b11",
+      "claim": "DSF features multi-million-dirham prize pools, thousands of chances to win, and participation from hundreds of leading brands and retailers.",
+      "stance": "support"
+    },
+    {
+      "id": "4c382291-db8d-4757-85cb-c3bc340535ef",
+      "claim": "Every purchase made during DSF carries the potential to unlock a major prize.",
+      "stance": "support"
+    },
+    {
+      "id": "29cbd94f-b98d-4a5a-b7b8-e3cba182d7ad",
+      "claim": "Dubai Shopping Festival Auto Season transforms Dubai into a citywide destination for automotive culture, community, and creativity.",
+      "stance": "support"
+    },
+    {
+      "id": "23d8361c-440d-4970-b757-5514de932720",
+      "claim": "DSF Auto Season brings together an unparalleled line-up of parades, exhibitions, sales, and large-scale motoring festivals.",
+      "stance": "support"
+    },
+    {
+      "id": "1362bfca-8d30-42a3-94c9-1f050c567406",
+      "claim": "Max Fashion invites you to celebrate the season with its Winter sale, offering unbeatable discounts from 25% to 70% on fashion, footwear, and kids' essentials.",
+      "stance": "support"
+    },
+    {
+      "id": "1aaf4eab-0edb-4b6c-a43c-b177fe61a2ad",
+      "claim": "Dubai Shopping Festival Auto Season runs from 2 to 11 January 2026.",
+      "stance": "support"
+    },
+    {
+      "id": "acb40d99-74f5-421a-8b7f-324bd19cbcd2",
+      "claim": "The UAE aims to become the world's first fully AI-powered government within the next two years.",
+      "stance": "support"
+    },
+    {
+      "id": "f0db230a-0ef9-4525-a98d-56da61986b82",
+      "claim": "The UAE is already a leading global hub for AI talent, second only to the United States.",
+      "stance": "support"
+    },
+    {
+      "id": "46c1c2d8-f180-4c69-b051-303893af5b01",
+      "claim": "AI is projected to contribute $100 billion in national GDP contributions by 2030.",
+      "stance": "support"
+    },
+    {
+      "id": "862cd092-0c46-4a0a-85f9-65a57381c55d",
+      "claim": "The UAE National Strategy for Artificial Intelligence 2031 and the Abu Dhabi Government Digital Strategy 2025-2027 align with the goals of Ai Everything Global 2026.",
+      "stance": "support"
+    },
+    {
+      "id": "773910a4-7543-48c3-8c8f-9e2e3cc05c9f",
+      "claim": "The UAE is actively engaged in global AI initiatives, including MGX's participation in the $500 billion Stargate AI Consortium.",
+      "stance": "support"
+    },
+    {
+      "id": "a9717197-5e20-4021-954f-211664f4d591",
+      "claim": "The UAE continues to drive AI talent development through its ambitious 'One Million Arab Coders' initiative.",
+      "stance": "support"
+    },
+    {
+      "id": "a7ca9427-ce87-43c8-ba76-6b993d18646e",
+      "claim": "Ai Everything Global 2026 will accelerate new tech infrastructure projects and sector-wide AI applications.",
+      "stance": "support"
+    },
+    {
+      "id": "2888a27a-f58a-49aa-91c4-937b0f84b5ad",
+      "claim": "The UAE is committed to advancing cross-continental collaborations and enabling the transition of worldwide governments towards robust AI frameworks.",
+      "stance": "support"
+    },
+    {
+      "id": "4326a997-824b-4a33-99e3-e80391415386",
+      "claim": "The ADNEC Centre Abu Dhabi is a world-class, multi-award-winning venue, purpose-built to host major global events.",
+      "stance": "support"
+    },
+    {
+      "id": "56c80f89-662d-489a-9f44-e949fd2a27ba",
+      "claim": "The UAE has launched the National Artificial Intelligence Strategy 2031.",
+      "stance": "support"
+    },
+    {
+      "id": "1b1e0acf-0d4b-4683-b196-ea8a8beb7864",
+      "claim": "The UAE is ready to embrace technological advances and seeks to employ modern technology to enhance the quality of life.",
+      "stance": "support"
+    },
+    {
+      "id": "c4bd9f76-f23f-4401-928c-05b81d040e7b",
+      "claim": "The National Artificial Intelligence Strategy 2031 includes eight strategic objectives.",
+      "stance": "support"
+    },
+    {
+      "id": "1d05aabb-2fdc-4be5-838d-96eeb37c8f5a",
+      "claim": "AI applications are expected to contribute to the national GDP in the coming years.",
+      "stance": "support"
+    },
+    {
+      "id": "9c4530b5-00eb-448a-8c83-2a4e30ef5c6e",
+      "claim": "The UAE is set to unveil the world's first AI public servant at GITEX Global 2025.",
+      "stance": "support"
+    },
+    {
+      "id": "553e66ee-e084-4196-b1d8-648ae6b8dfc8",
+      "claim": "Emirati women are powering the UAE's digital-first future.",
+      "stance": "support"
+    },
+    {
+      "id": "3616d2ec-b3d5-4ff4-9217-832298005f68",
+      "claim": "The UAE Centennial 2071 is a well-defined plan for the UAE's vision and aspirations.",
+      "stance": "support"
+    },
+    {
+      "id": "0b5abfd6-4524-449a-b613-86897b5443b9",
+      "claim": "The UAE is a global hub for artificial intelligence.",
+      "stance": "support"
+    },
+    {
+      "id": "9e04d7c1-a5b0-4f26-9c9f-871ebd648a47",
+      "claim": "The Middle East's 5G ecosystem is growing faster than expected.",
+      "stance": "support"
+    },
+    {
+      "id": "d32a74a0-b3a9-4367-92ff-773e404d2274",
+      "claim": "The UAE has a subreddit with 228K members.",
+      "stance": "neutral"
+    },
+    {
+      "id": "116543ec-713c-4674-b74e-b266f8b6e13b",
+      "claim": "The UAE subreddit has 199 online members.",
+      "stance": "neutral"
+    },
+    {
+      "id": "ba8af67b-8d85-443b-aa81-6a62e410cf30",
+      "claim": "The UAE subreddit is popular near you.",
+      "stance": "neutral"
+    },
+    {
+      "id": "672ac25e-eca4-4ea0-9045-d7e39de4c4c2",
+      "claim": "There is a cybersecurity event called Zero Trust World in Orlando on March 4\u20136, 2026.",
+      "stance": "neutral"
+    },
+    {
+      "id": "f7902c4e-c9af-4546-9af8-9fd6df7c970d",
+      "claim": "The cybersecurity event Zero Trust World offers hands-on labs and real skills.",
+      "stance": "neutral"
+    },
+    {
+      "id": "1dcc6a8d-425c-4cc3-a1ae-15c33b8f9837",
+      "claim": "The subreddit r/ExplainTheJoke has 1.7M members.",
+      "stance": "neutral"
+    },
+    {
+      "id": "54101417-f91c-4d42-a263-bcd0f9c53829",
+      "claim": "The subreddit r/ExplainTheJoke has 503 online members.",
+      "stance": "neutral"
+    },
+    {
+      "id": "bc5073a6-d231-4ea5-87de-48b4dda0a8c5",
+      "claim": "The subreddit r/ExplainTheJoke has reached one million members.",
+      "stance": "neutral"
+    },
+    {
+      "id": "40f1c8eb-c93a-422b-82f4-7041298088df",
+      "claim": "The cybersecurity event Zero Trust World offers a $200 discount with code ZTWREDDIT26.",
+      "stance": "neutral"
+    },
+    {
+      "id": "b550fe51-f1a3-4c01-8e4e-ae3a9c25a7f3",
+      "claim": "The UAE has a subreddit community with 228K members.",
+      "stance": "support"
+    },
+    {
+      "id": "122adf76-b807-4178-a2cd-0b14b0167f78",
+      "claim": "The subreddit r/UAE has a post about the use of roads on the right-hand side.",
+      "stance": "support"
+    },
+    {
+      "id": "a8d8959c-9759-4908-a91e-496e159ac45d",
+      "claim": "There is a UAE all-in-one pass called adv+ starting at AED 308/month.",
+      "stance": "support"
+    },
+    {
+      "id": "7d64ff6a-04de-4e53-807c-b26307e53913",
+      "claim": "The pass adv+ offers membership for gyms, beaches, pools, and 300+ deals.",
+      "stance": "support"
+    },
+    {
+      "id": "0fd13fb5-ec22-49f7-9afb-1795e89d7891",
+      "claim": "The subreddit r/abudhabi has a post about photos taken in the Louvre.",
+      "stance": "support"
+    },
+    {
+      "id": "38a36ecf-d93e-43b2-8d1d-ed49a3730e37",
+      "claim": "The subreddit r/ExplainTheJoke has reached one million members.",
+      "stance": "support"
+    },
+    {
+      "id": "032b06a1-93ce-490e-8e76-b2728e2b91fb",
+      "claim": "AI-generated content is being discussed on the r/isthisAI subreddit.",
+      "stance": "neutral"
+    },
+    {
+      "id": "e99ec409-4bb5-40e4-afc3-49f53af57507",
+      "claim": "The video in question on r/isthisAI may be AI-generated.",
+      "stance": "neutral"
+    },
+    {
+      "id": "772f957c-cf4f-411f-ba25-6b70c070f5b6",
+      "claim": "AI progress is speeding up, combining many technologies.",
+      "stance": "support"
+    },
+    {
+      "id": "dbfaa443-e3db-4eed-b0ca-ae80a8c71d71",
+      "claim": "The UAE has a unique cultural practice where guests are invited to a party and then expected to pay for their own expenses.",
+      "stance": "support"
+    },
+    {
+      "id": "e8bbed40-0d30-4351-b1d9-40fd1d9e8ec0",
+      "claim": "This practice is not common in the UAE, but rather in Europe, particularly in Finland and the Netherlands.",
+      "stance": "support"
+    },
+    {
+      "id": "4c488f75-a17b-458b-842b-be1f85a6c898",
+      "claim": "The practice of expecting guests to pay for their own expenses is not normal in Dubai.",
+      "stance": "support"
+    },
+    {
+      "id": "f0306241-586d-4979-949a-73483bcba457",
+      "claim": "The poster is still in disbelief about the practice and finds it unusual.",
+      "stance": "support"
+    },
+    {
+      "id": "76924661-e91e-44b7-bcc6-a5663db70f29",
+      "claim": "The poster is asking for clarification on whether this practice is common in Europe.",
+      "stance": "support"
+    },
+    {
+      "id": "9d564c61-caae-47b2-b508-0d61889b9a82",
+      "claim": "The UAE is rapidly cementing its position as a global leader in Artificial Intelligence (AI).",
+      "stance": "support"
+    },
+    {
+      "id": "e201c1f7-8781-4026-ad3c-523fb5bc9bff",
+      "claim": "The UAE is preparing a new generation of experts to drive digital transformation through education and upskilling.",
+      "stance": "support"
+    },
+    {
+      "id": "83772ee0-1298-40a9-b900-4c797ad3dace",
+      "claim": "The UAE Strategy for Artificial Intelligence 2031 aims to utilise AI for 100 percent of government services and data analytics.",
+      "stance": "support"
+    },
+    {
+      "id": "64a64854-80af-4365-a737-03966852337a",
+      "claim": "The UAE ranks 13th globally and first regionally in AI preparedness, according to the Government AI Readiness Index 2024.",
+      "stance": "support"
+    },
+    {
+      "id": "7ad268a9-d031-47b2-8626-06fe7359cbcd",
+      "claim": "The UAE leads in AI adoption, with 59.4 percent of the population already using AI tools.",
+      "stance": "support"
+    },
+    {
+      "id": "8df020ac-582e-4d8c-92c8-92a5851fcafd",
+      "claim": "Reports from McKinsey & Company show strong progress in embedding generative AI in public and private sectors.",
+      "stance": "support"
+    },
+    {
+      "id": "9f07a54f-6beb-4e6d-933e-1c4fbe3f5edd",
+      "claim": "The UAE is building a future powered by AI through strategic policy, top-tier education, and global collaboration.",
+      "stance": "support"
+    },
+    {
+      "id": "8d30aa41-b1c8-4e62-a889-c8827703edc1",
+      "claim": "The UAE has launched an AI-driven government performance system to transform public sector efficiency.",
+      "stance": "support"
+    },
+    {
+      "id": "7af5f273-5a0b-4abe-baca-b680bd6e162e",
+      "claim": "The system integrates advanced AI tools, predictive analytics, and real-time data processing.",
+      "stance": "support"
+    },
+    {
+      "id": "4f7f314e-2679-4e32-932d-caac3e793f10",
+      "claim": "The system is expected to save over 250,000 working hours per year.",
+      "stance": "support"
+    },
+    {
+      "id": "7d51e53b-2fa6-4870-ad0b-0b458ebc6cbd",
+      "claim": "The system will help achieve a projected 60% average improvement in government performance.",
+      "stance": "support"
+    },
+    {
+      "id": "727daefe-a429-411c-b943-712f960bcb3f",
+      "claim": "The system can measure outcomes 45 times more effectively than traditional models.",
+      "stance": "support"
+    },
+    {
+      "id": "1003c950-7efb-42b7-9f90-e78f43b34489",
+      "claim": "The system increases self-management capacity across government entities by up to 90%.",
+      "stance": "support"
+    },
+    {
+      "id": "66efaf31-966d-4708-b045-63ac0951cf5b",
+      "claim": "The system fosters a culture of innovation by benchmarking against global best practices.",
+      "stance": "support"
+    },
+    {
+      "id": "347d7485-dfb5-4a86-9619-723a15a94664",
+      "claim": "The system encourages proactive engagement, sustainable results, and stronger community impact.",
+      "stance": "support"
+    },
+    {
+      "id": "1e248c5f-7c01-4554-b742-5645909b07c4",
+      "claim": "The system enables seamless data flow and secure integration.",
+      "stance": "support"
+    },
+    {
+      "id": "2389af56-68c4-4745-b573-0a47659db47f",
+      "claim": "The system allows government teams to better anticipate future trends and adapt accordingly.",
+      "stance": "support"
+    },
+    {
+      "id": "de0b4c1a-61b9-4dd0-b577-7ea7ebb2ded0",
+      "claim": "The UAE is poised to become an AI hub and the next Silicon Valley, according to experts.",
+      "stance": "support"
+    },
+    {
+      "id": "70f013c6-a14b-4a78-b81e-6d4b31c2f57a",
+      "claim": "Dubai has the capability to envision, imagine and bring things to reality, and could potentially ace the race of the world's cities aspiring to become the next Silicon Valley.",
+      "stance": "support"
+    },
+    {
+      "id": "7bcedc21-133d-4888-aabd-52bef63c7ee1",
+      "claim": "The UAE is the only country with a state-level Ministry of AI, which is a testament to its commitment to supporting the progress of AI technology.",
+      "stance": "support"
+    },
+    {
+      "id": "a01cf8eb-e89d-457a-8a4f-6cfb6b35a181",
+      "claim": "To become the next Silicon Valley, a city needs to consider the factors contributing to the innovation ecosystem, including a combination of talent, capital, private sector engagement, and commercialization.",
+      "stance": "neutral"
+    },
+    {
+      "id": "ce712795-4c71-4b27-b30d-29e7df997fa7",
+      "claim": "It is possible for the UAE to become the next Silicon Valley by finding a way to commercialize research and innovations in science and technology.",
+      "stance": "support"
+    },
+    {
+      "id": "c7c32179-cbc9-4c8e-8d5c-74085aa46ba8",
+      "claim": "Technology is the most crucial enabler, and the most critical aspect is the business value brought by having all the localized infrastructure to enable AI adoption as an enterprise.",
+      "stance": "support"
+    },
+    {
+      "id": "5d0c82c3-9c6b-4f9f-9f59-d7e24aba19c8",
+      "claim": "Organizations need to modernize their data to provide the right food for AI to eat and achieve the expected outcomes.",
+      "stance": "support"
+    },
+    {
+      "id": "3c6e8fc2-9a69-4497-a2c8-f06097444923",
+      "claim": "Each vertical has its appetite, be it banking, finance, healthcare, education, or the government, which always takes the lead with its mandates defined.",
+      "stance": "support"
+    },
+    {
+      "id": "a2ad4f34-0943-4748-b81d-035d589bb3f9",
+      "claim": "The UAE has solidified its position as a world leader in AI adoption, with a 97% utilization rate across government entities and a developer pool exceeding 450,000 programmers.",
+      "stance": "support"
+    },
+    {
+      "id": "32cf1a75-cb2f-4000-933d-3d02eac4998f",
+      "claim": "2026 is the \u201cYear of the Agent\u201d for entrepreneurs.",
+      "stance": "support"
+    },
+    {
+      "id": "2a21b43a-2ad3-4b71-a3ce-7ec53ebd30b9",
+      "claim": "The UAE government has pivoted from general support to aggressive, targeted growth.",
+      "stance": "support"
+    },
+    {
+      "id": "f46c46ae-9877-4fff-82a6-cee7a0eef8f9",
+      "claim": "The Unicorn 30 Programme aims to fast-track 30 startups into billion-dollar companies by 2026.",
+      "stance": "support"
+    },
+    {
+      "id": "de371e6b-1e8c-4f17-a054-385864271730",
+      "claim": "The AI Infrastructure Empowerment Platform allows startups to plug directly into the government\u2019s high-performance computing (HPC) power.",
+      "stance": "support"
+    },
+    {
+      "id": "472faee3-64c8-4211-accf-1a7f92c44a65",
+      "claim": "The biggest technical trend for UAE entrepreneurs in 2026 is the move from Generative AI (chatting) to Agentic AI (doing).",
+      "stance": "support"
+    },
+    {
+      "id": "c6051600-55ff-4b74-a57c-5e5f3aa592cd",
+      "claim": "The UAE has secured a global monopoly on compute power for 2026.",
+      "stance": "support"
+    },
+    {
+      "id": "5e811b5f-c7a3-42bf-b0bc-21e9f2936193",
+      "claim": "The Stargate UAE project will utilize the NVIDIA Grace Blackwell GB300 systems, giving UAE-based startups access to the most powerful AI hardware on earth.",
+      "stance": "support"
+    },
+    {
+      "id": "bd9bfb8e-0079-4953-82c1-61f5dddcc041",
+      "claim": "The UAE is regulating for \u201cCultural Alignment\u201d in AI adoption.",
+      "stance": "support"
+    },
+    {
+      "id": "559a68f5-5308-4018-8a9b-529ea6c4d36c",
+      "claim": "The \u201cAI in the Ring\u201d Index is the world\u2019s first test to see how well AI models reflect local values and culture.",
+      "stance": "support"
+    },
+    {
+      "id": "4ba3a3df-c69c-4591-80ba-db1d980a36e6",
+      "claim": "The UAE plans to produce 60 trillion AI tokens through its Stargate AI campus in Abu Dhabi.",
+      "stance": "support"
+    },
+    {
+      "id": "75e140c7-2be7-4d99-9889-507c674525ce",
+      "claim": "AI tokens are the smallest units of data that AI systems use to learn, process, and generate information.",
+      "stance": "support"
+    },
+    {
+      "id": "adf34fb0-99b2-4b2d-824d-0bf4f0277c6e",
+      "claim": "The UAE aims to become the 'world's factory of intelligence' through its AI token production.",
+      "stance": "support"
+    },
+    {
+      "id": "a2ab53a3-09b6-4485-b64e-3d4110a023f5",
+      "claim": "AI tokens break down text, images, audio, and video into manageable pieces.",
+      "stance": "support"
+    },
+    {
+      "id": "bb4b4fd7-6bcd-48b2-a9ca-7475d205aeb8",
+      "claim": "The UAE's Stargate AI campus is set to produce 60 trillion AI tokens.",
+      "stance": "support"
+    },
+    {
+      "id": "ef473a5a-eac1-4f5e-af05-05c5b7134e9c",
+      "claim": "The UAE's AI token production initiative positions the country as a global AI leader.",
+      "stance": "support"
+    },
+    {
+      "id": "e4275d22-5bc7-4fd2-8813-2876b3467d59",
+      "claim": "AI tokens drive economic and energy efficiency.",
+      "stance": "support"
+    },
+    {
+      "id": "fbe65505-0b8f-4a22-8873-24c84bd30751",
+      "claim": "The UAE's AI token production transforms intelligence into a strategic national resource.",
+      "stance": "support"
+    },
+    {
+      "id": "58219e36-d318-462d-ac94-380249a55613",
+      "claim": "The UAE's Minister of State for Artificial Intelligence, Digital Economy, and Remote Work Applications described the goal as a step toward transforming the country into the 'world's factory of intelligence'.",
+      "stance": "support"
+    }
+  ]
+}

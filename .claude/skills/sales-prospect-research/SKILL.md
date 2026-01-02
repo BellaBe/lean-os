@@ -177,7 +177,7 @@ Search: "{company name}" jobs customer service
 
 **Social Media Search**:
 ```
-Search: site:twitter.com "{company name}" returns
+Search: site:x.com "{company name}" returns
 Search: site:linkedin.com "{company name}" customer experience
 ```
 
@@ -493,7 +493,7 @@ site:greenhouse.io "{company name}" returns
 
 **Social Media**:
 ```
-site:twitter.com "{company name}" returns
+site:x.com "{company name}" returns
 site:linkedin.com/company "{company name}"
 ```
 

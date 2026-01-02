@@ -14,8 +14,8 @@ nous/
 │   └── entities.py
 ├── application/
 │   ├── __init__.py
-│   ├── seeded_discovery.py      # PRIMARY - Use this
-│   └── source_discovery.py      # DEPRECATED - SERP-based, hits anti-bot
+│   ├── seeded_discovery.py      # Search API-based discovery
+│   └── snapshot_builder.py      # Full pipeline orchestrator
 ├── infrastructure/
 │   ├── __init__.py
 │   ├── analysis/
@@ -173,15 +173,12 @@ nous search "AI safety" --json
 
 ```python
 from nous import (
-    # Seeded discovery (RECOMMENDED - no anti-bot issues)
-    discover_seeded,    # Full control over domains/config
-    discover_news,      # News domains only
-    discover_tech,      # Tech news domains only
-    discover_academic,  # Academic domains only
-    discover_all,       # All domain types
-    
-    # SERP-based (DEPRECATED - hits Google anti-bot)
-    quick_discover,
+    # Seeded discovery (uses Search APIs: GDELT, Semantic Scholar, Reddit, etc.)
+    discover_seeded,    # Full control over sources/config
+    discover_news,      # News sources only
+    discover_tech,      # Tech/social sources only
+    discover_academic,  # Academic sources only
+    discover_all,       # All source types
 )
 
 # Examples

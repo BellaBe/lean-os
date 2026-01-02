@@ -3,15 +3,27 @@ Content Crawler - Extract and process page content
 
 Handles fetching and processing content from discovered source URLs.
 Outputs clean markdown suitable for LLM processing.
+
+Now integrates with:
+- ParallelCrawler for high-throughput crawling
+- Zone-aware configuration via zone_config
+- Diagnostics for pipeline visibility
 """
 
 import asyncio
+import logging
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 from urllib.parse import urlparse
 
 from ...domain import SignalZone, SourceId, SourceNode, SourceType
+from .diagnostics import CrawlDiagnostics
+from .parallel_crawler import BatchCrawlResult, ParallelCrawler
+from .parallel_crawler import CrawlResult as ParallelCrawlResult
+from .zone_config import get_zone_for_domain
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -26,6 +38,13 @@ class ContentConfig:
     )
     word_count_threshold: int = 50
     use_pruning_filter: bool = True  # Use PruningContentFilter for cleaner markdown
+    max_concurrent: int = 10  # For parallel crawling
+
+    # Human-like behavior (avoid detection)
+    use_human_delays: bool = True  # Add random delays between requests
+    min_delay: float = 1.0  # Minimum delay between requests (seconds)
+    max_delay: float = 3.0  # Maximum delay between requests (seconds)
+    same_domain_delay: float = 2.0  # Extra delay for same domain requests
 
 
 @dataclass
@@ -43,6 +62,8 @@ class CrawlResult:
     metadata: dict = field(default_factory=dict)
     error: str | None = None
     crawled_at: datetime = field(default_factory=datetime.utcnow)
+    zone: SignalZone = SignalZone.GRASSROOTS  # Signal zone of source
+    crawl_time_ms: int = 0  # Time taken to crawl
 
 
 class ContentCrawler:
@@ -51,11 +72,18 @@ class ContentCrawler:
 
     Uses Crawl4AI's markdown generation with optional content filtering
     for clean, LLM-friendly output.
+
+    Now supports:
+    - Zone-aware configuration
+    - Parallel crawling via ParallelCrawler
+    - Integrated diagnostics
     """
 
     def __init__(self, config: ContentConfig | None = None) -> None:
         self.config = config or ContentConfig()
         self._crawler: Any = None
+        self._parallel_crawler: ParallelCrawler | None = None
+        self.diagnostics: CrawlDiagnostics = CrawlDiagnostics()
 
     async def _get_crawler(self) -> Any:
         """Lazy initialization of crawler."""
@@ -111,7 +139,7 @@ class ContentCrawler:
             return SourceType.GOVERNMENT
 
         # Social platforms
-        social_patterns = ["reddit.com", "twitter.com", "x.com", "facebook.com", "linkedin.com"]
+        social_patterns = ["reddit.com", "x.com", "facebook.com", "linkedin.com"]
         if any(p in domain for p in social_patterns):
             return SourceType.SOCIAL
 
@@ -151,21 +179,16 @@ class ContentCrawler:
 
         return SourceType.UNKNOWN
 
-    def _detect_signal_zone(self, url: str, source_type: SourceType) -> SignalZone:
-        """Detect signal zone based on URL and source type."""
-        if source_type in [SourceType.NEWS, SourceType.GOVERNMENT, SourceType.ACADEMIC]:
-            return SignalZone.INSTITUTIONAL
+    def _detect_signal_zone(self, url: str, source_type: SourceType | None = None) -> SignalZone:
+        """
+        Detect signal zone based on URL.
 
-        if source_type in [SourceType.SOCIAL, SourceType.FORUM, SourceType.BLOG]:
-            return SignalZone.GRASSROOTS
-
-        # Check for speculative patterns
-        domain = urlparse(url).netloc.lower()
-        speculative_patterns = ["4chan", "crypto", "defi", "anon"]
-        if any(p in domain for p in speculative_patterns):
-            return SignalZone.SPECULATIVE
-
-        return SignalZone.GRASSROOTS
+        Now uses zone_config for comprehensive domain mapping.
+        Falls back to source_type-based detection for backwards compatibility.
+        """
+        # Use zone_config for comprehensive mapping
+        domain = urlparse(url).netloc.lower().replace("www.", "")
+        return get_zone_for_domain(domain)
 
     def _extract_origin(self, url: str) -> str:
         """Extract readable origin name from URL."""
@@ -214,7 +237,7 @@ class ContentCrawler:
                 word_count_threshold=cfg.word_count_threshold,
                 excluded_tags=cfg.exclude_tags,
                 markdown_generator=md_generator,
-                wait_for=cfg.wait_for_selector,
+                wait_for=cfg.wait_for_selector # type: ignore
             )
 
             result = await crawler.arun(url=url, config=run_config)
@@ -238,6 +261,9 @@ class ContentCrawler:
                     markdown = str(result.markdown)
                     fit_markdown = markdown
 
+            # Detect zone for this URL
+            zone = self._detect_signal_zone(url)
+
             return CrawlResult(
                 url=url,
                 success=True,
@@ -250,6 +276,7 @@ class ContentCrawler:
                 if hasattr(result, "media") and result.media
                 else [],
                 metadata=result.metadata or {},
+                zone=zone,
             )
 
         except Exception as e:
@@ -285,13 +312,84 @@ class ContentCrawler:
         tasks = [crawl_with_limit(url) for url in urls]
         return await asyncio.gather(*tasks)
 
+    async def crawl_parallel(
+        self,
+        urls: list[str],
+        max_concurrent: int | None = None,
+    ) -> tuple[list[CrawlResult], CrawlDiagnostics]:
+        """
+        Crawl multiple URLs using ParallelCrawler with domain batching.
+
+        This method provides:
+        - Domain batching for session reuse
+        - Zone-aware configuration
+        - Integrated diagnostics
+
+        Args:
+            urls: List of URLs to crawl
+            max_concurrent: Maximum concurrent crawls (default from config)
+
+        Returns:
+            Tuple of (list of CrawlResults, CrawlDiagnostics)
+        """
+        concurrent = max_concurrent or self.config.max_concurrent
+
+        # Initialize parallel crawler if needed
+        if self._parallel_crawler is None:
+            self._parallel_crawler = ParallelCrawler(
+                max_concurrent=concurrent,
+                headless=self.config.headless,
+                timeout_per_url=self.config.timeout,
+            )
+
+        # Reset diagnostics for this batch
+        self.diagnostics = CrawlDiagnostics()
+
+        # Crawl using parallel crawler
+        batch_result = await self._parallel_crawler.crawl_many(
+            urls, diagnostics=self.diagnostics
+        )
+
+        # Convert ParallelCrawlResult to CrawlResult
+        results: list[CrawlResult] = []
+        for pcr in batch_result.results:
+            # Detect zone
+            zone = self._detect_signal_zone(pcr.url)
+
+            results.append(
+                CrawlResult(
+                    url=pcr.url,
+                    success=pcr.success,
+                    title=pcr.title,
+                    markdown=pcr.markdown,
+                    fit_markdown=pcr.markdown,  # ParallelCrawler doesn't do fit_markdown
+                    html=pcr.html,
+                    links=pcr.links,
+                    error=pcr.error,
+                    zone=zone,
+                    crawl_time_ms=pcr.crawl_time_ms,
+                )
+            )
+
+        logger.info(
+            f"Parallel crawl complete: {len(results)} results, "
+            f"yield rate: {self.diagnostics.yield_rate():.1%}"
+        )
+
+        return results, self.diagnostics
+
+    def get_diagnostics_report(self) -> str:
+        """Get a formatted diagnostics report from the last crawl."""
+        return self.diagnostics.report()
+
     def result_to_source_node(self, result: CrawlResult) -> SourceNode | None:
         """Convert a CrawlResult to a SourceNode domain entity."""
         if not result.success:
             return None
 
         source_type = self._detect_source_type(result.url)
-        signal_zone = self._detect_signal_zone(result.url, source_type)
+        # Use zone from result if available (set during crawl)
+        signal_zone = result.zone if result.zone else self._detect_signal_zone(result.url)
 
         return SourceNode(
             id=SourceId(),

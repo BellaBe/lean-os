@@ -280,14 +280,37 @@ TECH_NEWS_DOMAINS = [
 
 ACADEMIC_DOMAINS = [
     "arxiv.org",
-    "semanticscholar.org",
     "nature.com",
     "science.org",
 ]
 
 SOCIAL_DOMAINS = [
     "reddit.com",
-    "news.ycombinator.com",
+]
+
+# YCombinator resources - high-quality startup/tech content
+YC_DOMAINS = [
+    "ycombinator.com/library",      # Founder knowledge, essays
+    "ycombinator.com/companies",    # Startup database
+    "ycombinator.com/launches",     # New product launches
+]
+
+# Site-specific search patterns for social discovery via web search
+# Usage: f"{topic} {site_pattern}" as DuckDuckGo query
+SOCIAL_SITE_SEARCHES = [
+    "site:x.com",
+    "site:linkedin.com/posts",
+    "site:linkedin.com/pulse",
+    "site:youtube.com",
+]
+
+# Tech-specific site searches
+TECH_SITE_SEARCHES = [
+    "site:ycombinator.com",
+    "site:producthunt.com",
+    "site:github.com",
+    "site:dev.to",
+    "site:medium.com",
 ]
 
 
@@ -315,3 +338,38 @@ async def seed_topic(
 
     async with UrlSeeder() as seeder:
         return await seeder.discover_many(domains, topic, config)
+
+
+def generate_site_queries(
+    topic: str,
+    site_patterns: list[str] | None = None,
+    include_social: bool = True,
+    include_tech: bool = False,
+) -> list[str]:
+    """
+    Generate site-specific search queries for DuckDuckGo.
+
+    These queries find topic-related content on specific platforms
+    that don't have good APIs (Twitter, LinkedIn, YouTube, etc.)
+
+    Args:
+        topic: The topic to search for
+        site_patterns: Custom site patterns (e.g., ["site:example.com"])
+        include_social: Include SOCIAL_SITE_SEARCHES patterns
+        include_tech: Include TECH_SITE_SEARCHES patterns
+
+    Returns:
+        List of queries like ["AI regulation site:x.com", ...]
+
+    Example:
+        queries = generate_site_queries("AI regulation", include_social=True)
+        # Returns: ["AI regulation site:x.com", "AI regulation site:linkedin.com/posts", ...]
+    """
+    patterns = list(site_patterns) if site_patterns else []
+
+    if include_social:
+        patterns.extend(SOCIAL_SITE_SEARCHES)
+    if include_tech:
+        patterns.extend(TECH_SITE_SEARCHES)
+
+    return [f"{topic} {pattern}" for pattern in patterns]

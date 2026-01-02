@@ -205,7 +205,7 @@ class LLMConfig:
     """Configuration for LLM client."""
 
     provider: str = "groq/llama-3.1-8b-instant"  # Default to Groq free tier
-    api_token: str | None = None
+    api_key: str | None = None
     base_url: str | None = None
     temperature: float = 0.0
     max_tokens: int = 4000
@@ -220,7 +220,7 @@ class LLMConfig:
         """Create config from environment variables."""
         return cls(
             provider=provider or os.getenv("LLM_PROVIDER", "groq/llama-3.1-8b-instant"),
-            api_token=os.getenv("GROQ_API_KEY") or os.getenv("LLM_API_TOKEN"),
+            api_key=os.getenv("GROQ_API_KEY") or os.getenv("LLM_API_KEY"),
             base_url=os.getenv("LLM_BASE_URL"),
         )
 
@@ -229,7 +229,7 @@ class LLMConfig:
         """Create Groq-specific config."""
         return cls(
             provider=f"groq/{model}",
-            api_token=os.getenv("GROQ_API_KEY"),
+            api_key=os.getenv("GROQ_API_KEY"),
             enable_rate_limiting=True,
         )
 
@@ -276,7 +276,7 @@ class Crawl4AISchemaGenerator(SchemaGenerator):
 
             llm_config = C4ALLMConfig(
                 provider=self.config.provider,
-                api_token=self.config.api_token,
+                api_token=self.config.api_key,
             )
 
             schema = JsonCssExtractionStrategy.generate_schema(
@@ -361,7 +361,7 @@ class DirectLLMClient:
                 response = await litellm.acompletion(
                     model=self.config.provider,
                     messages=messages,
-                    api_key=self.config.api_token,
+                    api_key=self.config.api_key,
                     temperature=self.config.temperature,
                     max_tokens=self.config.max_tokens,
                 )

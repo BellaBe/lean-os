@@ -6,13 +6,19 @@ Uses Crawl4AI's CosineStrategy for similarity-based clustering to identify:
 - Contention Zones: Conflicting positions across sources
 
 This maps directly to our domain model's core concepts.
+
+Enhanced with:
+- Zone distribution tracking
+- Origin diversity metrics (Shannon entropy)
+- Amplification score for echo chamber detection
 """
 
+import math
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 
-from ...domain import IdeaNode, SourceId, Stance
+from ...domain import IdeaNode, SignalZone, SourceId, Stance
 
 
 class ClusterType(str, Enum):
@@ -41,10 +47,27 @@ class IdeaCluster:
     unique_sources: int = 0
     signal_zone_distribution: dict = field(default_factory=dict)
 
+    # Enhanced zone tracking (from Crawl4AI upgrade)
+    zone_distribution: dict[SignalZone, int] = field(default_factory=dict)
+    origin_diversity: float = 0.0  # Shannon entropy of zone distribution
+    amplification_score: float = 0.0  # Echo chamber detection
+    potential_origin_urls: list[str] = field(default_factory=list)
+
     # Representative claim (highest scoring idea)
     representative_claim: str | None = None
 
     analyzed_at: datetime = field(default_factory=datetime.utcnow)
+
+    @property
+    def is_echo_chamber(self) -> bool:
+        """Check if cluster shows echo chamber characteristics."""
+        # Low diversity + high amplification = echo chamber
+        return self.origin_diversity < 0.5 and self.amplification_score > 0.7
+
+    @property
+    def is_diverse(self) -> bool:
+        """Check if cluster has diverse origins."""
+        return self.origin_diversity > 0.8
 
 
 @dataclass
@@ -79,6 +102,7 @@ class ConsensusDetector:
         consensus_threshold: float = 0.7,
         contention_threshold: float = 0.4,
         min_cluster_size: int = 2,
+        min_consensus_sources: int = 2,  # Require 2+ sources for true consensus
         model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
     ):
         """
@@ -86,11 +110,13 @@ class ConsensusDetector:
             consensus_threshold: Similarity above this = consensus
             contention_threshold: Similarity below this = contention
             min_cluster_size: Minimum ideas to form a cluster
+            min_consensus_sources: Minimum unique sources for consensus (prevents single-source "consensus")
             model_name: Sentence transformer model for embeddings
         """
         self.consensus_threshold = consensus_threshold
         self.contention_threshold = contention_threshold
         self.min_cluster_size = min_cluster_size
+        self.min_consensus_sources = min_consensus_sources
         self.model_name = model_name
         self._strategy = None
 
@@ -281,6 +307,7 @@ class ConsensusDetector:
         cluster_id: str,
         cluster_data: dict,
         ideas: list[IdeaNode],
+        source_zones: dict[SourceId, SignalZone] | None = None,
     ) -> IdeaCluster:
         """Build an IdeaCluster from clustering results."""
         indices = cluster_data["indices"]
@@ -293,9 +320,25 @@ class ConsensusDetector:
         min_sim = min(similarities) if similarities else 0.0
         max_sim = max(similarities) if similarities else 0.0
 
+        # Get unique sources first (needed for cluster type determination)
+        all_sources = set()
+        for idea in cluster_ideas:
+            all_sources.update(idea.source_ids)
+
+        # Check for opposing stances (contention detection enhancement)
+        has_opposing_stances = self._has_opposing_stances(cluster_ideas)
+
         # Determine cluster type
-        if avg_sim >= self.consensus_threshold:
+        # Note: Consensus requires both high similarity AND multiple sources AND no opposing stances
+        # Single-source "consensus" is just an echo chamber, not true agreement
+        if has_opposing_stances:
+            # Ideas with opposing stances = contention, regardless of similarity
+            cluster_type = ClusterType.CONTENTION
+        elif avg_sim >= self.consensus_threshold and len(all_sources) >= self.min_consensus_sources:
             cluster_type = ClusterType.CONSENSUS
+        elif avg_sim >= self.consensus_threshold and len(all_sources) < self.min_consensus_sources:
+            # High similarity but single source = emerging (potential consensus, not confirmed)
+            cluster_type = ClusterType.EMERGING
         elif avg_sim <= self.contention_threshold:
             cluster_type = ClusterType.CONTENTION
         elif len(cluster_ideas) < self.min_cluster_size:
@@ -303,10 +346,21 @@ class ConsensusDetector:
         else:
             cluster_type = ClusterType.FRAGMENTED
 
-        # Get unique sources
-        all_sources = set()
-        for idea in cluster_ideas:
-            all_sources.update(idea.source_ids)
+        # Calculate zone distribution
+        zone_distribution: dict[SignalZone, int] = {}
+        if source_zones:
+            for source_id in all_sources:
+                if source_id in source_zones:
+                    zone = source_zones[source_id]
+                    zone_distribution[zone] = zone_distribution.get(zone, 0) + 1
+
+        # Calculate origin diversity using Shannon entropy
+        origin_diversity = self._calculate_origin_diversity(zone_distribution)
+
+        # Calculate amplification score
+        amplification_score = self._calculate_amplification_score(
+            cluster_ideas, zone_distribution
+        )
 
         # Find representative claim (could use centrality, for now use first)
         representative = cluster_ideas[0].claim if cluster_ideas else None
@@ -319,8 +373,132 @@ class ConsensusDetector:
             min_similarity=min_sim,
             max_similarity=max_sim,
             unique_sources=len(all_sources),
+            zone_distribution=zone_distribution,
+            origin_diversity=origin_diversity,
+            amplification_score=amplification_score,
             representative_claim=representative,
         )
+
+    def _calculate_origin_diversity(
+        self,
+        zone_distribution: dict[SignalZone, int],
+    ) -> float:
+        """
+        Calculate origin diversity using Shannon entropy.
+
+        Higher values = more diverse origins.
+        Range: 0 (single zone) to 1 (perfectly balanced across all zones)
+
+        Args:
+            zone_distribution: Map of zone to count
+
+        Returns:
+            Normalized Shannon entropy (0-1)
+        """
+        if not zone_distribution:
+            return 0.0
+
+        total = sum(zone_distribution.values())
+        if total == 0:
+            return 0.0
+
+        # Calculate Shannon entropy
+        entropy = 0.0
+        for count in zone_distribution.values():
+            if count > 0:
+                p = count / total
+                entropy -= p * math.log2(p)
+
+        # Normalize by max possible entropy (log2 of number of zones)
+        max_entropy = math.log2(len(SignalZone)) if len(SignalZone) > 1 else 1.0
+        return entropy / max_entropy if max_entropy > 0 else 0.0
+
+    def _calculate_amplification_score(
+        self,
+        ideas: list[IdeaNode],
+        zone_distribution: dict[SignalZone, int],
+    ) -> float:
+        """
+        Calculate amplification score for echo chamber detection.
+
+        High score indicates:
+        - Ideas appear in many sources
+        - Sources are concentrated in non-institutional zones
+        - Low unique source per idea ratio
+
+        Args:
+            ideas: Ideas in the cluster
+            zone_distribution: Zone distribution
+
+        Returns:
+            Amplification score (0-1)
+        """
+        if not ideas:
+            return 0.0
+
+        # Factor 1: Average sources per idea (more = more amplification)
+        total_sources = sum(len(idea.source_ids) for idea in ideas)
+        avg_sources_per_idea = total_sources / len(ideas) if ideas else 1
+        sources_factor = min(avg_sources_per_idea / 5.0, 1.0)  # Normalize to 5
+
+        # Factor 2: Non-institutional concentration
+        total_count = sum(zone_distribution.values()) if zone_distribution else 1
+        institutional_count = zone_distribution.get(SignalZone.INSTITUTIONAL, 0)
+        non_institutional_ratio = 1.0 - (institutional_count / total_count) if total_count else 0.5
+
+        # Factor 3: Grassroots/Speculative dominance
+        grassroots = zone_distribution.get(SignalZone.GRASSROOTS, 0)
+        speculative = zone_distribution.get(SignalZone.SPECULATIVE, 0)
+        echo_zones = (grassroots + speculative) / total_count if total_count else 0
+
+        # Combined score (weighted average)
+        amplification = (
+            0.3 * sources_factor +
+            0.3 * non_institutional_ratio +
+            0.4 * echo_zones
+        )
+
+        return min(amplification, 1.0)
+
+    def _has_opposing_stances(
+        self,
+        ideas: list[IdeaNode],
+    ) -> bool:
+        """
+        Check if ideas in a cluster have opposing stances.
+
+        Returns True if:
+        - At least one idea primarily supports and another primarily opposes
+        - Stance distributions show clear polarity
+
+        Args:
+            ideas: Ideas in the cluster
+
+        Returns:
+            True if opposing stances detected
+        """
+        if len(ideas) < 2:
+            return False
+
+        has_support = False
+        has_oppose = False
+
+        for idea in ideas:
+            dist = idea.stance_distribution
+            support_weight = dist.get(Stance.SUPPORT, 0)
+            oppose_weight = dist.get(Stance.OPPOSE, 0)
+
+            # Consider it a clear stance if one significantly outweighs the other
+            if support_weight > 0.5:
+                has_support = True
+            if oppose_weight > 0.5:
+                has_oppose = True
+
+            # Early exit if we found both
+            if has_support and has_oppose:
+                return True
+
+        return has_support and has_oppose
 
 
 class ContentionAnalyzer:

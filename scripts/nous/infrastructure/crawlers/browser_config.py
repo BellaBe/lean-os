@@ -1,16 +1,14 @@
 """
 Browser Configuration for Anti-Bot Evasion
 
-Provides layered anti-detection capabilities:
-1. Stealth Mode - Modifies browser fingerprints (playwright-stealth)
-2. Undetected Browser - Bypasses advanced bot detection (Cloudflare, DataDome)
-3. Proxy Support - IP rotation and geo-targeting
+SIMPLIFIED: Most anti-bot handling is now done by Crawl4AI's magic=True
+in zone_config.py. This module now only handles:
+1. Sites requiring special configuration (Cloudflare, DataDome)
+2. Proxy support for IP rotation
+3. Storage state for session persistence
 
-Detection Level → Recommended Approach:
-- No protection     → Regular browser
-- Basic checks      → Stealth mode
-- Advanced (CF)     → Undetected browser
-- Maximum evasion   → Undetected + Stealth + Proxy
+For most sites, zone_config.py's magic=True is sufficient.
+Only use this module for sites that still get blocked.
 """
 
 from dataclasses import dataclass, field
@@ -24,10 +22,10 @@ if TYPE_CHECKING:
 class ProtectionLevel(str, Enum):
     """Site protection level - determines which countermeasures to use."""
 
-    NONE = "none"  # No bot detection
-    BASIC = "basic"  # Simple checks (navigator.webdriver, etc.)
-    ADVANCED = "advanced"  # Cloudflare, DataDome, PerimeterX
-    MAXIMUM = "maximum"  # All countermeasures enabled
+    NONE = "none"  # No bot detection - use zone_config defaults
+    BASIC = "basic"  # Simple checks - handled by magic=True
+    ADVANCED = "advanced"  # Cloudflare, DataDome - needs undetected browser
+    MAXIMUM = "maximum"  # All countermeasures + proxy
 
 
 @dataclass
@@ -349,35 +347,101 @@ class ProtectedSiteCrawler:
         return await self._crawler.arun(url=url, config=config)
 
 
+# Sites requiring special configuration beyond magic=True
+# These sites have advanced bot detection that magic=True can't handle
+SITES_REQUIRING_SPECIAL_CONFIG: dict[str, dict[str, Any]] = {
+    # Cloudflare protected sites
+    "medium.com": {
+        "protection_level": ProtectionLevel.ADVANCED,
+        "use_undetected": True,
+        "wait_for": ".postArticle-content, article",
+        "delay": 1.5,
+    },
+    "discord.com": {
+        "protection_level": ProtectionLevel.ADVANCED,
+        "use_undetected": True,
+    },
+    "canva.com": {
+        "protection_level": ProtectionLevel.ADVANCED,
+        "use_undetected": True,
+    },
+    # DataDome protected sites
+    "footlocker.com": {
+        "protection_level": ProtectionLevel.MAXIMUM,
+        "use_undetected": True,
+        "slow_mo": 100,
+    },
+    "ticketmaster.com": {
+        "protection_level": ProtectionLevel.MAXIMUM,
+        "use_undetected": True,
+        "slow_mo": 100,
+    },
+    # Paywall sites needing special handling
+    "bloomberg.com": {
+        "protection_level": ProtectionLevel.BASIC,
+        "js_code": "document.querySelector('.paywall-dismiss, [data-paywall-close]')?.click();",
+        "delay": 1.5,
+    },
+    "ft.com": {
+        "protection_level": ProtectionLevel.BASIC,
+        "wait_for": "article",
+    },
+    "wsj.com": {
+        "protection_level": ProtectionLevel.BASIC,
+        "wait_for": "article",
+    },
+}
+
+
+def get_special_site_config(domain: str) -> dict[str, Any] | None:
+    """
+    Get special configuration for sites that need extra handling.
+
+    Most sites work fine with zone_config.py's magic=True.
+    This is only for sites that still get blocked.
+
+    Args:
+        domain: Domain name (e.g., "medium.com")
+
+    Returns:
+        Special config dict or None if no special handling needed
+    """
+    domain_lower = domain.lower().replace("www.", "")
+
+    # Check exact match
+    if domain_lower in SITES_REQUIRING_SPECIAL_CONFIG:
+        return SITES_REQUIRING_SPECIAL_CONFIG[domain_lower]
+
+    # Check parent domain match
+    for site, config in SITES_REQUIRING_SPECIAL_CONFIG.items():
+        if domain_lower.endswith(f".{site}") or domain_lower == site:
+            return config
+
+    return None
+
+
+def needs_special_handling(domain: str) -> bool:
+    """Check if a domain needs special browser configuration."""
+    return get_special_site_config(domain) is not None
+
+
 # Convenience functions
 def get_profile_for_site(domain: str) -> BrowserProfile:
     """
     Get recommended browser profile for a domain.
 
-    Maintains a list of known protected sites and their requirements.
+    NOTE: For most sites, use zone_config.py instead.
+    This is only for sites that need undetected browser.
     """
-    # Known protected sites
-    cloudflare_sites = [
-        "medium.com",
-        "discord.com",
-        "canva.com",
-    ]
+    special_config = get_special_site_config(domain)
 
-    datadome_sites = [
-        "footlocker.com",
-        "ticketmaster.com",
-    ]
-
-    domain_lower = domain.lower()
-
-    for site in cloudflare_sites + datadome_sites:
-        if site in domain_lower:
+    if special_config:
+        level = special_config.get("protection_level", ProtectionLevel.BASIC)
+        if level == ProtectionLevel.MAXIMUM:
+            return PROFILE_MAXIMUM
+        elif level == ProtectionLevel.ADVANCED:
             return PROFILE_UNDETECTED
-
-    # News sites often have basic protection
-    news_domains = ["nytimes.com", "wsj.com", "ft.com"]
-    for site in news_domains:
-        if site in domain_lower:
+        elif level == ProtectionLevel.BASIC:
             return PROFILE_STEALTH
 
     return PROFILE_BASIC

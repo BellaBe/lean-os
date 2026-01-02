@@ -26,6 +26,7 @@ class ExtractedMetadata:
     # Temporal
     dates: list[str] = field(default_factory=list)
     iso_dates: list[str] = field(default_factory=list)
+    relative_time: str | None = None  # e.g., "3 hours ago"
 
     # Attribution
     authors: list[str] = field(default_factory=list)
@@ -34,14 +35,25 @@ class ExtractedMetadata:
     # References
     urls: list[str] = field(default_factory=list)
     citations: list[str] = field(default_factory=list)
+    dois: list[str] = field(default_factory=list)
+    arxiv_ids: list[str] = field(default_factory=list)
 
     # Social signals
     twitter_handles: list[str] = field(default_factory=list)
     hashtags: list[str] = field(default_factory=list)
 
+    # Engagement metrics
+    upvotes: int | None = None
+    comment_count: int | None = None
+    share_count: int | None = None
+    view_count: int | None = None
+
     # Numeric
     percentages: list[str] = field(default_factory=list)
     currencies: list[str] = field(default_factory=list)
+
+    # Reading info
+    read_time_minutes: int | None = None
 
     extracted_at: datetime = field(default_factory=datetime.utcnow)
 
@@ -80,6 +92,24 @@ CUSTOM_PATTERNS = {
     "arxiv": r"arXiv:\d{4}\.\d{4,5}(?:v\d+)?",
     # Quote detection (for claim extraction)
     "quoted_text": r'"([^"]{20,200})"',
+}
+
+# Additional patterns for social signals and metrics
+ADDITIONAL_PATTERNS = {
+    # Academic identifiers (more robust)
+    "doi": r"10\.\d{4,}/[^\s]+",
+    "arxiv_id": r"arXiv:\d{4}\.\d{4,5}(?:v\d+)?",
+    # Social engagement metrics
+    "upvotes": r"(\d+(?:,\d{3})*)\s*(?:upvotes?|points?|likes?)",
+    "comments": r"(\d+(?:,\d{3})*)\s*comments?",
+    "shares": r"(\d+(?:,\d{3})*)\s*(?:shares?|retweets?|reposts?)",
+    "views": r"(\d+(?:,\d{3})*)\s*views?",
+    # Relative time parsing
+    "relative_time": r"(\d+)\s*(?:hours?|days?|weeks?|months?)\s*ago",
+    # Publication info
+    "published_date": r"(?:published|posted|updated)(?:\s+on)?[\s:]+([A-Za-z]+\s+\d{1,2},?\s+\d{4})",
+    # Reading time
+    "read_time": r"(\d+)\s*min(?:ute)?s?\s*read",
 }
 
 
@@ -283,13 +313,67 @@ class MetadataExtractor:
                 if citation not in metadata.citations:
                     metadata.citations.append(citation)
 
-        # DOIs and arXiv
+        # DOIs and arXiv (using both CUSTOM and ADDITIONAL patterns)
         for pattern_name in ["doi", "arxiv"]:
             pattern = CUSTOM_PATTERNS[pattern_name]
             for match in re.finditer(pattern, content, re.IGNORECASE):
                 ref = match.group(0)
                 if ref not in metadata.citations:
                     metadata.citations.append(ref)
+
+        # Extract DOIs separately for the new field
+        doi_pattern = ADDITIONAL_PATTERNS["doi"]
+        for match in re.finditer(doi_pattern, content):
+            doi = match.group(0)
+            if doi not in metadata.dois:
+                metadata.dois.append(doi)
+
+        # Extract arXiv IDs separately
+        arxiv_pattern = ADDITIONAL_PATTERNS["arxiv_id"]
+        for match in re.finditer(arxiv_pattern, content, re.IGNORECASE):
+            arxiv_id = match.group(0)
+            if arxiv_id not in metadata.arxiv_ids:
+                metadata.arxiv_ids.append(arxiv_id)
+
+        # Extract engagement metrics
+        self._extract_engagement_metrics(content, metadata)
+
+    def _extract_engagement_metrics(self, content: str, metadata: ExtractedMetadata):
+        """Extract social engagement metrics using ADDITIONAL_PATTERNS."""
+
+        # Helper to parse number strings like "1,234"
+        def parse_number(s: str) -> int:
+            return int(s.replace(",", ""))
+
+        # Upvotes/points/likes
+        upvote_match = re.search(ADDITIONAL_PATTERNS["upvotes"], content, re.IGNORECASE)
+        if upvote_match:
+            metadata.upvotes = parse_number(upvote_match.group(1))
+
+        # Comments
+        comment_match = re.search(ADDITIONAL_PATTERNS["comments"], content, re.IGNORECASE)
+        if comment_match:
+            metadata.comment_count = parse_number(comment_match.group(1))
+
+        # Shares
+        share_match = re.search(ADDITIONAL_PATTERNS["shares"], content, re.IGNORECASE)
+        if share_match:
+            metadata.share_count = parse_number(share_match.group(1))
+
+        # Views
+        view_match = re.search(ADDITIONAL_PATTERNS["views"], content, re.IGNORECASE)
+        if view_match:
+            metadata.view_count = parse_number(view_match.group(1))
+
+        # Relative time
+        time_match = re.search(ADDITIONAL_PATTERNS["relative_time"], content, re.IGNORECASE)
+        if time_match:
+            metadata.relative_time = time_match.group(0)
+
+        # Read time
+        read_match = re.search(ADDITIONAL_PATTERNS["read_time"], content, re.IGNORECASE)
+        if read_match:
+            metadata.read_time_minutes = int(read_match.group(1))
 
 
 class QuoteExtractor:

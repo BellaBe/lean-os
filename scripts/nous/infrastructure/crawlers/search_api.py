@@ -1,49 +1,48 @@
 """
 Search API Discovery
 
-Topic-specific source discovery using actual search APIs instead of sitemap crawling.
+Topic-specific source discovery using search APIs and RSS feeds.
 
 Supported providers:
-- NewsAPI.org (news, free tier: 100 req/day)
-- GDELT (news, free, massive historical)
-- Semantic Scholar (academic, free)
+- RSS Feeds (news, free, no rate limits) - major news outlets
 - arXiv (academic, free)
 - Reddit (social, free with limits)
-- Hacker News (social, free)
-- DuckDuckGo (web, free, general web coverage) - requires: pip install ddgs
+- DuckDuckGo (web, free, general web coverage)
 
 Source categories:
-- "news"     -> NewsAPI, GDELT
-- "academic" -> Semantic Scholar, arXiv
-- "social"   -> Reddit, HackerNews
+- "news"     -> RSS feeds from major news outlets
+- "academic" -> arXiv
+- "social"   -> Reddit
 - "web"      -> DuckDuckGo
 - "all"      -> All providers
 
+For broader social/tech coverage, use site-specific web searches:
+- Social: site:x.com, site:linkedin.com, etc.
+- Tech: ycombinator.com/library, ycombinator.com/companies, etc.
+
 The key insight: Use search APIs for DISCOVERY (topic-relevant URLs),
-then optionally use sitemaps for EXPANSION within discovered domains.
+then use Crawl4AI for content extraction from any page.
 """
 
 import asyncio
+import logging
 import os
 import re
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
-from typing import Optional
 from urllib.parse import urlencode
 
 import aiohttp
 
 from ...domain import SourceType
 
+log = logging.getLogger("nous.search")
+
 
 @dataclass
 class SearchAPIConfig:
     """Configuration for search API providers."""
-
-    # API keys (from env vars if not provided)
-    newsapi_key: str | None
-    bing_key: str | None
 
     # Limits
     max_results_per_provider: int = 50
@@ -53,10 +52,71 @@ class SearchAPIConfig:
     language: str = "en"
     days_back: int = 30  # For news sources
 
-    def __post_init__(self):
-        # Load from environment if not provided
-        self.newsapi_key = self.newsapi_key or os.getenv("NEWSAPI_KEY")
-        self.bing_key = self.bing_key or os.getenv("BING_SEARCH_KEY")
+    # Region/Geolocation
+    region: str | None = None  # ISO 3166-1 alpha-2: us, de, fr, gb, jp, etc.
+    regions: list[str] | None = None  # Multi-region search: ["us", "de", "gb"]
+
+    # RSS-specific
+    rss_keyword_filter: bool = True  # Filter RSS entries by query keywords
+
+    # Screenshot fallback (for blocked sites like Reuters, Bloomberg)
+    use_screenshot_fallback: bool = False  # Enable screenshot-based extraction
+    screenshot_llm_provider: str = "groq/llama-3.2-90b-vision-preview"  # Vision LLM
+
+
+# Region code mappings for DuckDuckGo
+REGION_TO_DDG = {
+    # DuckDuckGo uses region-lang format: "us-en", "de-de", "fr-fr"
+    "us": "us-en", "gb": "uk-en", "uk": "uk-en", "au": "au-en", "ca": "ca-en",
+    "de": "de-de", "fr": "fr-fr", "es": "es-es", "it": "it-it", "nl": "nl-nl",
+    "jp": "jp-jp", "kr": "kr-kr", "cn": "cn-zh", "br": "br-pt", "mx": "mx-es",
+    "in": "in-en", "ru": "ru-ru", "pl": "pl-pl", "se": "se-sv", "no": "no-no",
+}
+
+
+# RSS feeds for major news sources - grouped by category
+# Note: Some feeds (Reuters) discontinued in 2020 - use SCREENSHOT_FALLBACK_SITES instead
+NEWS_RSS_FEEDS = {
+    # Tech News - Reliable RSS feeds
+    "techcrunch": "https://techcrunch.com/feed/",
+    "theverge": "https://www.theverge.com/rss/index.xml",
+    "arstechnica": "https://feeds.arstechnica.com/arstechnica/technology-lab",
+    "wired": "https://www.wired.com/feed/rss",
+    "engadget": "https://www.engadget.com/rss.xml",
+    "zdnet": "https://www.zdnet.com/news/rss.xml",
+    "venturebeat": "https://venturebeat.com/feed/",  # Updated: feedburner deprecated
+    "thenextweb": "https://thenextweb.com/feed",
+
+    # General News - Tech sections
+    "bbc_tech": "https://feeds.bbci.co.uk/news/technology/rss.xml",
+    "guardian_tech": "https://www.theguardian.com/technology/rss",
+    "nyt_tech": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+    # reuters_tech: REMOVED - Reuters discontinued RSS in 2020, use screenshot fallback
+
+    # Business/Finance
+    "bloomberg_tech": "https://feeds.bloomberg.com/technology/news.rss",
+    "forbes_tech": "https://www.forbes.com/innovation/feed/",
+    "businessinsider": "https://www.businessinsider.com/sai/rss",
+
+    # AI/ML Specific
+    "mit_news": "https://news.mit.edu/rss/topic/artificial-intelligence2",
+    "nvidia_blog": "https://blogs.nvidia.com/feed/",
+    "openai_blog": "https://openai.com/blog/rss/",
+    "deepmind_blog": "https://deepmind.google/blog/rss.xml",
+    "huggingface": "https://huggingface.co/blog/feed.xml",
+
+    # Startup/VC
+    "techcrunch_startups": "https://techcrunch.com/category/startups/feed/",
+    "sifted": "https://sifted.eu/feed",
+}
+
+# Sites that block RSS/scraping - use screenshot + LLM extraction
+SCREENSHOT_FALLBACK_SITES = {
+    "reuters.com": "https://www.reuters.com/technology/",
+    "bloomberg.com": "https://www.bloomberg.com/technology",
+    "wsj.com": "https://www.wsj.com/tech",
+    "ft.com": "https://www.ft.com/technology",
+}
 
 
 @dataclass
@@ -97,24 +157,22 @@ class SearchAPIProvider(ABC):
         pass
 
 
-class NewsAPIProvider(SearchAPIProvider):
+class RSSNewsProvider(SearchAPIProvider):
     """
-    NewsAPI.org provider.
+    RSS Feed aggregator for news sources.
 
-    Free tier: 100 requests/day, 1 month history
-    Paid: $449/month for 250k requests
+    Free, no API keys, no rate limits.
+    Fetches from 20+ major news RSS feeds and filters by query keywords.
 
-    Docs: https://newsapi.org/docs
+    Much more reliable than GDELT/NewsAPI.
     """
 
-    BASE_URL = "https://newsapi.org/v2/everything"
-
-    def __init__(self, api_key: str):
-        self.api_key = api_key
+    def __init__(self, feeds: dict[str, str] | None = None):
+        self.feeds = feeds or NEWS_RSS_FEEDS
 
     @property
     def name(self) -> str:
-        return "newsapi"
+        return "rss"
 
     @property
     def source_type(self) -> SourceType:
@@ -124,255 +182,223 @@ class NewsAPIProvider(SearchAPIProvider):
         self,
         query: str,
         max_results: int = 50,
-        language: str = "en",
         days_back: int = 30,
         **kwargs,
     ) -> list[APISearchResult]:
-        if not self.api_key:
+        """
+        Fetch RSS feeds and filter entries by query keywords.
+        """
+        print(f"  → RSS: Searching {len(self.feeds)} news feeds...")
+        log.info(f"RSS: searching {len(self.feeds)} feeds for '{query}'")
+
+        # Extract keywords for filtering (lowercase, split on spaces)
+        keywords = [k.lower().strip() for k in query.split() if len(k) > 2]
+
+        all_results: list[APISearchResult] = []
+        cutoff_date = datetime.now(timezone.utc) - timedelta(days=days_back)
+
+        # Fetch feeds concurrently
+        async with aiohttp.ClientSession() as session:
+            tasks = [
+                self._fetch_feed(session, name, url, keywords, cutoff_date)
+                for name, url in self.feeds.items()
+            ]
+            feed_results = await asyncio.gather(*tasks, return_exceptions=True)
+
+            for result in feed_results:
+                if isinstance(result, list):
+                    all_results.extend(result)
+                elif isinstance(result, Exception):
+                    log.debug(f"RSS feed error: {result}")
+
+        # Sort by relevance (keyword match count) and recency
+        # Use timezone-aware datetime.min for comparison safety
+        min_dt = datetime.min.replace(tzinfo=timezone.utc)
+        all_results.sort(key=lambda x: (-x.relevance_score, x.published_at or min_dt), reverse=True)
+
+        # Limit results
+        results = all_results[:max_results]
+        print(f"    ✓ RSS: Found {len(results)} matching articles")
+        log.info(f"RSS: found {len(results)} matching entries from {len(all_results)} total")
+        return results
+
+    async def _fetch_feed(
+        self,
+        session: aiohttp.ClientSession,
+        feed_name: str,
+        feed_url: str,
+        keywords: list[str],
+        cutoff_date: datetime,
+    ) -> list[APISearchResult]:
+        """Fetch a single RSS feed and filter entries."""
+        try:
+            async with session.get(
+                feed_url,
+                timeout=aiohttp.ClientTimeout(total=15),
+                headers={"User-Agent": "Nous/1.0 RSS Reader"},
+            ) as response:
+                if response.status != 200:
+                    return []
+
+                text = await response.text()
+                return self._parse_rss(text, feed_name, keywords, cutoff_date)
+
+        except Exception as e:
+            log.debug(f"RSS feed {feed_name} failed: {e}")
             return []
 
-        from_date = (
-            datetime.now(timezone.utc)  # noqa: UP017
-            - timedelta(days=days_back)
-        ).strftime("%Y-%m-%d")
+    def _parse_rss(
+        self,
+        xml_text: str,
+        feed_name: str,
+        keywords: list[str],
+        cutoff_date: datetime,
+    ) -> list[APISearchResult]:
+        """Parse RSS/Atom XML and filter by keywords."""
+        results = []
 
-        params = {
-            "q": query,
-            "language": language,
-            "from": from_date,
-            "sortBy": "relevancy",
-            "pageSize": min(max_results, 100),
-            "apiKey": self.api_key,
-        }
+        # Try RSS 2.0 format first (<item> elements)
+        items = re.findall(r"<item[^>]*>(.*?)</item>", xml_text, re.DOTALL | re.IGNORECASE)
 
-        async with aiohttp.ClientSession() as session:
-            try:
-                async with session.get(
-                    self.BASE_URL,
-                    params=params,
-                    timeout=aiohttp.ClientTimeout(total=30),
-                ) as response:
-                    if response.status != 200:
-                        print(f"NewsAPI error: {response.status}")
-                        return []
+        # Fallback to Atom format (<entry> elements)
+        if not items:
+            items = re.findall(r"<entry[^>]*>(.*?)</entry>", xml_text, re.DOTALL | re.IGNORECASE)
 
-                    data = await response.json()
+        for item in items:
+            # Extract fields with regex (avoiding XML parser dependency)
+            title = self._extract_tag(item, "title") or ""
+            link = self._extract_link(item)
+            description = self._extract_tag(item, "description") or self._extract_tag(item, "summary") or ""
+            pub_date = self._extract_tag(item, "pubDate") or self._extract_tag(item, "published") or self._extract_tag(item, "updated")
 
-                    if data.get("status") != "ok":
-                        print(f"NewsAPI error: {data.get('message')}")
-                        return []
+            # Clean HTML from description
+            description = re.sub(r"<[^>]+>", "", description)
+            description = description[:500]
 
-                    results = []
-                    for i, article in enumerate(data.get("articles", [])):
-                        results.append(
-                            APISearchResult(
-                                title=article.get("title", ""),
-                                url=article.get("url", ""),
-                                snippet=article.get("description", ""),
-                                source=self.name,
-                                source_name=article.get("source", {}).get("name", ""),
-                                published_at=self._parse_date(article.get("publishedAt")),
-                                relevance_score=1.0 - (i / max_results),  # Position-based
-                                source_type=self.source_type,
-                                metadata={
-                                    "author": article.get("author"),
-                                    "image_url": article.get("urlToImage"),
-                                },
-                            )
-                        )
+            # Parse date
+            published_at = self._parse_date(pub_date)
+            if published_at and published_at < cutoff_date:
+                continue  # Skip old entries
 
-                    return results
+            # Calculate relevance based on keyword matches
+            text_to_search = f"{title} {description}".lower()
+            matches = sum(1 for kw in keywords if kw in text_to_search)
 
-            except Exception as e:
-                print(f"NewsAPI error: {e}")
-                return []
+            if matches == 0:
+                continue  # Skip non-matching entries
+
+            relevance = min(1.0, matches / len(keywords)) if keywords else 0.5
+
+            results.append(
+                APISearchResult(
+                    title=title,
+                    url=link,
+                    snippet=description,
+                    source=self.name,
+                    source_name=feed_name.replace("_", " ").title(),
+                    published_at=published_at,
+                    relevance_score=relevance,
+                    source_type=self.source_type,
+                    metadata={"feed": feed_name},
+                )
+            )
+
+        return results
+
+    def _extract_tag(self, text: str, tag: str) -> str | None:
+        """Extract content from an XML tag."""
+        # Handle CDATA
+        pattern = rf"<{tag}[^>]*>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</{tag}>"
+        match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
+        if match:
+            return match.group(1).strip()
+        return None
+
+    def _extract_link(self, text: str) -> str:
+        """Extract link from RSS item (handles both RSS and Atom formats)."""
+        # RSS 2.0: <link>url</link>
+        link_match = re.search(r"<link[^>]*>([^<]+)</link>", text, re.IGNORECASE)
+        if link_match:
+            return link_match.group(1).strip()
+
+        # Atom: <link href="url" />
+        href_match = re.search(r'<link[^>]*href=["\']([^"\']+)["\']', text, re.IGNORECASE)
+        if href_match:
+            return href_match.group(1).strip()
+
+        return ""
 
     def _parse_date(self, date_str: str | None) -> datetime | None:
+        """Parse various date formats from RSS feeds.
+
+        Always returns timezone-aware datetime (UTC) to avoid comparison issues.
+        """
         if not date_str:
             return None
-        try:
-            return datetime.fromisoformat(date_str.replace("Z", "+00:00"))
-        except Exception:
-            return None
 
+        date_str = date_str.strip()
 
-class GDELTProvider(SearchAPIProvider):
-    """
-    GDELT Project provider.
-
-    Free, no API key required!
-    Massive database of global news.
-
-    Docs: https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/
-    """
-
-    BASE_URL = "https://api.gdeltproject.org/api/v2/doc/doc"
-
-    @property
-    def name(self) -> str:
-        return "gdelt"
-
-    @property
-    def source_type(self) -> SourceType:
-        return SourceType.NEWS
-
-    async def search(
-        self,
-        query: str,
-        max_results: int = 50,
-        days_back: int = 30,
-        **kwargs,
-    ) -> list[APISearchResult]:
-        # GDELT query format
-        params = {
-            "query": query,
-            "mode": "artlist",
-            "maxrecords": min(max_results, 250),
-            "format": "json",
-            "timespan": f"{days_back}d",
-            "sort": "relevance",
+        # Handle common timezone abbreviations that strptime can't parse
+        # Replace with offset or remove
+        tz_replacements = {
+            " GMT": " +0000",
+            " UTC": " +0000",
+            " EST": " -0500",
+            " EDT": " -0400",
+            " CST": " -0600",
+            " CDT": " -0500",
+            " MST": " -0700",
+            " MDT": " -0600",
+            " PST": " -0800",
+            " PDT": " -0700",
         }
+        for tz_name, tz_offset in tz_replacements.items():
+            if tz_name in date_str:
+                date_str = date_str.replace(tz_name, tz_offset)
+                break
 
-        url = f"{self.BASE_URL}?{urlencode(params)}"
+        # Formats that include timezone info
+        formats_with_tz = [
+            "%a, %d %b %Y %H:%M:%S %z",  # RFC 822: Mon, 01 Jan 2024 12:00:00 +0000
+            "%Y-%m-%dT%H:%M:%S%z",       # ISO 8601 with offset
+        ]
 
-        async with aiohttp.ClientSession() as session:
+        # Formats without timezone info (will be assumed UTC)
+        formats_naive = [
+            "%a, %d %b %Y %H:%M:%S",     # RFC 822 without tz
+            "%Y-%m-%dT%H:%M:%SZ",        # ISO 8601 UTC (Z suffix)
+            "%Y-%m-%dT%H:%M:%S",         # ISO 8601 no tz
+            "%Y-%m-%d %H:%M:%S",         # Simple format
+            "%Y-%m-%d",                  # Date only
+        ]
+
+        # Try timezone-aware formats first
+        for fmt in formats_with_tz:
             try:
-                async with session.get(
-                    url,
-                    timeout=aiohttp.ClientTimeout(total=30),
-                ) as response:
-                    if response.status != 200:
-                        print(f"GDELT error: {response.status}")
-                        return []
+                return datetime.strptime(date_str, fmt)
+            except ValueError:
+                continue
 
-                    data = await response.json()
+        # Try naive formats and convert to UTC
+        for fmt in formats_naive:
+            try:
+                dt = datetime.strptime(date_str, fmt)
+                # Make timezone-aware (assume UTC)
+                return dt.replace(tzinfo=timezone.utc)
+            except ValueError:
+                continue
 
-                    results = []
-                    for i, article in enumerate(data.get("articles", [])):
-                        results.append(
-                            APISearchResult(
-                                title=article.get("title", ""),
-                                url=article.get("url", ""),
-                                snippet=article.get("seendate", ""),  # GDELT doesn't have snippets
-                                source=self.name,
-                                source_name=article.get("domain", ""),
-                                published_at=self._parse_gdelt_date(article.get("seendate")),
-                                relevance_score=1.0 - (i / max_results),
-                                source_type=self.source_type,
-                                metadata={
-                                    "domain": article.get("domain"),
-                                    "language": article.get("language"),
-                                    "sourcecountry": article.get("sourcecountry"),
-                                },
-                            )
-                        )
-
-                    return results
-
-            except Exception as e:
-                print(f"GDELT error: {e}")
-                return []
-
-    def _parse_gdelt_date(self, date_str: str | None) -> datetime | None:
-        if not date_str:
-            return None
+        # Try ISO format with fromisoformat
         try:
-            # GDELT format: 20240115T120000Z
-            return datetime.strptime(date_str, "%Y%m%dT%H%M%SZ")
+            dt = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+            # Ensure it's timezone-aware
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt
         except Exception:
-            return None
+            pass
 
-
-class SemanticScholarProvider(SearchAPIProvider):
-    """
-    Semantic Scholar API provider.
-
-    Free, no API key required (but recommended for higher limits).
-    100 requests/5 minutes without key.
-
-    Docs: https://api.semanticscholar.org/
-    """
-
-    BASE_URL = "https://api.semanticscholar.org/graph/v1/paper/search"
-
-    def __init__(self, api_key: str | None = None):
-        self.api_key = api_key
-
-    @property
-    def name(self) -> str:
-        return "semantic_scholar"
-
-    @property
-    def source_type(self) -> SourceType:
-        return SourceType.ACADEMIC
-
-    async def search(
-        self,
-        query: str,
-        max_results: int = 50,
-        **kwargs,
-    ) -> list[APISearchResult]:
-        params = {
-            "query": query,
-            "limit": min(max_results, 100),
-            "fields": "title,abstract,url,authors,year,citationCount,venue",
-        }
-
-        headers = {}
-        if self.api_key:
-            headers["x-api-key"] = self.api_key
-
-        async with aiohttp.ClientSession() as session:
-            try:
-                async with session.get(
-                    self.BASE_URL,
-                    params=params,
-                    headers=headers,
-                    timeout=aiohttp.ClientTimeout(total=30),
-                ) as response:
-                    if response.status != 200:
-                        print(f"Semantic Scholar error: {response.status}")
-                        return []
-
-                    data = await response.json()
-
-                    results = []
-                    for i, paper in enumerate(data.get("data", [])):
-                        # Build URL (S2 doesn't always have direct URLs)
-                        paper_id = paper.get("paperId", "")
-                        url = (
-                            paper.get("url") or f"https://www.semanticscholar.org/paper/{paper_id}"
-                        )
-
-                        # Get author names
-                        authors = [a.get("name", "") for a in paper.get("authors", [])]
-
-                        results.append(
-                            APISearchResult(
-                                title=paper.get("title", ""),
-                                url=url,
-                                snippet=paper.get("abstract", "")[:500]
-                                if paper.get("abstract")
-                                else "",
-                                source=self.name,
-                                source_name=paper.get("venue", ""),
-                                published_at=None,  # Only have year
-                                relevance_score=1.0 - (i / max_results),
-                                source_type=self.source_type,
-                                metadata={
-                                    "authors": authors,
-                                    "year": paper.get("year"),
-                                    "citation_count": paper.get("citationCount"),
-                                    "paper_id": paper_id,
-                                },
-                            )
-                        )
-
-                    return results
-
-            except Exception as e:
-                print(f"Semantic Scholar error: {e}")
-                return []
+        return None
 
 
 class ArxivProvider(SearchAPIProvider):
@@ -401,6 +427,8 @@ class ArxivProvider(SearchAPIProvider):
         max_results: int = 50,
         **kwargs,
     ) -> list[APISearchResult]:
+        print(f"  → arXiv: Searching academic papers...")
+        log.debug(f"arXiv: searching query='{query}'")
         params = {
             "search_query": f"all:{query}",
             "start": 0,
@@ -417,14 +445,19 @@ class ArxivProvider(SearchAPIProvider):
                     timeout=aiohttp.ClientTimeout(total=30),
                 ) as response:
                     if response.status != 200:
+                        log.warning(f"arXiv: error status={response.status}")
                         print(f"arXiv error: {response.status}")
                         return []
 
                     # arXiv returns Atom XML
                     text = await response.text()
-                    return self._parse_arxiv_response(text, max_results)
+                    results = self._parse_arxiv_response(text, max_results)
+                    print(f"    ✓ arXiv: Found {len(results)} papers")
+                    log.info(f"arXiv: received {len(results)} papers for query='{query}'")
+                    return results
 
             except Exception as e:
+                log.error(f"arXiv exception: {e}")
                 print(f"arXiv error: {e}")
                 return []
 
@@ -510,6 +543,8 @@ class RedditSearchProvider(SearchAPIProvider):
         max_results: int = 50,
         **kwargs,
     ) -> list[APISearchResult]:
+        print(f"  → Reddit: Searching discussions...")
+        log.debug(f"Reddit: searching query='{query}'")
         params = {
             "q": query,
             "limit": min(max_results, 100),
@@ -530,13 +565,17 @@ class RedditSearchProvider(SearchAPIProvider):
                     timeout=aiohttp.ClientTimeout(total=30),
                 ) as response:
                     if response.status != 200:
+                        log.warning(f"Reddit: error status={response.status}")
                         print(f"Reddit error: {response.status}")
                         return []
 
                     data = await response.json()
+                    children = data.get("data", {}).get("children", [])
+                    print(f"    ✓ Reddit: Found {len(children)} posts")
+                    log.info(f"Reddit: received {len(children)} posts for query='{query}'")
 
                     results = []
-                    for i, child in enumerate(data.get("data", {}).get("children", [])):
+                    for i, child in enumerate(children):
                         post = child.get("data", {})
 
                         # Skip if not a post with content
@@ -576,86 +615,6 @@ class RedditSearchProvider(SearchAPIProvider):
                 return []
 
 
-class HackerNewsProvider(SearchAPIProvider):
-    """
-    Hacker News search provider (via Algolia API).
-
-    Free, no API key required.
-
-    Docs: https://hn.algolia.com/api
-    """
-
-    BASE_URL = "https://hn.algolia.com/api/v1/search"
-
-    @property
-    def name(self) -> str:
-        return "hackernews"
-
-    @property
-    def source_type(self) -> SourceType:
-        return SourceType.SOCIAL
-
-    async def search(
-        self,
-        query: str,
-        max_results: int = 50,
-        **kwargs,
-    ) -> list[APISearchResult]:
-        params = {
-            "query": query,
-            "hitsPerPage": min(max_results, 100),
-            "tags": "story",  # Only stories, not comments
-        }
-
-        async with aiohttp.ClientSession() as session:
-            try:
-                async with session.get(
-                    self.BASE_URL,
-                    params=params,
-                    timeout=aiohttp.ClientTimeout(total=30),
-                ) as response:
-                    if response.status != 200:
-                        print(f"HackerNews error: {response.status}")
-                        return []
-
-                    data = await response.json()
-
-                    results = []
-                    for i, hit in enumerate(data.get("hits", [])):
-                        # HN stories can link externally or be self-posts
-                        url = (
-                            hit.get("url")
-                            or f"https://news.ycombinator.com/item?id={hit.get('objectID')}"
-                        )
-
-                        results.append(
-                            APISearchResult(
-                                title=hit.get("title", ""),
-                                url=url,
-                                snippet=hit.get("story_text", "")[:500]
-                                if hit.get("story_text")
-                                else "",
-                                source=self.name,
-                                source_name="Hacker News",
-                                published_at=datetime.fromtimestamp(hit.get("created_at_i", 0)),
-                                relevance_score=1.0 - (i / max_results),
-                                source_type=self.source_type,
-                                metadata={
-                                    "points": hit.get("points"),
-                                    "num_comments": hit.get("num_comments"),
-                                    "author": hit.get("author"),
-                                    "hn_id": hit.get("objectID"),
-                                },
-                            )
-                        )
-
-                    return results
-
-            except Exception as e:
-                print(f"HackerNews error: {e}")
-                return []
-
-
 class DuckDuckGoProvider(SearchAPIProvider):
     """
     DuckDuckGo web search provider.
@@ -678,26 +637,37 @@ class DuckDuckGoProvider(SearchAPIProvider):
         self,
         query: str,
         max_results: int = 50,
+        region: str | None = None,
         **kwargs,
     ) -> list[APISearchResult]:
         try:
             from ddgs import DDGS
         except ImportError:
+            log.error("DuckDuckGo: ddgs not installed")
             print("DuckDuckGo error: ddgs not installed (pip install ddgs)")
             return []
 
         try:
+            print(f"  → DuckDuckGo: Searching web...")
+            log.debug(f"DuckDuckGo: searching query='{query}' region={region}")
             results = []
 
-            # Run sync DDG search in executor to avoid blocking
-            import asyncio
+            # Map region to DDG format
+            ddg_region = None
+            if region:
+                ddg_region = REGION_TO_DDG.get(region.lower())
 
+            # Run sync DDG search in executor to avoid blocking
             def _search():
                 ddgs = DDGS()
-                return list(ddgs.text(query, max_results=min(max_results, 50)))
+                search_kwargs: dict[str, int | str] = {"max_results": min(max_results, 50)}
+                if ddg_region:
+                    search_kwargs["region"] = ddg_region
+                return list(ddgs.text(query, **search_kwargs))
 
-            loop = asyncio.get_event_loop()
-            ddg_results = await loop.run_in_executor(None, _search)
+            ddg_results = await asyncio.get_running_loop().run_in_executor(None, _search)
+            print(f"    ✓ DuckDuckGo: Found {len(ddg_results)} results")
+            log.info(f"DuckDuckGo: received {len(ddg_results)} results for query='{query}'")
 
             for i, result in enumerate(ddg_results):
                 # Infer source type from domain
@@ -772,24 +742,16 @@ class MultiSourceSearch:
     """
 
     def __init__(self, config: SearchAPIConfig | None = None):
-        self.config = config or SearchAPIConfig(
-            config.newsapi_key if config else None, config.bing_key if config else None
-        )
+        self.config = config or SearchAPIConfig()
         self._providers: dict[str, SearchAPIProvider] = {}
         self._init_providers()
 
     def _init_providers(self):
         """Initialize available providers."""
-        # News providers
-        if self.config.newsapi_key:
-            self._providers["newsapi"] = NewsAPIProvider(self.config.newsapi_key)
-
-        # Always available (no API key needed)
-        self._providers["gdelt"] = GDELTProvider()
-        self._providers["semantic_scholar"] = SemanticScholarProvider()
+        # All providers are free, no API keys needed
+        self._providers["rss"] = RSSNewsProvider()  # News from 20+ RSS feeds
         self._providers["arxiv"] = ArxivProvider()
         self._providers["reddit"] = RedditSearchProvider()
-        self._providers["hackernews"] = HackerNewsProvider()
         self._providers["duckduckgo"] = DuckDuckGoProvider()
 
     @property
@@ -815,23 +777,34 @@ class MultiSourceSearch:
         Returns:
             Combined list of APISearchResult, deduplicated by URL
         """
+        log.info(f"MultiSourceSearch.search: query='{query}', sources={sources}")
+
         # Resolve source categories
         providers = self._resolve_sources(sources)
 
         if not providers:
+            log.warning(f"No providers available. Available: {self.available_providers}")
             print(f"No providers available. Available: {self.available_providers}")
             return []
 
-        # Search all providers in parallel
-        tasks = [
-            provider.search(
-                query,
-                max_results=max_results_per_source,
-                language=self.config.language,
-                days_back=self.config.days_back,
-            )
-            for provider in providers
-        ]
+        # Determine regions to search
+        regions_to_search = [self.config.region] if self.config.region else [None]
+        if self.config.regions:
+            regions_to_search = self.config.regions
+
+        # Search all providers in parallel, across all regions
+        tasks = []
+        for region in regions_to_search:
+            for provider in providers:
+                tasks.append(
+                    provider.search(
+                        query,
+                        max_results=max_results_per_source,
+                        language=self.config.language,
+                        days_back=self.config.days_back,
+                        region=region,
+                    )
+                )
 
         results_lists = await asyncio.gather(*tasks, return_exceptions=True)
 
@@ -839,11 +812,13 @@ class MultiSourceSearch:
         all_results = []
         seen_urls = set()
 
-        for results in results_lists:
+        for i, results in enumerate(results_lists):
             if isinstance(results, BaseException):
+                log.error(f"Provider error (task {i}): {results}")
                 print(f"Provider error: {results}")
                 continue
 
+            log.debug(f"Task {i}: received {len(results)} results")
             for result in results:
                 if result.url not in seen_urls:
                     seen_urls.add(result.url)
@@ -852,13 +827,39 @@ class MultiSourceSearch:
         # Sort by relevance score
         all_results.sort(key=lambda x: x.relevance_score, reverse=True)
 
+        # Screenshot fallback for blocked sites (if enabled)
+        if self.config.use_screenshot_fallback and ("news" in (sources or []) or "all" in (sources or [])):
+            try:
+                screenshot_results = await self._search_screenshot_sites(query)
+                for result in screenshot_results:
+                    if result.url not in seen_urls:
+                        seen_urls.add(result.url)
+                        all_results.append(result)
+            except Exception as e:
+                log.error(f"Screenshot fallback error: {e}")
+
+        log.info(f"MultiSourceSearch complete: {len(all_results)} unique results from {len(tasks)} provider tasks")
         return all_results
+
+    async def _search_screenshot_sites(self, query: str) -> list[APISearchResult]:
+        """Extract content from blocked sites using screenshot + LLM."""
+        try:
+            from .screenshot_extractor import ScreenshotExtractor
+        except ImportError:
+            log.warning("screenshot_extractor not available")
+            return []
+
+        async with ScreenshotExtractor(
+            llm_provider=self.config.screenshot_llm_provider
+        ) as extractor:
+            return await extractor.extract_from_fallback_sites(query)
 
     def _resolve_sources(self, sources: list[str] | None) -> list[SearchAPIProvider]:
         """Resolve source names/categories to provider instances."""
         if sources is None:
             sources = ["all"]
 
+        log.debug(f"Resolving sources: {sources}")
         providers = []
 
         for source in sources:
@@ -873,41 +874,40 @@ class MultiSourceSearch:
             if source == "all":
                 providers.extend(self._providers.values())
             elif source == "news":
-                for name in ["newsapi", "gdelt"]:
-                    if name in self._providers:
-                        providers.append(self._providers[name])
+                if "rss" in self._providers:
+                    providers.append(self._providers["rss"])
             elif source == "academic":
-                for name in ["semantic_scholar", "arxiv"]:
-                    if name in self._providers:
-                        providers.append(self._providers[name])
+                if "arxiv" in self._providers:
+                    providers.append(self._providers["arxiv"])
             elif source == "social":
-                for name in ["reddit", "hackernews"]:
-                    if name in self._providers:
-                        providers.append(self._providers[name])
+                if "reddit" in self._providers:
+                    providers.append(self._providers["reddit"])
             elif source == "web":
                 for name in ["duckduckgo"]:
                     if name in self._providers:
                         providers.append(self._providers[name])
 
         # Deduplicate
-        return list({id(p): p for p in providers}.values())
+        unique_providers = list({id(p): p for p in providers}.values())
+        log.debug(f"Resolved to {len(unique_providers)} providers: {[p.name for p in unique_providers]}")
+        return unique_providers
 
 
 # Convenience functions
 async def search_news(query: str, max_results: int = 100) -> list[APISearchResult]:
-    """Search news sources (GDELT + NewsAPI if configured)."""
+    """Search news sources via RSS feeds from 20+ major outlets."""
     search = MultiSourceSearch()
     return await search.search(query, sources=["news"], max_results_per_source=max_results)
 
 
 async def search_academic(query: str, max_results: int = 100) -> list[APISearchResult]:
-    """Search academic sources (Semantic Scholar + arXiv)."""
+    """Search academic sources (arXiv)."""
     search = MultiSourceSearch()
     return await search.search(query, sources=["academic"], max_results_per_source=max_results)
 
 
 async def search_social(query: str, max_results: int = 100) -> list[APISearchResult]:
-    """Search social sources (Reddit + HackerNews)."""
+    """Search social sources (Reddit)."""
     search = MultiSourceSearch()
     return await search.search(query, sources=["social"], max_results_per_source=max_results)
 
