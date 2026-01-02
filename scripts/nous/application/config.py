@@ -34,6 +34,8 @@ class SnapshotBuilderConfig:
     # Pipeline control (NEW - for consolidation)
     discovery_only: bool = False  # Skip extraction/analysis, return URLs only
     skip_crawling: bool = False  # Return discovered URLs without crawling
+    use_pipeline_stages: bool = False  # Use new modular pipeline stages
+    expand_domains: bool = True  # Expand discovered domains via seeding
 
     # Pre-crawl relevance filtering
     filter_relevance: bool = True  # Enable LLM-based relevance filtering
