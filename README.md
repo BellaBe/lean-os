@@ -111,6 +111,7 @@ your-project/
 | [Skills Index](docs/reference/skills-index.md) | Complete skills reference |
 | [Architecture](docs/reference/architecture.md) | System design |
 | [What is LeanOS](docs/reference/what-is-leanos.md) | System overview |
+| [What is LeanOS Pro](docs/reference/what-is-leanos-pro.md) | Pro version (63 skills, 12 agents) |
 
 ---
 
