@@ -11,10 +11,12 @@ Key features:
 - Integration with HybridExtractor for pre-filtered content
 """
 
+import asyncio
 import json
 import logging
 import os
 import re
+import time
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import TYPE_CHECKING
@@ -219,8 +221,6 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
         Returns:
             ExtractionResult with extracted IdeaNodes
         """
-        import time
-
         start_time = time.time()
         tokens_saved = 0
         used_pre_extracted = False
@@ -331,7 +331,7 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
                         "tokens": getattr(strategy, "total_usage", 0),
                     }
         except Exception as e:
-            print(f"Crawl4AI extraction failed: {e}")
+            log.error(f"Crawl4AI extraction failed: {e}")
 
         return {"ideas": []}
 
@@ -342,8 +342,6 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
     ) -> dict:
         """Extraction using LiteLLM with global Groq rate limiter."""
         try:
-            import asyncio
-
             import litellm
 
             from ..llm.groq_limiter import get_groq_limiter
@@ -393,9 +391,7 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
                 try:
                     data = json.loads(resp_content)
                 except json.JSONDecodeError as e:
-                    log.error(f"JSON parse error: {e}")
-                    log.error(f"Raw response: {resp_content[:500]}")
-                    print(f"      [JSON Error] {e} - Response: {resp_content[:200]}")
+                    log.error(f"JSON parse error: {e}, response: {resp_content[:200]}")
                     return {"ideas": []}
 
                 # Handle various response formats
@@ -421,7 +417,7 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
                 if "rate" in error_str and "limit" in error_str:
                     # Parse wait time from Groq error
                     wait_time = limiter.parse_retry_after(str(e))
-                    print(f"      [Groq] Rate limit, waiting {wait_time:.1f}s...")
+                    log.info(f"Groq rate limit hit, waiting {wait_time:.1f}s")
                     await asyncio.sleep(wait_time)
 
                     # Single retry
@@ -446,15 +442,15 @@ Extract 3-10 claims. Return empty ideas array if no relevant claims found: {{"id
 
                         return {"ideas": ideas[:self.config.max_claims_per_source], "chunks": 1}
 
-                    except Exception:
-                        print(f"      [Groq] Retry failed, skipping source")
+                    except (json.JSONDecodeError, KeyError) as retry_error:
+                        log.warning(f"Retry failed: {retry_error}")
                         return {"ideas": []}
                 else:
-                    print(f"      Extraction failed: {e}")
+                    log.warning(f"Extraction failed: {e}")
                     return {"ideas": []}
 
-        except Exception as e:
-            print(f"LiteLLM extraction failed: {e}")
+        except (ImportError, RuntimeError) as e:
+            log.error(f"LiteLLM extraction failed: {e}")
             return {"ideas": []}
 
     def _chunk_content(self, content: str) -> list[str]:
@@ -571,8 +567,6 @@ class ChunkingStrategy:
     @staticmethod
     def sentence_based(content: str, sentences_per_chunk: int = 10) -> list[str]:
         """Split by sentences using simple regex."""
-        import re
-
         # Simple sentence splitting
         sentences = re.split(r"(?<=[.!?])\s+", content)
         sentences = [s.strip() for s in sentences if s.strip()]

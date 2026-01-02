@@ -16,19 +16,32 @@ Usage:
     snapshot = await builder.build("AI regulation EU")
 """
 
+from __future__ import annotations
+
 import asyncio
 import json
-import logging
+import re
 import time
-
 from datetime import datetime, timezone
-from typing import Any
+from pathlib import Path
+from typing import Any, TypedDict
 from urllib.parse import urlparse
 from uuid import uuid4
 
-from .config import SnapshotBuilderConfig
 
-from ..infrastructure.logging import init_session_logging
+class UrlMetadata(TypedDict, total=False):
+    """Metadata for a discovered URL."""
+
+    url: str
+    title: str
+    source: str
+    zone: str
+    description: str
+
+from .config import SnapshotBuilderConfig
+from .ui import ConsoleUI
+
+from ..infrastructure.logging import get_structured_logger
 
 from ..domain import (
     AmplificationWarning,
@@ -79,14 +92,8 @@ from ..infrastructure.crawlers.diagnostics import CrawlDiagnostics
 from ..infrastructure.crawlers.zone_config import get_zone_for_domain
 from ..infrastructure.extraction.hybrid_extractor import HybridExtractor, QuickExtraction
 
-# Initialize logging
-log = logging.getLogger("nous.snapshot")
-
-
-def _story(msg: str, indent: int = 0, symbol: str = "→") -> None:
-    """Print a story-telling message to stdout for real-time feedback."""
-    prefix = "  " * indent
-    print(f"{prefix}{symbol} {msg}")
+# Structured logger for internal logging
+_log = get_structured_logger("nous.snapshot")
 
 # Social platform domains that benefit from PageSnapshotter
 SOCIAL_SNAPSHOT_DOMAINS = {
@@ -110,7 +117,7 @@ def _is_social_url(url: str) -> bool:
             if domain == social_domain or domain.endswith(f".{social_domain}"):
                 return True
         return False
-    except Exception:
+    except (ValueError, AttributeError):
         return False
 
 
@@ -155,9 +162,15 @@ class SnapshotBuilder:
     the full snapshot structure per architecture.md.
     """
 
-    def __init__(self, config: SnapshotBuilderConfig, llm_client: DirectLLMClient):
+    def __init__(
+        self,
+        config: SnapshotBuilderConfig,
+        llm_client: DirectLLMClient,
+        ui: ConsoleUI | None = None,
+    ) -> None:
         self.config = config
         self.llm_client = llm_client
+        self.ui = ui or ConsoleUI()
 
     async def build(self, topic: str) -> Snapshot:
         """
@@ -169,28 +182,24 @@ class SnapshotBuilder:
         Returns:
             Complete Snapshot entity
         """
-        # Initialize session logging
-        log_file = init_session_logging()
-
         start_time = time.time()
         snapshot_id = uuid4()
+
+        _log.info("snapshot_start", topic=topic, snapshot_id=str(snapshot_id))
 
         # ─────────────────────────────────────────────────────────────────
         # Story: Begin
         # ─────────────────────────────────────────────────────────────────
-        print("\n" + "=" * 60)
-        print(f"🔍 NOUS SNAPSHOT: {topic}")
-        print("=" * 60)
-        _story(f"Session ID: {str(snapshot_id)[:8]}...")
-        _story(f"Sources: {', '.join(self.config.sources)}")
-        _story(f"Max URLs: {self.config.max_urls}")
-        _story(f"LLM: {self.config.llm_provider}")
-        if self.config.use_social_snapshots:
-            _story("Social snapshots: ENABLED (Twitter, LinkedIn, YouTube)")
-        print()
+        self.ui.snapshot_start(
+            topic=topic,
+            session_id=str(snapshot_id),
+            sources=self.config.sources,
+            max_urls=self.config.max_urls,
+            llm_provider=self.config.llm_provider,
+            social_enabled=self.config.use_social_snapshots,
+        )
 
-        log.info(f"SNAPSHOT BUILD START: {topic}")
-        log.info(f"Snapshot ID: {snapshot_id}")
+        _log.info("snapshot_build_start", topic=topic, snapshot_id=str(snapshot_id))
 
         # Track stats
         urls_discovered = 0
@@ -206,11 +215,11 @@ class SnapshotBuilder:
         # ─────────────────────────────────────────────────────────────────
         queries = [topic]
         if self.config.augment_queries:
-            _story("Generating search query variations...", symbol="🔄")
+            self.ui.info("Generating search query variations...", symbol="🔄")
             queries = await self._augment_query(topic)
             for i, q in enumerate(queries):
-                _story(f"Query {i+1}: {q}", indent=1, symbol="•")
-            print()
+                self.ui.info(f"Query {i+1}: {q}", indent=1, symbol="•")
+            self.ui.separator()
 
         # ─────────────────────────────────────────────────────────────────
         # Iterative Discovery Loop (with re-search if needed)
@@ -221,12 +230,12 @@ class SnapshotBuilder:
             # ─────────────────────────────────────────────────────────────
             # Stage 1: URL Discovery
             # ─────────────────────────────────────────────────────────────
-            print(f"📡 STAGE 1: DISCOVERY{iteration_label}")
-            print("-" * 40)
+            self.ui._write(f"📡 STAGE 1: DISCOVERY{iteration_label}")
+            self.ui._write("-" * 40)
 
             discovered_urls = []
             for query in queries:
-                _story(f"Searching: \"{query[:50]}{'...' if len(query) > 50 else ''}\"")
+                self.ui.info(f"Searching: \"{query[:50]}{'...' if len(query) > 50 else ''}\"")
                 query_urls = await self._discover_urls(query)
                 # Filter out already-used URLs
                 new_urls = [u for u in query_urls if u["url"] not in used_urls]
@@ -246,24 +255,24 @@ class SnapshotBuilder:
                     src = u.get("api_source", "unknown")
                     source_counts[src] = source_counts.get(src, 0) + 1
 
-                print()
-                _story(f"Found {len(discovered_urls)} URLs from {len(new_domains)} domains", symbol="✓")
+                self.ui.separator()
+                self.ui.info(f"Found {len(discovered_urls)} URLs from {len(new_domains)} domains", symbol="✓")
                 for src, count in sorted(source_counts.items(), key=lambda x: -x[1]):
-                    _story(f"{src}: {count} URLs", indent=1, symbol="•")
-                print()
+                    self.ui.info(f"{src}: {count} URLs", indent=1, symbol="•")
+                self.ui.separator()
             else:
                 if iteration == 0:
-                    _story("No URLs found - cannot proceed", symbol="✗")
+                    self.ui.info("No URLs found - cannot proceed", symbol="✗")
                     return self._empty_snapshot(snapshot_id, topic, start_time)
                 else:
-                    _story("No new URLs found, using existing results", symbol="⚠")
+                    self.ui.info("No new URLs found, using existing results", symbol="⚠")
                     break
 
             # ─────────────────────────────────────────────────────────────
             # Stage 1.2: Domain Expansion via URL Seeding (optional)
             # ─────────────────────────────────────────────────────────────
             if self.config.use_domain_expansion and discovered_urls:
-                _story("Expanding top domains via sitemap/Common Crawl...", symbol="🔗")
+                self.ui.info("Expanding top domains via sitemap/Common Crawl...", symbol="🔗")
                 expanded_urls = await self._expand_domains(discovered_urls, topic)
                 if expanded_urls:
                     # Add expanded URLs (filter out already-used)
@@ -272,7 +281,7 @@ class SnapshotBuilder:
                             discovered_urls.append(u)
                             used_urls.add(u["url"])
                     urls_discovered += len(expanded_urls)
-                    _story(f"Added {len(expanded_urls)} URLs from domain expansion", indent=1, symbol="+")
+                    self.ui.info(f"Added {len(expanded_urls)} URLs from domain expansion", indent=1, symbol="+")
 
             # ─────────────────────────────────────────────────────────────
             # Stage 1.5: URL Relevance Filtering (optional)
@@ -280,14 +289,14 @@ class SnapshotBuilder:
             urls_to_crawl = discovered_urls
             if self.config.filter_relevance:
                 urls_to_filter = discovered_urls[:self.config.max_urls_to_filter]
-                _story(f"Filtering {len(urls_to_filter)} URLs by relevance (threshold: {self.config.relevance_threshold}/10)...", symbol="🎯")
+                self.ui.info(f"Filtering {len(urls_to_filter)} URLs by relevance (threshold: {self.config.relevance_threshold}/10)...", symbol="🎯")
                 urls_to_crawl = await self._filter_by_relevance(urls_to_filter, topic)
                 filtered_count = len(urls_to_filter) - len(urls_to_crawl)
-                _story(f"Kept {len(urls_to_crawl)} relevant, filtered out {filtered_count}", indent=1, symbol="✓")
-                print()
+                self.ui.info(f"Kept {len(urls_to_crawl)} relevant, filtered out {filtered_count}", indent=1, symbol="✓")
+                self.ui.separator()
 
                 if not urls_to_crawl and iteration == 0:
-                    _story("No relevant URLs found after filtering", symbol="✗")
+                    self.ui.info("No relevant URLs found after filtering", symbol="✗")
                     return self._empty_snapshot(snapshot_id, topic, start_time)
 
             # ─────────────────────────────────────────────────────────────
@@ -296,9 +305,9 @@ class SnapshotBuilder:
             sources: list[SourceNode] = []
             if urls_to_crawl:
                 num_to_crawl = min(len(urls_to_crawl), self.config.max_urls)
-                print(f"🌐 STAGE 2: CRAWLING{iteration_label}")
-                print("-" * 40)
-                _story(f"Crawling {num_to_crawl} URLs...")
+                self.ui._write(f"🌐 STAGE 2: CRAWLING{iteration_label}")
+                self.ui._write("-" * 40)
+                self.ui.info(f"Crawling {num_to_crawl} URLs...")
 
                 sources, crawled, failed, crawl_diagnostics = await self._crawl_content(
                     urls_to_crawl[: self.config.max_urls]
@@ -308,23 +317,23 @@ class SnapshotBuilder:
                 all_sources.extend(sources)
 
                 # Show crawl summary
-                print()
+                self.ui.separator()
                 yield_rate = crawled / num_to_crawl * 100 if num_to_crawl > 0 else 0
-                _story(f"Crawled: {crawled} success, {failed} failed ({yield_rate:.0f}% yield)", symbol="✓")
+                self.ui.info(f"Crawled: {crawled} success, {failed} failed ({yield_rate:.0f}% yield)", symbol="✓")
 
                 # Count social vs regular
                 social_count = sum(1 for s in sources if s.metadata and s.metadata.get("captured_via") == "page_snapshot")
                 if social_count > 0:
-                    _story(f"Social snapshots: {social_count} captured with PageSnapshotter", indent=1, symbol="📸")
-                print()
+                    self.ui.info(f"Social snapshots: {social_count} captured with PageSnapshotter", indent=1, symbol="📸")
+                self.ui.separator()
 
             # ─────────────────────────────────────────────────────────────
             # Stage 3: Idea Extraction
             # ─────────────────────────────────────────────────────────────
             if sources:
-                print(f"🧠 STAGE 3: EXTRACTION{iteration_label}")
-                print("-" * 40)
-                _story(f"Extracting ideas from {len(sources)} sources...")
+                self.ui._write(f"🧠 STAGE 3: EXTRACTION{iteration_label}")
+                self.ui._write("-" * 40)
+                self.ui.info(f"Extracting ideas from {len(sources)} sources...")
 
                 ideas = await self._extract_ideas(sources, topic)
 
@@ -332,33 +341,33 @@ class SnapshotBuilder:
                 # Stage 3.5: Idea Relevance Filtering (optional)
                 # ─────────────────────────────────────────────────────────
                 if self.config.filter_ideas and ideas:
-                    _story(f"Filtering {len(ideas)} ideas by topic relevance...", symbol="🎯")
+                    self.ui.info(f"Filtering {len(ideas)} ideas by topic relevance...", symbol="🎯")
                     relevant_ideas = await self._filter_ideas_by_relevance(ideas, topic)
                     filtered_count = len(ideas) - len(relevant_ideas)
-                    _story(f"Kept {len(relevant_ideas)} relevant, filtered out {filtered_count}", indent=1, symbol="✓")
+                    self.ui.info(f"Kept {len(relevant_ideas)} relevant, filtered out {filtered_count}", indent=1, symbol="✓")
                     ideas = relevant_ideas
 
                 all_ideas.extend(ideas)
-                print()
-                _story(f"Total ideas extracted: {len(ideas)}", symbol="✓")
-                print()
+                self.ui.separator()
+                self.ui.info(f"Total ideas extracted: {len(ideas)}", symbol="✓")
+                self.ui.separator()
 
             # Check if we have enough relevant ideas
             if len(all_ideas) >= self.config.min_relevant_ideas:
-                _story(f"Found {len(all_ideas)} relevant ideas, proceeding to analysis", symbol="✓")
+                self.ui.info(f"Found {len(all_ideas)} relevant ideas, proceeding to analysis", symbol="✓")
                 break
             elif iteration < self.config.max_search_iterations - 1:
-                _story(f"Only {len(all_ideas)} ideas (need {self.config.min_relevant_ideas}), searching again...", symbol="⚠")
+                self.ui.info(f"Only {len(all_ideas)} ideas (need {self.config.min_relevant_ideas}), searching again...", symbol="⚠")
                 # Generate new queries for next iteration
                 new_queries = await self._augment_query(f"{topic} latest news trends")
                 queries = [q for q in new_queries if q not in queries][:2]
                 if queries:
                     for q in queries:
-                        _story(f"New query: {q}", indent=1, symbol="•")
+                        self.ui.info(f"New query: {q}", indent=1, symbol="•")
                 else:
-                    _story("No new queries generated, using existing results", symbol="⚠")
+                    self.ui.info("No new queries generated, using existing results", symbol="⚠")
                     break
-                print()
+                self.ui.separator()
 
         # Use accumulated results
         sources = all_sources
@@ -373,54 +382,54 @@ class SnapshotBuilder:
         # ─────────────────────────────────────────────────────────────────
         # Stage 4: Consensus Detection
         # ─────────────────────────────────────────────────────────────────
-        print("🔬 STAGE 4: ANALYSIS")
-        print("-" * 40)
-        _story("Analyzing consensus and contention patterns...")
+        self.ui.subheader("🔬 STAGE 4: ANALYSIS")
+
+        self.ui.info("Analyzing consensus and contention patterns...")
 
         consensus_clusters, contention_zones = await self._analyze_consensus(
             ideas, sources, topic
         )
 
         if consensus_clusters:
-            _story(f"Consensus clusters: {len(consensus_clusters)}", indent=1, symbol="🤝")
+            self.ui.info(f"Consensus clusters: {len(consensus_clusters)}", indent=1, symbol="🤝")
             for i, c in enumerate(consensus_clusters[:3]):
-                _story(f"\"{c.representative_claim[:60]}...\"", indent=2, symbol="•")
+                self.ui.info(f"\"{c.representative_claim[:60]}...\"", indent=2, symbol="•")
         if contention_zones:
-            _story(f"Contention zones: {len(contention_zones)}", indent=1, symbol="⚔️")
+            self.ui.info(f"Contention zones: {len(contention_zones)}", indent=1, symbol="⚔️")
             for c in contention_zones[:2]:
-                _story(f"\"{c.representative_claim[:60]}...\"", indent=2, symbol="•")
-        print()
+                self.ui.info(f"\"{c.representative_claim[:60]}...\"", indent=2, symbol="•")
+        self.ui.separator()
 
         # ─────────────────────────────────────────────────────────────────
         # Stage 5: Amplification Detection
         # ─────────────────────────────────────────────────────────────────
-        _story("Detecting amplification patterns...", symbol="📢")
+        self.ui.info("Detecting amplification patterns...", symbol="📢")
 
         amplification_warnings = self._detect_amplification(sources)
         if amplification_warnings:
-            _story(f"Amplification warnings: {len(amplification_warnings)}", indent=1, symbol="⚠")
+            self.ui.info(f"Amplification warnings: {len(amplification_warnings)}", indent=1, symbol="⚠")
         else:
-            _story("No amplification detected", indent=1, symbol="✓")
-        print()
+            self.ui.info("No amplification detected", indent=1, symbol="✓")
+        self.ui.separator()
 
         # ─────────────────────────────────────────────────────────────────
         # Stage 6: Summary Generation & Graph Building
         # ─────────────────────────────────────────────────────────────────
-        print("📝 STAGE 5: SYNTHESIS")
-        print("-" * 40)
+        self.ui.subheader("📝 STAGE 5: SYNTHESIS")
+
 
         summary = ""
         if self.config.generate_summary and ideas:
-            _story("Generating executive summary...")
+            self.ui.info("Generating executive summary...")
             summary = await self._generate_summary(topic, ideas, consensus_clusters, contention_zones)
-            _story(f"Summary: {len(summary)} chars", indent=1, symbol="✓")
+            self.ui.info(f"Summary: {len(summary)} chars", indent=1, symbol="✓")
 
         graph_nodes, graph_edges = [], []
         if self.config.build_graph:
-            _story("Building knowledge graph...")
+            self.ui.info("Building knowledge graph...")
             graph_nodes, graph_edges = self._build_graph(sources, ideas)
-            _story(f"Graph: {len(graph_nodes)} nodes, {len(graph_edges)} edges", indent=1, symbol="✓")
-        print()
+            self.ui.info(f"Graph: {len(graph_nodes)} nodes, {len(graph_edges)} edges", indent=1, symbol="✓")
+        self.ui.separator()
 
         # ─────────────────────────────────────────────────────────────────
         # Build Snapshot
@@ -475,19 +484,19 @@ class SnapshotBuilder:
         # ─────────────────────────────────────────────────────────────────
         # Final Summary
         # ─────────────────────────────────────────────────────────────────
-        print("=" * 60)
-        print("✅ SNAPSHOT COMPLETE")
-        print("=" * 60)
-        print(f"  Topic: {topic}")
-        print(f"  Time: {elapsed:.1f}s")
-        print()
-        print("  📊 Stats:")
-        print(f"     URLs discovered: {urls_discovered}")
-        print(f"     URLs crawled: {urls_crawled} ({urls_failed} failed)")
-        print(f"     Ideas extracted: {len(ideas)}")
-        print(f"     Consensus clusters: {len(consensus_clusters)}")
-        print(f"     Contention zones: {len(contention_zones)}")
-        print()
+        self.ui._write("=" * 60)
+        self.ui._write("✅ SNAPSHOT COMPLETE")
+        self.ui._write("=" * 60)
+        self.ui._write(f"  Topic: {topic}")
+        self.ui._write(f"  Time: {elapsed:.1f}s")
+        self.ui.separator()
+        self.ui._write("  📊 Stats:")
+        self.ui._write(f"     URLs discovered: {urls_discovered}")
+        self.ui._write(f"     URLs crawled: {urls_crawled} ({urls_failed} failed)")
+        self.ui._write(f"     Ideas extracted: {len(ideas)}")
+        self.ui._write(f"     Consensus clusters: {len(consensus_clusters)}")
+        self.ui._write(f"     Contention zones: {len(contention_zones)}")
+        self.ui.separator()
 
         # Show source type breakdown
         source_type_counts: dict[str, int] = {}
@@ -495,10 +504,10 @@ class SnapshotBuilder:
             st = s.source_type.value if hasattr(s.source_type, 'value') else str(s.source_type)
             source_type_counts[st] = source_type_counts.get(st, 0) + 1
         if source_type_counts:
-            print("  📰 Source types:")
+            self.ui._write("  📰 Source types:")
             for st, count in sorted(source_type_counts.items(), key=lambda x: -x[1]):
-                print(f"     {st}: {count}")
-            print()
+                self.ui._write(f"     {st}: {count}")
+            self.ui.separator()
 
         # Show signal zone breakdown
         zone_counts: dict[str, int] = {}
@@ -506,33 +515,33 @@ class SnapshotBuilder:
             z = s.signal_zone.value if hasattr(s.signal_zone, 'value') else str(s.signal_zone)
             zone_counts[z] = zone_counts.get(z, 0) + 1
         if zone_counts:
-            print("  🎯 Signal zones:")
+            self.ui._write("  🎯 Signal zones:")
             for z, count in sorted(zone_counts.items(), key=lambda x: -x[1]):
-                print(f"     {z}: {count}")
-            print()
+                self.ui._write(f"     {z}: {count}")
+            self.ui.separator()
 
         if summary:
-            print("  📝 Summary:")
+            self.ui._write("  📝 Summary:")
             # Word wrap summary at 60 chars
             words = summary.split()
             line = "     "
             for word in words[:50]:  # First 50 words
                 if len(line) + len(word) > 65:
-                    print(line)
+                    self.ui._write(line)
                     line = "     " + word
                 else:
                     line += " " + word if line.strip() else word
             if line.strip():
-                print(line)
+                self.ui._write(line)
             if len(words) > 50:
-                print("     ...")
-            print()
+                self.ui._write("     ...")
+            self.ui.separator()
 
-        log.info(f"SNAPSHOT COMPLETE: {snapshot_id} in {elapsed:.1f}s")
+        _log.info("snapshot_complete", snapshot_id=str(snapshot_id), elapsed_sec=elapsed)
 
         return snapshot
 
-    async def _discover_urls(self, topic: str) -> list[dict[str, Any]]:
+    async def _discover_urls(self, topic: str) -> list[UrlMetadata]:
         """
         Discover URLs via Search APIs.
 
@@ -546,8 +555,8 @@ class SnapshotBuilder:
 
         Returns URL metadata dicts for the filtering/crawling pipeline.
         """
-        log.info(f"DISCOVERY START: topic='{topic}'")
-        log.debug(f"  sources={self.config.sources}, max_per_source={self.config.max_results_per_source}")
+        _log.info(f"DISCOVERY START: topic='{topic}'")
+        _log.debug(f"  sources={self.config.sources}, max_per_source={self.config.max_results_per_source}")
 
         # Build list of queries (with translations if enabled)
         queries_to_search = [topic]
@@ -557,7 +566,7 @@ class SnapshotBuilder:
                     translated = await self._translate_query(topic, lang)
                     if translated != topic:
                         queries_to_search.append(translated)
-                        log.info(f"Translated to {lang}: {translated}")
+                        _log.info(f"Translated to {lang}: {translated}")
 
         # Configure search
         api_config = SearchAPIConfig(
@@ -576,11 +585,11 @@ class SnapshotBuilder:
         for i, query in enumerate(queries_to_search):
             # Wait between query variations (providers have rate limits)
             if i > 0:
-                log.info("[Wait] 5s between search queries...")
+                _log.info("[Wait] 5s between search queries...")
                 await asyncio.sleep(5)
 
             region_info = f" (region: {self.config.region})" if self.config.region else ""
-            log.info(f"Searching via {self.config.sources}{region_info}: {query[:50]}...")
+            _log.info(f"Searching via {self.config.sources}{region_info}: {query[:50]}...")
 
             # Core API search
             results = await search.search(
@@ -598,11 +607,11 @@ class SnapshotBuilder:
             # Calculate relevance for logging
             scores = [r.relevance_score for r in results if r.relevance_score]
             avg_score = sum(scores) / len(scores) if scores else 0
-            log.info(f"  Found {len(results)} results, avg_relevance={avg_score:.2f}")
+            _log.info(f"  Found {len(results)} results, avg_relevance={avg_score:.2f}")
 
         # Generate site-specific queries for broader social/tech coverage
         if self.config.use_site_specific_search:
-            log.info("Searching site-specific sources (social/tech)...")
+            _log.info("Searching site-specific sources (social/tech)...")
             site_queries = generate_site_queries(
                 topic,
                 include_social=True,
@@ -622,9 +631,9 @@ class SnapshotBuilder:
                             seen_urls.add(result.url)
                             all_results.append(result)
                     if site_results:
-                        log.debug(f"  {site_query[:40]}... -> {len(site_results)} results")
+                        _log.debug(f"  {site_query[:40]}... -> {len(site_results)} results")
                 except Exception as e:
-                    log.debug(f"  Site search failed: {site_query[:30]}... ({e})")
+                    _log.debug(f"  Site search failed: {site_query[:30]}... ({e})")
 
                 # Brief delay between site queries
                 await asyncio.sleep(0.5)
@@ -647,7 +656,7 @@ class SnapshotBuilder:
                 "published_at": result.published_at.isoformat() if result.published_at else None,
             })
 
-        log.info(f"DISCOVERY COMPLETE: {len(all_urls)} URLs discovered")
+        _log.info(f"DISCOVERY COMPLETE: {len(all_urls)} URLs discovered")
         return all_urls
 
     async def _expand_domains(
@@ -685,8 +694,8 @@ class SnapshotBuilder:
         if not domains_to_expand:
             return []
 
-        log.info(f"DOMAIN EXPANSION: expanding {len(domains_to_expand)} domains via {self.config.expansion_source}")
-        log.info(f"Expanding {len(domains_to_expand)} domains via {self.config.expansion_source}...")
+        _log.info(f"DOMAIN EXPANSION: expanding {len(domains_to_expand)} domains via {self.config.expansion_source}")
+        _log.info(f"Expanding {len(domains_to_expand)} domains via {self.config.expansion_source}...")
 
         # Configure URL seeding
         seeding_config = SeedingConfig(
@@ -724,14 +733,14 @@ class SnapshotBuilder:
                             new_count += 1
 
                     if new_count > 0:
-                        log.info(f"  {domain}: +{new_count} URLs (BM25 score >= {self.config.expansion_score_threshold})")
-                        log.info(f"  {domain}: {new_count} new URLs via seeding")
+                        _log.info(f"  {domain}: +{new_count} URLs (BM25 score >= {self.config.expansion_score_threshold})")
+                        _log.info(f"  {domain}: {new_count} new URLs via seeding")
 
         except Exception as e:
-            log.warning(f"Domain expansion failed: {e}")
-            log.info(f"Domain expansion failed: {e}")
+            _log.warning(f"Domain expansion failed: {e}")
+            _log.info(f"Domain expansion failed: {e}")
 
-        log.info(f"DOMAIN EXPANSION COMPLETE: {len(expanded_urls)} additional URLs")
+        _log.info(f"DOMAIN EXPANSION COMPLETE: {len(expanded_urls)} additional URLs")
         return expanded_urls
 
     async def _augment_query(self, topic: str) -> list[str]:
@@ -773,7 +782,7 @@ No explanation needed."""
                 # Return original + variations
                 return [topic] + [v for v in variations if isinstance(v, str)][:self.config.max_query_variations]
         except Exception as e:
-            log.info(f"(Query augmentation failed: {e})")
+            _log.info(f"(Query augmentation failed: {e})")
 
         return [topic]  # Fallback to original only
 
@@ -813,7 +822,7 @@ Translation (just the query, no explanation):"""
             translated = response.strip().strip('"').strip("'")
             return translated if translated else query
         except Exception as e:
-            log.info(f"(Translation to {lang_name} failed: {e})")
+            _log.info(f"(Translation to {lang_name} failed: {e})")
             return query
 
     async def _filter_ideas_by_relevance(
@@ -883,7 +892,7 @@ Return ONLY a JSON array with scores: [{{"idx": 0, "score": 8}}, {{"idx": 1, "sc
                         relevant_ideas.append(batch[idx])
 
             except Exception as e:
-                log.warning(f"(Batch {batch_start//batch_size + 1} filtering failed: {e}, keeping batch)")
+                _log.warning(f"(Batch {batch_start//batch_size + 1} filtering failed: {e}, keeping batch)")
                 relevant_ideas.extend(batch)
 
             # Brief delay between batches to respect rate limits
@@ -970,19 +979,19 @@ Include ALL URLs from the input. No explanation needed."""
 
             except json.JSONDecodeError as e:
                 # If scoring fails, include all URLs in batch with lower confidence
-                log.info(f"(Relevance scoring failed for batch, including all: {e})")
+                _log.info(f"(Relevance scoring failed for batch, including all: {e})")
                 for u in batch:
                     u["relevance_score"] = 0.5
                     relevant_urls.append(u)
             except Exception as e:
-                log.info(f"(Relevance filter error: {e})")
+                _log.info(f"(Relevance filter error: {e})")
                 # On error, include batch to avoid losing data
                 relevant_urls.extend(batch)
 
         return relevant_urls
 
     async def _crawl_content(
-        self, urls: list[dict]
+        self, urls: list[UrlMetadata]
     ) -> tuple[list[SourceNode], int, int, CrawlDiagnostics | None]:
         """
         Crawl content and convert to SourceNodes.
@@ -993,7 +1002,7 @@ Include ALL URLs from the input. No explanation needed."""
 
         Returns (sources, crawled_count, failed_count, diagnostics).
         """
-        log.info(f"CRAWL START: {len(urls)} URLs to crawl")
+        _log.info(f"CRAWL START: {len(urls)} URLs to crawl")
 
         # Build URL list and metadata map
         url_list = [item["url"] for item in urls]
@@ -1010,8 +1019,8 @@ Include ALL URLs from the input. No explanation needed."""
                 else:
                     regular_urls.append(url)
             if social_urls:
-                log.info(f"  Social URLs: {len(social_urls)} (using PageSnapshotter)")
-                log.info(f"  Regular URLs: {len(regular_urls)} (using ParallelCrawler)")
+                _log.info(f"  Social URLs: {len(social_urls)} (using PageSnapshotter)")
+                _log.info(f"  Regular URLs: {len(regular_urls)} (using ParallelCrawler)")
         else:
             regular_urls = url_list
 
@@ -1048,7 +1057,7 @@ Include ALL URLs from the input. No explanation needed."""
         return all_sources, total_crawled, total_failed, diagnostics
 
     async def _crawl_parallel(
-        self, url_list: list[str], url_metadata: dict[str, dict[str, Any]]
+        self, url_list: list[str], url_metadata: dict[str, UrlMetadata]
     ) -> tuple[list[SourceNode], int, int, CrawlDiagnostics]:
         """
         Parallel crawling with domain batching (Crawl4AI-enhanced).
@@ -1070,7 +1079,7 @@ Include ALL URLs from the input. No explanation needed."""
         )
 
         # Crawl all URLs in parallel with domain batching
-        log.info(f"Parallel crawling with {self.config.max_concurrent_crawls} concurrent connections...")
+        _log.info(f"Parallel crawling with {self.config.max_concurrent_crawls} concurrent connections...")
         batch_result = await crawler.crawl_many(url_list, diagnostics=diagnostics)
 
         # Convert results to SourceNodes
@@ -1109,21 +1118,21 @@ Include ALL URLs from the input. No explanation needed."""
                 # Note: diagnostics already recorded in parallel_crawler._crawl_single()
 
                 api_src = meta.get("api_source", "")
-                log.info(f"[{len(sources)}] {domain} [{zone.value}] via {api_src} ({len(result.markdown):,} chars)")
+                _log.info(f"[{len(sources)}] {domain} [{zone.value}] via {api_src} ({len(result.markdown):,} chars)")
             # Note: drops already recorded in parallel_crawler._crawl_single()
 
         # Show diagnostics summary
         if self.config.show_diagnostics:
-            log.info(f"{diagnostics.report()}")
+            _log.info(f"{diagnostics.report()}")
 
         crawled = diagnostics.crawled
         failed = diagnostics.total_dropped
 
-        log.info(f"CRAWL COMPLETE: {crawled} success, {failed} failed, yield={diagnostics.yield_rate():.1%}")
+        _log.info(f"CRAWL COMPLETE: {crawled} success, {failed} failed, yield={diagnostics.yield_rate():.1%}")
         return sources, crawled, failed, diagnostics
 
     async def _crawl_sequential(
-        self, url_list: list[str], url_metadata: dict[str, dict[str, Any]]
+        self, url_list: list[str], url_metadata: dict[str, UrlMetadata]
     ) -> tuple[list[SourceNode], int, int, None]:
         """Legacy sequential crawling (fallback)."""
         sources = []
@@ -1157,20 +1166,20 @@ Include ALL URLs from the input. No explanation needed."""
                             sources.append(source)
                             crawled += 1
                             api_src = meta.get("api_source", "")
-                            log.info(f"[{crawled}] {domain} via {api_src} ({len(result.markdown):,} chars)")
+                            _log.info(f"[{crawled}] {domain} via {api_src} ({len(result.markdown):,} chars)")
                     else:
                         failed += 1
 
                 except Exception as e:
                     failed += 1
-                    log.warning(f"Crawl failed: {domain} - {e}")
-                    log.info(f"{domain}: Failed - {e}")
+                    _log.warning(f"Crawl failed: {domain} - {e}")
+                    _log.info(f"{domain}: Failed - {e}")
 
-        log.info(f"CRAWL COMPLETE: {crawled} success, {failed} failed")
+        _log.info(f"CRAWL COMPLETE: {crawled} success, {failed} failed")
         return sources, crawled, failed, None
 
     async def _crawl_social_with_snapshots(
-        self, url_list: list[str], url_metadata: dict[str, dict[str, Any]]
+        self, url_list: list[str], url_metadata: dict[str, UrlMetadata]
     ) -> tuple[list[SourceNode], int, int, list[PageSnapshot]]:
         """
         Crawl social URLs using PageSnapshotter for better JavaScript rendering.
@@ -1180,8 +1189,6 @@ Include ALL URLs from the input. No explanation needed."""
 
         Returns (sources, crawled_count, failed_count, snapshots).
         """
-        from pathlib import Path
-
         sources = []
         snapshots = []
         crawled = 0
@@ -1190,7 +1197,7 @@ Include ALL URLs from the input. No explanation needed."""
         if not url_list:
             return sources, crawled, failed, snapshots
 
-        log.info(f"SOCIAL SNAPSHOT: Capturing {len(url_list)} social URLs with PageSnapshotter")
+        _log.info(f"SOCIAL SNAPSHOT: Capturing {len(url_list)} social URLs with PageSnapshotter")
 
         # Configure snapshot capture
         output_dir = None
@@ -1223,14 +1230,13 @@ Include ALL URLs from the input. No explanation needed."""
 
                     # Convert HTML to markdown-like text for extraction
                     # Strip HTML tags for basic text extraction
-                    import re
                     text_content = re.sub(r"<script[^>]*>.*?</script>", "", content, flags=re.DOTALL | re.IGNORECASE)
                     text_content = re.sub(r"<style[^>]*>.*?</style>", "", text_content, flags=re.DOTALL | re.IGNORECASE)
                     text_content = re.sub(r"<[^>]+>", " ", text_content)
                     text_content = re.sub(r"\s+", " ", text_content).strip()
 
                     if len(text_content) < 100:
-                        log.info(f"  {domain}: Too little content ({len(text_content)} chars), skipping")
+                        _log.info(f"  {domain}: Too little content ({len(text_content)} chars), skipping")
                         failed += 1
                         continue
 
@@ -1265,13 +1271,13 @@ Include ALL URLs from the input. No explanation needed."""
                     crawled += 1
 
                     screenshot_note = " (with screenshot)" if snapshot.screenshot_b64 else ""
-                    log.info(f"  {domain}: Captured{screenshot_note} ({len(text_content):,} chars)")
+                    _log.info(f"  {domain}: Captured{screenshot_note} ({len(text_content):,} chars)")
 
                 except Exception as e:
                     failed += 1
-                    log.warning(f"  {domain}: Snapshot failed - {e}")
+                    _log.warning(f"  {domain}: Snapshot failed - {e}")
 
-        log.info(f"SOCIAL SNAPSHOT COMPLETE: {crawled} captured, {failed} failed")
+        _log.info(f"SOCIAL SNAPSHOT COMPLETE: {crawled} captured, {failed} failed")
         return sources, crawled, failed, snapshots
 
     async def _extract_ideas(
@@ -1285,7 +1291,7 @@ Include ALL URLs from the input. No explanation needed."""
         - Extracts structured data (quotes, stats, citations) without LLM
         - Only sends relevant chunks to LLM, reducing token usage
         """
-        log.info(f"EXTRACTION START: {len(sources)} sources to process")
+        _log.info(f"EXTRACTION START: {len(sources)} sources to process")
         all_ideas = []
         total_tokens_saved = 0
 
@@ -1304,11 +1310,11 @@ Include ALL URLs from the input. No explanation needed."""
                 topic=topic,
                 min_relevance=self.config.hybrid_min_relevance,
             )
-            log.info(f"Using hybrid extraction (pre-LLM filtering enabled)")
+            _log.info(f"Using hybrid extraction (pre-LLM filtering enabled)")
 
         for i, source in enumerate(sources):
             if not source.content_markdown:
-                log.debug(f"[{i+1}/{len(sources)}] {source.origin}: No content, skipping")
+                _log.debug(f"[{i+1}/{len(sources)}] {source.origin}: No content, skipping")
                 continue
 
             # Small delay between sources (Groq limiter handles rate limiting)
@@ -1327,24 +1333,24 @@ Include ALL URLs from the input. No explanation needed."""
                 # Use filtered content if available
                 if pre_extracted.relevant_chunks:
                     content = pre_extracted.content or "\n\n".join(pre_extracted.relevant_chunks)
-                    log.debug(f"  Hybrid: {original_len} -> {len(content)} chars, saved ~{pre_extracted.tokens_saved} tokens")
+                    _log.debug(f"  Hybrid: {original_len} -> {len(content)} chars, saved ~{pre_extracted.tokens_saved} tokens")
 
                 # Skip LLM if hybrid extraction got enough data
                 if not pre_extracted.needs_llm and pre_extracted.quotes:
                     # Convert quotes directly to ideas (fast path)
                     quick_ideas = self._quick_ideas_from_extraction(pre_extracted, source, topic)
                     all_ideas.extend(quick_ideas)
-                    log.info(f"{source.origin}: {len(quick_ideas)} ideas (quick extraction)")
+                    _log.info(f"{source.origin}: {len(quick_ideas)} ideas (quick extraction)")
                     continue
 
             # Limit content length to avoid rate limits
             if len(content) > self.config.max_content_chars:
                 content = content[:self.config.max_content_chars]
-                log.info(f"(Truncated {source.origin} from {original_len:,} to {self.config.max_content_chars:,} chars)")
+                _log.info(f"(Truncated {source.origin} from {original_len:,} to {self.config.max_content_chars:,} chars)")
 
-            log.info(f"[{i+1}/{len(sources)}] EXTRACT: {source.origin}")
-            log.debug(f"  URL: {source.url}")
-            log.debug(f"  Content: {original_len} chars -> {len(content)} chars")
+            _log.info(f"[{i+1}/{len(sources)}] EXTRACT: {source.origin}")
+            _log.debug(f"  URL: {source.url}")
+            _log.debug(f"  Content: {original_len} chars -> {len(content)} chars")
 
             try:
                 result = await extractor.extract(
@@ -1360,20 +1366,20 @@ Include ALL URLs from the input. No explanation needed."""
                         idea.id = IdeaId()
                     all_ideas.append(idea)
 
-                log.info(f"  Result: {len(result.ideas)} ideas extracted")
+                _log.info(f"  Result: {len(result.ideas)} ideas extracted")
                 for j, idea in enumerate(result.ideas[:3]):  # Log first 3 ideas
-                    log.debug(f"  Idea {j+1}: {idea.claim[:100]}...")
+                    _log.debug(f"  Idea {j+1}: {idea.claim[:100]}...")
 
-                log.info(f"{source.origin}: {len(result.ideas)} ideas")
+                _log.info(f"{source.origin}: {len(result.ideas)} ideas")
 
             except Exception as e:
-                log.error(f"  FAILED: {e}")
-                log.info(f"{source.origin}: Extraction failed - {e}")
+                _log.error(f"  FAILED: {e}")
+                _log.info(f"{source.origin}: Extraction failed - {e}")
 
         if hybrid_extractor and total_tokens_saved > 0:
-            log.info(f"Total tokens saved by hybrid extraction: ~{total_tokens_saved:,}")
+            _log.info(f"Total tokens saved by hybrid extraction: ~{total_tokens_saved:,}")
 
-        log.info(f"EXTRACTION COMPLETE: {len(all_ideas)} total ideas extracted")
+        _log.info(f"EXTRACTION COMPLETE: {len(all_ideas)} total ideas extracted")
         return all_ideas
 
     def _quick_ideas_from_extraction(

@@ -395,7 +395,7 @@ class RSSNewsProvider(SearchAPIProvider):
             if dt.tzinfo is None:
                 dt = dt.replace(tzinfo=timezone.utc)
             return dt
-        except Exception:
+        except (ValueError, TypeError, AttributeError):
             pass
 
         return None
@@ -495,7 +495,7 @@ class ArxivProvider(SearchAPIProvider):
                     published = datetime.fromisoformat(
                         published_match.group(1).replace("Z", "+00:00")
                     )
-                except Exception:
+                except (ValueError, AttributeError):
                     pass
 
             results.append(
@@ -704,7 +704,7 @@ class DuckDuckGoProvider(SearchAPIProvider):
             parsed = urlparse(url)
             domain = parsed.netloc.replace("www.", "")
             return domain
-        except Exception:
+        except (ValueError, AttributeError):
             return "unknown"
 
     def _infer_source_type(self, url: str) -> SourceType:

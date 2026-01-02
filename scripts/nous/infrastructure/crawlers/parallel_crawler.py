@@ -162,7 +162,7 @@ class ParallelCrawler:
             try:
                 domain = urlparse(url).netloc
                 by_domain[domain].append(url)
-            except Exception:
+            except (ValueError, AttributeError):
                 diag.drop(DropReason.INVALID_URL, urls=[url])
 
         logger.info(
