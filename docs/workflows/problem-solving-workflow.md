@@ -1,9 +1,8 @@
-# Problem-Solving Gateway  
+# Problem-Solving Gateway
 **Workflow Specification (Authoritative)**
 
-**Status:** Active  
-**Version:** 1.0  
-**Applies to:** Human operators and AI agents  
+**Status:** Active
+**Applies to:** Human operators and AI agents
 **Agent:** `.claude/agents/problem-solving-gateway.md`
 
 ---
@@ -16,7 +15,7 @@ It answers one question:
 
 > **What should be produced, and how should it be produced?**
 
-It does this by coordinating **action skills**, **reasoning modes**, and **domain execution flows** in a deterministic way.
+It does this by coordinating **action skills** and **reasoning modes** in a deterministic way.
 
 ---
 
@@ -26,16 +25,14 @@ It does this by coordinating **action skills**, **reasoning modes**, and **domai
 User / System Signal
 └── problem-solving-gateway ← DEFAULT ENTRY POINT
     ├── (optional) reasoning-gateway
-    ├── action skills (deliverables)
-    └── domain agents
+    └── action skills (deliverables)
         └── operational threads (causal execution)
 ```
 
-
 ### Key distinctions
-- **Problem-solving-gateway** → produces deliverables  
-- **Reasoning-gateway** → produces reasoning-only analysis  
-- **Causal threads** → execute decisions operationally  
+- **Problem-solving-gateway** → produces deliverables
+- **Reasoning-gateway** → produces reasoning-only analysis
+- **Causal threads** → execute decisions operationally
 
 ---
 
@@ -43,25 +40,24 @@ User / System Signal
 
 All execution in the system is **causal-first**.
 
-The gateway **does not replace** causal execution.  
+The gateway **does not replace** causal execution.
 It prepares, structures, and routes work *into* causal threads.
 
 ```
 problem-solving-gateway
 └── decision / plan / procedure
-    └── domain agent
-        └── reasoning-causal thread
-            └── 6-stage causal flow
+    └── reasoning-causal thread
+        └── 6-stage causal flow
 ```
 
 The **6-Stage Causal Flow** remains the execution backbone:
 
-1. Input  
-2. Hypothesis  
-3. Implication  
-4. Decision  
-5. Actions  
-6. Learning  
+1. Input
+2. Hypothesis
+3. Implication
+4. Decision
+5. Actions
+6. Learning
 
 ---
 
@@ -75,24 +71,18 @@ Action skills are **output contracts**, not tools.
 
 | Action Skill | Question Answered |
 |-------------|------------------|
-| descriptive-action | What is happening? |
-| diagnostic-action | Why did this happen? |
-| evaluative-action | Is this good enough? |
-| decision-action | Which option do we choose? |
-| prescriptive-actions | What should we do? |
-| planning-action | How do we execute this once? |
-| procedural-action | How do we execute this every time? |
-| validation-action | How do we know it worked? |
-| risk-action | What could go wrong? |
-| constraint-action | What must not change? |
-| alignment-action | Why are we misaligned? |
+| action-descriptive | What is happening? |
+| action-diagnostic | Why did this happen? |
+| action-decision | Which option do we choose? |
+| action-prescriptive | What should we do? |
+| action-planning | How do we execute this? |
 
 **Composite requests are decomposed** into ordered action chains.
 
 Example:
 ```
 "Why did churn spike and what should we do?"
-→ diagnostic-action → prescriptive-actions
+→ action-diagnostic → action-prescriptive
 ```
 
 ---
@@ -143,33 +133,12 @@ This block summarizes reasoning; it does not replace action outputs.
 
 ---
 
-## Domain Delegation
-
-When domain intent is clear, delegate early.
-
-| Domain | Delegated Agent |
-|--------|-----------------|
-| Sales | sales-execution |
-| Marketing | marketing-execution |
-| Foundations | foundations-builder |
-| Engineering | lean-os |
-
-Domain agents:
-- Enforce domain rules
-- Spawn causal threads
-- Own execution sequencing
-
-The gateway does not duplicate domain enforcement.
-
----
-
 ## What the Gateway Does NOT Do
 
 - Does not execute tasks
 - Does not store state or memory
 - Does not replace causal threads
 - Does not expose reasoning by default
-- Does not bypass domain agents
 
 ---
 
@@ -179,10 +148,9 @@ The gateway does not duplicate domain enforcement.
 |-------------|-------------|
 | Explanation, analysis, recommendation, plan | problem-solving-gateway |
 | "What should we do?" | problem-solving-gateway |
-| Runbook / SOP / validation | problem-solving-gateway |
 | Explicit reasoning mode requested | reasoning-gateway |
 | Reasoning-only analysis | reasoning-gateway |
-| Operational execution | causal threads (via domain agents) |
+| Operational execution | causal threads |
 
 ---
 
@@ -192,8 +160,7 @@ If outputs are incorrect or unexpected:
 
 1. Check action misclassification
 2. Check reasoning mode override
-3. Check domain misrouting
-4. Verify composite action order
+3. Verify composite action order
 
 Most errors originate in Step 1 (wrong action selection).
 
@@ -212,16 +179,21 @@ Most errors originate in Step 1 (wrong action selection).
 
 - **Problem-Solving Gateway:** `.claude/agents/problem-solving-gateway.md`
 - **Reasoning Gateway:** `.claude/agents/reasoning-gateway.md`
-- **Action Skills:** `.claude/skills/*-action/`
+- **Action Skills:** `.claude/skills/action-*/`
 - **Causal Reasoning:** `.claude/skills/reasoning-causal/`
 
 ---
 
-## Final Note
+## LeanOS Pro
 
-This document is both:
+Need more action skills? **LeanOS Pro** includes 11 action skills:
+- action-evaluative (Is this good enough?)
+- action-procedural (How do we execute this every time?)
+- action-validation (How do we know it worked?)
+- action-risk (What could go wrong?)
+- action-constraint (What must not change?)
+- action-alignment (Why are we misaligned?)
 
-1. A human-readable mental model, and
-2. An AI-operational specification.
+Plus domain-specific agents for sales, marketing, product, and engineering.
 
-It is safe to use as a live workflow contract.
+[Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)

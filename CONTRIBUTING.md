@@ -1,17 +1,31 @@
-# Contributing to LeanOS
+# Contributing to LeanOS Core
 
-Thank you for your interest in contributing to LeanOS, an AI-native operating system for startups!
+Thank you for your interest in contributing to LeanOS Core, an AI-native operating system for reasoning and problem-solving.
 
-## About LeanOS
+## About LeanOS Core
 
-LeanOS is designed to be **operated by Claude AI**, not run locally by humans. This means:
+LeanOS Core is designed to be **operated by Claude AI**, not run locally by humans. This means:
 - Claude reads the documentation and executes operations autonomously
-- The system coordinates business operations (sales, marketing, strategy) through AI skills
+- The system provides structured reasoning and goal management through AI skills
 - Contributions focus on **design, architecture, and skill improvement**, not code execution
 
 ## How to Contribute
 
 ### 1. Skill Development
+
+**Improving Existing Skills**
+
+- Review skill documentation for clarity
+- Add examples and edge cases
+- Improve execution instructions
+- Fix logical errors in workflows
+- Add validation steps
+
+**Core Skills (15 total):**
+- `reasoning-*` (6): causal, abductive, inductive, analogical, dialectical, counterfactual
+- `action-*` (5): descriptive, diagnostic, prescriptive, planning, decision
+- `goal-*` (2): setter, tracker
+- `foundations-*` (2): market-intelligence, problem-solution-fit
 
 **Adding New Skills**
 
@@ -24,17 +38,8 @@ Skills are the execution layer of LeanOS. To contribute a new skill:
   - Input/output specifications
   - Step-by-step execution instructions
   - Examples
-- Follow the pattern of existing skills (see `foundations-icp-generator`, `sales-narrative`, `marketing-execution`)
-- If the skill includes Python code, add scripts to `scripts/` subdirectory
+- Follow the pattern of existing skills (see `reasoning-causal`, `goal-setter`, `action-planning`)
 - Update README.md to document the new skill
-
-**Improving Existing Skills**
-
-- Review skill documentation for clarity
-- Add examples and edge cases
-- Improve execution instructions
-- Fix logical errors in workflows
-- Add validation steps
 
 ### 2. Documentation Improvements
 
@@ -55,7 +60,7 @@ Skills are the execution layer of LeanOS. To contribute a new skill:
 ### 3. Architecture Refinements
 
 **Canvas Structure:**
-- Propose improvements to the 15-document Canvas structure
+- Propose improvements to the Canvas structure
 - Add validation criteria
 - Improve linkage between Canvas and threads
 
@@ -71,20 +76,20 @@ Skills are the execution layer of LeanOS. To contribute a new skill:
 
 ### 4. Workflow Optimization
 
-**Sales Operations:**
-- Improve ICP definition process
-- Refine sales narrative generation
-- Optimize prospect research workflows
+**Reasoning Workflows:**
+- Improve reasoning mode selection logic
+- Refine hypothesis generation
+- Optimize pattern detection
 
-**Marketing Operations:**
-- Improve content strategy detection
-- Refine SEO optimization process
-- Optimize content distribution workflows
+**Goal Management:**
+- Improve goal decomposition process
+- Refine progress tracking
+- Optimize milestone definition
 
-**Orchestration:**
-- Improve ops/today.md generation
-- Add pattern detection logic
-- Refine impact scoring algorithms
+**Problem-Solving:**
+- Improve action skill routing
+- Refine diagnostic processes
+- Optimize decision frameworks
 
 ## Contribution Process
 
@@ -103,9 +108,8 @@ Skills are the execution layer of LeanOS. To contribute a new skill:
 1. Fork the repository
 2. Create a skill branch: `git checkout -b skill/{skill-name}`
 3. Create the skill directory and SKILL.md
-4. Add implementation (if applicable)
-5. Update README.md to document the skill
-6. Submit a pull request with:
+4. Update README.md to document the skill
+5. Submit a pull request with:
    - Use cases for the skill
    - How it integrates with existing skills
    - Examples of when Claude should invoke it
@@ -119,26 +123,6 @@ Skills are the execution layer of LeanOS. To contribute a new skill:
    - Impact on existing workflows
    - Examples of how it would work
 3. If approved, create a PR with implementation
-
-## Coding Standards (for Engineering Skills)
-
-If contributing Python code for engineering skills:
-
-**Style:**
-- Follow PEP 8
-- Use type hints
-- Write docstrings for functions
-- Keep functions focused (single responsibility)
-
-**Structure:**
-- Place scripts in `scripts/` subdirectory
-- Add examples in `examples/` subdirectory
-- Document in `reference/` subdirectory
-
-**Dependencies:**
-- Minimize external dependencies
-- Use standard library when possible
-- Document any required packages
 
 ## What NOT to Contribute
 
@@ -179,7 +163,6 @@ Contributions should align with LeanOS principles:
 - **General questions:** Open an issue with the `question` label
 - **Bug reports:** Open an issue with the `bug` label
 - **Feature requests:** Open an issue with the `enhancement` label
-- **Urgent matters:** Contact maintainer directly
 
 ## Recognition
 
@@ -192,9 +175,8 @@ Contributors will be acknowledged in:
 
 **Remember:** You're contributing to an AI-operated system. Focus on making it easier for Claude to execute operations autonomously, not on making it runnable by humans.
 
-Thank you for helping make LeanOS better!
+Thank you for helping make LeanOS Core better!
 
 ---
 
 **License:** MIT
-**Version:** 1.2 (Engineering + Business Operations Complete)

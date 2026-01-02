@@ -1,6 +1,6 @@
 # 6-Stage Causal Flow
 
-Universal decision framework for business, sales, marketing, and engineering threads.
+Universal decision framework for structured reasoning and execution.
 
 **Skill:** `.claude/skills/reasoning-causal/SKILL.md`
 
@@ -124,12 +124,11 @@ Impact = (Revenue Impact × Time to Cash × Margin) / 3
 
 **File:** `5-actions.md` or `5-actions/` directory
 
-**Typed actions:**
-- Sales: lead-intake, qualify, demo, pilot, close
-- Marketing: create, publish, promote, measure
-- Engineering: architecture, backend, frontend, infrastructure, validate
-
-**Skills:** `sales-*`, `marketing-*`, `engineering-*`
+**Core actions:**
+- Analysis tasks
+- Research tasks
+- Planning tasks
+- Decision tasks
 
 ---
 
@@ -159,25 +158,15 @@ If thread.goal_id exists:
 
 ## Thread Types
 
-**Business threads:** `threads/operations/{name}/`
+**Operations threads:** `threads/operations/{name}/`
 - Strategic decisions
 - Canvas updates
 - Process improvements
 
-**Sales threads:** `threads/sales/{name}/`
-- Deal progression
-- Campaign execution
-- Pipeline management
-
-**Marketing threads:** `threads/marketing/campaigns/{slug}/`
-- Content execution
-- Campaign tracking
-- Performance analysis
-
-**Engineering threads:** `threads/engineering/{requirement}/`
-- Technical requirements
-- System architecture decisions
-- Feature implementation
+**Business threads:** `threads/sales/{name}/`, `threads/marketing/{name}/`
+- Deal progression (with Pro)
+- Campaign execution (with Pro)
+- Pipeline management (with Pro)
 
 ---
 
@@ -188,7 +177,7 @@ If thread.goal_id exists:
 ```json
 {
   "id": "thread-{type}-{name}",
-  "type": "business | sales | marketing | engineering",
+  "type": "operations | sales | marketing",
   "status": "active | completed | blocked",
   "created": "YYYY-MM-DD",
   "updated": "YYYY-MM-DD",
@@ -245,7 +234,7 @@ reasoning-causal/
     │   ├── actions.md
     │   └── learning.md
     └── threads/          # Thread type specifics
-        ├── business.md
+        ├── operations.md
         ├── sales.md
         ├── marketing.md
         └── engineering.md
@@ -255,6 +244,17 @@ reasoning-causal/
 
 ## Next Steps
 
-- Learn sales workflow: [Sales Workflow](sales-workflow.md)
-- Learn marketing workflow: [Marketing Workflow](marketing-workflow.md)
+- Learn goal management: [Daily Routine](daily-routine.md)
 - See all skills: [All Skills](../reference/skills-index.md)
+
+---
+
+## LeanOS Pro
+
+Need domain-specific thread execution? **LeanOS Pro** includes:
+- Sales threads with typed actions (lead-intake, qualify, demo, pilot, close)
+- Marketing threads with typed actions (create, publish, promote, measure)
+- Engineering threads with typed actions (architecture, backend, frontend, validate)
+- Domain agents for orchestrated execution
+
+[Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)

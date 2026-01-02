@@ -295,10 +295,9 @@ Based on gaps and autonomy:
 
 | Gap Type | Recommended Action |
 |----------|-------------------|
-| Pipeline gap | Outbound campaign thread |
-| Conversion gap | Optimization thread |
-| Content gap | Content thread |
-| Technical gap | Engineering thread |
+| Knowledge gap | Research thread |
+| Process gap | Optimization thread |
+| Decision gap | Analysis thread |
 
 **Autonomy behavior:**
 - `auto`: Create thread directly
@@ -400,8 +399,7 @@ Based on goal autonomy settings:
 
 **Auto mode:**
 - Thread creation for gap-closing
-- Content generation
-- Prospect research
+- Research and analysis
 - Low-impact decisions (<0.8)
 
 **Ask mode:**
@@ -498,3 +496,15 @@ Ask: "Review all goal trajectories"
 - **Canvas:** `strategy/canvas/`
 - **Execution:** [Causal Flow](causal-flow.md)
 - **All Skills:** [All Skills](../reference/skills-index.md)
+
+---
+
+## LeanOS Pro
+
+Need autonomous sales and marketing execution? **LeanOS Pro** includes:
+- Sales execution agent with pipeline management
+- Marketing execution agent with content workflows
+- Domain-specific gap detection and action generation
+- Automated prospecting, content creation, and campaign execution
+
+[Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)
