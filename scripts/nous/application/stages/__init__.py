@@ -14,9 +14,17 @@ This allows for:
 
 from .base import PipelineContext, PipelineStage
 from .discovery import DiscoveryStage
+from .crawling import CrawlingStage
+from .extraction import ExtractionStage
+from .analysis import AnalysisStage
+from .synthesis import SynthesisStage
 
 __all__ = [
     "PipelineContext",
     "PipelineStage",
     "DiscoveryStage",
+    "CrawlingStage",
+    "ExtractionStage",
+    "AnalysisStage",
+    "SynthesisStage",
 ]
