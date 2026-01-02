@@ -18,13 +18,17 @@
 
 ## Thread Types
 
-`business` | `research` | `analysis`
+`operations` | `engineering` | `research`
 
 ## 6-Stage Flow
 
 1. Input → 2. Hypothesis → 3. Implication → 4. Decision → 5. Actions → 6. Learning
 
 ---
+
+## Example
+
+See `threads/operations/example/` for a complete 6-stage thread demonstrating the causal flow.
 
 ## Quick Reference
 
