@@ -35,20 +35,6 @@ Route through `problem-solving-gateway` agent:
 2. **Single source of truth:** Information exists in ONE location
 3. **Derived state:** Compute metrics from execution, don't track manually
 
-## Optional Structure
-
-If the project uses goal-driven operation:
-
-```
-project/
-├── strategy/goals/index.md    — Active goals
-├── strategy/canvas/index.md   — Business context
-├── threads/index.md           — Decision threads
-└── artifacts/index.md         — Deliverables
-```
-
-Read index files on start if they exist.
-
 ## Documentation
 
 Full reference: `README.md`
