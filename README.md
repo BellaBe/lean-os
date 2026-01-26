@@ -1,8 +1,16 @@
 # LeanOS Core
 
-AI-native operating system for startup foundations, structured reasoning, and goal management.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/BellaBe/lean-os)](https://github.com/BellaBe/lean-os/stargazers)
+![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-blueviolet)
 
-**Open Source (MIT)** | 14 skills | 2 agents
+AI operating system for founders. Run startup discovery, structured reasoning, and goal management with Claude Code.
+
+**See every prompt. Modify any skill. Know your agent.**
+
+Open Source (MIT) | 14 skills | 2 agents
+
+---
 
 ## What It Does
 
@@ -15,14 +23,15 @@ AI-native operating system for startup foundations, structured reasoning, and go
 
 ## Quick Start
 
-### 1. Copy to your project
+### 1. Clone and rename
 
 ```bash
 # Clone LeanOS Core
 git clone https://github.com/BellaBe/lean-os.git
 
-# Copy .claude/ directory to your project
-cp -r lean-os/.claude/ your-project/
+# Rename to your project
+mv lean-os your-project
+cd your-project
 ```
 
 ### 2. Start using skills
@@ -98,26 +107,30 @@ your-project/
 
 ---
 
+## Core vs Pro
+
+| | Core (Free) | Pro ($249) |
+|--|-------------|------------|
+| Skills | 14 | 181 |
+| Agents | 2 | 44 |
+| Foundations | ✓ | ✓ |
+| Sales & Marketing | — | ✓ |
+| Product & Engineering | — | ✓ |
+| Customer Success | — | ✓ |
+| RevOps | — | ✓ |
+
+**Pro** — Full business operations: sales, marketing, product, engineering, customer success, RevOps. One person operates with 5-10x effectiveness.
+
+[Get Pro →](https://bellabe.gumroad.com/l/leanos-pro)
+
+---
+
 ## Reference
 
 | Document | Description |
 |----------|-------------|
 | [Agents & Skills Index](docs/reference/agents-skills-index.md) | Complete agents and skills reference |
 | [What is LeanOS](docs/reference/what-is-leanos.md) | System overview |
-
----
-
-## LeanOS Pro
-
-Need sales, marketing, product, engineering, and full business operations?
-
-**LeanOS Pro** — A swiss knife for building and operating a business:
-- 181 skills (all domains)
-- 44 agents (full orchestration)
-- Sales, marketing, product, engineering, customer success, RevOps
-- One person operates with 5-10x effectiveness
-
-[Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)
 
 ---
 
