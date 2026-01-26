@@ -1,25 +1,38 @@
 # What is LeanOS Core?
 
-LeanOS Core is an **AI-native operating system** for structured reasoning, goal management, and problem-solving.
+LeanOS Core is an **AI-native operating system** for startup foundations, structured reasoning, and goal management.
 
-**Open Source (MIT)** | 15 skills | 2 agents
+**Open Source (MIT)** | 14 skills | 2 agents
 
 ---
 
 ## Core Capabilities
 
-- **Structured reasoning:** 6 reasoning modes for different problem types
+- **Startup discovery:** Market sizing, customer segmentation, problem validation, competitive analysis
+- **Structured reasoning:** 6 cognitive modes for different problem types
 - **Goal-driven execution:** Declare objectives, decompose into actionable plans
-- **Problem-solving gateway:** Route tasks to appropriate action skills
-- **Market foundations:** Market intelligence and problem-solution fit analysis
+- **Output shaping:** 11 deliverable schemas for structured outputs
 
 ---
 
 ## How It Works
 
-### 1. Reasoning Gateway
+### 1. Foundations Discovery
 
-Route complex problems to the appropriate reasoning mode:
+Run startup discovery with the `foundations-research` agent:
+
+| Need | Skill | Canvas Output |
+|------|-------|---------------|
+| Market size | `market-sizing` | 03.opportunity.md |
+| Customer segments | `customer-segmenting` | 04.segments.md |
+| Problem validation | `problem-validating` | 05.problem.md |
+| Competitive analysis | `competitive-analyzing` | 06.competitive.md |
+| Value proposition | `value-positioning` | 07.uvp.md, 08.unfair.md |
+| MVP design | `solution-designing` | 09.solution.md |
+
+### 2. Structured Reasoning
+
+Route complex problems to the appropriate thinking mode:
 
 | Context | Mode |
 |---------|------|
@@ -30,19 +43,20 @@ Route complex problems to the appropriate reasoning mode:
 | Stakeholder conflict | **Dialectical** |
 | Decision evaluation | **Counterfactual** |
 
-### 2. Problem-Solving Gateway
+### 3. Output Shaping
 
-Route tasks to action skills based on what you need:
+Select deliverable structure based on intent:
 
-| Need | Action Skill |
-|------|--------------|
-| Describe current state | `action-descriptive` |
-| Find root cause | `action-diagnostic` |
-| Get recommendations | `action-prescriptive` |
-| Create execution plan | `action-planning` |
-| Choose between options | `action-decision` |
+| Need | Schema |
+|------|--------|
+| Runbook, SOP | **procedural** |
+| Success criteria | **validation** |
+| Roadmap, phases | **planning** |
+| Choose between options | **decision** |
+| Root cause | **diagnostic** |
+| Recommendations | **prescriptive** |
 
-### 3. Goal-Driven Operation
+### 4. Goal-Driven Operation
 
 Transform objectives into structured, trackable goals:
 
@@ -60,19 +74,19 @@ Goal → Plan → Execution → State → Learning
 
 | Agent | Purpose |
 |-------|---------|
-| `reasoning-gateway` | Route to reasoning modes |
-| `problem-solving-gateway` | Route to action skills |
+| `foundations-research` | Run startup discovery phase |
+| `problem-solver` | Orchestrate reasoning + output shaping |
 
-**Skills (15 total):**
+**Skills (14 total):**
 
 | Category | Count | Purpose |
 |----------|-------|---------|
-| Reasoning | 6 | Causal, abductive, inductive, analogical, dialectical, counterfactual |
-| Actions | 5 | Descriptive, diagnostic, prescriptive, planning, decision |
+| Foundations | 6 | Market sizing, segments, problems, competition, positioning, solution |
+| Cognitive | 2 | Thinking modes, output schemas |
 | Goals | 2 | goal-setter, goal-tracker |
-| Foundations | 2 | market-intelligence, problem-solution-fit |
+| System | 4 | Agent/skill creation, indexing, behavioral science |
 
-**Full catalog:** [skills-index.md](skills-index.md)
+**Full catalog:** [agents-skills-index.md](agents-skills-index.md)
 
 ---
 
@@ -82,12 +96,12 @@ Goal → Plan → Execution → State → Learning
 project/
 ├── strategy/
 │   ├── goals/           # Objectives + index.md
-│   └── canvas/          # Business context + index.md
+│   └── canvas/          # Business context (15 sections)
 ├── threads/             # Decision threads + index.md
 ├── artifacts/           # Deliverables + index.md
 └── .claude/
     ├── agents/          # Orchestrators (2)
-    └── skills/          # Skills (15)
+    └── skills/          # Skills (14)
 ```
 
 ---
@@ -104,11 +118,12 @@ See [README.md](../../README.md) for quick start guide.
 
 ## LeanOS Pro
 
-Need sales, marketing, product, engineering, and research capabilities?
+Need sales, marketing, product, engineering, and full business operations?
 
-**LeanOS Pro** includes the complete system:
-- 63 skills (all domains)
-- 12 agents (full orchestration)
-- Sales, marketing, product, engineering workflows
+**LeanOS Pro** — A swiss knife for building and operating a business:
+- 181 skills (all domains)
+- 44 agents (full orchestration)
+- Sales, marketing, product, engineering, customer success, RevOps
+- One person operates with 5-10x effectiveness
 
 [Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)

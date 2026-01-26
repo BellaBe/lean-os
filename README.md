@@ -1,15 +1,15 @@
 # LeanOS Core
 
-AI-native operating system for reasoning, goal management, and problem-solving.
+AI-native operating system for startup foundations, structured reasoning, and goal management.
 
-**Open Source (MIT)** | 15 skills | 2 agents
+**Open Source (MIT)** | 14 skills | 2 agents
 
 ## What It Does
 
+- **Startup discovery:** Market sizing, customer segmentation, problem validation, competitive analysis
 - **Structured reasoning:** 6 reasoning modes (causal, abductive, inductive, analogical, dialectical, counterfactual)
+- **Output shaping:** 11 deliverable schemas for structured outputs
 - **Goal-driven execution:** Declare objectives, decompose into actionable plans
-- **Problem-solving:** Route tasks to appropriate action skills
-- **Market foundations:** Market intelligence and problem-solution fit analysis
 
 ---
 
@@ -29,9 +29,11 @@ cp -r lean-os/.claude/ your-project/
 
 Skills auto-load based on your task. Try:
 
-- "Help me reason through this decision" → `reasoning-gateway`
+- "Size the market for X" → `market-sizing`
+- "Define customer segments" → `customer-segmenting`
+- "Validate this problem" → `problem-validating`
 - "I want to achieve X" → `goal-setter`
-- "What's happening with Y?" → `action-descriptive`
+- "Reason through this decision" → `thinking-modes`
 
 ### 3. Set up goals (optional)
 
@@ -41,7 +43,7 @@ For goal-driven operation:
 your-project/
 ├── strategy/
 │   ├── goals/           # Objectives + index.md
-│   └── canvas/          # Business context + index.md
+│   └── canvas/          # Business context (15 sections)
 ├── threads/             # Decision threads + index.md
 ├── artifacts/           # Deliverables + index.md
 └── .claude/             # LeanOS skills & agents
@@ -49,26 +51,23 @@ your-project/
 
 ---
 
-## Core Skills (15)
+## Core Skills (14)
 
-### Reasoning (6)
+### Foundations (6)
 | Skill | Purpose |
 |-------|---------|
-| `reasoning-causal` | Execute known processes with 6-stage flow |
-| `reasoning-abductive` | Diagnose anomalies, form hypotheses |
-| `reasoning-inductive` | Detect patterns, generalize |
-| `reasoning-analogical` | Transfer knowledge across domains |
-| `reasoning-dialectical` | Resolve conflicts through synthesis |
-| `reasoning-counterfactual` | Evaluate decisions via alternatives |
+| `market-sizing` | TAM/SAM/SOM calculation, market timing |
+| `customer-segmenting` | Observable segment definitions, pain scores |
+| `problem-validating` | Problem severity scoring (F×I×WTP) |
+| `competitive-analyzing` | Competitor mapping, positioning gaps |
+| `value-positioning` | UVP statements, moat analysis |
+| `solution-designing` | MVP feature set, growth architecture |
 
-### Actions (5)
-| Skill | Question Answered |
-|-------|-------------------|
-| `action-descriptive` | What is happening? |
-| `action-diagnostic` | Why did this happen? |
-| `action-prescriptive` | What should we do? |
-| `action-planning` | How do we execute this? |
-| `action-decision` | Which option do we choose? |
+### Cognitive (2)
+| Skill | Purpose |
+|-------|---------|
+| `thinking-modes` | 6 reasoning modes for different problem types |
+| `shaping-schemas` | 11 deliverable schemas for structured outputs |
 
 ### Goals (2)
 | Skill | Purpose |
@@ -76,11 +75,13 @@ your-project/
 | `goal-setter` | Transform objectives into structured goals |
 | `goal-tracker` | Track progress, derive state from execution |
 
-### Foundations (2)
+### System (4)
 | Skill | Purpose |
 |-------|---------|
-| `foundations-market-intelligence` | Market size, competitive landscape |
-| `foundations-problem-solution-fit` | Problem validation, solution fit |
+| `agent-creating` | Create Claude Code subagents |
+| `skill-creating` | Create Claude Code skills |
+| `directory-indexing` | Generate index.md files for navigation |
+| `behavioral-science` | Apply behavioral science to revenue touchpoints |
 
 ---
 
@@ -88,19 +89,8 @@ your-project/
 
 | Agent | Purpose |
 |-------|---------|
-| `reasoning-gateway` | Route tasks to appropriate reasoning mode |
-| `problem-solving-gateway` | Route tasks to appropriate action skill |
-
----
-
-## Workflows
-
-| Workflow | Description |
-|----------|-------------|
-| [Daily Routine](docs/workflows/daily-routine.md) | Goal-driven daily operations |
-| [Causal Flow](docs/workflows/causal-flow.md) | 6-stage decision framework |
-| [Problem Solving](docs/workflows/problem-solving-workflow.md) | Action skill routing |
-| [Canvas Setup](docs/workflows/canvas-setup.md) | Business context setup |
+| `foundations-research` | Run startup discovery phase (market, segments, problems, competition) |
+| `problem-solver` | Orchestrate reasoning + output shaping for rigorous deliverables |
 
 ---
 
@@ -108,22 +98,20 @@ your-project/
 
 | Document | Description |
 |----------|-------------|
-| [Skills Index](docs/reference/skills-index.md) | Complete skills reference |
-| [Architecture](docs/reference/architecture.md) | System design |
+| [Agents & Skills Index](docs/reference/agents-skills-index.md) | Complete agents and skills reference |
 | [What is LeanOS](docs/reference/what-is-leanos.md) | System overview |
-| [What is LeanOS Pro](docs/reference/what-is-leanos-pro.md) | Pro version (63 skills, 12 agents) |
 
 ---
 
 ## LeanOS Pro
 
-Need sales, marketing, product, engineering, and research capabilities?
+Need sales, marketing, product, engineering, and full business operations?
 
-**LeanOS Pro** includes the complete system:
-- 63 skills (all domains)
-- 12 agents (full orchestration)
-- Sales, marketing, product, engineering workflows
-- Priority support
+**LeanOS Pro** — A swiss knife for building and operating a business:
+- 181 skills (all domains)
+- 44 agents (full orchestration)
+- Sales, marketing, product, engineering, customer success, RevOps
+- One person operates with 5-10x effectiveness
 
 [Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)
 

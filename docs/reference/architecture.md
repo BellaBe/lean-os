@@ -40,38 +40,43 @@ Signal → Thread → Link to Goal (or create new goal)
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ REASONING LAYER (Meta-Reasoning Gateway)                                                     │
-│ Agent: .claude/agents/reasoning-gateway.md                                                   │
-│ Skills: .claude/skills/reasoning-*                                                           │
+│ COGNITIVE LAYER                                                                              │
+│ Agent: .claude/agents/problem-solver.md                                                      │
+│ Skills: thinking-modes, shaping-schemas                                                      │
 │                                                                                              │
-│ Routes non-trivial tasks to appropriate reasoning mode:                                      │
-│                                                                                              │
+│ THINKING MODES (6 reasoning approaches):                                                     │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ CAUSAL (enforced)     │ Operational execution, known processes → 6-stage thread flow   │  │
-│ │ ABDUCTIVE             │ Anomaly diagnosis → "Why did X happen?"                        │  │
-│ │ INDUCTIVE             │ Pattern detection → "This keeps happening"                     │  │
-│ │ ANALOGICAL            │ Novel situations → "This is like..."                           │  │
-│ │ DIALECTICAL           │ Stakeholder conflicts → Trade-off resolution                   │  │
-│ │ COUNTERFACTUAL        │ Decision evaluation → "What if we had..."                      │  │
+│ │ CAUSAL            │ Operational execution, known processes → 6-stage thread flow       │  │
+│ │ ABDUCTIVE         │ Anomaly diagnosis → "Why did X happen?"                            │  │
+│ │ INDUCTIVE         │ Pattern detection → "This keeps happening"                         │  │
+│ │ ANALOGICAL        │ Novel situations → "This is like..."                               │  │
+│ │ DIALECTICAL       │ Stakeholder conflicts → Trade-off resolution                       │  │
+│ │ COUNTERFACTUAL    │ Decision evaluation → "What if we had..."                          │  │
+│ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                              │
+│ SHAPING SCHEMAS (11 output structures):                                                      │
+│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
+│ │ procedural │ validation │ planning │ decision │ evaluative │ diagnostic                │  │
+│ │ risk │ constraint │ alignment │ prescriptive │ descriptive                             │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
 ┌──────────────────────────────────────────────────────────────────────────────────────────────┐
 │ SKILLS LAYER (Domain Execution)                                                              │
-│ Skills: .claude/skills/                                                                      │
+│ Location: .claude/skills/                                                                    │
 │                                                                                              │
 │ AGENTS (Orchestrators - 2):                                                                  │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ reasoning-gateway       │ Routes to reasoning-* skills                                 │  │
-│ │ problem-solving-gateway │ Routes to action-* skills (deliverable contracts)            │  │
+│ │ foundations-research │ Startup discovery (market, segments, problems, competition)     │  │
+│ │ problem-solver       │ Orchestrates thinking-modes + shaping-schemas                   │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                              │
-│ SKILLS (Flat, single-capability - 15 total):                                                 │
+│ SKILLS (14 total):                                                                           │
 │ ┌─────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ reasoning-*    │ Reasoning modes (6)                                                   │  │
-│ │ action-*       │ Deliverable contracts (5)                                             │  │
-│ │ goal-*         │ Goal setting and tracking (2)                                         │  │
-│ │ foundations-*  │ Market and problem analysis (2)                                       │  │
+│ │ foundations-* │ Startup discovery skills (6)                                           │  │
+│ │ cognitive-*   │ Thinking modes + output schemas (2)                                    │  │
+│ │ goal-*        │ Goal setting and tracking (2)                                          │  │
+│ │ system-*      │ Agent/skill creation, indexing, behavioral science (4)                 │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
@@ -162,12 +167,14 @@ deadline: YYYY-MM-DD
 
 ---
 
-## Layer 3: Reasoning
+## Layer 3: Cognitive
 
-**Agent:** `.claude/agents/reasoning-gateway.md`
-**Skills:** `.claude/skills/reasoning-*/`
+**Agent:** `.claude/agents/problem-solver.md`
+**Skills:** `thinking-modes`, `shaping-schemas`
 
-**Purpose:** Route non-trivial tasks to appropriate reasoning mode
+**Purpose:** Route tasks to appropriate reasoning mode and output schema
+
+### Thinking Modes (6)
 
 | Mode | Use When | Output |
 |------|----------|--------|
@@ -177,6 +184,22 @@ deadline: YYYY-MM-DD
 | **Analogical** | Novel situation | Adapted playbook |
 | **Dialectical** | Stakeholder conflict | Synthesis decision |
 | **Counterfactual** | Decision evaluation | Learning + recommendation |
+
+### Shaping Schemas (11)
+
+| Schema | Use When |
+|--------|----------|
+| **procedural** | Runbook, SOP, checklist |
+| **validation** | Success criteria, test plan |
+| **planning** | Roadmap, phases, timeline |
+| **decision** | Choose, prioritize, go/no-go |
+| **evaluative** | Review, assess, audit |
+| **diagnostic** | Root cause, why did X happen |
+| **risk** | Threats, what could go wrong |
+| **constraint** | Requirements, must/must not |
+| **alignment** | Stakeholder conflict, ownership |
+| **prescriptive** | Recommendations, next steps |
+| **descriptive** | Summarize, explain (default) |
 
 ---
 
@@ -189,17 +212,17 @@ deadline: YYYY-MM-DD
 
 | Agent | Purpose | Skills Loaded |
 |-------|---------|---------------|
-| `reasoning-gateway` | Reasoning mode routing | reasoning-* |
-| `problem-solving-gateway` | Action skill routing | action-* |
+| `foundations-research` | Startup discovery phase | market-sizing, customer-segmenting, problem-validating |
+| `problem-solver` | Reasoning + output shaping | thinking-modes, shaping-schemas |
 
-### Skills (15)
+### Skills (14)
 
-| Category | Count | Purpose |
-|----------|-------|---------|
-| `reasoning-*` | 6 | Reasoning modes |
-| `action-*` | 5 | Deliverable contracts |
-| `goal-*` | 2 | Goal setting and tracking |
-| `foundations-*` | 2 | Market and problem analysis |
+| Category | Skills | Purpose |
+|----------|--------|---------|
+| **Foundations** (6) | market-sizing, customer-segmenting, problem-validating, competitive-analyzing, value-positioning, solution-designing | Startup discovery |
+| **Cognitive** (2) | thinking-modes, shaping-schemas | Reasoning + output structure |
+| **Goals** (2) | goal-setter, goal-tracker | Goal management |
+| **System** (4) | agent-creating, skill-creating, directory-indexing, behavioral-science | Meta-skills |
 
 ---
 
@@ -266,19 +289,19 @@ Gap detected → New threads or recommendations
 
 ## Next Steps
 
-- See all skills: [Skills Index](skills-index.md)
-- Understand Canvas setup: [Canvas Setup](../workflows/canvas-setup.md)
-- Learn causal flow: [Causal Flow](../workflows/causal-flow.md)
+- See all skills: [Agents & Skills Index](agents-skills-index.md)
+- Understand system overview: [What is LeanOS](what-is-leanos.md)
 
 ---
 
 ## LeanOS Pro
 
-Need sales, marketing, product, engineering, and research capabilities?
+Need sales, marketing, product, engineering, and full business operations?
 
-**LeanOS Pro** includes:
-- 63 skills (all domains)
-- 12 agents (full orchestration)
-- Complete workflows for sales, marketing, product, engineering
+**LeanOS Pro** — A swiss knife for building and operating a business:
+- 181 skills (all domains)
+- 44 agents (full orchestration)
+- Sales, marketing, product, engineering, customer success, RevOps
+- One person operates with 5-10x effectiveness
 
 [Learn more about LeanOS Pro](https://bellabe.gumroad.com/l/leanos-pro)
