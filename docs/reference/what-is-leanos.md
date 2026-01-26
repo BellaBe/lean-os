@@ -84,7 +84,8 @@ Goal → Plan → Execution → State → Learning
 | Foundations | 6 | Market sizing, segments, problems, competition, positioning, solution |
 | Cognitive | 2 | Thinking modes, output schemas |
 | Goals | 2 | goal-setter, goal-tracker |
-| System | 4 | Agent/skill creation, indexing, behavioral science |
+| System | 3 | Agent/skill creation, indexing |
+| Intelligence | 1 | Behavioral science |
 
 **Full catalog:** [agents-skills-index.md](agents-skills-index.md)
 

@@ -75,12 +75,16 @@ your-project/
 | `goal-setter` | Transform objectives into structured goals |
 | `goal-tracker` | Track progress, derive state from execution |
 
-### System (4)
+### System (3)
 | Skill | Purpose |
 |-------|---------|
 | `agent-creating` | Create Claude Code subagents |
 | `skill-creating` | Create Claude Code skills |
 | `directory-indexing` | Generate index.md files for navigation |
+
+### Intelligence (1)
+| Skill | Purpose |
+|-------|---------|
 | `behavioral-science` | Apply behavioral science to revenue touchpoints |
 
 ---

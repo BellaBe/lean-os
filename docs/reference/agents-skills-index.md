@@ -64,7 +64,8 @@ Complete reference of AI agents and skills for startup foundations, reasoning, a
 | `foundations-*` | 6 | Startup discovery and positioning |
 | `cognitive-*` | 2 | Reasoning and output shaping |
 | `goal-*` | 2 | Goal setting and tracking |
-| `system-*` | 4 | Meta-skills for creating and organizing |
+| `system-*` | 3 | Meta-skills for creating and organizing |
+| `intelligence-*` | 1 | Domain expertise |
 
 **Total:** 14 skills
 
@@ -248,7 +249,7 @@ Skills for structured reasoning and output formatting.
 
 ---
 
-## System Skills (4)
+## System Skills (3)
 
 Meta-skills for creating agents, skills, and organizing documentation.
 
@@ -257,7 +258,6 @@ Meta-skills for creating agents, skills, and organizing documentation.
 | `agent-creating` | Create Claude Code subagents | "create an agent", "make an orchestrator" |
 | `skill-creating` | Create Claude Code skills | "create a skill", "make a capability" |
 | `directory-indexing` | Generate index.md files | "index", "catalog", "build index" |
-| `behavioral-science` | Apply behavioral science to revenue | "persuade", "convert", "landing page", "copy" |
 
 ### agent-creating
 
@@ -288,6 +288,14 @@ Meta-skills for creating agents, skills, and organizing documentation.
 **Excludes:** Code files, node_modules, .git, src, lib, dist, build
 
 ---
+
+## Intelligence Skills (1)
+
+Domain expertise skills.
+
+| Skill | Purpose | When to Use |
+|-------|---------|-------------|
+| `behavioral-science` | Apply behavioral science to revenue | "persuade", "convert", "landing page", "copy" |
 
 ### behavioral-science
 

@@ -76,7 +76,8 @@ Signal → Thread → Link to Goal (or create new goal)
 │ │ foundations-* │ Startup discovery skills (6)                                           │  │
 │ │ cognitive-*   │ Thinking modes + output schemas (2)                                    │  │
 │ │ goal-*        │ Goal setting and tracking (2)                                          │  │
-│ │ system-*      │ Agent/skill creation, indexing, behavioral science (4)                 │  │
+│ │ system-*       │ Agent/skill creation, indexing (3)                                    │  │
+│ │ intelligence-* │ Behavioral science (1)                                                │  │
 │ └─────────────────────────────────────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
                                           ↓
@@ -222,7 +223,8 @@ deadline: YYYY-MM-DD
 | **Foundations** (6) | market-sizing, customer-segmenting, problem-validating, competitive-analyzing, value-positioning, solution-designing | Startup discovery |
 | **Cognitive** (2) | thinking-modes, shaping-schemas | Reasoning + output structure |
 | **Goals** (2) | goal-setter, goal-tracker | Goal management |
-| **System** (4) | agent-creating, skill-creating, directory-indexing, behavioral-science | Meta-skills |
+| **System** (3) | agent-creating, skill-creating, directory-indexing | Meta-skills |
+| **Intelligence** (1) | behavioral-science | Domain expertise |
 
 ---
 
