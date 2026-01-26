@@ -119,7 +119,7 @@ your-project/
 | Customer Success | — | ✓ |
 | RevOps | — | ✓ |
 
-**Pro** — Full business operations: sales, marketing, product, engineering, customer success, RevOps. One person operates with 5-10x effectiveness.
+**Pro** - Full business operations: sales, marketing, product, engineering, customer success, RevOps. One person operates with 5-10x effectiveness.
 
 [Get Pro →](https://bellabe.gumroad.com/l/leanos-pro)
 
