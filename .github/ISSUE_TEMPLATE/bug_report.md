@@ -1,18 +1,10 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
-
----
-
----
-name: Bug Report
 about: Report something that isn't working correctly
-title: '[Bug] '
+title: "'[Bug] '"
 labels: bug
-assignees: ''
+assignees: BellaBe
+
 ---
 
 ## Describe the bug
