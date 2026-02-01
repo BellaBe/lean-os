@@ -1,139 +1,165 @@
 # LeanOS Core
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/BellaBe/lean-os)](https://github.com/BellaBe/lean-os/stargazers)
-![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-blueviolet)
+Open-source AI operating system for validating ideas and executing goals. 3 agents, 15 skills.
 
-AI operating system for founders. Run startup discovery, structured reasoning, and goal management with Claude Code.
-
-**See every prompt. Modify any skill. Know your agent.**
-
-Open Source (MIT) | 14 skills | 2 agents
+Define goals, research markets, reason through problems — all from the command line.
 
 ---
 
-## What It Does
+## What's Included
 
-- **Startup discovery:** Market sizing, customer segmentation, problem validation, competitive analysis
-- **Structured reasoning:** 6 reasoning modes (causal, abductive, inductive, analogical, dialectical, counterfactual)
-- **Output shaping:** 11 deliverable schemas for structured outputs
-- **Goal-driven execution:** Declare objectives, decompose into actionable plans
+### Agents (3)
+
+| Agent | What It Does |
+|-------|-------------|
+| `fnd-architect` | Sets up strategic foundation — business mode, constraints, context |
+| `fnd-researcher` | Market research — TAM/SAM/SOM, segments, problem validation, competitors |
+| `rsn-problem-solver` | Structured reasoning — causal, abductive, inductive, analogical, dialectical, counterfactual |
+
+### Skills (15)
+
+**System backbone (6)** — goal-driven execution:
+
+| Skill | What It Does |
+|-------|-------------|
+| `sys-defining-goals` | Transform intent into measurable goal files |
+| `sys-decomposing-goals` | Break goals into subgoal hierarchies |
+| `sys-activating-goals` | Create execution threads from goals |
+| `sys-tracking-goals` | Monitor progress against targets |
+| `sys-executing-threads` | Write agent outputs to thread stage files |
+| `sys-indexing-directories` | Generate index files for context loading |
+
+**Reasoning (4)** — structured thinking:
+
+| Skill | What It Does |
+|-------|-------------|
+| `rsn-reasoning-problems` | 6 cognitive modes for problem solving |
+| `rsn-perceiving-information` | Systematic information gathering |
+| `rsn-creating-ideas` | Creative ideation and novel solutions |
+| `rsn-learning-outcomes` | Extract insights from outcomes |
+
+**Foundations research (5)** — idea validation:
+
+| Skill | What It Does |
+|-------|-------------|
+| `fnd.r-sizing-markets` | Calculate TAM/SAM/SOM |
+| `fnd.r-segmenting-customers` | Define customer segments and ICP |
+| `fnd.r-scoring-problems` | Score problem severity and willingness to pay |
+| `fnd.r-analyzing-competition` | Map competitive landscape |
+| `fnd-validating-gates` | Validate phase transition requirements |
 
 ---
 
 ## Quick Start
 
-### 1. Clone and rename
+### 1. Install
 
 ```bash
-# Clone LeanOS Core
-git clone https://github.com/BellaBe/lean-os.git
-
-# Rename to your project
-mv lean-os your-project
-cd your-project
+git clone https://github.com/BellaBe/lean-os.git my-project
+cd my-project
 ```
 
-### 2. Start using skills
-
-Skills auto-load based on your task. Try:
-
-- "Size the market for X" → `market-sizing`
-- "Define customer segments" → `customer-segmenting`
-- "Validate this problem" → `problem-validating`
-- "I want to achieve X" → `goal-setter`
-- "Reason through this decision" → `thinking-modes`
-
-### 3. Set up goals (optional)
-
-For goal-driven operation:
+### 2. Set Up Your Project
 
 ```
-your-project/
+Ask fnd-architect to set up your strategic foundation
+```
+
+This creates your business mode, captures constraints, and initializes `strategy/canvas/`.
+
+### 3. Research Your Market
+
+```
+Ask fnd-researcher to validate your idea
+```
+
+Sizes your market, defines segments, scores the problem, maps competitors.
+
+### 4. Define Your First Goal
+
+```
+Invoke sys-defining-goals with your target
+```
+
+Creates a measurable goal in `strategy/goals/active/`.
+
+### 5. Execute
+
+Goals create threads. Threads follow a 6-stage causal flow:
+
+```
+1-input → 2-hypothesis → 3-implication → 4-decision → 5-actions → 6-learning
+```
+
+Every action links to a goal. Every outcome captures learning.
+
+---
+
+## How It Works
+
+```
+You (decisions)
+    |
+Agents (orchestration)
+    |
+Skills (execution)
+```
+
+**Goals** drive **threads**. Threads follow a 6-stage causal flow. Agents execute threads by calling skills. The system reads index files on start for context.
+
+### Directory Structure
+
+```
+my-project/
 ├── strategy/
-│   ├── goals/           # Objectives + index.md
-│   └── canvas/          # Business context (15 sections)
-├── threads/             # Decision threads + index.md
-├── artifacts/           # Deliverables + index.md
-└── .claude/             # LeanOS skills & agents
+│   ├── canvas/          # Business canvas
+│   └── goals/           # Goal definitions
+├── threads/             # Execution threads (6-stage causal flow)
+├── artifacts/           # Deliverables
+├── docs/                # Documentation
+└── .claude/
+    ├── agents/          # 3 orchestrators
+    └── skills/          # 15 skills
 ```
 
----
+### Business Modes
 
-## Core Skills (14)
+Set in `strategy/canvas/00.mode.md`:
 
-### Foundations (6)
-| Skill | Purpose |
-|-------|---------|
-| `market-sizing` | TAM/SAM/SOM calculation, market timing |
-| `customer-segmenting` | Observable segment definitions, pain scores |
-| `problem-validating` | Problem severity scoring (F×I×WTP) |
-| `competitive-analyzing` | Competitor mapping, positioning gaps |
-| `value-positioning` | UVP statements, moat analysis |
-| `solution-designing` | MVP feature set, growth architecture |
-
-### Cognitive (2)
-| Skill | Purpose |
-|-------|---------|
-| `thinking-modes` | 6 reasoning modes for different problem types |
-| `shaping-schemas` | 11 deliverable schemas for structured outputs |
-
-### Goals (2)
-| Skill | Purpose |
-|-------|---------|
-| `goal-setter` | Transform objectives into structured goals |
-| `goal-tracker` | Track progress, derive state from execution |
-
-### System (3)
-| Skill | Purpose |
-|-------|---------|
-| `agent-creating` | Create Claude Code subagents |
-| `skill-creating` | Create Claude Code skills |
-| `directory-indexing` | Generate index.md files for navigation |
-
-### Intelligence (1)
-| Skill | Purpose |
-|-------|---------|
-| `behavioral-science` | Apply behavioral science to revenue touchpoints |
-
----
-
-## Core Agents (2)
-
-| Agent | Purpose |
-|-------|---------|
-| `foundations-research` | Run startup discovery phase (market, segments, problems, competition) |
-| `problem-solver` | Orchestrate reasoning + output shaping for rigorous deliverables |
+| Mode | Optimizes For |
+|------|---------------|
+| **BOOTSTRAP** | Profitability, cash flow, fast decisions |
+| **VENTURE** | Growth rate, market size, defensibility |
 
 ---
 
 ## Core vs Pro
 
-| | Core (Free) | Pro ($249) |
-|--|-------------|------------|
-| Skills | 14 | 181 |
-| Agents | 2 | 44 |
-| Foundations | ✓ | ✓ |
-| Sales & Marketing | — | ✓ |
-| Product & Engineering | — | ✓ |
-| Customer Success | — | ✓ |
-| RevOps | — | ✓ |
+Core validates your idea. [Pro](https://bellabe.github.io/leanos) builds and runs the business.
 
-**Pro** - Full business operations: sales, marketing, product, engineering, customer success, RevOps. One person operates with 5-10x effectiveness.
+| Capability | Core | Pro |
+|-----------|------|-----|
+| Agents | 3 | 41 |
+| Skills | 15 | 186 |
+| Goal system | Full | Full |
+| Reasoning | Full (6 modes) | Full + domain intelligence |
+| Market research | Full | Full |
+| Business modeling | -- | Pricing, unit economics, cost structure |
+| GTM planning | -- | Channels, assumptions, launch plan |
+| Engineering | -- | Backend IR pipeline, frontend, Shopify |
+| Design systems | -- | Intent to Figma specs (9 skills) |
+| Sales | -- | Outbound, partnerships, enablement |
+| Marketing | -- | Inbound, content, campaigns |
+| Customer success | -- | Onboarding, retention, expansion |
+| RevOps | -- | Signals, scoring, allocation |
+| Product | -- | Features, PLG, growth mechanics |
+| Critique | -- | Quality validation across artifacts |
+| Behavioral science | -- | Choice architecture, nudges |
 
-[Get Pro →](https://bellabe.gumroad.com/l/leanos-pro)
-
----
-
-## Reference
-
-| Document | Description |
-|----------|-------------|
-| [Agents & Skills Index](docs/reference/agents-skills-index.md) | Complete agents and skills reference |
-| [What is LeanOS](docs/reference/what-is-leanos.md) | System overview |
+**[Get LeanOS Pro](https://bellabe.github.io/leanos)**
 
 ---
 
 ## License
 
-MIT License - see [LICENSE](LICENSE)
+MIT. See [LICENSE](LICENSE).
