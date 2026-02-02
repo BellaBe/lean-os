@@ -62,7 +62,7 @@ cd my-project
 ### 2. Set Up Your Project
 
 ```
-Ask fnd-architect to set up your strategic foundation
+run fnd-architect agent
 ```
 
 This creates your business mode, captures constraints, and initializes `strategy/canvas/`.
@@ -70,7 +70,7 @@ This creates your business mode, captures constraints, and initializes `strategy
 ### 3. Research Your Market
 
 ```
-Ask fnd-researcher to validate your idea
+run fnd-researcher agent
 ```
 
 Sizes your market, defines segments, scores the problem, maps competitors.
@@ -78,7 +78,7 @@ Sizes your market, defines segments, scores the problem, maps competitors.
 ### 4. Define Your First Goal
 
 ```
-Invoke sys-defining-goals with your target
+run skill sys-defining-goals
 ```
 
 Creates a measurable goal in `strategy/goals/active/`.
