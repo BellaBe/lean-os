@@ -136,9 +136,18 @@ execution/queue/          Escalations requiring founder input
 
 This package is the input to Pro. Pro's orchestrator reads `strategy/values.md` as its decision filter on every cycle. Pro's narrator derives brand foundations from canvas. Pro's planner tracks goals against canvas targets. Without the canvas, Pro cannot run coherently.
 
+**When your canvas says yes, Pro runs everything from there.**
+
+Pro adds 12 agents and 130+ skills that execute what Core validated — campaigns, sales pipeline, product build, customer success, autonomous orchestration. $499 one-time.
+
+- Landing page: [bellabelgarokova.com/leanos/](https://bellabelgarokova.com/leanos/)
+- Direct purchase: [gumroad.com/l/leanos-pro](https://gumroad.com/l/leanos-pro)
+
 ---
 
 ## What Pro Adds
+
+Pro adds 12 agents and 130+ skills that execute what Core validated. Core produces the canvas. Pro runs against it.
 
 | Capability | Agents | When It Becomes Relevant |
 |-----------|--------|--------------------------|
@@ -184,7 +193,7 @@ This package is the input to Pro. Pro's orchestrator reads `strategy/values.md` 
 
 ```bash
 # Clone Core
-git clone https://github.com/lean-os my-project-name
+git clone https://github.com/BellaBe/lean-os my-project-name
 rm -rf .git
 git init
 
@@ -200,4 +209,7 @@ Core requires Claude Code CLI. The agents use filesystem as communication — no
 
 Core is MIT. Use it, fork it, build on it.
 
-Pro is commercial. Get access at [gumroad.com/l/leanos-pro](https://gumroad.com/l/leanos-pro).
+Pro is commercial. $499 one-time. No subscription.
+
+- [bellabelgarokova.com/leanos/](https://bellabelgarokova.com/leanos/) — landing page with full capability breakdown
+- [gumroad.com/l/leanos-pro](https://gumroad.com/l/leanos-pro) — direct purchase
